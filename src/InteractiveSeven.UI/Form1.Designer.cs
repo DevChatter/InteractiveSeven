@@ -64,10 +64,14 @@
             this.BotRightGreenTextBox = new System.Windows.Forms.MaskedTextBox();
             this.BotRightRedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.colorGroup = new System.Windows.Forms.GroupBox();
+            this.RefreshColorsButton = new System.Windows.Forms.Button();
+            this.SetColorsButton = new System.Windows.Forms.Button();
             this.topLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.bottomRightGroup.SuspendLayout();
+            this.colorGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExeLabel
@@ -109,7 +113,7 @@
             this.topLeftGroup.Controls.Add(this.TopLeftGreenTextBox);
             this.topLeftGroup.Controls.Add(this.TopLeftRedTextBox);
             this.topLeftGroup.Controls.Add(this.label1);
-            this.topLeftGroup.Location = new System.Drawing.Point(16, 39);
+            this.topLeftGroup.Location = new System.Drawing.Point(6, 19);
             this.topLeftGroup.Name = "topLeftGroup";
             this.topLeftGroup.Size = new System.Drawing.Size(114, 142);
             this.topLeftGroup.TabIndex = 3;
@@ -188,7 +192,7 @@
             this.topRightGroup.Controls.Add(this.TopRightGreenTextBox);
             this.topRightGroup.Controls.Add(this.TopRightRedTextBox);
             this.topRightGroup.Controls.Add(this.label6);
-            this.topRightGroup.Location = new System.Drawing.Point(151, 39);
+            this.topRightGroup.Location = new System.Drawing.Point(141, 19);
             this.topRightGroup.Name = "topRightGroup";
             this.topRightGroup.Size = new System.Drawing.Size(114, 142);
             this.topRightGroup.TabIndex = 7;
@@ -267,7 +271,7 @@
             this.botLeftGroup.Controls.Add(this.BotLeftGreenTextBox);
             this.botLeftGroup.Controls.Add(this.BotLeftRedTextBox);
             this.botLeftGroup.Controls.Add(this.label9);
-            this.botLeftGroup.Location = new System.Drawing.Point(16, 187);
+            this.botLeftGroup.Location = new System.Drawing.Point(6, 167);
             this.botLeftGroup.Name = "botLeftGroup";
             this.botLeftGroup.Size = new System.Drawing.Size(114, 142);
             this.botLeftGroup.TabIndex = 8;
@@ -346,7 +350,7 @@
             this.bottomRightGroup.Controls.Add(this.BotRightGreenTextBox);
             this.bottomRightGroup.Controls.Add(this.BotRightRedTextBox);
             this.bottomRightGroup.Controls.Add(this.label12);
-            this.bottomRightGroup.Location = new System.Drawing.Point(151, 187);
+            this.bottomRightGroup.Location = new System.Drawing.Point(141, 167);
             this.bottomRightGroup.Name = "bottomRightGroup";
             this.bottomRightGroup.Size = new System.Drawing.Size(114, 142);
             this.bottomRightGroup.TabIndex = 8;
@@ -416,15 +420,47 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Red";
             // 
+            // colorGroup
+            // 
+            this.colorGroup.Controls.Add(this.SetColorsButton);
+            this.colorGroup.Controls.Add(this.RefreshColorsButton);
+            this.colorGroup.Controls.Add(this.topLeftGroup);
+            this.colorGroup.Controls.Add(this.bottomRightGroup);
+            this.colorGroup.Controls.Add(this.topRightGroup);
+            this.colorGroup.Controls.Add(this.botLeftGroup);
+            this.colorGroup.Location = new System.Drawing.Point(16, 56);
+            this.colorGroup.Name = "colorGroup";
+            this.colorGroup.Size = new System.Drawing.Size(381, 319);
+            this.colorGroup.TabIndex = 9;
+            this.colorGroup.TabStop = false;
+            this.colorGroup.Text = "Menu Color Selection";
+            // 
+            // RefreshColorsButton
+            // 
+            this.RefreshColorsButton.Location = new System.Drawing.Point(269, 19);
+            this.RefreshColorsButton.Name = "RefreshColorsButton";
+            this.RefreshColorsButton.Size = new System.Drawing.Size(106, 40);
+            this.RefreshColorsButton.TabIndex = 9;
+            this.RefreshColorsButton.Text = "Refresh Colors";
+            this.RefreshColorsButton.UseVisualStyleBackColor = true;
+            this.RefreshColorsButton.Click += new System.EventHandler(this.RefreshColorsButton_Click);
+            // 
+            // SetColorsButton
+            // 
+            this.SetColorsButton.Location = new System.Drawing.Point(269, 269);
+            this.SetColorsButton.Name = "SetColorsButton";
+            this.SetColorsButton.Size = new System.Drawing.Size(106, 40);
+            this.SetColorsButton.TabIndex = 10;
+            this.SetColorsButton.Text = "Set Colors";
+            this.SetColorsButton.UseVisualStyleBackColor = true;
+            this.SetColorsButton.Click += new System.EventHandler(this.SetColorsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.bottomRightGroup);
-            this.Controls.Add(this.botLeftGroup);
-            this.Controls.Add(this.topRightGroup);
-            this.Controls.Add(this.topLeftGroup);
+            this.Controls.Add(this.colorGroup);
             this.Controls.Add(this.ExeBrowse);
             this.Controls.Add(this.ExeTextBox);
             this.Controls.Add(this.ExeLabel);
@@ -439,6 +475,7 @@
             this.botLeftGroup.PerformLayout();
             this.bottomRightGroup.ResumeLayout(false);
             this.bottomRightGroup.PerformLayout();
+            this.colorGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -482,6 +519,9 @@
         private System.Windows.Forms.MaskedTextBox BotRightGreenTextBox;
         private System.Windows.Forms.MaskedTextBox BotRightRedTextBox;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox colorGroup;
+        private System.Windows.Forms.Button SetColorsButton;
+        private System.Windows.Forms.Button RefreshColorsButton;
     }
 }
 

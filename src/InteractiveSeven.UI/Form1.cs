@@ -79,5 +79,21 @@ namespace InteractiveSeven.UI
                 blueTextBox.Text = myColorDialog.Color.B.ToString("D3");
             }
         }
+
+        private void RefreshColorsButton_Click(object sender, EventArgs e)
+        {
+            string processName = ExeTextBox.Text.Split('\\').LastOrDefault();
+            if (string.IsNullOrWhiteSpace(processName))
+            {
+                return;
+            }
+
+            var currentColors = MemoryAccessor.GetCurrentColors(processName);
+        }
+
+        private void SetColorsButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
