@@ -41,23 +41,42 @@ namespace InteractiveSeven.UI
 
         private void TopLeftColorButton_Click(object sender, EventArgs e)
         {
-            ColorDialog myColorDialog = new ColorDialog();
-            // Keeps the user from selecting a custom color.
-            myColorDialog.AllowFullOpen = false;
-            // Allows the user to get help. (The default is false.)
-            myColorDialog.ShowHelp = true;
-            // Sets the initial color select to the current text color.
-            int.TryParse(TopLeftRedTextBox.Text, out int red);
-            int.TryParse(TopLeftGreenTextBox.Text, out int green);
-            int.TryParse(TopLeftBlueTextBox.Text, out int blue);
+            RequestColorChoice(TopLeftRedTextBox, TopLeftGreenTextBox, TopLeftBlueTextBox);
+        }
+
+        private void TopRightColorButton_Click(object sender, EventArgs e)
+        {
+            RequestColorChoice(TopRightRedTextBox, TopRightGreenTextBox, TopRightBlueTextBox);
+        }
+
+        private void BotLeftColorButton_Click(object sender, EventArgs e)
+        {
+            RequestColorChoice(BotLeftRedTextBox, BotLeftGreenTextBox, BotLeftBlueTextBox);
+        }
+
+        private void BotRightColorButton_Click(object sender, EventArgs e)
+        {
+            RequestColorChoice(BotRightRedTextBox, BotRightGreenTextBox, BotRightBlueTextBox);
+        }
+
+        private void RequestColorChoice(MaskedTextBox redTextBox, MaskedTextBox greenTextBox, MaskedTextBox blueTextBox)
+        {
+            ColorDialog myColorDialog = new ColorDialog
+            {
+                AllowFullOpen = true,
+                ShowHelp = true
+            };
+
+            int.TryParse(redTextBox.Text, out int red);
+            int.TryParse(greenTextBox.Text, out int green);
+            int.TryParse(blueTextBox.Text, out int blue);
             myColorDialog.Color = Color.FromArgb(red, green, blue);
 
-            // Update the text box color if the user clicks OK 
             if (myColorDialog.ShowDialog() == DialogResult.OK)
             {
-                TopLeftRedTextBox.Text = myColorDialog.Color.R.ToString();
-                TopLeftGreenTextBox.Text = myColorDialog.Color.G.ToString();
-                TopLeftBlueTextBox.Text = myColorDialog.Color.B.ToString();
+                redTextBox.Text = myColorDialog.Color.R.ToString("D3");
+                greenTextBox.Text = myColorDialog.Color.G.ToString("D3");
+                blueTextBox.Text = myColorDialog.Color.B.ToString("D3");
             }
         }
     }
