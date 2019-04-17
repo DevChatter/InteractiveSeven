@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using InteractiveSeven.UI.Memory;
+using InteractiveSeven.UI.Models;
+using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace InteractiveSeven.UI
 {
     public partial class Form1 : Form
     {
+        private MenuColorAccessor _menuColorAccessor;
+
         public Form1()
         {
             InitializeComponent();
+            _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -82,18 +81,60 @@ namespace InteractiveSeven.UI
 
         private void RefreshColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = ExeTextBox.Text.Split('\\').LastOrDefault();
+            string processName = ExeTextBox.Text.Split('\\').LastOrDefault()?.Split('.')?.FirstOrDefault();
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
             }
 
-            var currentColors = MemoryAccessor.GetCurrentColors(processName);
+            var currentColors = _menuColorAccessor.GetMenuColors(processName);
+
+            TopLeftRedTextBox.Text = currentColors.TopLeft.Red.ToString();
+            TopLeftGreenTextBox.Text = currentColors.TopLeft.Green.ToString();
+            TopLeftBlueTextBox.Text = currentColors.TopLeft.Blue.ToString();
+
+            TopRightRedTextBox.Text = currentColors.TopRight.Red.ToString();
+            TopRightGreenTextBox.Text = currentColors.TopRight.Green.ToString();
+            TopRightBlueTextBox.Text = currentColors.TopRight.Blue.ToString();
+
+            BotLeftRedTextBox.Text = currentColors.BotLeft.Red.ToString();
+            BotLeftGreenTextBox.Text = currentColors.BotLeft.Green.ToString();
+            BotLeftBlueTextBox.Text = currentColors.BotLeft.Blue.ToString();
+
+            BotRightRedTextBox.Text = currentColors.BotRight.Red.ToString();
+            BotRightGreenTextBox.Text = currentColors.BotRight.Green.ToString();
+            BotRightBlueTextBox.Text = currentColors.BotRight.Blue.ToString();
         }
 
         private void SetColorsButton_Click(object sender, EventArgs e)
         {
+            string processName = ExeTextBox.Text.Split('\\').LastOrDefault()?.Split('.')?.FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(processName))
+            {
+                return;
+            }
 
+            var menuColors = new MenuColors
+            {
+                TopLeft = new MenuCornerColor(
+                    TopLeftBlueTextBox.Text,
+                    TopLeftGreenTextBox.Text,
+                    TopLeftRedTextBox.Text),
+                TopRight = new MenuCornerColor(
+                    TopRightBlueTextBox.Text,
+                    TopRightGreenTextBox.Text,
+                    TopRightRedTextBox.Text),
+                BotLeft = new MenuCornerColor(
+                    BotLeftBlueTextBox.Text,
+                    BotLeftGreenTextBox.Text,
+                    BotLeftRedTextBox.Text),
+                BotRight = new MenuCornerColor(
+                    BotRightBlueTextBox.Text,
+                    BotRightGreenTextBox.Text,
+                    BotRightRedTextBox.Text)
+            };
+
+            _menuColorAccessor.SetMenuColors(processName, menuColors);
         }
     }
 }

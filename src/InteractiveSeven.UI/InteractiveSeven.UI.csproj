@@ -46,13 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteExtensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MemoryAccessor.cs" />
+    <Compile Include="Memory\IMemoryAccessor.cs" />
+    <Compile Include="Memory\MemoryAccessor.cs" />
+    <Compile Include="Memory\MenuColorAccessor.cs" />
+    <Compile Include="Models\MenuColors.cs" />
+    <Compile Include="Models\MenuCornerColor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
