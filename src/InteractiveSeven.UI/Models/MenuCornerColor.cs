@@ -2,7 +2,7 @@
 {
     public class MenuCornerColor
     {
-        private MenuCornerColor(byte blue, byte green, byte red)
+        public MenuCornerColor(byte blue, byte green, byte red)
         {
             Blue = blue;
             Green = green;

@@ -65,13 +65,17 @@
             this.BotRightRedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.colorGroup = new System.Windows.Forms.GroupBox();
-            this.RefreshColorsButton = new System.Windows.Forms.Button();
             this.SetColorsButton = new System.Windows.Forms.Button();
+            this.RefreshColorsButton = new System.Windows.Forms.Button();
+            this.TwitchConnectGroup = new System.Windows.Forms.GroupBox();
+            this.TwitchConnectButton = new System.Windows.Forms.Button();
+            this.TwitchDisconnectButton = new System.Windows.Forms.Button();
             this.topLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.bottomRightGroup.SuspendLayout();
             this.colorGroup.SuspendLayout();
+            this.TwitchConnectGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExeLabel
@@ -435,16 +439,6 @@
             this.colorGroup.TabStop = false;
             this.colorGroup.Text = "Menu Color Selection";
             // 
-            // RefreshColorsButton
-            // 
-            this.RefreshColorsButton.Location = new System.Drawing.Point(269, 19);
-            this.RefreshColorsButton.Name = "RefreshColorsButton";
-            this.RefreshColorsButton.Size = new System.Drawing.Size(106, 40);
-            this.RefreshColorsButton.TabIndex = 9;
-            this.RefreshColorsButton.Text = "Refresh Colors";
-            this.RefreshColorsButton.UseVisualStyleBackColor = true;
-            this.RefreshColorsButton.Click += new System.EventHandler(this.RefreshColorsButton_Click);
-            // 
             // SetColorsButton
             // 
             this.SetColorsButton.Location = new System.Drawing.Point(269, 269);
@@ -455,11 +449,53 @@
             this.SetColorsButton.UseVisualStyleBackColor = true;
             this.SetColorsButton.Click += new System.EventHandler(this.SetColorsButton_Click);
             // 
+            // RefreshColorsButton
+            // 
+            this.RefreshColorsButton.Location = new System.Drawing.Point(269, 19);
+            this.RefreshColorsButton.Name = "RefreshColorsButton";
+            this.RefreshColorsButton.Size = new System.Drawing.Size(106, 40);
+            this.RefreshColorsButton.TabIndex = 9;
+            this.RefreshColorsButton.Text = "Refresh Colors";
+            this.RefreshColorsButton.UseVisualStyleBackColor = true;
+            this.RefreshColorsButton.Click += new System.EventHandler(this.RefreshColorsButton_Click);
+            // 
+            // TwitchConnectGroup
+            // 
+            this.TwitchConnectGroup.Controls.Add(this.TwitchDisconnectButton);
+            this.TwitchConnectGroup.Controls.Add(this.TwitchConnectButton);
+            this.TwitchConnectGroup.Location = new System.Drawing.Point(418, 56);
+            this.TwitchConnectGroup.Name = "TwitchConnectGroup";
+            this.TwitchConnectGroup.Size = new System.Drawing.Size(200, 319);
+            this.TwitchConnectGroup.TabIndex = 10;
+            this.TwitchConnectGroup.TabStop = false;
+            this.TwitchConnectGroup.Text = "Twitch Connection";
+            // 
+            // TwitchConnectButton
+            // 
+            this.TwitchConnectButton.Location = new System.Drawing.Point(7, 20);
+            this.TwitchConnectButton.Name = "TwitchConnectButton";
+            this.TwitchConnectButton.Size = new System.Drawing.Size(75, 23);
+            this.TwitchConnectButton.TabIndex = 0;
+            this.TwitchConnectButton.Text = "Connect";
+            this.TwitchConnectButton.UseVisualStyleBackColor = true;
+            this.TwitchConnectButton.Click += new System.EventHandler(this.TwitchConnectButton_Click);
+            // 
+            // TwitchDisconnectButton
+            // 
+            this.TwitchDisconnectButton.Location = new System.Drawing.Point(119, 20);
+            this.TwitchDisconnectButton.Name = "TwitchDisconnectButton";
+            this.TwitchDisconnectButton.Size = new System.Drawing.Size(75, 23);
+            this.TwitchDisconnectButton.TabIndex = 1;
+            this.TwitchDisconnectButton.Text = "Disconnect";
+            this.TwitchDisconnectButton.UseVisualStyleBackColor = true;
+            this.TwitchDisconnectButton.Click += new System.EventHandler(this.TwitchDisconnectButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TwitchConnectGroup);
             this.Controls.Add(this.colorGroup);
             this.Controls.Add(this.ExeBrowse);
             this.Controls.Add(this.ExeTextBox);
@@ -476,6 +512,7 @@
             this.bottomRightGroup.ResumeLayout(false);
             this.bottomRightGroup.PerformLayout();
             this.colorGroup.ResumeLayout(false);
+            this.TwitchConnectGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,6 +559,9 @@
         private System.Windows.Forms.GroupBox colorGroup;
         private System.Windows.Forms.Button SetColorsButton;
         private System.Windows.Forms.Button RefreshColorsButton;
+        private System.Windows.Forms.GroupBox TwitchConnectGroup;
+        private System.Windows.Forms.Button TwitchConnectButton;
+        private System.Windows.Forms.Button TwitchDisconnectButton;
     }
 }
 

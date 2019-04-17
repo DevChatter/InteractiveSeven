@@ -4,17 +4,20 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using InteractiveSeven.UI.Twitch;
 
 namespace InteractiveSeven.UI
 {
     public partial class Form1 : Form
     {
-        private MenuColorAccessor _menuColorAccessor;
+        private readonly MenuColorAccessor _menuColorAccessor;
+        private readonly ChatBot _chatBot;
 
         public Form1()
         {
             InitializeComponent();
             _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
+            _chatBot = new ChatBot(_menuColorAccessor);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -135,6 +138,16 @@ namespace InteractiveSeven.UI
             };
 
             _menuColorAccessor.SetMenuColors(processName, menuColors);
+        }
+
+        private void TwitchConnectButton_Click(object sender, EventArgs e)
+        {
+            _chatBot.Connect();
+        }
+
+        private void TwitchDisconnectButton_Click(object sender, EventArgs e)
+        {
+            _chatBot.Disconnect();
         }
     }
 }
