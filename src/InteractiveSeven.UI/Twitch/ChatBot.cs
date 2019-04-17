@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.UI.Memory;
+﻿using System.Collections.Generic;
+using InteractiveSeven.UI.Memory;
 using InteractiveSeven.UI.Models;
 using InteractiveSeven.UI.Services;
 using System.Globalization;
@@ -59,23 +60,43 @@ namespace InteractiveSeven.UI.Twitch
 
         private void HandleMenuCommand(ChatCommand command)
         {
-            if (command.ArgumentsAsList.Count == 1)
+            List<string> args = command.ArgumentsAsList;
+            var menuColors = new MenuColors();
+
+            switch (args.Count)
             {
-                string color = command.ArgumentsAsList.Single();
-                if (_hexCodeRegex.IsMatch(color))
-                {
-                    MenuCornerColor menuCornerColor = GetCornerColorFromHex(color);
-                    var menuColors = new MenuColors
-                    {
-                        TopLeft = menuCornerColor,
-                        BotLeft = menuCornerColor,
-                        TopRight = menuCornerColor,
-                        BotRight = menuCornerColor,
-                    };
-                    _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
-                    _formSync.RefreshColors();
-                }
+                case 1 when _hexCodeRegex.IsMatch(args.Single()):
+                    MenuCornerColor hexColor = GetCornerColorFromHex(args.Single());
+                    menuColors.TopLeft = hexColor;
+                    menuColors.TopRight = hexColor;
+                    menuColors.BotLeft = hexColor;
+                    menuColors.BotRight = hexColor;
+                    break;
+                case 1 when Colors.IsValid(args.Single()):
+                    MenuCornerColor namedColor = GetCornerColorFromNamed(args.Single());
+                    menuColors.TopLeft = namedColor;
+                    menuColors.TopRight = namedColor;
+                    menuColors.BotLeft = namedColor;
+                    menuColors.BotRight = namedColor;
+                    break;
+                case 4 when args.All(x => _hexCodeRegex.IsMatch(x)):
+                    menuColors.TopLeft = GetCornerColorFromHex(args[0]);
+                    menuColors.TopRight = GetCornerColorFromHex(args[1]);
+                    menuColors.BotLeft = GetCornerColorFromHex(args[2]);
+                    menuColors.BotRight = GetCornerColorFromHex(args[3]);
+                    break;
+                case 4 when args.All(Colors.IsValid):
+                    menuColors.TopLeft = GetCornerColorFromNamed(args[0]);
+                    menuColors.TopRight = GetCornerColorFromNamed(args[1]);
+                    menuColors.BotLeft = GetCornerColorFromNamed(args[2]);
+                    menuColors.BotRight = GetCornerColorFromNamed(args[3]);
+                    break;
+                default:
+                    return;
             }
+
+            _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
+            _formSync.RefreshColors();
         }
 
         private static MenuCornerColor GetCornerColorFromHex(string color)
@@ -89,6 +110,13 @@ namespace InteractiveSeven.UI.Twitch
             int red = int.Parse(redHex, NumberStyles.HexNumber);
 
             return new MenuCornerColor((byte) blue, (byte) green, (byte) red);
+        }
+
+        private static MenuCornerColor GetCornerColorFromNamed(string colorName)
+        {
+            Colors color = Colors.ByName(colorName);
+
+            return new MenuCornerColor(color.Blue, color.Green, color.Red);
         }
 
 

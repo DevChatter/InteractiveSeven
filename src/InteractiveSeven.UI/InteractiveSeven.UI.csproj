@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByteExtensions.cs" />
+    <Compile Include="Exceptions\InvalidColorException.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +162,7 @@
     <Compile Include="Memory\IMemoryAccessor.cs" />
     <Compile Include="Memory\MemoryAccessor.cs" />
     <Compile Include="Memory\MenuColorAccessor.cs" />
+    <Compile Include="Models\Colors.cs" />
     <Compile Include="Models\MenuColors.cs" />
     <Compile Include="Models\MenuCornerColor.cs" />
     <Compile Include="Program.cs" />
