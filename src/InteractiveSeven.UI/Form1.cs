@@ -1,10 +1,11 @@
 ﻿using InteractiveSeven.UI.Memory;
 using InteractiveSeven.UI.Models;
+using InteractiveSeven.UI.Twitch;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using InteractiveSeven.UI.Twitch;
+using InteractiveSeven.UI.Services;
 
 namespace InteractiveSeven.UI
 {
@@ -17,7 +18,7 @@ namespace InteractiveSeven.UI
         {
             InitializeComponent();
             _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
-            _chatBot = new ChatBot(_menuColorAccessor);
+            _chatBot = new ChatBot(_menuColorAccessor, new FormSync(this));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,8 +36,8 @@ namespace InteractiveSeven.UI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error message: {ex.Message}\n\n" +
-                    $"Details:\n\n{ex.StackTrace}");
+                    string message = $"Error message: {ex.Message}\n\nDetails:\n\n{ex.StackTrace}";
+                    MessageBox.Show(message);
                 }
             }
         }
@@ -84,7 +85,12 @@ namespace InteractiveSeven.UI
 
         private void RefreshColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = ExeTextBox.Text.Split('\\').LastOrDefault()?.Split('.')?.FirstOrDefault();
+            RefreshColors();
+        }
+
+        internal void RefreshColors()
+        {
+            string processName = GetProcessName();
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -111,7 +117,7 @@ namespace InteractiveSeven.UI
 
         private void SetColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = ExeTextBox.Text.Split('\\').LastOrDefault()?.Split('.')?.FirstOrDefault();
+            string processName = GetProcessName();
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -138,6 +144,15 @@ namespace InteractiveSeven.UI
             };
 
             _menuColorAccessor.SetMenuColors(processName, menuColors);
+        }
+
+        internal string GetProcessName()
+        {
+            return ExeTextBox.Text
+                .Split('\\')
+                .LastOrDefault()
+                ?.Split('.')
+                ?.FirstOrDefault();
         }
 
         private void TwitchConnectButton_Click(object sender, EventArgs e)

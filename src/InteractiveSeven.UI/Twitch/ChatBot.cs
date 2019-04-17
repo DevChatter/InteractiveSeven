@@ -1,9 +1,9 @@
-﻿using System;
+﻿using InteractiveSeven.UI.Memory;
+using InteractiveSeven.UI.Models;
+using InteractiveSeven.UI.Services;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using InteractiveSeven.UI.Memory;
-using InteractiveSeven.UI.Models;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -14,12 +14,14 @@ namespace InteractiveSeven.UI.Twitch
     public class ChatBot
     {
         private readonly MenuColorAccessor _menuColorAccessor;
+        private readonly IFormSync _formSync;
         private readonly TwitchClient _client;
         private readonly Regex _hexCodeRegex = new Regex("^#(?:[0-9a-fA-F]{6})$");
 
-        public ChatBot(MenuColorAccessor menuColorAccessor)
+        public ChatBot(MenuColorAccessor menuColorAccessor, IFormSync formSync)
         {
             _menuColorAccessor = menuColorAccessor;
+            _formSync = formSync;
             _client = new TwitchClient();
 
             _client.OnLog += Client_OnLog;
@@ -77,7 +79,7 @@ namespace InteractiveSeven.UI.Twitch
                         TopRight = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
                         BotRight = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
                     };
-                    _menuColorAccessor.SetMenuColors("ff7_en", menuColors);
+                    _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
                 }
             }
         }
