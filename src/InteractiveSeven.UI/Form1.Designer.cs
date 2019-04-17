@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ExeLabel = new System.Windows.Forms.Label();
             this.ExeTextBox = new System.Windows.Forms.TextBox();
             this.ExeBrowse = new System.Windows.Forms.Button();
@@ -68,8 +69,8 @@
             this.SetColorsButton = new System.Windows.Forms.Button();
             this.RefreshColorsButton = new System.Windows.Forms.Button();
             this.TwitchConnectGroup = new System.Windows.Forms.GroupBox();
-            this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.TwitchDisconnectButton = new System.Windows.Forms.Button();
+            this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.topLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
@@ -470,16 +471,6 @@
             this.TwitchConnectGroup.TabStop = false;
             this.TwitchConnectGroup.Text = "Twitch Connection";
             // 
-            // TwitchConnectButton
-            // 
-            this.TwitchConnectButton.Location = new System.Drawing.Point(7, 20);
-            this.TwitchConnectButton.Name = "TwitchConnectButton";
-            this.TwitchConnectButton.Size = new System.Drawing.Size(75, 23);
-            this.TwitchConnectButton.TabIndex = 0;
-            this.TwitchConnectButton.Text = "Connect";
-            this.TwitchConnectButton.UseVisualStyleBackColor = true;
-            this.TwitchConnectButton.Click += new System.EventHandler(this.TwitchConnectButton_Click);
-            // 
             // TwitchDisconnectButton
             // 
             this.TwitchDisconnectButton.Location = new System.Drawing.Point(119, 20);
@@ -489,6 +480,16 @@
             this.TwitchDisconnectButton.Text = "Disconnect";
             this.TwitchDisconnectButton.UseVisualStyleBackColor = true;
             this.TwitchDisconnectButton.Click += new System.EventHandler(this.TwitchDisconnectButton_Click);
+            // 
+            // TwitchConnectButton
+            // 
+            this.TwitchConnectButton.Location = new System.Drawing.Point(7, 20);
+            this.TwitchConnectButton.Name = "TwitchConnectButton";
+            this.TwitchConnectButton.Size = new System.Drawing.Size(75, 23);
+            this.TwitchConnectButton.TabIndex = 0;
+            this.TwitchConnectButton.Text = "Connect";
+            this.TwitchConnectButton.UseVisualStyleBackColor = true;
+            this.TwitchConnectButton.Click += new System.EventHandler(this.TwitchConnectButton_Click);
             // 
             // Form1
             // 
@@ -500,6 +501,7 @@
             this.Controls.Add(this.ExeBrowse);
             this.Controls.Add(this.ExeTextBox);
             this.Controls.Add(this.ExeLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Interative Seven";
             this.Load += new System.EventHandler(this.Form1_Load);
