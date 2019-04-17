@@ -98,21 +98,21 @@ namespace InteractiveSeven.UI
 
             var currentColors = _menuColorAccessor.GetMenuColors(processName);
 
-            TopLeftRedTextBox.Text = currentColors.TopLeft.Red.ToString();
-            TopLeftGreenTextBox.Text = currentColors.TopLeft.Green.ToString();
-            TopLeftBlueTextBox.Text = currentColors.TopLeft.Blue.ToString();
+            TopLeftRedTextBox.Text = currentColors.TopLeft.Red.ToString("D3");
+            TopLeftGreenTextBox.Text = currentColors.TopLeft.Green.ToString("D3");
+            TopLeftBlueTextBox.Text = currentColors.TopLeft.Blue.ToString("D3");
 
-            TopRightRedTextBox.Text = currentColors.TopRight.Red.ToString();
-            TopRightGreenTextBox.Text = currentColors.TopRight.Green.ToString();
-            TopRightBlueTextBox.Text = currentColors.TopRight.Blue.ToString();
+            TopRightRedTextBox.Text = currentColors.TopRight.Red.ToString("D3");
+            TopRightGreenTextBox.Text = currentColors.TopRight.Green.ToString("D3");
+            TopRightBlueTextBox.Text = currentColors.TopRight.Blue.ToString("D3");
 
-            BotLeftRedTextBox.Text = currentColors.BotLeft.Red.ToString();
-            BotLeftGreenTextBox.Text = currentColors.BotLeft.Green.ToString();
-            BotLeftBlueTextBox.Text = currentColors.BotLeft.Blue.ToString();
+            BotLeftRedTextBox.Text = currentColors.BotLeft.Red.ToString("D3");
+            BotLeftGreenTextBox.Text = currentColors.BotLeft.Green.ToString("D3");
+            BotLeftBlueTextBox.Text = currentColors.BotLeft.Blue.ToString("D3");
 
-            BotRightRedTextBox.Text = currentColors.BotRight.Red.ToString();
-            BotRightGreenTextBox.Text = currentColors.BotRight.Green.ToString();
-            BotRightBlueTextBox.Text = currentColors.BotRight.Blue.ToString();
+            BotRightRedTextBox.Text = currentColors.BotRight.Red.ToString("D3");
+            BotRightGreenTextBox.Text = currentColors.BotRight.Green.ToString("D3");
+            BotRightBlueTextBox.Text = currentColors.BotRight.Blue.ToString("D3");
         }
 
         private void SetColorsButton_Click(object sender, EventArgs e)
