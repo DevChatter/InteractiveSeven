@@ -1,4 +1,6 @@
-﻿namespace InteractiveSeven.UI.Services
+﻿using System.Windows.Forms;
+
+namespace InteractiveSeven.UI.Services
 {
     public class FormSync : IFormSync
     {
@@ -11,7 +13,10 @@
 
         public void RefreshColors()
         {
-            _form1.RefreshColors();
+            _form1.Invoke((MethodInvoker)delegate {
+                // Running on the UI thread
+                _form1.RefreshColors();
+            });
         }
 
         public string GetProcessName()

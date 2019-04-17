@@ -64,24 +64,31 @@ namespace InteractiveSeven.UI.Twitch
                 string color = command.ArgumentsAsList.Single();
                 if (_hexCodeRegex.IsMatch(color))
                 {
-                    string blueHex = color.Substring(color.Length - 2, 2);
-                    string greenHex = color.Substring(color.Length - 4, 2);
-                    string redHex = color.Substring(color.Length - 6, 2);
-
-                    int blue = int.Parse(blueHex, NumberStyles.HexNumber);
-                    int green = int.Parse(greenHex, NumberStyles.HexNumber);
-                    int red = int.Parse(redHex, NumberStyles.HexNumber);
-
+                    MenuCornerColor menuCornerColor = GetCornerColorFromHex(color);
                     var menuColors = new MenuColors
                     {
-                        TopLeft = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
-                        BotLeft = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
-                        TopRight = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
-                        BotRight = new MenuCornerColor((byte)blue, (byte)green, (byte)red),
+                        TopLeft = menuCornerColor,
+                        BotLeft = menuCornerColor,
+                        TopRight = menuCornerColor,
+                        BotRight = menuCornerColor,
                     };
                     _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
+                    _formSync.RefreshColors();
                 }
             }
+        }
+
+        private static MenuCornerColor GetCornerColorFromHex(string color)
+        {
+            string blueHex = color.Substring(color.Length - 2, 2);
+            string greenHex = color.Substring(color.Length - 4, 2);
+            string redHex = color.Substring(color.Length - 6, 2);
+
+            int blue = int.Parse(blueHex, NumberStyles.HexNumber);
+            int green = int.Parse(greenHex, NumberStyles.HexNumber);
+            int red = int.Parse(redHex, NumberStyles.HexNumber);
+
+            return new MenuCornerColor((byte) blue, (byte) green, (byte) red);
         }
 
 
