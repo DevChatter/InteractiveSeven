@@ -12,7 +12,6 @@ namespace InteractiveSeven.UI.Twitch
         public static TwitchSettings Settings { get; }
 
         [ConfigurationProperty("Username", IsRequired = true)]
-        //[StringValidator(MinLength = 1, MaxLength = 256)]
         public string Username
         {
             get => this["Username"].ToString();
@@ -20,7 +19,6 @@ namespace InteractiveSeven.UI.Twitch
         }
 
         [ConfigurationProperty("AccessToken", IsRequired = true)]
-        //[StringValidator(MinLength = 1, MaxLength = 256)]
         public string AccessToken
         {
             get => this["AccessToken"].ToString();
@@ -28,7 +26,6 @@ namespace InteractiveSeven.UI.Twitch
         }
 
         [ConfigurationProperty("Channel", IsRequired = true)]
-        //[StringValidator(MinLength = 1, MaxLength = 256)]
         public string Channel
         {
             get => this["Channel"].ToString();
