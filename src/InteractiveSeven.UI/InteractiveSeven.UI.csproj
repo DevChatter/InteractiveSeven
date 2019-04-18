@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Memory\IMemoryAccessor.cs" />
     <Compile Include="Memory\MemoryAccessor.cs" />
+    <Compile Include="Memory\MemoryLocations.cs" />
     <Compile Include="Memory\MenuColorAccessor.cs" />
     <Compile Include="Models\Colors.cs" />
     <Compile Include="Models\MenuColors.cs" />

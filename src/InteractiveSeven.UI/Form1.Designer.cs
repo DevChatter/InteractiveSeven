@@ -71,12 +71,17 @@
             this.TwitchConnectGroup = new System.Windows.Forms.GroupBox();
             this.TwitchDisconnectButton = new System.Windows.Forms.Button();
             this.TwitchConnectButton = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.menuColorTab = new System.Windows.Forms.TabPage();
+            this.partyTab = new System.Windows.Forms.TabPage();
             this.topLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.bottomRightGroup.SuspendLayout();
             this.colorGroup.SuspendLayout();
             this.TwitchConnectGroup.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.menuColorTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExeLabel
@@ -433,7 +438,7 @@
             this.colorGroup.Controls.Add(this.bottomRightGroup);
             this.colorGroup.Controls.Add(this.topRightGroup);
             this.colorGroup.Controls.Add(this.botLeftGroup);
-            this.colorGroup.Location = new System.Drawing.Point(16, 56);
+            this.colorGroup.Location = new System.Drawing.Point(6, 6);
             this.colorGroup.Name = "colorGroup";
             this.colorGroup.Size = new System.Drawing.Size(381, 319);
             this.colorGroup.TabIndex = 9;
@@ -464,16 +469,16 @@
             // 
             this.TwitchConnectGroup.Controls.Add(this.TwitchDisconnectButton);
             this.TwitchConnectGroup.Controls.Add(this.TwitchConnectButton);
-            this.TwitchConnectGroup.Location = new System.Drawing.Point(418, 56);
+            this.TwitchConnectGroup.Location = new System.Drawing.Point(16, 49);
             this.TwitchConnectGroup.Name = "TwitchConnectGroup";
-            this.TwitchConnectGroup.Size = new System.Drawing.Size(200, 319);
+            this.TwitchConnectGroup.Size = new System.Drawing.Size(456, 53);
             this.TwitchConnectGroup.TabIndex = 10;
             this.TwitchConnectGroup.TabStop = false;
             this.TwitchConnectGroup.Text = "Twitch Connection";
             // 
             // TwitchDisconnectButton
             // 
-            this.TwitchDisconnectButton.Location = new System.Drawing.Point(119, 20);
+            this.TwitchDisconnectButton.Location = new System.Drawing.Point(375, 20);
             this.TwitchDisconnectButton.Name = "TwitchDisconnectButton";
             this.TwitchDisconnectButton.Size = new System.Drawing.Size(75, 23);
             this.TwitchDisconnectButton.TabIndex = 1;
@@ -491,13 +496,44 @@
             this.TwitchConnectButton.UseVisualStyleBackColor = true;
             this.TwitchConnectButton.Click += new System.EventHandler(this.TwitchConnectButton_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.menuColorTab);
+            this.tabControl1.Controls.Add(this.partyTab);
+            this.tabControl1.Location = new System.Drawing.Point(16, 108);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(456, 362);
+            this.tabControl1.TabIndex = 11;
+            // 
+            // menuColorTab
+            // 
+            this.menuColorTab.Controls.Add(this.colorGroup);
+            this.menuColorTab.Location = new System.Drawing.Point(4, 22);
+            this.menuColorTab.Name = "menuColorTab";
+            this.menuColorTab.Padding = new System.Windows.Forms.Padding(3);
+            this.menuColorTab.Size = new System.Drawing.Size(448, 336);
+            this.menuColorTab.TabIndex = 0;
+            this.menuColorTab.Text = "Menu Color";
+            this.menuColorTab.UseVisualStyleBackColor = true;
+            // 
+            // partyTab
+            // 
+            this.partyTab.Location = new System.Drawing.Point(4, 22);
+            this.partyTab.Name = "partyTab";
+            this.partyTab.Padding = new System.Windows.Forms.Padding(3);
+            this.partyTab.Size = new System.Drawing.Size(448, 336);
+            this.partyTab.TabIndex = 1;
+            this.partyTab.Text = "Party";
+            this.partyTab.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(488, 483);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.TwitchConnectGroup);
-            this.Controls.Add(this.colorGroup);
             this.Controls.Add(this.ExeBrowse);
             this.Controls.Add(this.ExeTextBox);
             this.Controls.Add(this.ExeLabel);
@@ -515,6 +551,8 @@
             this.bottomRightGroup.PerformLayout();
             this.colorGroup.ResumeLayout(false);
             this.TwitchConnectGroup.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.menuColorTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -564,6 +602,9 @@
         private System.Windows.Forms.GroupBox TwitchConnectGroup;
         private System.Windows.Forms.Button TwitchConnectButton;
         private System.Windows.Forms.Button TwitchDisconnectButton;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage menuColorTab;
+        private System.Windows.Forms.TabPage partyTab;
     }
 }
 

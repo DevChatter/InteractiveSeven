@@ -7,11 +7,6 @@ namespace InteractiveSeven.UI.Memory
     {
         private readonly IMemoryAccessor _memoryAccessor;
 
-        private static readonly IntPtr TopLeftAddress = new IntPtr(0x0091EFC8);
-        private static readonly IntPtr BotLeftAddress = new IntPtr(0x0091EFCC);
-        private static readonly IntPtr TopRightAddress = new IntPtr(0x0091EFD0);
-        private static readonly IntPtr BotRightAddress = new IntPtr(0x0091EFD4);
-
         public MenuColorAccessor(IMemoryAccessor memoryAccessor)
         {
             _memoryAccessor = memoryAccessor;
@@ -24,10 +19,10 @@ namespace InteractiveSeven.UI.Memory
             byte[] topRightBuffer = new byte[3];
             byte[] botRightBuffer = new byte[3];
 
-            _memoryAccessor.ReadMem(processName, TopLeftAddress, topLeftBuffer);
-            _memoryAccessor.ReadMem(processName, BotLeftAddress, botLeftBuffer);
-            _memoryAccessor.ReadMem(processName, TopRightAddress, topRightBuffer);
-            _memoryAccessor.ReadMem(processName, BotRightAddress, botRightBuffer);
+            _memoryAccessor.ReadMem(processName, MemoryLocations.TopLeftAddress, topLeftBuffer);
+            _memoryAccessor.ReadMem(processName, MemoryLocations.BotLeftAddress, botLeftBuffer);
+            _memoryAccessor.ReadMem(processName, MemoryLocations.TopRightAddress, topRightBuffer);
+            _memoryAccessor.ReadMem(processName, MemoryLocations.BotRightAddress, botRightBuffer);
 
             return new MenuColors
             {
@@ -40,10 +35,10 @@ namespace InteractiveSeven.UI.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, TopLeftAddress, menuColors.TopLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, BotLeftAddress, menuColors.BotLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, TopRightAddress, menuColors.TopRight.AsArray());
-            _memoryAccessor.WriteMem(processName, BotRightAddress, menuColors.BotRight.AsArray());
+            _memoryAccessor.WriteMem(processName, MemoryLocations.TopLeftAddress, menuColors.TopLeft.AsArray());
+            _memoryAccessor.WriteMem(processName, MemoryLocations.BotLeftAddress, menuColors.BotLeft.AsArray());
+            _memoryAccessor.WriteMem(processName, MemoryLocations.TopRightAddress, menuColors.TopRight.AsArray());
+            _memoryAccessor.WriteMem(processName, MemoryLocations.BotRightAddress, menuColors.BotRight.AsArray());
         }
 
     }

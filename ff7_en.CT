@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"Barret Curr HP"</Description>
+      <LastState Value="477" Activated="0" RealAddress="00DBFE3C"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BFE3C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Barret Max HP"</Description>
+      <LastState Value="477" Activated="0" RealAddress="00DBAD2A"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BAD2A</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Cloud Curr HP"</Description>
+      <LastState Value="465" Activated="0" RealAddress="00DBFDB8"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BFDB8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Cloud Limit"</Description>
+      <LastState Value="222" Activated="0" RealAddress="00DBFD9B"/>
+      <Color>80000008</Color>
+      <VariableType>Byte</VariableType>
+      <Address>0xDBFD9B</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Cloud Max HP"</Description>
+      <LastState Value="465" Activated="0" RealAddress="00DBA4AA"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BA4AA</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Gil"</Description>
+      <LastState Value="6293" Activated="0" RealAddress="00DC08B4"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0x00DC08B4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"P1 - Combat HP"</Description>
+      <LastState Value="0" Activated="0" RealAddress="009AB108"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0x009AB108</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"P1 - Combat Max HP"</Description>
+      <LastState Value="0" Activated="0" RealAddress="009AB10C"/>
+      <Color>80000008</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>0x009AB10C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"P1 - HP"</Description>
+      <LastState Value="465" Activated="0" RealAddress="00DBA4A8"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BA4A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"P3 - HP"</Description>
+      <LastState Value="477" Activated="0" RealAddress="00DBAD28"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BAD28</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Tifa Curr HP"</Description>
+      <LastState Value="429" Activated="0" RealAddress="00DBFEC0"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BFEC0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Tifa Max HP"</Description>
+      <LastState Value="429" Activated="0" RealAddress="00DBA8EA"/>
+      <Color>80000008</Color>
+      <VariableType>2 Bytes</VariableType>
+      <Address>FF7_EN.exe+9BA8EA</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
