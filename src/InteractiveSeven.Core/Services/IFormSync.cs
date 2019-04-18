@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.UI.Services
+﻿namespace InteractiveSeven.Core.Services
 {
     public interface IFormSync
     {

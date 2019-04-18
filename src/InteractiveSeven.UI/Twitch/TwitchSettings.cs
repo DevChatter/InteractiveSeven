@@ -10,7 +10,6 @@ namespace InteractiveSeven.UI.Twitch
         }
 
         public static TwitchSettings Settings { get; }
-            
 
         [ConfigurationProperty("Username", IsRequired = true)]
         //[StringValidator(MinLength = 1, MaxLength = 256)]

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using InteractiveSeven.UI.Services;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Services;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 
-namespace InteractiveSeven.UI.Twitch
+namespace InteractiveSeven.Twitch
 {
     public class ChatBot
     {
@@ -33,11 +33,11 @@ namespace InteractiveSeven.UI.Twitch
             _client.OnDisconnected += Client_OnDisconnected;
         }
 
-        public void Connect()
+        public void Connect(string username, string accessToken, string channel)
         {
             ConnectionCredentials credentials = 
-                new ConnectionCredentials(TwitchSettings.Settings.Username, TwitchSettings.Settings.AccessToken);
-            _client.Initialize(credentials, TwitchSettings.Settings.Channel);
+                new ConnectionCredentials(username, accessToken);
+            _client.Initialize(credentials, channel);
             _client.Connect();
         }
 

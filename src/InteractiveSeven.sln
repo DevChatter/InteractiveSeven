@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.UI", "Inte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Core", "InteractiveSeven.Core\InteractiveSeven.Core.csproj", "{AE410D04-A553-45D1-B631-7941228EE624}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Twitch", "InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj", "{BDB4E559-28A8-4701-BE84-7C67375D35C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AE410D04-A553-45D1-B631-7941228EE624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE410D04-A553-45D1-B631-7941228EE624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE410D04-A553-45D1-B631-7941228EE624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

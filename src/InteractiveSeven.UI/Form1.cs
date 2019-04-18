@@ -1,11 +1,12 @@
-﻿using InteractiveSeven.UI.Twitch;
+﻿using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Models;
+using InteractiveSeven.Twitch;
+using InteractiveSeven.UI.Services;
+using InteractiveSeven.UI.Twitch;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
-using InteractiveSeven.UI.Services;
 
 namespace InteractiveSeven.UI
 {
@@ -157,7 +158,10 @@ namespace InteractiveSeven.UI
 
         private void TwitchConnectButton_Click(object sender, EventArgs e)
         {
-            _chatBot.Connect();
+            _chatBot.Connect(
+                TwitchSettings.Settings.Username,
+                TwitchSettings.Settings.AccessToken,
+                TwitchSettings.Settings.Channel);
         }
 
         private void TwitchDisconnectButton_Click(object sender, EventArgs e)

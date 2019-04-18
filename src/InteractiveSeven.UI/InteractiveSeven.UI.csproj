@@ -160,8 +160,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FormSync.cs" />
-    <Compile Include="Services\IFormSync.cs" />
-    <Compile Include="Twitch\ChatBot.cs" />
     <Compile Include="Twitch\TwitchSettings.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -193,6 +191,10 @@
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj">
       <Project>{ae410d04-a553-45d1-b631-7941228ee624}</Project>
       <Name>InteractiveSeven.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj">
+      <Project>{bdb4e559-28a8-4701-be84-7c67375d35c8}</Project>
+      <Name>InteractiveSeven.Twitch</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
