@@ -19,10 +19,10 @@ namespace InteractiveSeven.UI.Memory
             byte[] topRightBuffer = new byte[3];
             byte[] botRightBuffer = new byte[3];
 
-            _memoryAccessor.ReadMem(processName, MemoryLocations.TopLeftAddress, topLeftBuffer);
-            _memoryAccessor.ReadMem(processName, MemoryLocations.BotLeftAddress, botLeftBuffer);
-            _memoryAccessor.ReadMem(processName, MemoryLocations.TopRightAddress, topRightBuffer);
-            _memoryAccessor.ReadMem(processName, MemoryLocations.BotRightAddress, botRightBuffer);
+            _memoryAccessor.ReadMem(processName, MemLoc.MenuTopLeft.Address, topLeftBuffer);
+            _memoryAccessor.ReadMem(processName, MemLoc.MenuBotLeft.Address, botLeftBuffer);
+            _memoryAccessor.ReadMem(processName, MemLoc.MenuTopRight.Address, topRightBuffer);
+            _memoryAccessor.ReadMem(processName, MemLoc.MenuBotRight.Address, botRightBuffer);
 
             return new MenuColors
             {
@@ -35,10 +35,10 @@ namespace InteractiveSeven.UI.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, MemoryLocations.TopLeftAddress, menuColors.TopLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, MemoryLocations.BotLeftAddress, menuColors.BotLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, MemoryLocations.TopRightAddress, menuColors.TopRight.AsArray());
-            _memoryAccessor.WriteMem(processName, MemoryLocations.BotRightAddress, menuColors.BotRight.AsArray());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsArray());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsArray());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsArray());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsArray());
         }
 
     }
