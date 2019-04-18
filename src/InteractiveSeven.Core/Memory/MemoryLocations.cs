@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InteractiveSeven.UI.Memory
+namespace InteractiveSeven.Core.Memory
 {
     public class MemLoc
     {

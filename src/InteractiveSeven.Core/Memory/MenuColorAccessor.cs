@@ -1,7 +1,6 @@
-﻿using InteractiveSeven.UI.Models;
-using System;
+﻿using InteractiveSeven.Core.Models;
 
-namespace InteractiveSeven.UI.Memory
+namespace InteractiveSeven.Core.Memory
 {
     public class MenuColorAccessor
     {

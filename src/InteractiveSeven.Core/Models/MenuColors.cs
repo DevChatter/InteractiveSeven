@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.UI.Models
+﻿namespace InteractiveSeven.Core.Models
 {
     public class MenuColors
     {

@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.UI
+﻿namespace InteractiveSeven.Core
 {
     public static class ByteExtensions
     {

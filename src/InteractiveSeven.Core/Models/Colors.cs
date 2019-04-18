@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using InteractiveSeven.UI.Exceptions;
+﻿using InteractiveSeven.Core.Exceptions;
+using System.Collections.Generic;
 
-namespace InteractiveSeven.UI.Models
+namespace InteractiveSeven.Core.Models
 {
     public class Colors
     {

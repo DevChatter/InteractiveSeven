@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InteractiveSeven.UI.Exceptions
+namespace InteractiveSeven.Core.Exceptions
 {
     public class InvalidColorException : ApplicationException
     {

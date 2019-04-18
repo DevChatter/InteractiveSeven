@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using InteractiveSeven.UI.Memory;
-using InteractiveSeven.UI.Models;
 using InteractiveSeven.UI.Services;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Models;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;

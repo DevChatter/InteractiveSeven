@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.UI", "InteractiveSeven.UI\InteractiveSeven.UI.csproj", "{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Core", "InteractiveSeven.Core\InteractiveSeven.Core.csproj", "{AE410D04-A553-45D1-B631-7941228EE624}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE410D04-A553-45D1-B631-7941228EE624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE410D04-A553-45D1-B631-7941228EE624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE410D04-A553-45D1-B631-7941228EE624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE410D04-A553-45D1-B631-7941228EE624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

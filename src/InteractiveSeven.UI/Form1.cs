@@ -1,10 +1,10 @@
-﻿using InteractiveSeven.UI.Memory;
-using InteractiveSeven.UI.Models;
-using InteractiveSeven.UI.Twitch;
+﻿using InteractiveSeven.UI.Twitch;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.UI.Services;
 
 namespace InteractiveSeven.UI

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace InteractiveSeven.UI.Memory
+namespace InteractiveSeven.Core.Memory
 {
     public class MemoryAccessor : IMemoryAccessor
     {
