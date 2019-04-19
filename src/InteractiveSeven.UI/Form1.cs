@@ -43,47 +43,6 @@ namespace InteractiveSeven.UI
             }
         }
 
-        private void TopLeftColorButton_Click(object sender, EventArgs e)
-        {
-            RequestColorChoice(TopLeftRedTextBox, TopLeftGreenTextBox, TopLeftBlueTextBox);
-        }
-
-        private void TopRightColorButton_Click(object sender, EventArgs e)
-        {
-            RequestColorChoice(TopRightRedTextBox, TopRightGreenTextBox, TopRightBlueTextBox);
-        }
-
-        private void BotLeftColorButton_Click(object sender, EventArgs e)
-        {
-            RequestColorChoice(BotLeftRedTextBox, BotLeftGreenTextBox, BotLeftBlueTextBox);
-        }
-
-        private void BotRightColorButton_Click(object sender, EventArgs e)
-        {
-            RequestColorChoice(BotRightRedTextBox, BotRightGreenTextBox, BotRightBlueTextBox);
-        }
-
-        private void RequestColorChoice(MaskedTextBox redTextBox, MaskedTextBox greenTextBox, MaskedTextBox blueTextBox)
-        {
-            ColorDialog myColorDialog = new ColorDialog
-            {
-                AllowFullOpen = true,
-                ShowHelp = true
-            };
-
-            int.TryParse(redTextBox.Text, out int red);
-            int.TryParse(greenTextBox.Text, out int green);
-            int.TryParse(blueTextBox.Text, out int blue);
-            myColorDialog.Color = Color.FromArgb(red, green, blue);
-
-            if (myColorDialog.ShowDialog() == DialogResult.OK)
-            {
-                redTextBox.Text = myColorDialog.Color.R.ToString("D3");
-                greenTextBox.Text = myColorDialog.Color.G.ToString("D3");
-                blueTextBox.Text = myColorDialog.Color.B.ToString("D3");
-            }
-        }
-
         private void RefreshColorsButton_Click(object sender, EventArgs e)
         {
             RefreshColors();
@@ -99,21 +58,25 @@ namespace InteractiveSeven.UI
 
             var currentColors = _menuColorAccessor.GetMenuColors(processName);
 
-            TopLeftRedTextBox.Text = currentColors.TopLeft.Red.ToString("D3");
-            TopLeftGreenTextBox.Text = currentColors.TopLeft.Green.ToString("D3");
-            TopLeftBlueTextBox.Text = currentColors.TopLeft.Blue.ToString("D3");
+            topLeftColorPicker.Color = Color.FromArgb(
+                currentColors.TopLeft.Red, 
+                currentColors.TopLeft.Green, 
+                currentColors.TopLeft.Blue);
 
-            TopRightRedTextBox.Text = currentColors.TopRight.Red.ToString("D3");
-            TopRightGreenTextBox.Text = currentColors.TopRight.Green.ToString("D3");
-            TopRightBlueTextBox.Text = currentColors.TopRight.Blue.ToString("D3");
+            botLeftColorPicker.Color = Color.FromArgb(
+                currentColors.BotLeft.Red, 
+                currentColors.BotLeft.Green, 
+                currentColors.BotLeft.Blue);
 
-            BotLeftRedTextBox.Text = currentColors.BotLeft.Red.ToString("D3");
-            BotLeftGreenTextBox.Text = currentColors.BotLeft.Green.ToString("D3");
-            BotLeftBlueTextBox.Text = currentColors.BotLeft.Blue.ToString("D3");
+            topRightColorPicker.Color = Color.FromArgb(
+                currentColors.TopRight.Red, 
+                currentColors.TopRight.Green, 
+                currentColors.TopRight.Blue);
 
-            BotRightRedTextBox.Text = currentColors.BotRight.Red.ToString("D3");
-            BotRightGreenTextBox.Text = currentColors.BotRight.Green.ToString("D3");
-            BotRightBlueTextBox.Text = currentColors.BotRight.Blue.ToString("D3");
+            botRightColorPicker.Color = Color.FromArgb(
+                currentColors.BotRight.Red, 
+                currentColors.BotRight.Green, 
+                currentColors.BotRight.Blue);
         }
 
         private void SetColorsButton_Click(object sender, EventArgs e)
@@ -126,22 +89,10 @@ namespace InteractiveSeven.UI
 
             var menuColors = new MenuColors
             {
-                TopLeft = new MenuCornerColor(
-                    TopLeftBlueTextBox.Text,
-                    TopLeftGreenTextBox.Text,
-                    TopLeftRedTextBox.Text),
-                TopRight = new MenuCornerColor(
-                    TopRightBlueTextBox.Text,
-                    TopRightGreenTextBox.Text,
-                    TopRightRedTextBox.Text),
-                BotLeft = new MenuCornerColor(
-                    BotLeftBlueTextBox.Text,
-                    BotLeftGreenTextBox.Text,
-                    BotLeftRedTextBox.Text),
-                BotRight = new MenuCornerColor(
-                    BotRightBlueTextBox.Text,
-                    BotRightGreenTextBox.Text,
-                    BotRightRedTextBox.Text)
+                TopLeft = new MenuCornerColor(topLeftColorPicker.Color),
+                TopRight = new MenuCornerColor(topRightColorPicker.Color),
+                BotLeft = new MenuCornerColor(botLeftColorPicker.Color),
+                BotRight = new MenuCornerColor(botRightColorPicker.Color)
             };
 
             _menuColorAccessor.SetMenuColors(processName, menuColors);

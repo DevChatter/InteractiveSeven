@@ -1,4 +1,6 @@
-﻿namespace InteractiveSeven.Core.Models
+﻿using System.Drawing;
+
+namespace InteractiveSeven.Core.Models
 {
     public class MenuCornerColor
     {
@@ -26,6 +28,11 @@
         /// <param name="red"></param>
         public MenuCornerColor(string blue, string green, string red) 
             : this(blue.ToByte(), green.ToByte(), red.ToByte())
+        {
+        }
+
+        public MenuCornerColor(Color color)
+            : this(color.B, color.G, color.R)
         {
         }
 
