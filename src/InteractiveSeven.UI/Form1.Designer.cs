@@ -42,6 +42,10 @@
             this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuColorTab = new System.Windows.Forms.TabPage();
+            this.botRightColorSwatch = new System.Windows.Forms.Panel();
+            this.botLeftColorSwatch = new System.Windows.Forms.Panel();
+            this.topRightColorSwatch = new System.Windows.Forms.Panel();
+            this.topLeftColorSwatch = new System.Windows.Forms.Panel();
             this.allowChatMenuControl = new System.Windows.Forms.CheckBox();
             this.bottomRightGroup = new System.Windows.Forms.GroupBox();
             this.botRightColorPicker = new Cyotek.Windows.Forms.ColorEditor();
@@ -107,10 +111,11 @@
             this.topLeftColorPicker.ShowColorSpaceLabels = false;
             this.topLeftColorPicker.Size = new System.Drawing.Size(191, 168);
             this.topLeftColorPicker.TabIndex = 12;
+            this.topLeftColorPicker.ColorChanged += new System.EventHandler(this.TopLeftColorPicker_ColorChanged);
             // 
             // SetColorsButton
             // 
-            this.SetColorsButton.Location = new System.Drawing.Point(251, 430);
+            this.SetColorsButton.Location = new System.Drawing.Point(251, 484);
             this.SetColorsButton.Name = "SetColorsButton";
             this.SetColorsButton.Size = new System.Drawing.Size(195, 60);
             this.SetColorsButton.TabIndex = 10;
@@ -120,7 +125,7 @@
             // 
             // RefreshColorsButton
             // 
-            this.RefreshColorsButton.Location = new System.Drawing.Point(12, 430);
+            this.RefreshColorsButton.Location = new System.Drawing.Point(12, 484);
             this.RefreshColorsButton.Name = "RefreshColorsButton";
             this.RefreshColorsButton.Size = new System.Drawing.Size(191, 60);
             this.RefreshColorsButton.TabIndex = 9;
@@ -166,11 +171,15 @@
             this.tabControl1.Location = new System.Drawing.Point(16, 108);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(470, 590);
+            this.tabControl1.Size = new System.Drawing.Size(470, 614);
             this.tabControl1.TabIndex = 11;
             // 
             // menuColorTab
             // 
+            this.menuColorTab.Controls.Add(this.botRightColorSwatch);
+            this.menuColorTab.Controls.Add(this.botLeftColorSwatch);
+            this.menuColorTab.Controls.Add(this.topRightColorSwatch);
+            this.menuColorTab.Controls.Add(this.topLeftColorSwatch);
             this.menuColorTab.Controls.Add(this.allowChatMenuControl);
             this.menuColorTab.Controls.Add(this.SetColorsButton);
             this.menuColorTab.Controls.Add(this.bottomRightGroup);
@@ -181,15 +190,47 @@
             this.menuColorTab.Location = new System.Drawing.Point(4, 22);
             this.menuColorTab.Name = "menuColorTab";
             this.menuColorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.menuColorTab.Size = new System.Drawing.Size(462, 564);
+            this.menuColorTab.Size = new System.Drawing.Size(462, 588);
             this.menuColorTab.TabIndex = 0;
             this.menuColorTab.Text = "Menu Color";
             this.menuColorTab.UseVisualStyleBackColor = true;
             // 
+            // botRightColorSwatch
+            // 
+            this.botRightColorSwatch.BackColor = System.Drawing.Color.Black;
+            this.botRightColorSwatch.Location = new System.Drawing.Point(233, 239);
+            this.botRightColorSwatch.Name = "botRightColorSwatch";
+            this.botRightColorSwatch.Size = new System.Drawing.Size(58, 33);
+            this.botRightColorSwatch.TabIndex = 18;
+            // 
+            // botLeftColorSwatch
+            // 
+            this.botLeftColorSwatch.BackColor = System.Drawing.Color.Black;
+            this.botLeftColorSwatch.Location = new System.Drawing.Point(167, 239);
+            this.botLeftColorSwatch.Name = "botLeftColorSwatch";
+            this.botLeftColorSwatch.Size = new System.Drawing.Size(58, 33);
+            this.botLeftColorSwatch.TabIndex = 18;
+            // 
+            // topRightColorSwatch
+            // 
+            this.topRightColorSwatch.BackColor = System.Drawing.Color.Black;
+            this.topRightColorSwatch.Location = new System.Drawing.Point(233, 200);
+            this.topRightColorSwatch.Name = "topRightColorSwatch";
+            this.topRightColorSwatch.Size = new System.Drawing.Size(58, 33);
+            this.topRightColorSwatch.TabIndex = 18;
+            // 
+            // topLeftColorSwatch
+            // 
+            this.topLeftColorSwatch.BackColor = System.Drawing.Color.Black;
+            this.topLeftColorSwatch.Location = new System.Drawing.Point(167, 200);
+            this.topLeftColorSwatch.Name = "topLeftColorSwatch";
+            this.topLeftColorSwatch.Size = new System.Drawing.Size(58, 33);
+            this.topLeftColorSwatch.TabIndex = 17;
+            // 
             // allowChatMenuControl
             // 
             this.allowChatMenuControl.AutoSize = true;
-            this.allowChatMenuControl.Location = new System.Drawing.Point(12, 521);
+            this.allowChatMenuControl.Location = new System.Drawing.Point(12, 565);
             this.allowChatMenuControl.Name = "allowChatMenuControl";
             this.allowChatMenuControl.Size = new System.Drawing.Size(112, 17);
             this.allowChatMenuControl.TabIndex = 16;
@@ -199,7 +240,7 @@
             // bottomRightGroup
             // 
             this.bottomRightGroup.Controls.Add(this.botRightColorPicker);
-            this.bottomRightGroup.Location = new System.Drawing.Point(245, 215);
+            this.bottomRightGroup.Location = new System.Drawing.Point(245, 278);
             this.bottomRightGroup.Name = "bottomRightGroup";
             this.bottomRightGroup.Size = new System.Drawing.Size(207, 187);
             this.bottomRightGroup.TabIndex = 15;
@@ -214,11 +255,12 @@
             this.botRightColorPicker.ShowColorSpaceLabels = false;
             this.botRightColorPicker.Size = new System.Drawing.Size(191, 168);
             this.botRightColorPicker.TabIndex = 12;
+            this.botRightColorPicker.ColorChanged += new System.EventHandler(this.BotRightColorPicker_ColorChanged);
             // 
             // botLeftGroup
             // 
             this.botLeftGroup.Controls.Add(this.botLeftColorPicker);
-            this.botLeftGroup.Location = new System.Drawing.Point(6, 215);
+            this.botLeftGroup.Location = new System.Drawing.Point(6, 278);
             this.botLeftGroup.Name = "botLeftGroup";
             this.botLeftGroup.Size = new System.Drawing.Size(207, 187);
             this.botLeftGroup.TabIndex = 14;
@@ -233,6 +275,7 @@
             this.botLeftColorPicker.ShowColorSpaceLabels = false;
             this.botLeftColorPicker.Size = new System.Drawing.Size(191, 168);
             this.botLeftColorPicker.TabIndex = 12;
+            this.botLeftColorPicker.ColorChanged += new System.EventHandler(this.BotLeftColorPicker_ColorChanged);
             // 
             // topRightGroup
             // 
@@ -252,13 +295,14 @@
             this.topRightColorPicker.ShowColorSpaceLabels = false;
             this.topRightColorPicker.Size = new System.Drawing.Size(191, 168);
             this.topRightColorPicker.TabIndex = 12;
+            this.topRightColorPicker.ColorChanged += new System.EventHandler(this.TopRightColorPicker_ColorChanged);
             // 
             // partyTab
             // 
             this.partyTab.Location = new System.Drawing.Point(4, 22);
             this.partyTab.Name = "partyTab";
             this.partyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.partyTab.Size = new System.Drawing.Size(462, 564);
+            this.partyTab.Size = new System.Drawing.Size(462, 588);
             this.partyTab.TabIndex = 1;
             this.partyTab.Text = "Party";
             this.partyTab.UseVisualStyleBackColor = true;
@@ -267,7 +311,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 718);
+            this.ClientSize = new System.Drawing.Size(503, 734);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.TwitchConnectGroup);
             this.Controls.Add(this.ExeBrowse);
@@ -313,6 +357,10 @@
         private System.Windows.Forms.GroupBox botLeftGroup;
         private Cyotek.Windows.Forms.ColorEditor botLeftColorPicker;
         private System.Windows.Forms.CheckBox allowChatMenuControl;
+        private System.Windows.Forms.Panel botRightColorSwatch;
+        private System.Windows.Forms.Panel botLeftColorSwatch;
+        private System.Windows.Forms.Panel topRightColorSwatch;
+        private System.Windows.Forms.Panel topLeftColorSwatch;
     }
 }
 

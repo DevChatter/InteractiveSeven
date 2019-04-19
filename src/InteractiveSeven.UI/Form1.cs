@@ -59,23 +59,23 @@ namespace InteractiveSeven.UI
             var currentColors = _menuColorAccessor.GetMenuColors(processName);
 
             topLeftColorPicker.Color = Color.FromArgb(
-                currentColors.TopLeft.Red, 
-                currentColors.TopLeft.Green, 
+                currentColors.TopLeft.Red,
+                currentColors.TopLeft.Green,
                 currentColors.TopLeft.Blue);
 
             botLeftColorPicker.Color = Color.FromArgb(
-                currentColors.BotLeft.Red, 
-                currentColors.BotLeft.Green, 
+                currentColors.BotLeft.Red,
+                currentColors.BotLeft.Green,
                 currentColors.BotLeft.Blue);
 
             topRightColorPicker.Color = Color.FromArgb(
-                currentColors.TopRight.Red, 
-                currentColors.TopRight.Green, 
+                currentColors.TopRight.Red,
+                currentColors.TopRight.Green,
                 currentColors.TopRight.Blue);
 
             botRightColorPicker.Color = Color.FromArgb(
-                currentColors.BotRight.Red, 
-                currentColors.BotRight.Green, 
+                currentColors.BotRight.Red,
+                currentColors.BotRight.Green,
                 currentColors.BotRight.Blue);
         }
 
@@ -118,6 +118,26 @@ namespace InteractiveSeven.UI
         private void TwitchDisconnectButton_Click(object sender, EventArgs e)
         {
             _chatBot.Disconnect();
+        }
+
+        private void TopLeftColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            topLeftColorSwatch.BackColor = topLeftColorPicker.Color;
+        }
+
+        private void TopRightColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            topRightColorSwatch.BackColor = topRightColorPicker.Color;
+        }
+
+        private void BotLeftColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            botLeftColorSwatch.BackColor = botLeftColorPicker.Color;
+        }
+
+        private void BotRightColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            botRightColorSwatch.BackColor = botRightColorPicker.Color;
         }
     }
 }
