@@ -139,5 +139,10 @@ namespace InteractiveSeven.UI
         {
             botRightColorSwatch.BackColor = botRightColorPicker.Color;
         }
+
+        private void AllowChatMenuControl_CheckedChanged(object sender, EventArgs e)
+        {
+            _chatBot.IsMenuCommandAllowed = allowChatMenuControl.Checked;
+        }
     }
 }

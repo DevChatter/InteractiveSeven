@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Services;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Services;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -33,6 +33,8 @@ namespace InteractiveSeven.Twitch
             _client.OnDisconnected += Client_OnDisconnected;
         }
 
+        public bool IsMenuCommandAllowed { get; set; } = true;
+
         public void Connect(string username, string accessToken, string channel)
         {
             ConnectionCredentials credentials = 
@@ -60,6 +62,8 @@ namespace InteractiveSeven.Twitch
 
         private void HandleMenuCommand(ChatCommand command)
         {
+            if (!IsMenuCommandAllowed) return;
+
             List<string> args = command.ArgumentsAsList;
             var menuColors = new MenuColors();
 

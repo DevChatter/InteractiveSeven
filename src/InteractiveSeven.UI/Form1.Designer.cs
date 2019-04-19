@@ -54,6 +54,7 @@
             this.topRightGroup = new System.Windows.Forms.GroupBox();
             this.topRightColorPicker = new Cyotek.Windows.Forms.ColorEditor();
             this.partyTab = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.topLeftGroup.SuspendLayout();
             this.TwitchConnectGroup.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -168,6 +169,7 @@
             // 
             this.tabControl1.Controls.Add(this.menuColorTab);
             this.tabControl1.Controls.Add(this.partyTab);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(16, 108);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -230,12 +232,15 @@
             // allowChatMenuControl
             // 
             this.allowChatMenuControl.AutoSize = true;
+            this.allowChatMenuControl.Checked = true;
+            this.allowChatMenuControl.CheckState = System.Windows.Forms.CheckState.Checked;
             this.allowChatMenuControl.Location = new System.Drawing.Point(12, 565);
             this.allowChatMenuControl.Name = "allowChatMenuControl";
             this.allowChatMenuControl.Size = new System.Drawing.Size(112, 17);
             this.allowChatMenuControl.TabIndex = 16;
             this.allowChatMenuControl.Text = "Allow Chat Control";
             this.allowChatMenuControl.UseVisualStyleBackColor = true;
+            this.allowChatMenuControl.CheckedChanged += new System.EventHandler(this.AllowChatMenuControl_CheckedChanged);
             // 
             // bottomRightGroup
             // 
@@ -307,6 +312,15 @@
             this.partyTab.Text = "Party";
             this.partyTab.UseVisualStyleBackColor = true;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(462, 588);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Date";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,6 +375,7 @@
         private System.Windows.Forms.Panel botLeftColorSwatch;
         private System.Windows.Forms.Panel topRightColorSwatch;
         private System.Windows.Forms.Panel topLeftColorSwatch;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 
