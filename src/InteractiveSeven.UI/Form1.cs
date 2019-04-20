@@ -33,7 +33,7 @@ namespace InteractiveSeven.UI
             {
                 try
                 {
-                    ExeTextBox.Text = openFileDialog1.FileName;
+                    ExeTextBox.Text = GetProcessNameFromFileName(openFileDialog1.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -50,7 +50,7 @@ namespace InteractiveSeven.UI
 
         internal void RefreshColors()
         {
-            string processName = GetProcessName();
+            string processName = ExeTextBox.Text;
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -81,7 +81,7 @@ namespace InteractiveSeven.UI
 
         private void SetColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = GetProcessName();
+            string processName = ExeTextBox.Text;
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -98,13 +98,18 @@ namespace InteractiveSeven.UI
             _menuColorAccessor.SetMenuColors(processName, menuColors);
         }
 
-        internal string GetProcessName()
+        private string GetProcessNameFromFileName(string fileName)
         {
-            return ExeTextBox.Text
+            return fileName
                 .Split('\\')
                 .LastOrDefault()
                 ?.Split('.')
                 ?.FirstOrDefault();
+        }
+
+        internal string GetProcessName()
+        {
+            return ExeTextBox.Text;
         }
 
         private void TwitchConnectButton_Click(object sender, EventArgs e)

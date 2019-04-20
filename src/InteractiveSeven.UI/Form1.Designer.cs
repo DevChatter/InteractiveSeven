@@ -38,6 +38,7 @@
             this.SetColorsButton = new System.Windows.Forms.Button();
             this.RefreshColorsButton = new System.Windows.Forms.Button();
             this.TwitchConnectGroup = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TwitchDisconnectButton = new System.Windows.Forms.Button();
             this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -54,7 +55,38 @@
             this.topRightGroup = new System.Windows.Forms.GroupBox();
             this.topRightColorPicker = new Cyotek.Windows.Forms.ColorEditor();
             this.partyTab = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.partyMemberStats1 = new InteractiveSeven.UI.PartyMemberStats();
+            this.partyMemberStats2 = new InteractiveSeven.UI.PartyMemberStats();
+            this.partyMemberStats3 = new InteractiveSeven.UI.PartyMemberStats();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.topLeftGroup.SuspendLayout();
             this.TwitchConnectGroup.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -62,27 +94,33 @@
             this.bottomRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
+            this.partyTab.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExeLabel
             // 
             this.ExeLabel.AutoSize = true;
-            this.ExeLabel.Location = new System.Drawing.Point(13, 13);
+            this.ExeLabel.Location = new System.Drawing.Point(6, 26);
             this.ExeLabel.Name = "ExeLabel";
-            this.ExeLabel.Size = new System.Drawing.Size(100, 13);
+            this.ExeLabel.Size = new System.Drawing.Size(76, 13);
             this.ExeLabel.TabIndex = 0;
-            this.ExeLabel.Text = "FF7 Executable File";
+            this.ExeLabel.Text = "Process Name";
             // 
             // ExeTextBox
             // 
-            this.ExeTextBox.Location = new System.Drawing.Point(120, 13);
+            this.ExeTextBox.Location = new System.Drawing.Point(88, 23);
             this.ExeTextBox.Name = "ExeTextBox";
-            this.ExeTextBox.Size = new System.Drawing.Size(259, 20);
+            this.ExeTextBox.Size = new System.Drawing.Size(98, 20);
             this.ExeTextBox.TabIndex = 1;
+            this.ExeTextBox.Text = "ff7_en";
             // 
             // ExeBrowse
             // 
-            this.ExeBrowse.Location = new System.Drawing.Point(397, 13);
+            this.ExeBrowse.Location = new System.Drawing.Point(192, 21);
             this.ExeBrowse.Name = "ExeBrowse";
             this.ExeBrowse.Size = new System.Drawing.Size(75, 23);
             this.ExeBrowse.TabIndex = 2;
@@ -136,18 +174,30 @@
             // 
             // TwitchConnectGroup
             // 
+            this.TwitchConnectGroup.Controls.Add(this.label1);
             this.TwitchConnectGroup.Controls.Add(this.TwitchDisconnectButton);
             this.TwitchConnectGroup.Controls.Add(this.TwitchConnectButton);
-            this.TwitchConnectGroup.Location = new System.Drawing.Point(16, 49);
+            this.TwitchConnectGroup.Location = new System.Drawing.Point(337, 13);
             this.TwitchConnectGroup.Name = "TwitchConnectGroup";
-            this.TwitchConnectGroup.Size = new System.Drawing.Size(456, 53);
+            this.TwitchConnectGroup.Size = new System.Drawing.Size(283, 53);
             this.TwitchConnectGroup.TabIndex = 10;
             this.TwitchConnectGroup.TabStop = false;
             this.TwitchConnectGroup.Text = "Twitch Connection";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.LightGray;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(95, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Disconnected";
+            // 
             // TwitchDisconnectButton
             // 
-            this.TwitchDisconnectButton.Location = new System.Drawing.Point(375, 20);
+            this.TwitchDisconnectButton.Location = new System.Drawing.Point(201, 19);
             this.TwitchDisconnectButton.Name = "TwitchDisconnectButton";
             this.TwitchDisconnectButton.Size = new System.Drawing.Size(75, 23);
             this.TwitchDisconnectButton.TabIndex = 1;
@@ -170,10 +220,10 @@
             this.tabControl1.Controls.Add(this.menuColorTab);
             this.tabControl1.Controls.Add(this.partyTab);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(16, 108);
+            this.tabControl1.Location = new System.Drawing.Point(13, 72);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(470, 614);
+            this.tabControl1.Size = new System.Drawing.Size(608, 590);
             this.tabControl1.TabIndex = 11;
             // 
             // menuColorTab
@@ -192,7 +242,7 @@
             this.menuColorTab.Location = new System.Drawing.Point(4, 22);
             this.menuColorTab.Name = "menuColorTab";
             this.menuColorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.menuColorTab.Size = new System.Drawing.Size(462, 588);
+            this.menuColorTab.Size = new System.Drawing.Size(600, 564);
             this.menuColorTab.TabIndex = 0;
             this.menuColorTab.Text = "Menu Color";
             this.menuColorTab.UseVisualStyleBackColor = true;
@@ -304,47 +354,359 @@
             // 
             // partyTab
             // 
+            this.partyTab.AutoScroll = true;
+            this.partyTab.Controls.Add(this.flowLayoutPanel1);
+            this.partyTab.Controls.Add(this.groupBox1);
             this.partyTab.Location = new System.Drawing.Point(4, 22);
             this.partyTab.Name = "partyTab";
             this.partyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.partyTab.Size = new System.Drawing.Size(462, 588);
+            this.partyTab.Size = new System.Drawing.Size(600, 564);
             this.partyTab.TabIndex = 1;
             this.partyTab.Text = "Party";
             this.partyTab.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.partyMemberStats1);
+            this.flowLayoutPanel1.Controls.Add(this.partyMemberStats2);
+            this.flowLayoutPanel1.Controls.Add(this.partyMemberStats3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(7, 198);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(570, 446);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // partyMemberStats1
+            // 
+            this.partyMemberStats1.CharacterName = "Cloud";
+            this.partyMemberStats1.Location = new System.Drawing.Point(3, 3);
+            this.partyMemberStats1.Name = "partyMemberStats1";
+            this.partyMemberStats1.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats1.TabIndex = 0;
+            // 
+            // partyMemberStats2
+            // 
+            this.partyMemberStats2.CharacterName = "Barret";
+            this.partyMemberStats2.Location = new System.Drawing.Point(287, 3);
+            this.partyMemberStats2.Name = "partyMemberStats2";
+            this.partyMemberStats2.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats2.TabIndex = 1;
+            // 
+            // partyMemberStats3
+            // 
+            this.partyMemberStats3.CharacterName = "Tifa";
+            this.partyMemberStats3.Location = new System.Drawing.Point(3, 188);
+            this.partyMemberStats3.Name = "partyMemberStats3";
+            this.partyMemberStats3.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats3.TabIndex = 2;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(570, 185);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Commands";
             // 
             // tabPage1
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(462, 588);
+            this.tabPage1.Size = new System.Drawing.Size(600, 564);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Date";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ExeLabel);
+            this.groupBox2.Controls.Add(this.ExeTextBox);
+            this.groupBox2.Controls.Add(this.ExeBrowse);
+            this.groupBox2.Location = new System.Drawing.Point(13, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(284, 53);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "FF7 Connection";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel1.Controls.Add(this.textBox10, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.textBox9, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textBox8, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.textBox7, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox2, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox3, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox4, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox5, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBox3, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.textBox4, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textBox5, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.textBox6, 3, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(557, 159);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 15);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Description";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(277, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 15);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Command";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(414, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 15);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Enabled";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 24);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Allow Max HP Changes";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(132, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Allow Current HP Changes";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 76);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Allow Stat Increases";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 102);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Allow Stat Decreases";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 128);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(107, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Allow Status Infliction";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(484, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(56, 15);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Bit Cost";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(414, 27);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(414, 53);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.TabIndex = 15;
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(414, 79);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 16;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(414, 105);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(15, 14);
+            this.checkBox4.TabIndex = 17;
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(414, 131);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.TabIndex = 18;
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(277, 27);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 19;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(277, 53);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 20;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(277, 79);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 21;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(277, 105);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.TabIndex = 22;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(277, 131);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 23;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(484, 27);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(56, 20);
+            this.textBox6.TabIndex = 24;
+            this.textBox6.Text = "0";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(484, 53);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(56, 20);
+            this.textBox7.TabIndex = 25;
+            this.textBox7.Text = "0";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(484, 79);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(56, 20);
+            this.textBox8.TabIndex = 26;
+            this.textBox8.Text = "0";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(484, 105);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(56, 20);
+            this.textBox9.TabIndex = 27;
+            this.textBox9.Text = "0";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(484, 131);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(56, 20);
+            this.textBox10.TabIndex = 28;
+            this.textBox10.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 734);
+            this.ClientSize = new System.Drawing.Size(636, 674);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.TwitchConnectGroup);
-            this.Controls.Add(this.ExeBrowse);
-            this.Controls.Add(this.ExeTextBox);
-            this.Controls.Add(this.ExeLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Interative Seven";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.topLeftGroup.ResumeLayout(false);
             this.TwitchConnectGroup.ResumeLayout(false);
+            this.TwitchConnectGroup.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.menuColorTab.ResumeLayout(false);
             this.menuColorTab.PerformLayout();
             this.bottomRightGroup.ResumeLayout(false);
             this.botLeftGroup.ResumeLayout(false);
             this.topRightGroup.ResumeLayout(false);
+            this.partyTab.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -376,6 +738,38 @@
         private System.Windows.Forms.Panel topRightColorSwatch;
         private System.Windows.Forms.Panel topLeftColorSwatch;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private PartyMemberStats partyMemberStats1;
+        private PartyMemberStats partyMemberStats2;
+        private PartyMemberStats partyMemberStats3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox6;
     }
 }
 
