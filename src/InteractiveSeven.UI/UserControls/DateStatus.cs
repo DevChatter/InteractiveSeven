@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace InteractiveSeven.UI
+namespace InteractiveSeven.UI.UserControls
 {
-    public partial class PartyMemberStats : UserControl
+    public partial class DateStatus : UserControl
     {
-        public PartyMemberStats()
+
+        public DateStatus()
         {
             InitializeComponent();
         }
@@ -13,8 +14,8 @@ namespace InteractiveSeven.UI
         [Description("Displayed Character Name"), Category("Data")]
         public string CharacterName
         {
-            get => charNameLabel.Text;
-            set => charNameLabel.Text = value;
+            get => nameLabel.Text;
+            set => nameLabel.Text = value;
         }
     }
 }

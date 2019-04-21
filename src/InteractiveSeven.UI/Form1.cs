@@ -14,17 +14,19 @@ namespace InteractiveSeven.UI
     {
         private readonly MenuColorAccessor _menuColorAccessor;
         private readonly ChatBot _chatBot;
+        private GamePolling _gamePolling;
 
         public Form1()
         {
             InitializeComponent();
             _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
             _chatBot = new ChatBot(_menuColorAccessor, new FormSync(this));
+            _gamePolling = new GamePolling(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            _gamePolling.Start();
         }
 
         private void ExeBrowse_Click(object sender, EventArgs e)

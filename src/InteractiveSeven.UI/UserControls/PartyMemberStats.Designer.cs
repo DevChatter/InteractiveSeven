@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.UI
+﻿namespace InteractiveSeven.UI.UserControls
 {
     partial class PartyMemberStats
     {
