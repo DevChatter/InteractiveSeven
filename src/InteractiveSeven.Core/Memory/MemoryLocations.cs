@@ -29,6 +29,7 @@ namespace InteractiveSeven.Core.Memory
         public static readonly MemLoc CloudSpi = new MemLoc(0xDBFD91);
         public static readonly MemLoc CloudDex = new MemLoc(0xDBFD92);
         public static readonly MemLoc CloudLuc = new MemLoc(0xDBFD93);
+        public static readonly MemLoc CloudName = new MemLoc(0xDBFD9C, 9);
 
         public static readonly MemLoc TifaMaxHP = new MemLoc(0xDBFEC2, 2);
         public static readonly MemLoc TifaCurHP = new MemLoc(0xDBFEC0, 2);
@@ -38,6 +39,7 @@ namespace InteractiveSeven.Core.Memory
         public static readonly MemLoc TifaSpi = new MemLoc(0xDBFE99);
         public static readonly MemLoc TifaDex = new MemLoc(0xDBFE9A);
         public static readonly MemLoc TifaLuc = new MemLoc(0xDBFE9B);
+        public static readonly MemLoc TifaName = new MemLoc(0xDBFEA4, 9);
 
         public static readonly MemLoc BarretMaxHP = new MemLoc(0xDBFE3E, 2);
         public static readonly MemLoc BarretCurHP = new MemLoc(0xDBFE3C, 2);
@@ -47,6 +49,7 @@ namespace InteractiveSeven.Core.Memory
         public static readonly MemLoc BarretSpi = new MemLoc(0xDBFE15);
         public static readonly MemLoc BarretDex = new MemLoc(0xDBFE16);
         public static readonly MemLoc BarretLuc = new MemLoc(0xDBFE17);
+        public static readonly MemLoc BarretName = new MemLoc(0xDBFE20, 9);
 
         public static readonly MemLoc Gil = new MemLoc(0xDC08B4, 4); // 4 bytes
     }
