@@ -40,7 +40,7 @@ namespace InteractiveSeven.UI
             this.SetColorsButton = new System.Windows.Forms.Button();
             this.RefreshColorsButton = new System.Windows.Forms.Button();
             this.TwitchConnectGroup = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.twitchConnectionLabel = new System.Windows.Forms.Label();
             this.TwitchDisconnectButton = new System.Windows.Forms.Button();
             this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -56,6 +56,19 @@ namespace InteractiveSeven.UI
             this.botLeftColorPicker = new Cyotek.Windows.Forms.ColorEditor();
             this.topRightGroup = new System.Windows.Forms.GroupBox();
             this.topRightColorPicker = new Cyotek.Windows.Forms.ColorEditor();
+            this.nameBidTab = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.nameBidding1 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding2 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding3 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding4 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding5 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding6 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding9 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding8 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.nameBidding7 = new InteractiveSeven.UI.UserControls.NameBidding();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nameBiddingSettings = new System.Windows.Forms.CheckedListBox();
             this.partyTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.partyMemberStats1 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
@@ -87,23 +100,23 @@ namespace InteractiveSeven.UI
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dateTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.dateStatus1 = new InteractiveSeven.UI.UserControls.DateStatus();
             this.dateStatus2 = new InteractiveSeven.UI.UserControls.DateStatus();
             this.YuffieDateStatus = new InteractiveSeven.UI.UserControls.DateStatus();
             this.dateStatus4 = new InteractiveSeven.UI.UserControls.DateStatus();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.topLeftGroup.SuspendLayout();
             this.TwitchConnectGroup.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -111,15 +124,18 @@ namespace InteractiveSeven.UI
             this.bottomRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
+            this.nameBidTab.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.partyTab.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.dateTab.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExeLabel
@@ -195,7 +211,7 @@ namespace InteractiveSeven.UI
             // 
             // TwitchConnectGroup
             // 
-            this.TwitchConnectGroup.Controls.Add(this.label1);
+            this.TwitchConnectGroup.Controls.Add(this.twitchConnectionLabel);
             this.TwitchConnectGroup.Controls.Add(this.TwitchDisconnectButton);
             this.TwitchConnectGroup.Controls.Add(this.TwitchConnectButton);
             this.TwitchConnectGroup.Location = new System.Drawing.Point(337, 13);
@@ -205,16 +221,16 @@ namespace InteractiveSeven.UI
             this.TwitchConnectGroup.TabStop = false;
             this.TwitchConnectGroup.Text = "Twitch Connection";
             // 
-            // label1
+            // twitchConnectionLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LightGray;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(95, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Disconnected";
+            this.twitchConnectionLabel.AutoSize = true;
+            this.twitchConnectionLabel.BackColor = System.Drawing.Color.LightGray;
+            this.twitchConnectionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.twitchConnectionLabel.Location = new System.Drawing.Point(95, 23);
+            this.twitchConnectionLabel.Name = "twitchConnectionLabel";
+            this.twitchConnectionLabel.Size = new System.Drawing.Size(91, 16);
+            this.twitchConnectionLabel.TabIndex = 2;
+            this.twitchConnectionLabel.Text = "Disconnected";
             // 
             // TwitchDisconnectButton
             // 
@@ -239,8 +255,9 @@ namespace InteractiveSeven.UI
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.menuColorTab);
+            this.tabControl1.Controls.Add(this.nameBidTab);
             this.tabControl1.Controls.Add(this.partyTab);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.dateTab);
             this.tabControl1.Location = new System.Drawing.Point(13, 72);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -373,6 +390,151 @@ namespace InteractiveSeven.UI
             this.topRightColorPicker.TabIndex = 12;
             this.topRightColorPicker.ColorChanged += new System.EventHandler(this.TopRightColorPicker_ColorChanged);
             // 
+            // nameBidTab
+            // 
+            this.nameBidTab.Controls.Add(this.flowLayoutPanel3);
+            this.nameBidTab.Controls.Add(this.groupBox4);
+            this.nameBidTab.Location = new System.Drawing.Point(4, 22);
+            this.nameBidTab.Name = "nameBidTab";
+            this.nameBidTab.Size = new System.Drawing.Size(600, 564);
+            this.nameBidTab.TabIndex = 3;
+            this.nameBidTab.Text = "Name Bidding";
+            this.nameBidTab.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.AutoScroll = true;
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding1);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding2);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding3);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding4);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding5);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding6);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding9);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding8);
+            this.flowLayoutPanel3.Controls.Add(this.nameBidding7);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 100);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(600, 464);
+            this.flowLayoutPanel3.TabIndex = 1;
+            // 
+            // nameBidding1
+            // 
+            this.nameBidding1.AutoScroll = true;
+            this.nameBidding1.CharacterName = "Cloud";
+            this.nameBidding1.Location = new System.Drawing.Point(3, 3);
+            this.nameBidding1.Name = "nameBidding1";
+            this.nameBidding1.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding1.TabIndex = 0;
+            // 
+            // nameBidding2
+            // 
+            this.nameBidding2.AutoScroll = true;
+            this.nameBidding2.CharacterName = "Barret";
+            this.nameBidding2.Location = new System.Drawing.Point(246, 3);
+            this.nameBidding2.Name = "nameBidding2";
+            this.nameBidding2.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding2.TabIndex = 1;
+            // 
+            // nameBidding3
+            // 
+            this.nameBidding3.AutoScroll = true;
+            this.nameBidding3.CharacterName = "Tifa";
+            this.nameBidding3.Location = new System.Drawing.Point(3, 188);
+            this.nameBidding3.Name = "nameBidding3";
+            this.nameBidding3.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding3.TabIndex = 2;
+            // 
+            // nameBidding4
+            // 
+            this.nameBidding4.AutoScroll = true;
+            this.nameBidding4.CharacterName = "Aeris";
+            this.nameBidding4.Location = new System.Drawing.Point(246, 188);
+            this.nameBidding4.Name = "nameBidding4";
+            this.nameBidding4.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding4.TabIndex = 3;
+            // 
+            // nameBidding5
+            // 
+            this.nameBidding5.AutoScroll = true;
+            this.nameBidding5.CharacterName = "Cait Sith";
+            this.nameBidding5.Location = new System.Drawing.Point(3, 373);
+            this.nameBidding5.Name = "nameBidding5";
+            this.nameBidding5.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding5.TabIndex = 4;
+            // 
+            // nameBidding6
+            // 
+            this.nameBidding6.AutoScroll = true;
+            this.nameBidding6.CharacterName = "Cid";
+            this.nameBidding6.Location = new System.Drawing.Point(246, 373);
+            this.nameBidding6.Name = "nameBidding6";
+            this.nameBidding6.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding6.TabIndex = 5;
+            // 
+            // nameBidding9
+            // 
+            this.nameBidding9.AutoScroll = true;
+            this.nameBidding9.CharacterName = "Red XIII";
+            this.nameBidding9.Location = new System.Drawing.Point(3, 558);
+            this.nameBidding9.Name = "nameBidding9";
+            this.nameBidding9.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding9.TabIndex = 8;
+            // 
+            // nameBidding8
+            // 
+            this.nameBidding8.AutoScroll = true;
+            this.nameBidding8.CharacterName = "Vincent";
+            this.nameBidding8.Location = new System.Drawing.Point(246, 558);
+            this.nameBidding8.Name = "nameBidding8";
+            this.nameBidding8.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding8.TabIndex = 7;
+            // 
+            // nameBidding7
+            // 
+            this.nameBidding7.AutoScroll = true;
+            this.nameBidding7.CharacterName = "Yuffie";
+            this.nameBidding7.Location = new System.Drawing.Point(3, 743);
+            this.nameBidding7.Name = "nameBidding7";
+            this.nameBidding7.Size = new System.Drawing.Size(237, 179);
+            this.nameBidding7.TabIndex = 6;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.nameBiddingSettings);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(600, 100);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Settings";
+            // 
+            // nameBiddingSettings
+            // 
+            this.nameBiddingSettings.CheckOnClick = true;
+            this.nameBiddingSettings.ColumnWidth = 175;
+            this.nameBiddingSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nameBiddingSettings.FormattingEnabled = true;
+            this.nameBiddingSettings.Items.AddRange(new object[] {
+            "Enable Feature",
+            "Limit Name Choices",
+            "Allow Cloud Naming",
+            "Allow Barret Naming",
+            "Allow Tifa Naming",
+            "Allow Aeris Naming",
+            "Allow Cait Sith Naming",
+            "Allow Cid Naming",
+            "Allow Red XIII Naming",
+            "Allow Vincent Naming",
+            "Allow Yuffie Naming"});
+            this.nameBiddingSettings.Location = new System.Drawing.Point(3, 16);
+            this.nameBiddingSettings.MultiColumn = true;
+            this.nameBiddingSettings.Name = "nameBiddingSettings";
+            this.nameBiddingSettings.Size = new System.Drawing.Size(594, 81);
+            this.nameBiddingSettings.TabIndex = 0;
+            // 
             // partyTab
             // 
             this.partyTab.AutoScroll = true;
@@ -436,7 +598,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanel1.Controls.Add(this.textBox10, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox9, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox8, 3, 3);
@@ -475,7 +637,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(478, 131);
+            this.textBox10.Location = new System.Drawing.Point(474, 131);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(56, 20);
             this.textBox10.TabIndex = 28;
@@ -483,7 +645,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(478, 105);
+            this.textBox9.Location = new System.Drawing.Point(474, 105);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(56, 20);
             this.textBox9.TabIndex = 27;
@@ -491,7 +653,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(478, 79);
+            this.textBox8.Location = new System.Drawing.Point(474, 79);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(56, 20);
             this.textBox8.TabIndex = 26;
@@ -499,7 +661,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(478, 53);
+            this.textBox7.Location = new System.Drawing.Point(474, 53);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(56, 20);
             this.textBox7.TabIndex = 25;
@@ -519,7 +681,7 @@ namespace InteractiveSeven.UI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(273, 0);
+            this.label3.Location = new System.Drawing.Point(270, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 15);
             this.label3.TabIndex = 1;
@@ -529,7 +691,7 @@ namespace InteractiveSeven.UI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(408, 0);
+            this.label4.Location = new System.Drawing.Point(404, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 15);
             this.label4.TabIndex = 2;
@@ -584,7 +746,7 @@ namespace InteractiveSeven.UI
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(478, 0);
+            this.label10.Location = new System.Drawing.Point(474, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 15);
             this.label10.TabIndex = 8;
@@ -593,7 +755,7 @@ namespace InteractiveSeven.UI
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(408, 27);
+            this.checkBox1.Location = new System.Drawing.Point(404, 27);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 14;
@@ -602,7 +764,7 @@ namespace InteractiveSeven.UI
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(408, 53);
+            this.checkBox2.Location = new System.Drawing.Point(404, 53);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 15;
@@ -611,7 +773,7 @@ namespace InteractiveSeven.UI
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(408, 79);
+            this.checkBox3.Location = new System.Drawing.Point(404, 79);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 16;
@@ -620,7 +782,7 @@ namespace InteractiveSeven.UI
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(408, 105);
+            this.checkBox4.Location = new System.Drawing.Point(404, 105);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 17;
@@ -629,7 +791,7 @@ namespace InteractiveSeven.UI
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(408, 131);
+            this.checkBox5.Location = new System.Drawing.Point(404, 131);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
             this.checkBox5.TabIndex = 18;
@@ -637,57 +799,57 @@ namespace InteractiveSeven.UI
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(273, 27);
+            this.textBox1.Location = new System.Drawing.Point(270, 27);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 19;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(273, 53);
+            this.textBox2.Location = new System.Drawing.Point(270, 53);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 20;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(273, 79);
+            this.textBox3.Location = new System.Drawing.Point(270, 79);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 21;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(273, 105);
+            this.textBox4.Location = new System.Drawing.Point(270, 105);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 22;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(273, 131);
+            this.textBox5.Location = new System.Drawing.Point(270, 131);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 23;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(478, 27);
+            this.textBox6.Location = new System.Drawing.Point(474, 27);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(56, 20);
             this.textBox6.TabIndex = 24;
             this.textBox6.Text = "0";
             // 
-            // tabPage1
+            // dateTab
             // 
-            this.tabPage1.Controls.Add(this.flowLayoutPanel2);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(600, 564);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Date";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.dateTab.Controls.Add(this.flowLayoutPanel2);
+            this.dateTab.Controls.Add(this.groupBox3);
+            this.dateTab.Location = new System.Drawing.Point(4, 22);
+            this.dateTab.Name = "dateTab";
+            this.dateTab.Size = new System.Drawing.Size(600, 564);
+            this.dateTab.TabIndex = 2;
+            this.dateTab.Text = "Date";
+            this.dateTab.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel2
             // 
@@ -732,17 +894,15 @@ namespace InteractiveSeven.UI
             this.dateStatus4.Size = new System.Drawing.Size(240, 120);
             this.dateStatus4.TabIndex = 3;
             // 
-            // groupBox2
+            // groupBox3
             // 
-            this.groupBox2.Controls.Add(this.ExeLabel);
-            this.groupBox2.Controls.Add(this.ExeTextBox);
-            this.groupBox2.Controls.Add(this.ExeBrowse);
-            this.groupBox2.Location = new System.Drawing.Point(13, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(284, 53);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "FF7 Connection";
+            this.groupBox3.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox3.Location = new System.Drawing.Point(5, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(591, 185);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Commands";
             // 
             // tableLayoutPanel2
             // 
@@ -750,7 +910,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label12, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label13, 2, 0);
@@ -769,69 +929,6 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel2.Size = new System.Drawing.Size(578, 159);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // textBox20
-            // 
-            this.textBox20.Location = new System.Drawing.Point(499, 27);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(56, 20);
-            this.textBox20.TabIndex = 24;
-            this.textBox20.Text = "0";
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(287, 27);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(100, 20);
-            this.textBox15.TabIndex = 19;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(429, 27);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(15, 14);
-            this.checkBox6.TabIndex = 14;
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(499, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(56, 15);
-            this.label19.TabIndex = 8;
-            this.label19.Text = "Bit Cost";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 24);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(70, 13);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Vote for Date";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(429, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(60, 15);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Enabled";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(287, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(72, 15);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Command";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -842,15 +939,80 @@ namespace InteractiveSeven.UI
             this.label11.TabIndex = 0;
             this.label11.Text = "Description";
             // 
-            // groupBox3
+            // label12
             // 
-            this.groupBox3.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox3.Location = new System.Drawing.Point(5, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(591, 185);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Commands";
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(284, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(72, 15);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "Command";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(425, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(60, 15);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Enabled";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 24);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(70, 13);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Vote for Date";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(495, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(56, 15);
+            this.label19.TabIndex = 8;
+            this.label19.Text = "Bit Cost";
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(425, 27);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 14;
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(284, 27);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(100, 20);
+            this.textBox15.TabIndex = 19;
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(495, 27);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(56, 20);
+            this.textBox20.TabIndex = 24;
+            this.textBox20.Text = "0";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ExeLabel);
+            this.groupBox2.Controls.Add(this.ExeTextBox);
+            this.groupBox2.Controls.Add(this.ExeBrowse);
+            this.groupBox2.Location = new System.Drawing.Point(13, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(284, 53);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "FF7 Connection";
             // 
             // Form1
             // 
@@ -873,18 +1035,21 @@ namespace InteractiveSeven.UI
             this.bottomRightGroup.ResumeLayout(false);
             this.botLeftGroup.ResumeLayout(false);
             this.topRightGroup.ResumeLayout(false);
+            this.nameBidTab.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.partyTab.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.dateTab.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -916,13 +1081,13 @@ namespace InteractiveSeven.UI
         private System.Windows.Forms.Panel botLeftColorSwatch;
         private System.Windows.Forms.Panel topRightColorSwatch;
         private System.Windows.Forms.Panel topLeftColorSwatch;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage dateTab;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private PartyMemberStats partyMemberStats1;
         private PartyMemberStats partyMemberStats2;
         private PartyMemberStats partyMemberStats3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label twitchConnectionLabel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
@@ -964,6 +1129,19 @@ namespace InteractiveSeven.UI
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TabPage nameBidTab;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckedListBox nameBiddingSettings;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private NameBidding nameBidding1;
+        private NameBidding nameBidding2;
+        private NameBidding nameBidding3;
+        private NameBidding nameBidding4;
+        private NameBidding nameBidding5;
+        private NameBidding nameBidding6;
+        private NameBidding nameBidding9;
+        private NameBidding nameBidding8;
+        private NameBidding nameBidding7;
     }
 }
 

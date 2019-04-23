@@ -7,6 +7,8 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TwitchLib.Client.Events;
+using TwitchLib.Communication.Events;
 
 namespace InteractiveSeven.UI
 {
@@ -14,15 +16,28 @@ namespace InteractiveSeven.UI
     {
         private readonly MenuColorAccessor _menuColorAccessor;
         private readonly ChatBot _chatBot;
-        private GamePolling _gamePolling;
+        private readonly GamePolling _gamePolling;
 
         public Form1()
         {
             InitializeComponent();
             _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
             _chatBot = new ChatBot(_menuColorAccessor, new FormSync(this));
+            _chatBot.OnConnected += ChatBot_OnConnected;
+            _chatBot.OnDisconnected += ChatBot_OnDisconnected;
             _gamePolling = new GamePolling(this);
         }
+
+        private void ChatBot_OnConnected(object sender, OnConnectedArgs args) => DisplayStatus(@"Connected");
+
+        private void ChatBot_OnDisconnected(object sender, OnDisconnectedEventArgs args) => DisplayStatus(@"Disconnected");
+
+        private void DisplayStatus(string status) =>
+            Invoke((MethodInvoker) delegate
+            {
+                // Running on the UI thread
+                twitchConnectionLabel.Text = status;
+            });
 
         private void Form1_Load(object sender, EventArgs e)
         {

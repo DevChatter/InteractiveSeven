@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,6 +34,9 @@ namespace InteractiveSeven.Twitch
             _client.OnDisconnected += Client_OnDisconnected;
         }
 
+        public event EventHandler<OnConnectedArgs> OnConnected;
+        public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
+
         public bool IsMenuCommandAllowed { get; set; } = true;
 
         public void Connect(string username, string accessToken, string channel)
@@ -45,6 +49,7 @@ namespace InteractiveSeven.Twitch
 
         public void Disconnect()
         {
+            _client.SendMessage(_client.JoinedChannels.FirstOrDefault(), "Disconnecting Interactive Seven!");
             _client.Disconnect();
         }
 
@@ -130,16 +135,17 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
+            OnConnected?.Invoke(sender,e);
         }
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
+            OnDisconnected?.Invoke(sender, e);
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            string message = "FF7 menu color control enabled!";
-            _client.SendMessage(e.Channel, message);
+            _client.SendMessage(e.Channel, "Interactive Seven is live!");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)

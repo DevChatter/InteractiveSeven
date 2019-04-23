@@ -167,6 +167,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NameBidding.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\NameBidding.Designer.cs">
+      <DependentUpon>NameBidding.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PartyMemberStats.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\NameBidding.resx">
+      <DependentUpon>NameBidding.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PartyMemberStats.resx">
       <DependentUpon>PartyMemberStats.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +205,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\InteractiveSeven.Core.Bidding.Naming.CharacterNameBid.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
