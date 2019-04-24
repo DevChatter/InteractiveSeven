@@ -4,6 +4,7 @@ using InteractiveSeven.Twitch;
 using InteractiveSeven.UI.Services;
 using InteractiveSeven.UI.Twitch;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,17 +16,22 @@ namespace InteractiveSeven.UI
     public partial class Form1 : Form
     {
         private readonly MenuColorAccessor _menuColorAccessor;
+        private readonly PartyStatAccessor _partyStatAccessor;
         private readonly ChatBot _chatBot;
         private readonly GamePolling _gamePolling;
+        public List<PartyStat> PartyStats { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
-            _chatBot = new ChatBot(_menuColorAccessor, new FormSync(this));
+            var memoryAccessor = new MemoryAccessor();
+            _menuColorAccessor = new MenuColorAccessor(memoryAccessor);
+            _partyStatAccessor = new PartyStatAccessor(memoryAccessor);
+            var formSync = new FormSync(this);
+            _chatBot = new ChatBot(_menuColorAccessor, formSync);
             _chatBot.OnConnected += ChatBot_OnConnected;
             _chatBot.OnDisconnected += ChatBot_OnDisconnected;
-            _gamePolling = new GamePolling(this);
+            _gamePolling = new GamePolling(this, formSync);
         }
 
         private void ChatBot_OnConnected(object sender, OnConnectedArgs args) => DisplayStatus(@"Connected");
@@ -113,6 +119,17 @@ namespace InteractiveSeven.UI
             };
 
             _menuColorAccessor.SetMenuColors(processName, menuColors);
+        }
+
+        internal void RefreshPartyStats()
+        {
+            string processName = ExeTextBox.Text;
+            if (string.IsNullOrWhiteSpace(processName))
+            {
+                return;
+            }
+
+            PartyStats = _partyStatAccessor.GetPartyStats(processName);
         }
 
         private string GetProcessNameFromFileName(string fileName)

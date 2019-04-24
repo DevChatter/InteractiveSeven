@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveSeven.Core
 {
     public static class LetterMapping
     {
-        private static readonly Dictionary<char,byte> Map = new Dictionary<char, byte>
+        private static readonly Dictionary<char,byte> CharToByteMap = new Dictionary<char, byte>
         {
             ['!'] = 1,
             ['"'] = 2,
@@ -141,17 +142,169 @@ namespace InteractiveSeven.Core
             ['¨'] = 140
         };
 
+        private static readonly Dictionary<byte, char> ByteToCharMap = new Dictionary<byte, char>
+        {
+            [1] = '!',
+            [2] = '"',
+            [3] = '#',
+            [4] = '$',
+            [5] = '%',
+            [6] = '&',
+            [8] = '(',
+            [9] = ')',
+            [10] = '*',
+            [11] = '+',
+            [12] = ',',
+            [13] = '-',
+            [14] = '.',
+            [15] = '/',
+            [16] = '0',
+            [17] = '1',
+            [18] = '2',
+            [19] = '3',
+            [20] = '4',
+            [21] = '5',
+            [22] = '6',
+            [23] = '7',
+            [24] = '8',
+            [25] = '9',
+            [26] = ':',
+            [27] = ';',
+            [28] = '<',
+            [29] = '=',
+            [30] = '>',
+            [31] = '?',
+            [32] = '@',
+            [33] = 'A',
+            [34] = 'B',
+            [35] = 'C',
+            [36] = 'D',
+            [37] = 'E',
+            [38] = 'F',
+            [39] = 'G',
+            [40] = 'H',
+            [41] = 'I',
+            [42] = 'J',
+            [43] = 'K',
+            [44] = 'L',
+            [45] = 'M',
+            [46] = 'N',
+            [47] = 'O',
+            [48] = 'P',
+            [49] = 'Q',
+            [50] = 'R',
+            [51] = 'S',
+            [52] = 'T',
+            [53] = 'U',
+            [54] = 'V',
+            [55] = 'W',
+            [56] = 'X',
+            [57] = 'Y',
+            [58] = 'Z',
+            [59] = '[',
+            [61] = ']',
+            [62] = '^',
+            [63] = '_',
+            [64] = '`',
+            [65] = 'a',
+            [66] = 'b',
+            [67] = 'c',
+            [68] = 'd',
+            [69] = 'e',
+            [70] = 'f',
+            [71] = 'g',
+            [72] = 'h',
+            [73] = 'i',
+            [74] = 'j',
+            [75] = 'k',
+            [76] = 'l',
+            [77] = 'm',
+            [78] = 'n',
+            [79] = 'o',
+            [80] = 'p',
+            [81] = 'q',
+            [82] = 'r',
+            [83] = 's',
+            [84] = 't',
+            [85] = 'u',
+            [86] = 'v',
+            [87] = 'w',
+            [88] = 'x',
+            [89] = 'y',
+            [90] = 'z',
+            [91] = '{',
+            [92] = '|',
+            [93] = '}',
+            [94] = '~',
+            [96] = 'Ä',
+            [97] = 'Á',
+            [98] = 'Ç',
+            [99] = 'É',
+            [100] = 'Ñ',
+            [101] = 'Ö',
+            [102] = 'Ü',
+            [103] = 'à',
+            [104] = 'á',
+            [105] = 'â',
+            [106] = 'ä',
+            [107] = 'ã',
+            [108] = 'å',
+            [109] = 'ç',
+            [110] = 'è',
+            [111] = 'é',
+            [112] = 'ê',
+            [113] = 'ë',
+            [114] = 'ì',
+            [115] = 'í',
+            [116] = 'î',
+            [117] = 'ï',
+            [118] = 'ñ',
+            [119] = 'ò',
+            [120] = 'ó',
+            [121] = 'ô',
+            [122] = 'ö',
+            [123] = 'õ',
+            [124] = 'ù',
+            [125] = 'ú',
+            [126] = 'û',
+            [127] = 'ü',
+            [128] = '¤',
+            [129] = 'º',
+            [130] = '¢',
+            [131] = '£',
+            [132] = 'ú',
+            [133] = 'ù',
+            [135] = '¸',
+            [140] = '¨'
+        };
+
+
+        public static string MapBytesToString(byte[] bytes)
+        {
+            var chars = new char[9];
+            for (int i = 0; i < 9; i++)
+            {
+                if (!ByteToCharMap.TryGetValue(bytes.ElementAtOrDefault(i), out chars[i]))
+                {
+                    break;
+                }
+            }
+            return new string(chars.TakeWhile(x => x != '\0').ToArray());
+            //return new string(bytes.Take(9).Select(c => ByteToCharMap[c]).ToArray());
+        }
+
         public static byte[] MapStringToBytes(string text)
         {
             var bytes = new byte[9];
             for (int i = 0; i < 9; i++)
             {
-                if (!Map.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
+                if (!CharToByteMap.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
                 {
                     break;
                 }
             }
-            return text.Take(9).Select(c => Map[c]).ToArray();
+            return bytes;
+            //return text.Take(9).Select(c => CharToByteMap[c]).ToArray();
         }
     }
 }

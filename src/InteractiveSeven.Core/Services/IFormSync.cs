@@ -4,5 +4,6 @@
     {
         void RefreshColors();
         string GetProcessName();
+        void RefreshPartyStats();
     }
 }

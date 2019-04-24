@@ -24,5 +24,13 @@ namespace InteractiveSeven.UI.Services
         {
             return _form1.GetProcessName();
         }
+
+        public void RefreshPartyStats()
+        {
+            _form1.Invoke((MethodInvoker)delegate {
+                // Running on the UI thread
+                _form1.RefreshPartyStats();
+            });
+        }
     }
 }
