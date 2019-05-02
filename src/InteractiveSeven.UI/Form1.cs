@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using InteractiveSeven.UI.ViewModels;
 using TwitchLib.Client.Events;
 using TwitchLib.Communication.Events;
 
@@ -19,11 +20,21 @@ namespace InteractiveSeven.UI
         private readonly PartyStatAccessor _partyStatAccessor;
         private readonly ChatBot _chatBot;
         private readonly GamePolling _gamePolling;
+        private readonly MainViewModel _mainViewModel;
+        private readonly MenuControlViewModel _menuControlViewModel;
         public List<PartyStat> PartyStats { get; set; }
 
         public Form1()
         {
             InitializeComponent();
+
+            _mainViewModel = new MainViewModel();
+            MainVmBinding.DataSource = _mainViewModel;
+            _menuControlViewModel = new MenuControlViewModel();
+            MenuControlVmBinding.DataSource = _menuControlViewModel;
+
+            SetMainDataBindings();
+            SetColorDataBindings();
             var memoryAccessor = new MemoryAccessor();
             _menuColorAccessor = new MenuColorAccessor(memoryAccessor);
             _partyStatAccessor = new PartyStatAccessor(memoryAccessor);
@@ -34,9 +45,40 @@ namespace InteractiveSeven.UI
             _gamePolling = new GamePolling(this, formSync);
         }
 
-        private void ChatBot_OnConnected(object sender, OnConnectedArgs args) => DisplayStatus(@"Connected");
+        private void SetMainDataBindings()
+        {
+            ExeTextBox.DataBindings.Add(
+                "Text", MainVmBinding, "ProcessName", true,
+                DataSourceUpdateMode.OnPropertyChanged);
 
-        private void ChatBot_OnDisconnected(object sender, OnDisconnectedEventArgs args) => DisplayStatus(@"Disconnected");
+            twitchConnectionLabel.DataBindings.Add(
+                "Text", MainVmBinding, "ConnectionStatus", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void SetColorDataBindings()
+        {
+            SetBinding(topLeftColorPicker, "TopLeftColor", "Color");
+            SetBinding(botLeftColorPicker, "BottomLeftColor", "Color");
+            SetBinding(topRightColorPicker, "TopRightColor", "Color");
+            SetBinding(botRightColorPicker, "BottomRightColor", "Color");
+
+            SetBinding(topLeftColorSwatch, "TopLeftColor", "BackColor");
+            SetBinding(botLeftColorSwatch, "BottomLeftColor", "BackColor");
+            SetBinding(topRightColorSwatch, "TopRightColor", "BackColor");
+            SetBinding(botRightColorSwatch, "BottomRightColor", "BackColor");
+
+            void SetBinding(Control ctrl, string dataMember, string propName) 
+                => ctrl.DataBindings.Add(
+                    propName, MenuControlVmBinding, dataMember, true,
+                    DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void ChatBot_OnConnected(object sender, OnConnectedArgs args) 
+            => DisplayStatus(@"Connected");
+
+        private void ChatBot_OnDisconnected(object sender, OnDisconnectedEventArgs args) 
+            => DisplayStatus(@"Disconnected");
 
         private void DisplayStatus(string status) =>
             Invoke((MethodInvoker) delegate
@@ -56,7 +98,7 @@ namespace InteractiveSeven.UI
             {
                 try
                 {
-                    ExeTextBox.Text = GetProcessNameFromFileName(openFileDialog1.FileName);
+                    _mainViewModel.ProcessName = GetProcessNameFromFileName(openFileDialog1.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -73,38 +115,20 @@ namespace InteractiveSeven.UI
 
         internal void RefreshColors()
         {
-            string processName = ExeTextBox.Text;
+            string processName = _mainViewModel.ProcessName;
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
             }
 
-            var currentColors = _menuColorAccessor.GetMenuColors(processName);
+            MenuColors currentColors = _menuColorAccessor.GetMenuColors(processName);
 
-            topLeftColorPicker.Color = Color.FromArgb(
-                currentColors.TopLeft.Red,
-                currentColors.TopLeft.Green,
-                currentColors.TopLeft.Blue);
-
-            botLeftColorPicker.Color = Color.FromArgb(
-                currentColors.BotLeft.Red,
-                currentColors.BotLeft.Green,
-                currentColors.BotLeft.Blue);
-
-            topRightColorPicker.Color = Color.FromArgb(
-                currentColors.TopRight.Red,
-                currentColors.TopRight.Green,
-                currentColors.TopRight.Blue);
-
-            botRightColorPicker.Color = Color.FromArgb(
-                currentColors.BotRight.Red,
-                currentColors.BotRight.Green,
-                currentColors.BotRight.Blue);
+            _menuControlViewModel.SetColors(currentColors);
         }
 
         private void SetColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = ExeTextBox.Text;
+            string processName = _mainViewModel.ProcessName;
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -112,10 +136,10 @@ namespace InteractiveSeven.UI
 
             var menuColors = new MenuColors
             {
-                TopLeft = new MenuCornerColor(topLeftColorPicker.Color),
-                TopRight = new MenuCornerColor(topRightColorPicker.Color),
-                BotLeft = new MenuCornerColor(botLeftColorPicker.Color),
-                BotRight = new MenuCornerColor(botRightColorPicker.Color)
+                TopLeft = topLeftColorPicker.Color,
+                TopRight = topRightColorPicker.Color,
+                BotLeft = botLeftColorPicker.Color,
+                BotRight = botRightColorPicker.Color
             };
 
             _menuColorAccessor.SetMenuColors(processName, menuColors);
@@ -123,7 +147,7 @@ namespace InteractiveSeven.UI
 
         internal void RefreshPartyStats()
         {
-            string processName = ExeTextBox.Text;
+            string processName = _mainViewModel.ProcessName;
             if (string.IsNullOrWhiteSpace(processName))
             {
                 return;
@@ -143,7 +167,7 @@ namespace InteractiveSeven.UI
 
         internal string GetProcessName()
         {
-            return ExeTextBox.Text;
+            return _mainViewModel.ProcessName;
         }
 
         private void TwitchConnectButton_Click(object sender, EventArgs e)

@@ -1,13 +1,14 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Drawing;
 using System.Linq;
-using System.Text.RegularExpressions;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
+using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 
@@ -17,14 +18,13 @@ namespace InteractiveSeven.Twitch
     {
         private readonly MenuColorAccessor _menuColorAccessor;
         private readonly IFormSync _formSync;
-        private readonly TwitchClient _client;
-        private readonly Regex _hexCodeRegex = new Regex("^#(?:[0-9a-fA-F]{6})$");
+        private readonly ITwitchClient _client;
 
         public ChatBot(MenuColorAccessor menuColorAccessor, IFormSync formSync)
         {
             _menuColorAccessor = menuColorAccessor;
             _formSync = formSync;
-            _client = new TwitchClient();
+            _client = new TwitchClient(); // TODO: Use DI
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -74,60 +74,27 @@ namespace InteractiveSeven.Twitch
 
             switch (args.Count)
             {
-                case 1 when _hexCodeRegex.IsMatch(args.Single()):
-                    MenuCornerColor hexColor = GetCornerColorFromHex(args.Single());
+                case 1:
+                    Color hexColor = args[0].ToColor();
                     menuColors.TopLeft = hexColor;
                     menuColors.TopRight = hexColor;
                     menuColors.BotLeft = hexColor;
                     menuColors.BotRight = hexColor;
                     break;
-                case 1 when Colors.IsValid(args.Single()):
-                    MenuCornerColor namedColor = GetCornerColorFromNamed(args.Single());
-                    menuColors.TopLeft = namedColor;
-                    menuColors.TopRight = namedColor;
-                    menuColors.BotLeft = namedColor;
-                    menuColors.BotRight = namedColor;
-                    break;
-                case 4 when args.All(x => _hexCodeRegex.IsMatch(x)):
-                    menuColors.TopLeft = GetCornerColorFromHex(args[0]);
-                    menuColors.TopRight = GetCornerColorFromHex(args[1]);
-                    menuColors.BotLeft = GetCornerColorFromHex(args[2]);
-                    menuColors.BotRight = GetCornerColorFromHex(args[3]);
-                    break;
-                case 4 when args.All(Colors.IsValid):
-                    menuColors.TopLeft = GetCornerColorFromNamed(args[0]);
-                    menuColors.TopRight = GetCornerColorFromNamed(args[1]);
-                    menuColors.BotLeft = GetCornerColorFromNamed(args[2]);
-                    menuColors.BotRight = GetCornerColorFromNamed(args[3]);
+                case 4:
+                    menuColors.TopLeft = args[0].ToColor();
+                    menuColors.TopRight = args[1].ToColor();
+                    menuColors.BotLeft = args[2].ToColor();
+                    menuColors.BotRight = args[3].ToColor();
                     break;
                 default:
+                    // Invalid case, do nothing.
                     return;
             }
 
             _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
             _formSync.RefreshColors();
         }
-
-        private static MenuCornerColor GetCornerColorFromHex(string color)
-        {
-            string blueHex = color.Substring(color.Length - 2, 2);
-            string greenHex = color.Substring(color.Length - 4, 2);
-            string redHex = color.Substring(color.Length - 6, 2);
-
-            int blue = int.Parse(blueHex, NumberStyles.HexNumber);
-            int green = int.Parse(greenHex, NumberStyles.HexNumber);
-            int red = int.Parse(redHex, NumberStyles.HexNumber);
-
-            return new MenuCornerColor((byte) blue, (byte) green, (byte) red);
-        }
-
-        private static MenuCornerColor GetCornerColorFromNamed(string colorName)
-        {
-            Colors color = Colors.ByName(colorName);
-
-            return new MenuCornerColor(color.Blue, color.Green, color.Red);
-        }
-
 
         private void Client_OnLog(object sender, OnLogArgs e)
         {

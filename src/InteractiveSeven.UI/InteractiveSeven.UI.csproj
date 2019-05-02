@@ -154,6 +154,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\GamePolling.cs" />
     <Compile Include="UserControls\DateStatus.cs">
       <SubType>UserControl</SubType>
@@ -183,6 +184,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FormSync.cs" />
     <Compile Include="Twitch\TwitchSettings.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MenuControlViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <EmbeddedResource Include="UserControls\DateStatus.resx">
       <DependentUpon>DateStatus.cs</DependentUpon>
     </EmbeddedResource>

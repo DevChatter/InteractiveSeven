@@ -25,19 +25,19 @@ namespace InteractiveSeven.Core.Memory
 
             return new MenuColors
             {
-                TopLeft = new MenuCornerColor(topLeftBuffer),
-                BotLeft = new MenuCornerColor(botLeftBuffer),
-                TopRight = new MenuCornerColor(topRightBuffer),
-                BotRight = new MenuCornerColor(botRightBuffer)
+                TopLeft = topLeftBuffer.ToColor(),
+                BotLeft = botLeftBuffer.ToColor(),
+                TopRight = topRightBuffer.ToColor(),
+                BotRight = botRightBuffer.ToColor(),
             };
         }
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsArray());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsArray());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsArray());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsBytes());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsBytes());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsBytes());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsBytes());
         }
 
     }

@@ -1,10 +1,12 @@
-﻿namespace InteractiveSeven.Core.Models
+﻿using System.Drawing;
+
+namespace InteractiveSeven.Core.Models
 {
     public class MenuColors
     {
-        public MenuCornerColor TopLeft { get; set; }
-        public MenuCornerColor BotLeft { get; set; }
-        public MenuCornerColor TopRight { get; set; }
-        public MenuCornerColor BotRight { get; set; }
+        public Color TopLeft { get; set; }
+        public Color BotLeft { get; set; }
+        public Color TopRight { get; set; }
+        public Color BotRight { get; set; }
     }
 }
