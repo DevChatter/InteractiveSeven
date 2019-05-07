@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace InteractiveSeven.UI.Twitch
+namespace InteractiveSeven.UI.Settings
 {
     public class TwitchSettings : ConfigurationSection
     {

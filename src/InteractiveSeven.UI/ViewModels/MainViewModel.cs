@@ -1,31 +1,33 @@
-﻿namespace InteractiveSeven.UI.ViewModels
+﻿using System.Reactive;
+using ReactiveUI;
+
+namespace InteractiveSeven.UI.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ReactiveObject
     {
+
+        public MainViewModel()
+        {
+            BrowseExeCmd = ReactiveCommand.Create(() => { });
+        }
+
         private string _processName = "ff7_en";
         public string ProcessName
         {
             get => _processName;
-            set
-            {
-                _processName = value;
-                NotifyPropertyChanged();
-            }
+            set => this.RaiseAndSetIfChanged(ref _processName, value);
         }
 
         private bool _isConnected = false;
         public bool IsConnected
         {
-            get => _isConnected;
-            set
-            {
-                _isConnected = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(ConnectionStatus));
-            }
+            set => this.RaiseAndSetIfChanged(ref _isConnected, value, "ConnectionStatus");
         }
 
         public string ConnectionStatus
-            => IsConnected ? "Connected" : "Disconnected";
+            => _isConnected ? "Connected" : "Disconnected";
+
+        public ReactiveCommand<Unit, Unit> BrowseExeCmd { get; }
+
     }
 }

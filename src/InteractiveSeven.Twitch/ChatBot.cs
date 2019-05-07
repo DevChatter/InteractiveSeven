@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,13 +17,11 @@ namespace InteractiveSeven.Twitch
     public class ChatBot
     {
         private readonly MenuColorAccessor _menuColorAccessor;
-        private readonly IFormSync _formSync;
         private readonly ITwitchClient _client;
 
-        public ChatBot(MenuColorAccessor menuColorAccessor, IFormSync formSync)
+        public ChatBot(MenuColorAccessor menuColorAccessor)
         {
             _menuColorAccessor = menuColorAccessor;
-            _formSync = formSync;
             _client = new TwitchClient(); // TODO: Use DI
 
             _client.OnLog += Client_OnLog;
@@ -92,8 +90,9 @@ namespace InteractiveSeven.Twitch
                     return;
             }
 
-            _menuColorAccessor.SetMenuColors(_formSync.GetProcessName(), menuColors);
-            _formSync.RefreshColors();
+            DomainEvents.Raise(new MenuColorChanging(menuColors));
+
+            _menuColorAccessor.SetMenuColors("ff7_en", menuColors);
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
