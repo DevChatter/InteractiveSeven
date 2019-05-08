@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.UI", "InteractiveSeven.UI\InteractiveSeven.UI.csproj", "{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Core", "InteractiveSeven.Core\InteractiveSeven.Core.csproj", "{AE410D04-A553-45D1-B631-7941228EE624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Core", "InteractiveSeven.Core\InteractiveSeven.Core.csproj", "{AE410D04-A553-45D1-B631-7941228EE624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Twitch", "InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj", "{BDB4E559-28A8-4701-BE84-7C67375D35C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Twitch", "InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj", "{BDB4E559-28A8-4701-BE84-7C67375D35C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.Sqlite", "InteractiveSeven.Sqlite\InteractiveSeven.Sqlite.csproj", "{38FF42B4-6F9F-49E0-A380-965AB9027903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDB4E559-28A8-4701-BE84-7C67375D35C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FF42B4-6F9F-49E0-A380-965AB9027903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FF42B4-6F9F-49E0-A380-965AB9027903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FF42B4-6F9F-49E0-A380-965AB9027903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FF42B4-6F9F-49E0-A380-965AB9027903}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
