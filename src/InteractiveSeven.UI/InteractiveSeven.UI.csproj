@@ -198,8 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\DomainEventDispatcher.cs" />
-    <Compile Include="Settings\InteractionSettings.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Settings\SettingsStore.cs" />
     <Compile Include="UserControls\DateStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>

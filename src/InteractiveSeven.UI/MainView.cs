@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.UI.Settings;
 using InteractiveSeven.UI.ViewModels;
@@ -16,17 +17,20 @@ namespace InteractiveSeven.UI
     public partial class MainView : Form, IViewFor<MainViewModel>
     {
         private readonly PartyStatAccessor _partyStatAccessor;
+        private readonly ISettingsStore _settingsStore;
         private readonly ChatBot _chatBot;
         public List<PartyStat> PartyStats { get; set; }
 
         public MainView(PartyStatAccessor partyStatAccessor,
             MainViewModel viewModel,
+            ISettingsStore settingsStore,
             ChatBot chatBot)
         {
             InitializeComponent();
             SetDataBindings();
 
             _partyStatAccessor = partyStatAccessor;
+            _settingsStore = settingsStore;
             ViewModel = viewModel;
             _chatBot = chatBot;
 
@@ -40,9 +44,7 @@ namespace InteractiveSeven.UI
             {
                 d(this.Bind(ViewModel, vm => vm.ProcessName, v => v.ExeTextBox.Text));
                 d(this.Bind(ViewModel, x => x.ConnectionStatus, x => x.twitchConnectionLabel.Text));
-                d(this.BindCommand(ViewModel, x => x.BrowseExeCmd, x => x.ExeBrowse));
             });
-
         }
 
         private void ChatBot_OnConnected(object sender, OnConnectedArgs args)
@@ -74,6 +76,7 @@ namespace InteractiveSeven.UI
                 }
             }
         }
+
         internal void RefreshPartyStats()
         {
             string processName = ViewModel.ProcessName;
@@ -130,5 +133,40 @@ namespace InteractiveSeven.UI
         }
 
         public MainViewModel ViewModel { get; set; }
+
+        private void FileSaveMenuItem_Click(object sender, EventArgs e)
+        {
+            DoIfConfirmed("Are you sure you want to overwrite the current settings?",
+                "Confirm Settings Overwrite",
+                SaveSettings);
+        }
+
+        private void SaveSettings() => _settingsStore.SaveSettings();
+
+        private void FileExitMenuItem_Click(object sender, EventArgs e)
+        {
+            DoIfConfirmed("Are you sure you wish to exit?",
+                "Confirm Exit",
+                ExitApp);
+        }
+
+        private void ExitApp() => Application.Exit();
+
+        private static void DoIfConfirmed(string text, string caption,
+            Action ifYesAction = null, Action ifNoAction = null)
+        {
+            var confirmResult = MessageBox.Show(text,
+                caption,
+                MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                ifYesAction?.Invoke();
+            }
+            else
+            {
+                ifNoAction?.Invoke();
+            }
+        }
+
     }
 }

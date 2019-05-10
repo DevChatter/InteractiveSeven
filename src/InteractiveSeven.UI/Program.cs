@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using InteractiveSeven.UI.Settings;
 using Newtonsoft.Json;
 
 namespace InteractiveSeven.UI
@@ -48,17 +49,7 @@ namespace InteractiveSeven.UI
 
         private static void InitializeSettings()
         {
-            const string settingsFileName = "appsettings.json";
-            if (File.Exists(settingsFileName))
-            {
-                string json = File.ReadAllText(settingsFileName);
-                ApplicationSettings.LoadFromJson(json);
-            }
-            else
-            {
-                string text = JsonConvert.SerializeObject(ApplicationSettings.Instance);
-                File.WriteAllText(settingsFileName, text);
-            }
+            new SettingsStore().EnsureExists();
         }
     }
 }

@@ -1,16 +1,10 @@
 ﻿using InteractiveSeven.Core.Settings;
 using ReactiveUI;
-using System.Reactive;
 
 namespace InteractiveSeven.UI.ViewModels
 {
     public class MainViewModel : ReactiveObject
     {
-        public MainViewModel()
-        {
-            BrowseExeCmd = ReactiveCommand.Create(() => { });
-        }
-
         public string ProcessName
         {
             get => ApplicationSettings.Instance.ProcessName;
@@ -32,7 +26,5 @@ namespace InteractiveSeven.UI.ViewModels
 
         public string ConnectionStatus
             => _isConnected ? "Connected" : "Disconnected";
-
-        public ReactiveCommand<Unit, Unit> BrowseExeCmd { get; }
     }
 }
