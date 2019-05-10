@@ -19,6 +19,9 @@ namespace InteractiveSeven.UI.UserControls
 
             ViewModel = new MenuControlViewModel();
 
+            this.Bind(ViewModel, x => x.EnableChatControl, x => x.enableMenuCheckBox.Checked);
+            this.Bind(ViewModel, x => x.BitCost, x => x.bitCostTextBox.Text);
+
             this.Bind(ViewModel, x => x.TopLeftColor, x => x.topLeftColorPicker.Color);
             this.Bind(ViewModel, x => x.BottomLeftColor, x => x.botLeftColorPicker.Color);
             this.Bind(ViewModel, x => x.TopRightColor, x => x.topRightColorPicker.Color);

@@ -8,15 +8,10 @@ namespace InteractiveSeven.UI.ViewModels
         public string ProcessName
         {
             get => ApplicationSettings.Instance.ProcessName;
-            set
-            {
-                if (ApplicationSettings.Instance.ProcessName == value) return;
-
-                this.RaisePropertyChanging();
-                ApplicationSettings.Instance.ProcessName = value;
-                this.RaisePropertyChanged();
-            }
+            set => this.RaiseAndSetPropertyIfChanged(value,
+                s => s.ProcessName, (s,v) => s.ProcessName = v);
         }
+
 
         private bool _isConnected = false;
         public bool IsConnected

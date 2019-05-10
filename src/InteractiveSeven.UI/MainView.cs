@@ -116,11 +116,6 @@ namespace InteractiveSeven.UI
             _chatBot.Disconnect();
         }
 
-        private void AllowChatMenuControl_CheckedChanged(object sender, EventArgs e)
-        {
-            _chatBot.IsMenuCommandAllowed = allowChatMenuControl.Checked;
-        }
-
         MainViewModel IViewFor<MainViewModel>.ViewModel
         {
             get => ViewModel;

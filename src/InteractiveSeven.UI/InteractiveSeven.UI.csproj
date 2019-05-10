@@ -198,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\DomainEventDispatcher.cs" />
+    <Compile Include="Helpers\MessageBoxes.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Settings\SettingsStore.cs" />
     <Compile Include="UserControls\DateStatus.cs">
@@ -235,6 +236,7 @@
     <Compile Include="Settings\TwitchSettings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuControlViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelExtensions.cs" />
     <EmbeddedResource Include="UserControls\DateStatus.resx">
       <DependentUpon>DateStatus.cs</DependentUpon>
     </EmbeddedResource>

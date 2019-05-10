@@ -42,16 +42,21 @@
             this.topRightColorPicker = new Cyotek.Windows.Forms.ColorEditor();
             this.topLeftGroup = new System.Windows.Forms.GroupBox();
             this.topLeftColorPicker = new Cyotek.Windows.Forms.ColorEditor();
+            this.settingsBox = new System.Windows.Forms.GroupBox();
+            this.bitCostTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.enableMenuCheckBox = new System.Windows.Forms.CheckBox();
             this.bottomRightGroup.SuspendLayout();
             this.botLeftGroup.SuspendLayout();
             this.topRightGroup.SuspendLayout();
             this.topLeftGroup.SuspendLayout();
+            this.settingsBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // botRightColorSwatch
             // 
             this.botRightColorSwatch.BackColor = System.Drawing.Color.Black;
-            this.botRightColorSwatch.Location = new System.Drawing.Point(230, 236);
+            this.botRightColorSwatch.Location = new System.Drawing.Point(231, 285);
             this.botRightColorSwatch.Name = "botRightColorSwatch";
             this.botRightColorSwatch.Size = new System.Drawing.Size(58, 33);
             this.botRightColorSwatch.TabIndex = 26;
@@ -59,7 +64,7 @@
             // botLeftColorSwatch
             // 
             this.botLeftColorSwatch.BackColor = System.Drawing.Color.Black;
-            this.botLeftColorSwatch.Location = new System.Drawing.Point(164, 236);
+            this.botLeftColorSwatch.Location = new System.Drawing.Point(165, 285);
             this.botLeftColorSwatch.Name = "botLeftColorSwatch";
             this.botLeftColorSwatch.Size = new System.Drawing.Size(58, 33);
             this.botLeftColorSwatch.TabIndex = 27;
@@ -67,7 +72,7 @@
             // topRightColorSwatch
             // 
             this.topRightColorSwatch.BackColor = System.Drawing.Color.Black;
-            this.topRightColorSwatch.Location = new System.Drawing.Point(230, 197);
+            this.topRightColorSwatch.Location = new System.Drawing.Point(231, 246);
             this.topRightColorSwatch.Name = "topRightColorSwatch";
             this.topRightColorSwatch.Size = new System.Drawing.Size(58, 33);
             this.topRightColorSwatch.TabIndex = 28;
@@ -75,14 +80,14 @@
             // topLeftColorSwatch
             // 
             this.topLeftColorSwatch.BackColor = System.Drawing.Color.Black;
-            this.topLeftColorSwatch.Location = new System.Drawing.Point(164, 197);
+            this.topLeftColorSwatch.Location = new System.Drawing.Point(165, 246);
             this.topLeftColorSwatch.Name = "topLeftColorSwatch";
             this.topLeftColorSwatch.Size = new System.Drawing.Size(58, 33);
             this.topLeftColorSwatch.TabIndex = 25;
             // 
             // SetColorsButton
             // 
-            this.SetColorsButton.Location = new System.Drawing.Point(248, 481);
+            this.SetColorsButton.Location = new System.Drawing.Point(249, 530);
             this.SetColorsButton.Name = "SetColorsButton";
             this.SetColorsButton.Size = new System.Drawing.Size(195, 60);
             this.SetColorsButton.TabIndex = 21;
@@ -93,7 +98,7 @@
             // bottomRightGroup
             // 
             this.bottomRightGroup.Controls.Add(this.botRightColorPicker);
-            this.bottomRightGroup.Location = new System.Drawing.Point(242, 275);
+            this.bottomRightGroup.Location = new System.Drawing.Point(243, 324);
             this.bottomRightGroup.Name = "bottomRightGroup";
             this.bottomRightGroup.Size = new System.Drawing.Size(207, 187);
             this.bottomRightGroup.TabIndex = 24;
@@ -102,7 +107,7 @@
             // 
             // botRightColorPicker
             // 
-            this.botRightColorPicker.Location = new System.Drawing.Point(6, 19);
+            this.botRightColorPicker.Location = new System.Drawing.Point(1, 17);
             this.botRightColorPicker.Name = "botRightColorPicker";
             this.botRightColorPicker.ShowAlphaChannel = false;
             this.botRightColorPicker.ShowColorSpaceLabels = false;
@@ -111,7 +116,7 @@
             // 
             // RefreshColorsButton
             // 
-            this.RefreshColorsButton.Location = new System.Drawing.Point(9, 481);
+            this.RefreshColorsButton.Location = new System.Drawing.Point(10, 530);
             this.RefreshColorsButton.Name = "RefreshColorsButton";
             this.RefreshColorsButton.Size = new System.Drawing.Size(191, 60);
             this.RefreshColorsButton.TabIndex = 20;
@@ -122,7 +127,7 @@
             // botLeftGroup
             // 
             this.botLeftGroup.Controls.Add(this.botLeftColorPicker);
-            this.botLeftGroup.Location = new System.Drawing.Point(3, 275);
+            this.botLeftGroup.Location = new System.Drawing.Point(4, 324);
             this.botLeftGroup.Name = "botLeftGroup";
             this.botLeftGroup.Size = new System.Drawing.Size(207, 187);
             this.botLeftGroup.TabIndex = 23;
@@ -131,7 +136,7 @@
             // 
             // botLeftColorPicker
             // 
-            this.botLeftColorPicker.Location = new System.Drawing.Point(6, 19);
+            this.botLeftColorPicker.Location = new System.Drawing.Point(1, 17);
             this.botLeftColorPicker.Name = "botLeftColorPicker";
             this.botLeftColorPicker.ShowAlphaChannel = false;
             this.botLeftColorPicker.ShowColorSpaceLabels = false;
@@ -141,7 +146,7 @@
             // topRightGroup
             // 
             this.topRightGroup.Controls.Add(this.topRightColorPicker);
-            this.topRightGroup.Location = new System.Drawing.Point(242, 3);
+            this.topRightGroup.Location = new System.Drawing.Point(243, 52);
             this.topRightGroup.Name = "topRightGroup";
             this.topRightGroup.Size = new System.Drawing.Size(207, 187);
             this.topRightGroup.TabIndex = 22;
@@ -150,7 +155,7 @@
             // 
             // topRightColorPicker
             // 
-            this.topRightColorPicker.Location = new System.Drawing.Point(6, 19);
+            this.topRightColorPicker.Location = new System.Drawing.Point(1, 17);
             this.topRightColorPicker.Name = "topRightColorPicker";
             this.topRightColorPicker.ShowAlphaChannel = false;
             this.topRightColorPicker.ShowColorSpaceLabels = false;
@@ -160,7 +165,7 @@
             // topLeftGroup
             // 
             this.topLeftGroup.Controls.Add(this.topLeftColorPicker);
-            this.topLeftGroup.Location = new System.Drawing.Point(3, 3);
+            this.topLeftGroup.Location = new System.Drawing.Point(4, 52);
             this.topLeftGroup.Name = "topLeftGroup";
             this.topLeftGroup.Size = new System.Drawing.Size(207, 187);
             this.topLeftGroup.TabIndex = 19;
@@ -169,17 +174,56 @@
             // 
             // topLeftColorPicker
             // 
-            this.topLeftColorPicker.Location = new System.Drawing.Point(6, 19);
+            this.topLeftColorPicker.Location = new System.Drawing.Point(1, 17);
             this.topLeftColorPicker.Name = "topLeftColorPicker";
             this.topLeftColorPicker.ShowAlphaChannel = false;
             this.topLeftColorPicker.ShowColorSpaceLabels = false;
             this.topLeftColorPicker.Size = new System.Drawing.Size(191, 168);
             this.topLeftColorPicker.TabIndex = 12;
             // 
+            // settingsBox
+            // 
+            this.settingsBox.Controls.Add(this.bitCostTextBox);
+            this.settingsBox.Controls.Add(this.label1);
+            this.settingsBox.Controls.Add(this.enableMenuCheckBox);
+            this.settingsBox.Location = new System.Drawing.Point(5, 3);
+            this.settingsBox.Name = "settingsBox";
+            this.settingsBox.Size = new System.Drawing.Size(445, 43);
+            this.settingsBox.TabIndex = 29;
+            this.settingsBox.TabStop = false;
+            this.settingsBox.Text = "Settings";
+            // 
+            // bitCostTextBox
+            // 
+            this.bitCostTextBox.Location = new System.Drawing.Point(339, 13);
+            this.bitCostTextBox.Name = "bitCostTextBox";
+            this.bitCostTextBox.Size = new System.Drawing.Size(100, 20);
+            this.bitCostTextBox.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(270, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Min Bit Cost";
+            // 
+            // enableMenuCheckBox
+            // 
+            this.enableMenuCheckBox.AutoSize = true;
+            this.enableMenuCheckBox.Location = new System.Drawing.Point(3, 16);
+            this.enableMenuCheckBox.Name = "enableMenuCheckBox";
+            this.enableMenuCheckBox.Size = new System.Drawing.Size(125, 17);
+            this.enableMenuCheckBox.TabIndex = 0;
+            this.enableMenuCheckBox.Text = "Enable Menu Control";
+            this.enableMenuCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MenuColorControlTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.settingsBox);
             this.Controls.Add(this.botRightColorSwatch);
             this.Controls.Add(this.botLeftColorSwatch);
             this.Controls.Add(this.topRightColorSwatch);
@@ -191,11 +235,13 @@
             this.Controls.Add(this.topRightGroup);
             this.Controls.Add(this.topLeftGroup);
             this.Name = "MenuColorControlTab";
-            this.Size = new System.Drawing.Size(455, 547);
+            this.Size = new System.Drawing.Size(455, 601);
             this.bottomRightGroup.ResumeLayout(false);
             this.botLeftGroup.ResumeLayout(false);
             this.topRightGroup.ResumeLayout(false);
             this.topLeftGroup.ResumeLayout(false);
+            this.settingsBox.ResumeLayout(false);
+            this.settingsBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -216,5 +262,9 @@
         private Cyotek.Windows.Forms.ColorEditor topRightColorPicker;
         private System.Windows.Forms.GroupBox topLeftGroup;
         private Cyotek.Windows.Forms.ColorEditor topLeftColorPicker;
+        private System.Windows.Forms.GroupBox settingsBox;
+        private System.Windows.Forms.CheckBox enableMenuCheckBox;
+        private System.Windows.Forms.TextBox bitCostTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
 using ReactiveUI;
 using System.Drawing;
 using System.Reactive;
@@ -8,6 +9,20 @@ namespace InteractiveSeven.UI.ViewModels
 {
     public class MenuControlViewModel : ReactiveObject
     {
+        public bool EnableChatControl
+        {
+            get => ApplicationSettings.Instance.MenuSettings.Enabled;
+            set => this.RaiseAndSetPropertyIfChanged(value,
+                (s) => s.MenuSettings.Enabled, (s,v) => s.MenuSettings.Enabled = v);
+        }
+
+        public int BitCost
+        {
+            get => ApplicationSettings.Instance.MenuSettings.BitCost;
+            set => this.RaiseAndSetPropertyIfChanged(value,
+                s => s.MenuSettings.BitCost, (s,v) => s.MenuSettings.BitCost = v);
+        }
+
         private Color _topLeftColor = Color.FromArgb(0, 88, 176);
         public Color TopLeftColor
         {

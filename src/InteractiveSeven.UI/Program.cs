@@ -1,13 +1,10 @@
 ﻿using Autofac;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch;
+using InteractiveSeven.UI.Settings;
 using System;
-using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using InteractiveSeven.UI.Settings;
-using Newtonsoft.Json;
 
 namespace InteractiveSeven.UI
 {
