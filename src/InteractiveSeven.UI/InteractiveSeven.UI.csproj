@@ -41,71 +41,8 @@
     <Reference Include="Cyotek.Windows.Forms.ColorPicker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
       <HintPath>..\packages\Cyotek.Windows.Forms.ColorPicker.1.7.2\lib\net35\Cyotek.Windows.Forms.ColorPicker.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="DynamicData, Version=6.9.0.2586, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.9.0.2586\lib\net46\DynamicData.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.3.2.1\lib\net461\FluentMigrator.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Abstractions, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Abstractions.3.2.1\lib\net461\FluentMigrator.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Extensions.Oracle, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Extensions.Oracle.3.2.1\lib\net461\FluentMigrator.Extensions.Oracle.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Extensions.SqlAnywhere, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Extensions.SqlAnywhere.3.2.1\lib\net461\FluentMigrator.Extensions.SqlAnywhere.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Extensions.SqlServer, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Extensions.SqlServer.3.2.1\lib\net461\FluentMigrator.Extensions.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.3.2.1\lib\net461\FluentMigrator.Runner.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Core, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Core.3.2.1\lib\net461\FluentMigrator.Runner.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Db2, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Db2.3.2.1\lib\net461\FluentMigrator.Runner.Db2.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Firebird, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Firebird.3.2.1\lib\net461\FluentMigrator.Runner.Firebird.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Hana, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Hana.3.2.1\lib\net461\FluentMigrator.Runner.Hana.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Jet, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Jet.3.2.1\lib\net461\FluentMigrator.Runner.Jet.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.MySql, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.MySql.3.2.1\lib\net461\FluentMigrator.Runner.MySql.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Oracle, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Oracle.3.2.1\lib\net461\FluentMigrator.Runner.Oracle.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Postgres, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Postgres.3.2.1\lib\net461\FluentMigrator.Runner.Postgres.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.Redshift, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.Redshift.3.2.1\lib\net461\FluentMigrator.Runner.Redshift.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.SqlAnywhere, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.SqlAnywhere.3.2.1\lib\net461\FluentMigrator.Runner.SqlAnywhere.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.SQLite, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.SQLite.3.2.1\lib\net461\FluentMigrator.Runner.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.SqlServer, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.SqlServer.3.2.1\lib\net461\FluentMigrator.Runner.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner.SqlServerCe, Version=3.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.SqlServerCe.3.2.1\lib\net461\FluentMigrator.Runner.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Sqlite, Version=2.2.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Data.Sqlite.Core.2.2.4\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
@@ -128,8 +65,8 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -147,18 +84,6 @@
     </Reference>
     <Reference Include="Splat, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.7.0.8\lib\net461\Splat.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_green, Version=1.1.12.351, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.12\lib\net45\SQLitePCLRaw.batteries_green.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2, Version=1.1.12.351, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.12\lib\net45\SQLitePCLRaw.batteries_v2.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.core, Version=1.1.12.351, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.core.1.1.12\lib\net45\SQLitePCLRaw.core.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.provider.e_sqlite3, Version=1.1.12.351, Culture=neutral, PublicKeyToken=9c301db686d0bd12, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCLRaw.provider.e_sqlite3.net45.1.1.12\lib\net45\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -273,7 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\DomainEventDispatcher.cs" />
-    <Compile Include="Migrations\AddSettingsTable.cs" />
     <Compile Include="Settings\InteractionSettings.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\DateStatus.cs">
@@ -311,7 +235,6 @@
     <Compile Include="Settings\TwitchSettings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuControlViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <EmbeddedResource Include="UserControls\DateStatus.resx">
       <DependentUpon>DateStatus.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,9 +259,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="InteractionSettings.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\InteractiveSeven.Core.Bidding.Naming.CharacterNameBid.datasource" />
     <None Include="Properties\Settings.settings">
@@ -358,10 +278,6 @@
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj">
       <Project>{ae410d04-a553-45d1-b631-7941228ee624}</Project>
       <Name>InteractiveSeven.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InteractiveSeven.Sqlite\InteractiveSeven.Sqlite.csproj">
-      <Project>{38FF42B4-6F9F-49E0-A380-965AB9027903}</Project>
-      <Name>InteractiveSeven.Sqlite</Name>
     </ProjectReference>
     <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj">
       <Project>{bdb4e559-28a8-4701-be84-7c67375d35c8}</Project>

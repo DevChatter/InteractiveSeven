@@ -1,13 +1,13 @@
 ﻿using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch;
+using InteractiveSeven.UI.Settings;
 using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using InteractiveSeven.UI.Settings;
 using TwitchLib.Client.Events;
 using TwitchLib.Communication.Events;
 
@@ -23,13 +23,12 @@ namespace InteractiveSeven.UI
             MainViewModel viewModel,
             ChatBot chatBot)
         {
+            InitializeComponent();
+            SetDataBindings();
+
             _partyStatAccessor = partyStatAccessor;
             ViewModel = viewModel;
             _chatBot = chatBot;
-
-            InitializeComponent();
-
-            SetDataBindings();
 
             _chatBot.OnConnected += ChatBot_OnConnected;
             _chatBot.OnDisconnected += ChatBot_OnDisconnected;
@@ -39,7 +38,7 @@ namespace InteractiveSeven.UI
         {
             this.WhenActivated(d =>
             {
-                d(this.Bind(ViewModel, x => x.ProcessName, x => x.ExeTextBox.Text));
+                d(this.Bind(ViewModel, vm => vm.ProcessName, v => v.ExeTextBox.Text));
                 d(this.Bind(ViewModel, x => x.ConnectionStatus, x => x.twitchConnectionLabel.Text));
                 d(this.BindCommand(ViewModel, x => x.BrowseExeCmd, x => x.ExeBrowse));
             });
@@ -126,7 +125,7 @@ namespace InteractiveSeven.UI
 
         object IViewFor.ViewModel
         {
-            get => null;
+            get => ViewModel;
             set => ViewModel = (MainViewModel)value;
         }
 

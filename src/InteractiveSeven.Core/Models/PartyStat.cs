@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InteractiveSeven.Core.Models
+﻿namespace InteractiveSeven.Core.Models
 {
     public class PartyStat
     {
