@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch;
+using InteractiveSeven.UI.Helpers;
 using InteractiveSeven.UI.Settings;
 using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
@@ -136,7 +137,7 @@ namespace InteractiveSeven.UI
 
         private void FileSaveMenuItem_Click(object sender, EventArgs e)
         {
-            DoIfConfirmed("Are you sure you want to overwrite the current settings?",
+            MessageBoxes.DoIfConfirmed("Are you sure you want to overwrite the current settings?",
                 "Confirm Settings Overwrite",
                 SaveSettings);
         }
@@ -145,28 +146,11 @@ namespace InteractiveSeven.UI
 
         private void FileExitMenuItem_Click(object sender, EventArgs e)
         {
-            DoIfConfirmed("Are you sure you wish to exit?",
+            MessageBoxes.DoIfConfirmed("Are you sure you wish to exit?",
                 "Confirm Exit",
                 ExitApp);
         }
 
         private void ExitApp() => Application.Exit();
-
-        private static void DoIfConfirmed(string text, string caption,
-            Action ifYesAction = null, Action ifNoAction = null)
-        {
-            var confirmResult = MessageBox.Show(text,
-                caption,
-                MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.Yes)
-            {
-                ifYesAction?.Invoke();
-            }
-            else
-            {
-                ifNoAction?.Invoke();
-            }
-        }
-
     }
 }
