@@ -1,56 +1,57 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Twitch.Model;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using TwitchLib.Client.Interfaces;
-using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public class MenuCommand : BaseCommand
     {
-        private readonly MenuColorAccessor _menuColorAccessor;
+        private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _twitchClient;
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(MenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
+        public MenuCommand(IMenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
             : base(new []{ "Menu", "MenuColor", "Window", "Windows" })
         {
             _menuColorAccessor = menuColorAccessor;
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(ChatCommand chatCommand)
+        public override void Execute(CommandData commandData)
         {
             if (!MenuSettings.Enabled) return;
-            if (chatCommand.ChatMessage.Bits < MenuSettings.BitCost)
+            if (commandData.Bits < MenuSettings.BitCost)
             {
-                var message = $"Sorry, '!{chatCommand.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
-                _twitchClient.SendMessage(chatCommand.ChatMessage.Channel, message);
+                var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
+                _twitchClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
-            List<string> args = chatCommand.ArgumentsAsList;
+            List<string> colorArgs = commandData.Arguments.Where(arg => arg.IsColor()).ToList();
             var menuColors = new MenuColors();
 
-            switch (args.Count)
+            switch (colorArgs.Count)
             {
                 case 1:
-                    Color hexColor = args[0].ToColor();
+                    Color hexColor = colorArgs[0].ToColor();
                     menuColors.TopLeft = hexColor;
                     menuColors.TopRight = hexColor;
                     menuColors.BotLeft = hexColor;
                     menuColors.BotRight = hexColor;
                     break;
                 case 4:
-                    menuColors.TopLeft = args[0].ToColor();
-                    menuColors.TopRight = args[1].ToColor();
-                    menuColors.BotLeft = args[2].ToColor();
-                    menuColors.BotRight = args[3].ToColor();
+                    menuColors.TopLeft = colorArgs[0].ToColor();
+                    menuColors.TopRight = colorArgs[1].ToColor();
+                    menuColors.BotLeft = colorArgs[2].ToColor();
+                    menuColors.BotRight = colorArgs[3].ToColor();
                     break;
                 default:
                     // Invalid case, do nothing.

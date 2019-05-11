@@ -2,7 +2,7 @@
 
 namespace InteractiveSeven.Core.Memory
 {
-    public class MenuColorAccessor
+    public class MenuColorAccessor : IMenuColorAccessor
     {
         private readonly IMemoryAccessor _memoryAccessor;
 

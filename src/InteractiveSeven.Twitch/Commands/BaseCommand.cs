@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using InteractiveSeven.Core;
-using TwitchLib.Client.Models;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Twitch.Model;
+using System.Linq;
 
 namespace InteractiveSeven.Twitch.Commands
 {
@@ -16,6 +16,6 @@ namespace InteractiveSeven.Twitch.Commands
         public virtual bool ShouldExecute(string commandWord)
             => _commandWords.Any(word => word.EqualsIns(commandWord));
 
-        public abstract void Execute(ChatCommand chatCommand);
+        public abstract void Execute(CommandData commandData);
     }
 }

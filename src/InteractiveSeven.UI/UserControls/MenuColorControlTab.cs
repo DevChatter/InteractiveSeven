@@ -9,15 +9,21 @@ namespace InteractiveSeven.UI.UserControls
 {
     public partial class MenuColorControlTab : ReactiveUserControl<MenuControlViewModel>
     {
-        private readonly MenuColorAccessor _menuColorAccessor;
+        private readonly IMenuColorAccessor _menuColorAccessor;
 
+        // TODO: DI this UserControl in the View to avoid this.
         public MenuColorControlTab()
+            : this(new MenuColorAccessor(new MemoryAccessor()), new MenuControlViewModel())
+        {
+        }
+
+        public MenuColorControlTab(IMenuColorAccessor menuColorAccessor,
+            MenuControlViewModel viewModel)
         {
             InitializeComponent();
 
-            _menuColorAccessor = new MenuColorAccessor(new MemoryAccessor());
-
-            ViewModel = new MenuControlViewModel();
+            _menuColorAccessor = menuColorAccessor;
+            ViewModel = viewModel;
 
             this.Bind(ViewModel, x => x.EnableChatControl, x => x.enableMenuCheckBox.Checked);
             this.Bind(ViewModel, x => x.BitCost, x => x.bitCostTextBox.Text);

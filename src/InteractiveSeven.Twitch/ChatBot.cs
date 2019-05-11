@@ -3,6 +3,7 @@ using InteractiveSeven.Twitch.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -15,7 +16,7 @@ namespace InteractiveSeven.Twitch
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
 
-        public ChatBot(MenuColorAccessor menuColorAccessor,
+        public ChatBot(IMenuColorAccessor menuColorAccessor,
             ITwitchClient twitchClient, IList<ITwitchCommand> commands)
         {
             _client = twitchClient;
@@ -50,7 +51,7 @@ namespace InteractiveSeven.Twitch
         {
             _commands
                 .SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                ?.Execute(e.Command);
+                ?.Execute(CommandData.FromChatCommand(e.Command));
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
