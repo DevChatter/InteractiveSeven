@@ -16,6 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _twitchClient;
 
+        private string ProcessName => ApplicationSettings.Instance.ProcessName;
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
         public MenuCommand(IMenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
@@ -60,7 +61,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             DomainEvents.Raise(new MenuColorChanging(menuColors));
 
-            _menuColorAccessor.SetMenuColors("ff7_en", menuColors);
+            _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
         }
     }
 }

@@ -8,10 +8,7 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly string[] _commandWords;
 
-        protected BaseCommand(string[] commandWords)
-        {
-            _commandWords = commandWords;
-        }
+        protected BaseCommand(string[] commandWords) => _commandWords = commandWords;
 
         public virtual bool ShouldExecute(string commandWord)
             => _commandWords.Any(word => word.EqualsIns(commandWord));

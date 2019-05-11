@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
 using ReactiveUI.Winforms;
@@ -10,6 +11,7 @@ namespace InteractiveSeven.UI.UserControls
     public partial class MenuColorControlTab : ReactiveUserControl<MenuControlViewModel>
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
+        private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
         // TODO: DI this UserControl in the View to avoid this.
         public MenuColorControlTab()
@@ -41,13 +43,12 @@ namespace InteractiveSeven.UI.UserControls
 
         internal void RefreshColors()
         {
-            string processName = "ff7_en";
-            if (string.IsNullOrWhiteSpace(processName))
+            if (string.IsNullOrWhiteSpace(ProcessName))
             {
                 return;
             }
 
-            MenuColors currentColors = _menuColorAccessor.GetMenuColors(processName);
+            MenuColors currentColors = _menuColorAccessor.GetMenuColors(ProcessName);
 
             ViewModel.SetColors(currentColors);
         }
@@ -59,8 +60,7 @@ namespace InteractiveSeven.UI.UserControls
 
         private void SetColorsButton_Click(object sender, EventArgs e)
         {
-            string processName = "ff7_en";
-            if (string.IsNullOrWhiteSpace(processName))
+            if (string.IsNullOrWhiteSpace(ProcessName))
             {
                 return;
             }
@@ -73,7 +73,7 @@ namespace InteractiveSeven.UI.UserControls
                 BotRight = botRightColorPicker.Color
             };
 
-            _menuColorAccessor.SetMenuColors(processName, menuColors);
+            _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
         }
     }
 }
