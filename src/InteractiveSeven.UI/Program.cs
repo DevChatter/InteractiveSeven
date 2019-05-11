@@ -5,6 +5,8 @@ using InteractiveSeven.UI.Settings;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using TwitchLib.Client;
+using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.UI
 {
@@ -29,18 +31,21 @@ namespace InteractiveSeven.UI
         {
             var builder = new ContainerBuilder();
 
-            ScanAssemblies(builder);
+            RegisterDependencies(builder);
 
             IContainer container = builder.Build();
             return container;
         }
 
-        private static void ScanAssemblies(ContainerBuilder builder)
+        private static void RegisterDependencies(ContainerBuilder builder)
         {
             Assembly winFormsAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseDomainEvent));
             Assembly twitchAssembly = Assembly.GetAssembly(typeof(ChatBot));
             builder.RegisterAssemblyTypes(winFormsAssembly, coreAssembly, twitchAssembly)
+                .AsImplementedInterfaces().AsSelf().SingleInstance();
+
+            builder.RegisterType<TwitchClient>()
                 .AsImplementedInterfaces().AsSelf().SingleInstance();
         }
 

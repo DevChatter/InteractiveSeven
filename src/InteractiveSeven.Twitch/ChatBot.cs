@@ -1,12 +1,8 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Twitch.Commands;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -16,13 +12,14 @@ namespace InteractiveSeven.Twitch
 {
     public class ChatBot
     {
-        private readonly MenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _client;
+        private readonly IList<ITwitchCommand> _commands;
 
-        public ChatBot(MenuColorAccessor menuColorAccessor)
+        public ChatBot(MenuColorAccessor menuColorAccessor,
+            ITwitchClient twitchClient, IList<ITwitchCommand> commands)
         {
-            _menuColorAccessor = menuColorAccessor;
-            _client = new TwitchClient(); // TODO: Use DI
+            _client = twitchClient;
+            _commands = commands;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -34,8 +31,6 @@ namespace InteractiveSeven.Twitch
 
         public event EventHandler<OnConnectedArgs> OnConnected;
         public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
-
-        public bool IsMenuCommandAllowed { get; set; } = true;
 
         public void Connect(string username, string accessToken, string channel)
         {
@@ -53,46 +48,9 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            switch (e.Command.CommandText)
-            {
-                case "menu":
-                    HandleMenuCommand(e.Command);
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        private void HandleMenuCommand(ChatCommand command)
-        {
-            if (!IsMenuCommandAllowed) return;
-
-            List<string> args = command.ArgumentsAsList;
-            var menuColors = new MenuColors();
-
-            switch (args.Count)
-            {
-                case 1:
-                    Color hexColor = args[0].ToColor();
-                    menuColors.TopLeft = hexColor;
-                    menuColors.TopRight = hexColor;
-                    menuColors.BotLeft = hexColor;
-                    menuColors.BotRight = hexColor;
-                    break;
-                case 4:
-                    menuColors.TopLeft = args[0].ToColor();
-                    menuColors.TopRight = args[1].ToColor();
-                    menuColors.BotLeft = args[2].ToColor();
-                    menuColors.BotRight = args[3].ToColor();
-                    break;
-                default:
-                    // Invalid case, do nothing.
-                    return;
-            }
-
-            DomainEvents.Raise(new MenuColorChanging(menuColors));
-
-            _menuColorAccessor.SetMenuColors("ff7_en", menuColors);
+            _commands
+                .SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+                ?.Execute(e.Command);
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
