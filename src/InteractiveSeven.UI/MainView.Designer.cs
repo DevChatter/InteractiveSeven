@@ -174,9 +174,8 @@ namespace InteractiveSeven.UI
             this.twitchConnectionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.twitchConnectionLabel.Location = new System.Drawing.Point(95, 23);
             this.twitchConnectionLabel.Name = "twitchConnectionLabel";
-            this.twitchConnectionLabel.Size = new System.Drawing.Size(91, 16);
+            this.twitchConnectionLabel.Size = new System.Drawing.Size(0, 16);
             this.twitchConnectionLabel.TabIndex = 2;
-            this.twitchConnectionLabel.Text = "Disconnected";
             // 
             // TwitchDisconnectButton
             // 
@@ -234,7 +233,7 @@ namespace InteractiveSeven.UI
             this.nameBidTab.Controls.Add(this.groupBox4);
             this.nameBidTab.Location = new System.Drawing.Point(4, 22);
             this.nameBidTab.Name = "nameBidTab";
-            this.nameBidTab.Size = new System.Drawing.Size(600, 564);
+            this.nameBidTab.Size = new System.Drawing.Size(600, 610);
             this.nameBidTab.TabIndex = 3;
             this.nameBidTab.Text = "Name Bidding";
             this.nameBidTab.UseVisualStyleBackColor = true;
@@ -254,7 +253,7 @@ namespace InteractiveSeven.UI
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 100);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(600, 464);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(600, 510);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
             // nameBidding1
@@ -381,7 +380,7 @@ namespace InteractiveSeven.UI
             this.partyTab.Location = new System.Drawing.Point(4, 22);
             this.partyTab.Name = "partyTab";
             this.partyTab.Padding = new System.Windows.Forms.Padding(3);
-            this.partyTab.Size = new System.Drawing.Size(600, 564);
+            this.partyTab.Size = new System.Drawing.Size(600, 610);
             this.partyTab.TabIndex = 1;
             this.partyTab.Text = "Party";
             this.partyTab.UseVisualStyleBackColor = true;
@@ -436,7 +435,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel1.Controls.Add(this.textBox10, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox9, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox8, 3, 3);
@@ -475,7 +474,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(462, 131);
+            this.textBox10.Location = new System.Drawing.Point(461, 131);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(56, 20);
             this.textBox10.TabIndex = 28;
@@ -483,7 +482,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(462, 105);
+            this.textBox9.Location = new System.Drawing.Point(461, 105);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(56, 20);
             this.textBox9.TabIndex = 27;
@@ -491,7 +490,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(462, 79);
+            this.textBox8.Location = new System.Drawing.Point(461, 79);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(56, 20);
             this.textBox8.TabIndex = 26;
@@ -499,7 +498,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(462, 53);
+            this.textBox7.Location = new System.Drawing.Point(461, 53);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(56, 20);
             this.textBox7.TabIndex = 25;
@@ -529,7 +528,7 @@ namespace InteractiveSeven.UI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(392, 0);
+            this.label4.Location = new System.Drawing.Point(391, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 15);
             this.label4.TabIndex = 2;
@@ -584,7 +583,7 @@ namespace InteractiveSeven.UI
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(462, 0);
+            this.label10.Location = new System.Drawing.Point(461, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 15);
             this.label10.TabIndex = 8;
@@ -593,7 +592,7 @@ namespace InteractiveSeven.UI
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(392, 27);
+            this.checkBox1.Location = new System.Drawing.Point(391, 27);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 14;
@@ -602,7 +601,7 @@ namespace InteractiveSeven.UI
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(392, 53);
+            this.checkBox2.Location = new System.Drawing.Point(391, 53);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 15;
@@ -611,7 +610,7 @@ namespace InteractiveSeven.UI
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(392, 79);
+            this.checkBox3.Location = new System.Drawing.Point(391, 79);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 16;
@@ -620,7 +619,7 @@ namespace InteractiveSeven.UI
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(392, 105);
+            this.checkBox4.Location = new System.Drawing.Point(391, 105);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 17;
@@ -629,7 +628,7 @@ namespace InteractiveSeven.UI
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(392, 131);
+            this.checkBox5.Location = new System.Drawing.Point(391, 131);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
             this.checkBox5.TabIndex = 18;
@@ -672,7 +671,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(462, 27);
+            this.textBox6.Location = new System.Drawing.Point(461, 27);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(56, 20);
             this.textBox6.TabIndex = 24;
@@ -684,7 +683,7 @@ namespace InteractiveSeven.UI
             this.dateTab.Controls.Add(this.groupBox3);
             this.dateTab.Location = new System.Drawing.Point(4, 22);
             this.dateTab.Name = "dateTab";
-            this.dateTab.Size = new System.Drawing.Size(600, 564);
+            this.dateTab.Size = new System.Drawing.Size(600, 610);
             this.dateTab.TabIndex = 2;
             this.dateTab.Text = "Date";
             this.dateTab.UseVisualStyleBackColor = true;
@@ -748,7 +747,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label12, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label13, 2, 0);
@@ -791,7 +790,7 @@ namespace InteractiveSeven.UI
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(413, 0);
+            this.label13.Location = new System.Drawing.Point(412, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 15);
             this.label13.TabIndex = 2;
@@ -810,7 +809,7 @@ namespace InteractiveSeven.UI
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(483, 0);
+            this.label19.Location = new System.Drawing.Point(482, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 15);
             this.label19.TabIndex = 8;
@@ -819,7 +818,7 @@ namespace InteractiveSeven.UI
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(413, 27);
+            this.checkBox6.Location = new System.Drawing.Point(412, 27);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(15, 14);
             this.checkBox6.TabIndex = 14;
@@ -834,7 +833,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox20
             // 
-            this.textBox20.Location = new System.Drawing.Point(483, 27);
+            this.textBox20.Location = new System.Drawing.Point(482, 27);
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(56, 20);
             this.textBox20.TabIndex = 24;

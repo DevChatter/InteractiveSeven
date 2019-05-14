@@ -51,16 +51,6 @@ namespace InteractiveSeven.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _bottomRightColor, value);
         }
 
-        public ReactiveCommand<Unit, Unit> RefreshColorsCmd { get; }
-        public ReactiveCommand<Unit, Unit> SetColorsCmd { get; }
-
-        public MenuControlViewModel()
-        {
-            DomainEvents.Register<MenuColorChanging>(de => SetColors(de.MenuColors));
-            RefreshColorsCmd = ReactiveCommand.Create(() => {});
-            SetColorsCmd = ReactiveCommand.Create(() => { });
-        }
-
         public void SetColors(MenuColors menuColors)
         {
             TopLeftColor = menuColors.TopLeft;

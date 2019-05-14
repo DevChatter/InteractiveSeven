@@ -5,6 +5,8 @@ using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
 using ReactiveUI.Winforms;
 using System;
+using System.Windows.Forms;
+using InteractiveSeven.Core.Events;
 
 namespace InteractiveSeven.UI.UserControls
 {
@@ -22,10 +24,13 @@ namespace InteractiveSeven.UI.UserControls
         public MenuColorControlTab(IMenuColorAccessor menuColorAccessor,
             MenuControlViewModel viewModel)
         {
-            InitializeComponent();
-
             _menuColorAccessor = menuColorAccessor;
             ViewModel = viewModel;
+
+            InitializeComponent();
+
+            DomainEvents.Register<MenuColorChanging>(de 
+                => Invoke(new Action(() => ViewModel.SetColors(de.MenuColors))));
 
             this.Bind(ViewModel, x => x.EnableChatControl, x => x.enableMenuCheckBox.Checked);
             this.Bind(ViewModel, x => x.BitCost, x => x.bitCostTextBox.Text);
@@ -50,7 +55,7 @@ namespace InteractiveSeven.UI.UserControls
 
             MenuColors currentColors = _menuColorAccessor.GetMenuColors(ProcessName);
 
-            ViewModel.SetColors(currentColors);
+            Invoke(new Action(() => ViewModel.SetColors(currentColors)));
         }
 
         private void RefreshColorsButton_Click(object sender, EventArgs e)

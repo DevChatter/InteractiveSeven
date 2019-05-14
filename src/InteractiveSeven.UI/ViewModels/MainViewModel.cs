@@ -16,10 +16,14 @@ namespace InteractiveSeven.UI.ViewModels
         private bool _isConnected = false;
         public bool IsConnected
         {
-            set => this.RaiseAndSetIfChanged(ref _isConnected, value, "ConnectionStatus");
+            set => this.RaiseAndSetIfChanged(ref _isConnected, value);
         }
 
+        private string _connectionStatus = "Disconnected";
         public string ConnectionStatus
-            => _isConnected ? "Connected" : "Disconnected";
+        {
+            get => _connectionStatus;
+            set => this.RaiseAndSetIfChanged(ref _connectionStatus, value);
+        }
     }
 }

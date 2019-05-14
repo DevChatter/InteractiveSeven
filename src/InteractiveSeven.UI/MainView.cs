@@ -27,13 +27,13 @@ namespace InteractiveSeven.UI
             ISettingsStore settingsStore,
             ChatBot chatBot)
         {
-            InitializeComponent();
-            SetDataBindings();
-
             _partyStatAccessor = partyStatAccessor;
             _settingsStore = settingsStore;
             ViewModel = viewModel;
             _chatBot = chatBot;
+
+            InitializeComponent();
+            SetDataBindings();
 
             _chatBot.OnConnected += ChatBot_OnConnected;
             _chatBot.OnDisconnected += ChatBot_OnDisconnected;
@@ -44,18 +44,24 @@ namespace InteractiveSeven.UI
             this.WhenActivated(d =>
             {
                 d(this.Bind(ViewModel, vm => vm.ProcessName, v => v.ExeTextBox.Text));
-                d(this.Bind(ViewModel, x => x.ConnectionStatus, x => x.twitchConnectionLabel.Text));
+                d(this.OneWayBind(ViewModel, vm => vm.ConnectionStatus, v => v.twitchConnectionLabel.Text));
             });
         }
 
         private void ChatBot_OnConnected(object sender, OnConnectedArgs args)
         {
-            ViewModel.IsConnected = true;
+            Invoke((MethodInvoker)delegate {
+                ViewModel.IsConnected = true;
+                ViewModel.ConnectionStatus = "Connected";
+            });
         }
 
         private void ChatBot_OnDisconnected(object sender, OnDisconnectedEventArgs args)
         {
-            ViewModel.IsConnected = false;
+            Invoke((MethodInvoker)delegate {
+                ViewModel.IsConnected = false;
+                ViewModel.ConnectionStatus = "Disconnected";
+            });
         }
 
         private void Form1_Load(object sender, EventArgs e)
