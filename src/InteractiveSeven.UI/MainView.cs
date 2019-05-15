@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using InteractiveSeven.UI.UserControls;
 using TwitchLib.Client.Events;
 using TwitchLib.Communication.Events;
 
@@ -17,12 +18,14 @@ namespace InteractiveSeven.UI
 {
     public partial class MainView : Form, IViewFor<MainViewModel>
     {
+        private MenuColorControlTab _menuColorControlTab;
         private readonly PartyStatAccessor _partyStatAccessor;
         private readonly ISettingsStore _settingsStore;
         private readonly ChatBot _chatBot;
         public List<PartyStat> PartyStats { get; set; }
 
-        public MainView(PartyStatAccessor partyStatAccessor,
+        public MainView(MenuColorControlTab menuColorControlTab,
+            PartyStatAccessor partyStatAccessor,
             MainViewModel viewModel,
             ISettingsStore settingsStore,
             ChatBot chatBot)
@@ -33,10 +36,22 @@ namespace InteractiveSeven.UI
             _chatBot = chatBot;
 
             InitializeComponent();
+
+            ConfigureMenuColorControlTab(menuColorControlTab);
+
             SetDataBindings();
 
             _chatBot.OnConnected += ChatBot_OnConnected;
             _chatBot.OnDisconnected += ChatBot_OnDisconnected;
+        }
+
+        private void ConfigureMenuColorControlTab(MenuColorControlTab menuColorControlTab)
+        {
+            _menuColorControlTab = menuColorControlTab;
+            menuColorTab.Controls.Add(_menuColorControlTab);
+            _menuColorControlTab.Location = new System.Drawing.Point(4, 7);
+            _menuColorControlTab.Size = new System.Drawing.Size(455, 596);
+            _menuColorControlTab.TabIndex = 17;
         }
 
         private void SetDataBindings()

@@ -42,7 +42,6 @@ namespace InteractiveSeven.UI
             this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuColorTab = new System.Windows.Forms.TabPage();
-            this.menuColorControlTab1 = new InteractiveSeven.UI.UserControls.MenuColorControlTab();
             this.nameBidTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.nameBidding1 = new InteractiveSeven.UI.UserControls.NameBidding();
@@ -211,7 +210,6 @@ namespace InteractiveSeven.UI
             // 
             // menuColorTab
             // 
-            this.menuColorTab.Controls.Add(this.menuColorControlTab1);
             this.menuColorTab.Location = new System.Drawing.Point(4, 22);
             this.menuColorTab.Name = "menuColorTab";
             this.menuColorTab.Padding = new System.Windows.Forms.Padding(3);
@@ -219,13 +217,6 @@ namespace InteractiveSeven.UI
             this.menuColorTab.TabIndex = 0;
             this.menuColorTab.Text = "Menu Color";
             this.menuColorTab.UseVisualStyleBackColor = true;
-            // 
-            // menuColorControlTab1
-            // 
-            this.menuColorControlTab1.Location = new System.Drawing.Point(4, 7);
-            this.menuColorControlTab1.Name = "menuColorControlTab1";
-            this.menuColorControlTab1.Size = new System.Drawing.Size(455, 596);
-            this.menuColorControlTab1.TabIndex = 17;
             // 
             // nameBidTab
             // 
@@ -985,7 +976,6 @@ namespace InteractiveSeven.UI
         private NameBidding nameBidding9;
         private NameBidding nameBidding8;
         private NameBidding nameBidding7;
-        private MenuColorControlTab menuColorControlTab1;
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem fileSaveMenuItem;

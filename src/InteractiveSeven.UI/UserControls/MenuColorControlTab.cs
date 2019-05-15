@@ -1,12 +1,11 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
 using ReactiveUI.Winforms;
 using System;
-using System.Windows.Forms;
-using InteractiveSeven.Core.Events;
 
 namespace InteractiveSeven.UI.UserControls
 {
@@ -14,12 +13,6 @@ namespace InteractiveSeven.UI.UserControls
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
-
-        // TODO: DI this UserControl in the View to avoid this.
-        public MenuColorControlTab()
-            : this(new MenuColorAccessor(new MemoryAccessor()), new MenuControlViewModel())
-        {
-        }
 
         public MenuColorControlTab(IMenuColorAccessor menuColorAccessor,
             MenuControlViewModel viewModel)
