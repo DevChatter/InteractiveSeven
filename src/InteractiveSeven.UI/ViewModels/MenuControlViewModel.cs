@@ -1,9 +1,7 @@
-﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using ReactiveUI;
 using System.Drawing;
-using System.Reactive;
 
 namespace InteractiveSeven.UI.ViewModels
 {

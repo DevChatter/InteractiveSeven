@@ -279,7 +279,7 @@ namespace InteractiveSeven.Core
         };
 
 
-        public static string MapBytesToString(byte[] bytes)
+        public static string MapFf7BytesToString(this byte[] bytes)
         {
             var chars = new char[9];
             for (int i = 0; i < 9; i++)
@@ -293,7 +293,7 @@ namespace InteractiveSeven.Core
             //return new string(bytes.Take(9).Select(c => ByteToCharMap[c]).ToArray());
         }
 
-        public static byte[] MapStringToBytes(string text)
+        public static byte[] MapStringToFf7Bytes(this string text)
         {
             var bytes = new byte[9];
             for (int i = 0; i < 9; i++)

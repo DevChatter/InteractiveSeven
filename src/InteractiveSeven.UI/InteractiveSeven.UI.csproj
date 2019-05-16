@@ -225,6 +225,12 @@
     <Compile Include="UserControls\NameBidding.Designer.cs">
       <DependentUpon>NameBidding.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NameBiddingTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\NameBiddingTab.Designer.cs">
+      <DependentUpon>NameBiddingTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PartyMemberStats.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -236,6 +242,8 @@
     <Compile Include="Settings\TwitchSettings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuControlViewModel.cs" />
+    <Compile Include="ViewModels\NameBiddingViewModel.cs" />
+    <Compile Include="ViewModels\NameBidsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelExtensions.cs" />
     <EmbeddedResource Include="UserControls\DateStatus.resx">
       <DependentUpon>DateStatus.cs</DependentUpon>
@@ -248,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\NameBidding.resx">
       <DependentUpon>NameBidding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\NameBiddingTab.resx">
+      <DependentUpon>NameBiddingTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PartyMemberStats.resx">
       <DependentUpon>PartyMemberStats.cs</DependentUpon>
