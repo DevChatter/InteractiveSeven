@@ -5,6 +5,7 @@ using InteractiveSeven.UI.Settings;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using InteractiveSeven.UI.ViewModels;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -44,6 +45,8 @@ namespace InteractiveSeven.UI
             Assembly twitchAssembly = Assembly.GetAssembly(typeof(ChatBot));
             builder.RegisterAssemblyTypes(winFormsAssembly, coreAssembly, twitchAssembly)
                 .AsImplementedInterfaces().AsSelf().SingleInstance();
+
+            builder.RegisterType<NameBidsViewModel>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<TwitchClient>()
                 .AsImplementedInterfaces().AsSelf().SingleInstance();

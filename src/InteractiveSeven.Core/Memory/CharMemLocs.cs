@@ -52,9 +52,9 @@ namespace InteractiveSeven.Core.Memory
         private static readonly Dictionary<string, CharMemLoc> All
             = new Dictionary<string, CharMemLoc>
         {
-            [nameof(Cloud)] = Cloud,
-            [nameof(Barret)] = Barret,
-            [nameof(Tifa)] = Tifa,
+            [Constants.Cloud] = Cloud,
+            [Constants.Barret] = Barret,
+            [Constants.Tifa] = Tifa,
         };
     }
 }

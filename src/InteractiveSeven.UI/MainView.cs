@@ -19,12 +19,14 @@ namespace InteractiveSeven.UI
     public partial class MainView : Form, IViewFor<MainViewModel>
     {
         private MenuColorControlTab _menuColorControlTab;
+        private NameBiddingTab _nameBiddingTab;
         private readonly PartyStatAccessor _partyStatAccessor;
         private readonly ISettingsStore _settingsStore;
         private readonly ChatBot _chatBot;
         public List<PartyStat> PartyStats { get; set; }
 
         public MainView(MenuColorControlTab menuColorControlTab,
+            NameBiddingTab nameBiddingTab,
             PartyStatAccessor partyStatAccessor,
             MainViewModel viewModel,
             ISettingsStore settingsStore,
@@ -38,6 +40,7 @@ namespace InteractiveSeven.UI
             InitializeComponent();
 
             ConfigureMenuColorControlTab(menuColorControlTab);
+            ConfigureNameBiddingTab(nameBiddingTab);
 
             SetDataBindings();
 
@@ -51,7 +54,14 @@ namespace InteractiveSeven.UI
             menuColorTab.Controls.Add(_menuColorControlTab);
             _menuColorControlTab.Location = new System.Drawing.Point(4, 7);
             _menuColorControlTab.Dock = DockStyle.Fill;
-            _menuColorControlTab.TabIndex = 17;
+        }
+
+        private void ConfigureNameBiddingTab(NameBiddingTab nameBiddingTab)
+        {
+            _nameBiddingTab = nameBiddingTab;
+            nameBidTab.Controls.Add(_nameBiddingTab);
+            _nameBiddingTab.Location = new System.Drawing.Point(4, 7);
+            _nameBiddingTab.Dock = DockStyle.Fill;
         }
 
         private void SetDataBindings()

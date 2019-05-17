@@ -27,15 +27,15 @@ namespace InteractiveSeven.UI.ViewModels
             _nameAccessor = nameAccessor;
             BidsViewModels = new Dictionary<string, NameBidsViewModel>
             {
-                [Constants.Cloud] = cloudBids,
-                [Constants.Barret] = barretBids,
-                [Constants.Tifa] = tifaBids,
-                [Constants.Aeris] = aerisBids,
-                [Constants.Red] = redBids,
-                [Constants.CaitSith] = caitSithBids,
-                [Constants.Vincent] = vincentBids,
-                [Constants.Cid] = cidBids,
-                [Constants.Yuffie] = yuffieBids,
+                [Constants.Cloud] = cloudBids.SetName(Constants.Cloud),
+                [Constants.Barret] = barretBids.SetName(Constants.Barret),
+                [Constants.Tifa] = tifaBids.SetName(Constants.Tifa),
+                [Constants.Aeris] = aerisBids.SetName(Constants.Aeris),
+                [Constants.Red] = redBids.SetName(Constants.Red),
+                [Constants.CaitSith] = caitSithBids.SetName(Constants.CaitSith),
+                [Constants.Vincent] = vincentBids.SetName(Constants.Vincent),
+                [Constants.Cid] = cidBids.SetName(Constants.Cid),
+                [Constants.Yuffie] = yuffieBids.SetName(Constants.Yuffie),
             };
         }
 

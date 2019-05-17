@@ -42,12 +42,11 @@ namespace InteractiveSeven.UI
             this.TwitchConnectButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuColorTab = new System.Windows.Forms.TabPage();
-            this.nameBidTab = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.nameBiddingSettings = new System.Windows.Forms.CheckedListBox();
             this.partyTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.partyMemberStats1 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
+            this.partyMemberStats2 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
+            this.partyMemberStats3 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox10 = new System.Windows.Forms.TextBox();
@@ -76,6 +75,10 @@ namespace InteractiveSeven.UI
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.dateTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.dateStatus1 = new InteractiveSeven.UI.UserControls.DateStatus();
+            this.dateStatus2 = new InteractiveSeven.UI.UserControls.DateStatus();
+            this.YuffieDateStatus = new InteractiveSeven.UI.UserControls.DateStatus();
+            this.dateStatus4 = new InteractiveSeven.UI.UserControls.DateStatus();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -91,27 +94,9 @@ namespace InteractiveSeven.UI
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.fileSaveMenuItem = new System.Windows.Forms.MenuItem();
             this.fileExitMenuItem = new System.Windows.Forms.MenuItem();
-            this.nameBidding1 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding2 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding3 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding4 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding5 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding6 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding9 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding8 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.nameBidding7 = new InteractiveSeven.UI.UserControls.NameBidding();
-            this.partyMemberStats1 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
-            this.partyMemberStats2 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
-            this.partyMemberStats3 = new InteractiveSeven.UI.UserControls.PartyMemberStats();
-            this.dateStatus1 = new InteractiveSeven.UI.UserControls.DateStatus();
-            this.dateStatus2 = new InteractiveSeven.UI.UserControls.DateStatus();
-            this.YuffieDateStatus = new InteractiveSeven.UI.UserControls.DateStatus();
-            this.dateStatus4 = new InteractiveSeven.UI.UserControls.DateStatus();
+            this.nameBidTab = new System.Windows.Forms.TabPage();
             this.TwitchConnectGroup.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.nameBidTab.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.partyTab.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -218,70 +203,6 @@ namespace InteractiveSeven.UI
             this.menuColorTab.Text = "Menu Color";
             this.menuColorTab.UseVisualStyleBackColor = true;
             // 
-            // nameBidTab
-            // 
-            this.nameBidTab.Controls.Add(this.flowLayoutPanel3);
-            this.nameBidTab.Controls.Add(this.groupBox4);
-            this.nameBidTab.Location = new System.Drawing.Point(4, 22);
-            this.nameBidTab.Name = "nameBidTab";
-            this.nameBidTab.Size = new System.Drawing.Size(600, 610);
-            this.nameBidTab.TabIndex = 3;
-            this.nameBidTab.Text = "Name Bidding";
-            this.nameBidTab.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.AutoScroll = true;
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding1);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding2);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding3);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding4);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding5);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding6);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding9);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding8);
-            this.flowLayoutPanel3.Controls.Add(this.nameBidding7);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 100);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(600, 510);
-            this.flowLayoutPanel3.TabIndex = 1;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.nameBiddingSettings);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(600, 100);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Settings";
-            // 
-            // nameBiddingSettings
-            // 
-            this.nameBiddingSettings.CheckOnClick = true;
-            this.nameBiddingSettings.ColumnWidth = 175;
-            this.nameBiddingSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nameBiddingSettings.FormattingEnabled = true;
-            this.nameBiddingSettings.Items.AddRange(new object[] {
-            "Enable Feature",
-            "Limit Name Choices",
-            "Allow Cloud Naming",
-            "Allow Barret Naming",
-            "Allow Tifa Naming",
-            "Allow Aeris Naming",
-            "Allow Cait Sith Naming",
-            "Allow Cid Naming",
-            "Allow Red XIII Naming",
-            "Allow Vincent Naming",
-            "Allow Yuffie Naming"});
-            this.nameBiddingSettings.Location = new System.Drawing.Point(3, 16);
-            this.nameBiddingSettings.MultiColumn = true;
-            this.nameBiddingSettings.Name = "nameBiddingSettings";
-            this.nameBiddingSettings.Size = new System.Drawing.Size(594, 81);
-            this.nameBiddingSettings.TabIndex = 0;
-            // 
             // partyTab
             // 
             this.partyTab.AutoScroll = true;
@@ -305,6 +226,30 @@ namespace InteractiveSeven.UI
             this.flowLayoutPanel1.Size = new System.Drawing.Size(570, 446);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
+            // partyMemberStats1
+            // 
+            this.partyMemberStats1.CharacterName = "Cloud";
+            this.partyMemberStats1.Location = new System.Drawing.Point(3, 3);
+            this.partyMemberStats1.Name = "partyMemberStats1";
+            this.partyMemberStats1.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats1.TabIndex = 0;
+            // 
+            // partyMemberStats2
+            // 
+            this.partyMemberStats2.CharacterName = "Barret";
+            this.partyMemberStats2.Location = new System.Drawing.Point(287, 3);
+            this.partyMemberStats2.Name = "partyMemberStats2";
+            this.partyMemberStats2.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats2.TabIndex = 1;
+            // 
+            // partyMemberStats3
+            // 
+            this.partyMemberStats3.CharacterName = "Tifa";
+            this.partyMemberStats3.Location = new System.Drawing.Point(3, 188);
+            this.partyMemberStats3.Name = "partyMemberStats3";
+            this.partyMemberStats3.Size = new System.Drawing.Size(278, 179);
+            this.partyMemberStats3.TabIndex = 2;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
@@ -321,7 +266,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel1.Controls.Add(this.textBox10, 3, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox9, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox8, 3, 3);
@@ -360,7 +305,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(459, 131);
+            this.textBox10.Location = new System.Drawing.Point(458, 131);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(56, 20);
             this.textBox10.TabIndex = 28;
@@ -368,7 +313,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(459, 105);
+            this.textBox9.Location = new System.Drawing.Point(458, 105);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(56, 20);
             this.textBox9.TabIndex = 27;
@@ -376,7 +321,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(459, 79);
+            this.textBox8.Location = new System.Drawing.Point(458, 79);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(56, 20);
             this.textBox8.TabIndex = 26;
@@ -384,7 +329,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(459, 53);
+            this.textBox7.Location = new System.Drawing.Point(458, 53);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(56, 20);
             this.textBox7.TabIndex = 25;
@@ -414,7 +359,7 @@ namespace InteractiveSeven.UI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(389, 0);
+            this.label4.Location = new System.Drawing.Point(388, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 15);
             this.label4.TabIndex = 2;
@@ -469,7 +414,7 @@ namespace InteractiveSeven.UI
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(459, 0);
+            this.label10.Location = new System.Drawing.Point(458, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 15);
             this.label10.TabIndex = 8;
@@ -478,7 +423,7 @@ namespace InteractiveSeven.UI
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(389, 27);
+            this.checkBox1.Location = new System.Drawing.Point(388, 27);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 14;
@@ -487,7 +432,7 @@ namespace InteractiveSeven.UI
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(389, 53);
+            this.checkBox2.Location = new System.Drawing.Point(388, 53);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 15;
@@ -496,7 +441,7 @@ namespace InteractiveSeven.UI
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(389, 79);
+            this.checkBox3.Location = new System.Drawing.Point(388, 79);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 16;
@@ -505,7 +450,7 @@ namespace InteractiveSeven.UI
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(389, 105);
+            this.checkBox4.Location = new System.Drawing.Point(388, 105);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 17;
@@ -514,7 +459,7 @@ namespace InteractiveSeven.UI
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(389, 131);
+            this.checkBox5.Location = new System.Drawing.Point(388, 131);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
             this.checkBox5.TabIndex = 18;
@@ -557,7 +502,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(459, 27);
+            this.textBox6.Location = new System.Drawing.Point(458, 27);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(56, 20);
             this.textBox6.TabIndex = 24;
@@ -585,6 +530,38 @@ namespace InteractiveSeven.UI
             this.flowLayoutPanel2.Size = new System.Drawing.Size(591, 367);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
+            // dateStatus1
+            // 
+            this.dateStatus1.CharacterName = "Aeris";
+            this.dateStatus1.Location = new System.Drawing.Point(3, 3);
+            this.dateStatus1.Name = "dateStatus1";
+            this.dateStatus1.Size = new System.Drawing.Size(240, 120);
+            this.dateStatus1.TabIndex = 0;
+            // 
+            // dateStatus2
+            // 
+            this.dateStatus2.CharacterName = "Tifa";
+            this.dateStatus2.Location = new System.Drawing.Point(249, 3);
+            this.dateStatus2.Name = "dateStatus2";
+            this.dateStatus2.Size = new System.Drawing.Size(240, 120);
+            this.dateStatus2.TabIndex = 1;
+            // 
+            // YuffieDateStatus
+            // 
+            this.YuffieDateStatus.CharacterName = "Yuffie";
+            this.YuffieDateStatus.Location = new System.Drawing.Point(3, 129);
+            this.YuffieDateStatus.Name = "YuffieDateStatus";
+            this.YuffieDateStatus.Size = new System.Drawing.Size(240, 120);
+            this.YuffieDateStatus.TabIndex = 2;
+            // 
+            // dateStatus4
+            // 
+            this.dateStatus4.CharacterName = "Barret";
+            this.dateStatus4.Location = new System.Drawing.Point(249, 129);
+            this.dateStatus4.Name = "dateStatus4";
+            this.dateStatus4.Size = new System.Drawing.Size(240, 120);
+            this.dateStatus4.TabIndex = 3;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.tableLayoutPanel2);
@@ -601,7 +578,7 @@ namespace InteractiveSeven.UI
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label12, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label13, 2, 0);
@@ -644,7 +621,7 @@ namespace InteractiveSeven.UI
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(410, 0);
+            this.label13.Location = new System.Drawing.Point(409, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 15);
             this.label13.TabIndex = 2;
@@ -663,7 +640,7 @@ namespace InteractiveSeven.UI
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(480, 0);
+            this.label19.Location = new System.Drawing.Point(479, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 15);
             this.label19.TabIndex = 8;
@@ -672,7 +649,7 @@ namespace InteractiveSeven.UI
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(410, 27);
+            this.checkBox6.Location = new System.Drawing.Point(409, 27);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(15, 14);
             this.checkBox6.TabIndex = 14;
@@ -687,7 +664,7 @@ namespace InteractiveSeven.UI
             // 
             // textBox20
             // 
-            this.textBox20.Location = new System.Drawing.Point(480, 27);
+            this.textBox20.Location = new System.Drawing.Point(479, 27);
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(56, 20);
             this.textBox20.TabIndex = 24;
@@ -730,149 +707,22 @@ namespace InteractiveSeven.UI
             this.fileExitMenuItem.Text = "Exit";
             this.fileExitMenuItem.Click += new System.EventHandler(this.FileExitMenuItem_Click);
             // 
-            // nameBidding1
+            // nameBidTab
             // 
-            this.nameBidding1.AutoScroll = true;
-            this.nameBidding1.CharacterName = "Cloud";
-            this.nameBidding1.Location = new System.Drawing.Point(3, 3);
-            this.nameBidding1.Name = "nameBidding1";
-            this.nameBidding1.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding1.TabIndex = 0;
-            // 
-            // nameBidding2
-            // 
-            this.nameBidding2.AutoScroll = true;
-            this.nameBidding2.CharacterName = "Barret";
-            this.nameBidding2.Location = new System.Drawing.Point(246, 3);
-            this.nameBidding2.Name = "nameBidding2";
-            this.nameBidding2.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding2.TabIndex = 1;
-            // 
-            // nameBidding3
-            // 
-            this.nameBidding3.AutoScroll = true;
-            this.nameBidding3.CharacterName = "Tifa";
-            this.nameBidding3.Location = new System.Drawing.Point(3, 188);
-            this.nameBidding3.Name = "nameBidding3";
-            this.nameBidding3.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding3.TabIndex = 2;
-            // 
-            // nameBidding4
-            // 
-            this.nameBidding4.AutoScroll = true;
-            this.nameBidding4.CharacterName = "Aeris";
-            this.nameBidding4.Location = new System.Drawing.Point(246, 188);
-            this.nameBidding4.Name = "nameBidding4";
-            this.nameBidding4.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding4.TabIndex = 3;
-            // 
-            // nameBidding5
-            // 
-            this.nameBidding5.AutoScroll = true;
-            this.nameBidding5.CharacterName = "Cait Sith";
-            this.nameBidding5.Location = new System.Drawing.Point(3, 373);
-            this.nameBidding5.Name = "nameBidding5";
-            this.nameBidding5.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding5.TabIndex = 4;
-            // 
-            // nameBidding6
-            // 
-            this.nameBidding6.AutoScroll = true;
-            this.nameBidding6.CharacterName = "Cid";
-            this.nameBidding6.Location = new System.Drawing.Point(246, 373);
-            this.nameBidding6.Name = "nameBidding6";
-            this.nameBidding6.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding6.TabIndex = 5;
-            // 
-            // nameBidding9
-            // 
-            this.nameBidding9.AutoScroll = true;
-            this.nameBidding9.CharacterName = "Red XIII";
-            this.nameBidding9.Location = new System.Drawing.Point(3, 558);
-            this.nameBidding9.Name = "nameBidding9";
-            this.nameBidding9.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding9.TabIndex = 8;
-            // 
-            // nameBidding8
-            // 
-            this.nameBidding8.AutoScroll = true;
-            this.nameBidding8.CharacterName = "Vincent";
-            this.nameBidding8.Location = new System.Drawing.Point(246, 558);
-            this.nameBidding8.Name = "nameBidding8";
-            this.nameBidding8.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding8.TabIndex = 7;
-            // 
-            // nameBidding7
-            // 
-            this.nameBidding7.AutoScroll = true;
-            this.nameBidding7.CharacterName = "Yuffie";
-            this.nameBidding7.Location = new System.Drawing.Point(3, 743);
-            this.nameBidding7.Name = "nameBidding7";
-            this.nameBidding7.Size = new System.Drawing.Size(237, 179);
-            this.nameBidding7.TabIndex = 6;
-            // 
-            // partyMemberStats1
-            // 
-            this.partyMemberStats1.CharacterName = "Cloud";
-            this.partyMemberStats1.Location = new System.Drawing.Point(3, 3);
-            this.partyMemberStats1.Name = "partyMemberStats1";
-            this.partyMemberStats1.Size = new System.Drawing.Size(278, 179);
-            this.partyMemberStats1.TabIndex = 0;
-            // 
-            // partyMemberStats2
-            // 
-            this.partyMemberStats2.CharacterName = "Barret";
-            this.partyMemberStats2.Location = new System.Drawing.Point(287, 3);
-            this.partyMemberStats2.Name = "partyMemberStats2";
-            this.partyMemberStats2.Size = new System.Drawing.Size(278, 179);
-            this.partyMemberStats2.TabIndex = 1;
-            // 
-            // partyMemberStats3
-            // 
-            this.partyMemberStats3.CharacterName = "Tifa";
-            this.partyMemberStats3.Location = new System.Drawing.Point(3, 188);
-            this.partyMemberStats3.Name = "partyMemberStats3";
-            this.partyMemberStats3.Size = new System.Drawing.Size(278, 179);
-            this.partyMemberStats3.TabIndex = 2;
-            // 
-            // dateStatus1
-            // 
-            this.dateStatus1.CharacterName = "Aeris";
-            this.dateStatus1.Location = new System.Drawing.Point(3, 3);
-            this.dateStatus1.Name = "dateStatus1";
-            this.dateStatus1.Size = new System.Drawing.Size(240, 120);
-            this.dateStatus1.TabIndex = 0;
-            // 
-            // dateStatus2
-            // 
-            this.dateStatus2.CharacterName = "Tifa";
-            this.dateStatus2.Location = new System.Drawing.Point(249, 3);
-            this.dateStatus2.Name = "dateStatus2";
-            this.dateStatus2.Size = new System.Drawing.Size(240, 120);
-            this.dateStatus2.TabIndex = 1;
-            // 
-            // YuffieDateStatus
-            // 
-            this.YuffieDateStatus.CharacterName = "Yuffie";
-            this.YuffieDateStatus.Location = new System.Drawing.Point(3, 129);
-            this.YuffieDateStatus.Name = "YuffieDateStatus";
-            this.YuffieDateStatus.Size = new System.Drawing.Size(240, 120);
-            this.YuffieDateStatus.TabIndex = 2;
-            // 
-            // dateStatus4
-            // 
-            this.dateStatus4.CharacterName = "Barret";
-            this.dateStatus4.Location = new System.Drawing.Point(249, 129);
-            this.dateStatus4.Name = "dateStatus4";
-            this.dateStatus4.Size = new System.Drawing.Size(240, 120);
-            this.dateStatus4.TabIndex = 3;
+            this.nameBidTab.AutoScroll = true;
+            this.nameBidTab.Location = new System.Drawing.Point(4, 22);
+            this.nameBidTab.Name = "nameBidTab";
+            this.nameBidTab.Size = new System.Drawing.Size(600, 610);
+            this.nameBidTab.TabIndex = 3;
+            this.nameBidTab.Text = "Name Bidding";
+            this.nameBidTab.UseVisualStyleBackColor = true;
             // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(627, 715);
+            this.ClientSize = new System.Drawing.Size(644, 732);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.TwitchConnectGroup);
@@ -884,9 +734,6 @@ namespace InteractiveSeven.UI
             this.TwitchConnectGroup.ResumeLayout(false);
             this.TwitchConnectGroup.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.nameBidTab.ResumeLayout(false);
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.partyTab.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -963,23 +810,11 @@ namespace InteractiveSeven.UI
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.TabPage nameBidTab;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckedListBox nameBiddingSettings;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private NameBidding nameBidding1;
-        private NameBidding nameBidding2;
-        private NameBidding nameBidding3;
-        private NameBidding nameBidding4;
-        private NameBidding nameBidding5;
-        private NameBidding nameBidding6;
-        private NameBidding nameBidding9;
-        private NameBidding nameBidding8;
-        private NameBidding nameBidding7;
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem fileSaveMenuItem;
         private System.Windows.Forms.MenuItem fileExitMenuItem;
+        private System.Windows.Forms.TabPage nameBidTab;
     }
 }
 
