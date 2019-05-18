@@ -20,19 +20,16 @@ namespace InteractiveSeven.UI
     {
         private MenuColorControlTab _menuColorControlTab;
         private NameBiddingTab _nameBiddingTab;
-        private readonly PartyStatAccessor _partyStatAccessor;
         private readonly ISettingsStore _settingsStore;
         private readonly ChatBot _chatBot;
         public List<PartyStat> PartyStats { get; set; }
 
         public MainView(MenuColorControlTab menuColorControlTab,
             NameBiddingTab nameBiddingTab,
-            PartyStatAccessor partyStatAccessor,
             MainViewModel viewModel,
             ISettingsStore settingsStore,
             ChatBot chatBot)
         {
-            _partyStatAccessor = partyStatAccessor;
             _settingsStore = settingsStore;
             ViewModel = viewModel;
             _chatBot = chatBot;
@@ -107,17 +104,6 @@ namespace InteractiveSeven.UI
                     MessageBox.Show(message);
                 }
             }
-        }
-
-        internal void RefreshPartyStats()
-        {
-            string processName = ViewModel.ProcessName;
-            if (string.IsNullOrWhiteSpace(processName))
-            {
-                return;
-            }
-
-            PartyStats = _partyStatAccessor.GetPartyStats(processName);
         }
 
         private string GetProcessNameFromFileName(string fileName)
