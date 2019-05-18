@@ -16,6 +16,10 @@ namespace InteractiveSeven.Core.Memory
         public MemLoc Weapon { get; }
         public MemLoc Armlet { get; }
         public MemLoc Accessory { get; }
+        public MemLoc CurHP { get; }
+        public MemLoc MaxHP { get; }
+        public MemLoc CurMP { get; }
+        public MemLoc MaxMP { get; }
 
         private CharMemLoc(IntPtr baseAddress)
         {
@@ -30,6 +34,10 @@ namespace InteractiveSeven.Core.Memory
             Weapon = new MemLoc(IntPtr.Add(baseAddress, 27));
             Armlet = new MemLoc(IntPtr.Add(baseAddress, 28));
             Accessory = new MemLoc(IntPtr.Add(baseAddress, 29));
+            CurHP = new MemLoc(IntPtr.Add(baseAddress, 43), 2);
+            MaxHP = new MemLoc(IntPtr.Add(baseAddress, 45), 2);
+            CurMP = new MemLoc(IntPtr.Add(baseAddress, 47), 2);
+            MaxMP = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
         }
 
         public static CharMemLoc ByName(string name)
