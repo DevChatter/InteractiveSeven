@@ -41,8 +41,11 @@
     <Reference Include="Cyotek.Windows.Forms.ColorPicker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
       <HintPath>..\packages\Cyotek.Windows.Forms.ColorPicker.1.7.2\lib\net35\Cyotek.Windows.Forms.ColorPicker.dll</HintPath>
     </Reference>
-    <Reference Include="DynamicData, Version=6.9.0.2586, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DynamicData.6.9.0.2586\lib\net46\DynamicData.dll</HintPath>
+    <Reference Include="DynamicData, Version=6.9.1.2588, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicData.6.9.1.2588\lib\net46\DynamicData.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicData.ReactiveUI, Version=6.9.1.2588, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicData.ReactiveUI.6.9.1.2588\lib\net461\DynamicData.ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
@@ -240,6 +243,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\TwitchSettings.cs" />
+    <Compile Include="ViewModels\CharacterNameBid.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MenuControlViewModel.cs" />
     <Compile Include="ViewModels\NameBiddingViewModel.cs" />

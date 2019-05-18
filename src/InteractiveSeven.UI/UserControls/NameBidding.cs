@@ -1,21 +1,20 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
+﻿using InteractiveSeven.UI.ViewModels;
+using ReactiveUI.Winforms;
+using System.ComponentModel;
+using ReactiveUI;
 
 namespace InteractiveSeven.UI.UserControls
 {
-    public partial class NameBidding : UserControl
+    public partial class NameBidding : ReactiveUserControl<NameBidsViewModel>
     {
-        public NameBidding()
+        public NameBidding(NameBidsViewModel viewModel)
         {
+            ViewModel = viewModel;
+
             InitializeComponent();
-        }
 
-        [Description("Displayed Character Name"), Category("Data")]
-        public string CharacterName
-        {
-            get => characterNameLabel.Text;
-            set => characterNameLabel.Text = value;
+            this.Bind(ViewModel, vm => vm.DefaultName, v => v.characterNameLabel.Text);
+            this.Bind(ViewModel, vm => vm.NameBids, v => v.dataGridView1.DataSource);
         }
-
     }
 }

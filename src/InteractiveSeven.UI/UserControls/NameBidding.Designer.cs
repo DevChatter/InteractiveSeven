@@ -31,11 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.characterNameLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.characterNameBidBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalBits = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterNameBidBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // characterNameLabel
@@ -56,16 +54,11 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
             this.TotalBits});
-            this.dataGridView1.DataSource = this.characterNameBidBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(237, 160);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // characterNameBidBindingSource
-            // 
-            this.characterNameBidBindingSource.DataSource = typeof(InteractiveSeven.Core.Bidding.Naming.CharacterNameBid);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -93,7 +86,6 @@
             this.Name = "NameBidding";
             this.Size = new System.Drawing.Size(237, 179);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterNameBidBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,8 +95,6 @@
 
         private System.Windows.Forms.Label characterNameLabel;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource characterNameBidBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalBitsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalBits;
     }

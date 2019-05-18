@@ -5,6 +5,7 @@ using InteractiveSeven.UI.Settings;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using InteractiveSeven.UI.UserControls;
 using InteractiveSeven.UI.ViewModels;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
@@ -46,6 +47,7 @@ namespace InteractiveSeven.UI
             builder.RegisterAssemblyTypes(winFormsAssembly, coreAssembly, twitchAssembly)
                 .AsImplementedInterfaces().AsSelf().SingleInstance();
 
+            builder.RegisterType<NameBidding>().AsSelf().InstancePerDependency();
             builder.RegisterType<NameBidsViewModel>().AsSelf().InstancePerDependency();
 
             builder.RegisterType<TwitchClient>()

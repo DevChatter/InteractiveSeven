@@ -1,8 +1,8 @@
-﻿using System;
-using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using ReactiveUI;
+using System;
 using System.Collections.Generic;
 
 namespace InteractiveSeven.UI.ViewModels
