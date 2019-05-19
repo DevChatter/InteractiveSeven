@@ -1,8 +1,7 @@
 ﻿using System.IO;
-using InteractiveSeven.Core.Settings;
 using Newtonsoft.Json;
 
-namespace InteractiveSeven.UI.Settings
+namespace InteractiveSeven.Core.Settings
 {
     public class SettingsStore : ISettingsStore
     {
