@@ -1,11 +1,10 @@
 ﻿using Autofac;
-using InteractiveSeven.Core.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InteractiveSeven.UI.Events
+namespace InteractiveSeven.Core.Events
 {
     public class DomainEventDispatcher : IDomainEventDispatcher
     {
