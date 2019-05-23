@@ -4,6 +4,7 @@ using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _twitchClient;
+        private static readonly Random Rand = new Random();
 
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
@@ -83,6 +85,8 @@ namespace InteractiveSeven.Twitch.Commands
         {
             switch (firstArg.ToLower())
             {
+                case "random":
+                    return RandomPalette();
                 case "tsunamods":
                 case "tsunamix":
                 case "tsuna":
@@ -100,6 +104,23 @@ namespace InteractiveSeven.Twitch.Commands
                     return MenuColors.strife;
                 default:
                     return null;
+            }
+        }
+
+        private static MenuColors RandomPalette()
+        {
+            return new MenuColors
+            {
+                TopLeft = GetRandomColor(),
+                TopRight = GetRandomColor(),
+                BotLeft = GetRandomColor(),
+                BotRight = GetRandomColor()
+            };
+            Color GetRandomColor()
+            {
+                byte[] b = new byte[3];
+                Rand.NextBytes(b);
+                return Color.FromArgb(b[0], b[1], b[2]);
             }
         }
     }
