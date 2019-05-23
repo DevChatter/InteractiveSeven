@@ -1,16 +1,14 @@
-﻿using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.UI.Helpers;
-using InteractiveSeven.UI.Settings;
+using InteractiveSeven.UI.UserControls;
 using InteractiveSeven.UI.ViewModels;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using InteractiveSeven.UI.UserControls;
 using TwitchLib.Client.Events;
 using TwitchLib.Communication.Events;
 

@@ -36,7 +36,24 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            List<string> colorArgs = commandData.Arguments.Where(arg => arg.IsColor()).ToList();
+            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+
+            if (menuColors != null)
+            {
+                DomainEvents.Raise(new MenuColorChanging(menuColors));
+
+                _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
+            }
+        }
+
+        private static MenuColors GetMenuColorsFromArgs(List<string> args)
+        {
+            var specialColor = GetSpecialColor(args.FirstOrDefault());
+            if (specialColor != null)
+            {
+                return specialColor;
+            }
+            List<string> colorArgs = args.Where(arg => arg.IsColor()).ToList();
             var menuColors = new MenuColors();
 
             switch (colorArgs.Count)
@@ -56,12 +73,33 @@ namespace InteractiveSeven.Twitch.Commands
                     break;
                 default:
                     // Invalid case, do nothing.
-                    return;
+                    return null;
             }
 
-            DomainEvents.Raise(new MenuColorChanging(menuColors));
+            return menuColors;
+        }
 
-            _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
+        private static MenuColors GetSpecialColor(string firstArg)
+        {
+            switch (firstArg.ToLower())
+            {
+                case "tsunamods":
+                case "tsunamix":
+                case "tsuna":
+                    return MenuColors.tsuna;
+                case "brendan":
+                case "brendoneus":
+                case "devchatter":
+                    return MenuColors.brendan;
+                case "classic":
+                case "default":
+                case "base":
+                    return MenuColors.classic;
+                case "strife":
+                    return MenuColors.strife;
+                default:
+                    return null;
+            }
         }
     }
 }

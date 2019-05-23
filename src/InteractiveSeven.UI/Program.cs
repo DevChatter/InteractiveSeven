@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Twitch;
-using InteractiveSeven.UI.Settings;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.UI.UserControls;
 using InteractiveSeven.UI.ViewModels;
 using TwitchLib.Client;
