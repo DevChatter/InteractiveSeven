@@ -96,6 +96,7 @@ namespace InteractiveSeven.Twitch.Commands
                 case "base":
                     return MenuColors.classic;
                 case "strife":
+                case "strife98":
                     return MenuColors.strife;
                 default:
                     return null;
