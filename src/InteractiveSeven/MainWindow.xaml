@@ -32,7 +32,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"
+            <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
+                       VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by Brendan Enrick (@Brendoneus/@DevChatter)" />
             <Button Grid.Column="2" Margin="2 2 2 2">
                 <Hyperlink x:Name="PatreonLink" RequestNavigate="PatreonLink_RequestNavigate"
@@ -54,51 +55,10 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <DockPanel>
+                        <DockPanel x:Name="ColorPreview">
                             <TextBlock DockPanel.Dock="Top" Text="Menu Preview" />
-                            <Grid x:Name="ColorPreview" Background="#FFE5E5E5" Width="200" Height="100">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Rectangle Grid.Column="0" Grid.Row="0">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Color="{Binding TopLeft, Mode=OneWay}" Offset="0.0" />
-                                            <GradientStop Color="{Binding MidPoint, Mode=OneWay}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <Rectangle Grid.Column="1" Grid.Row="0">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
-                                            <GradientStop Color="{Binding TopRight, Mode=OneWay}" Offset="0.0" />
-                                            <GradientStop Color="{Binding MidPoint, Mode=OneWay}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <Rectangle Grid.Column="0" Grid.Row="1">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                            <GradientStop Color="{Binding BotLeft, Mode=OneWay}" Offset="0.0" />
-                                            <GradientStop Color="{Binding MidPoint, Mode=OneWay}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <Rectangle Grid.Column="1" Grid.Row="1">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
-                                            <GradientStop Color="{Binding BotRight, Mode=OneWay}" Offset="0.0" />
-                                            <GradientStop Color="{Binding MidPoint, Mode=OneWay}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-
-                                </Rectangle>
-                            </Grid>
+                            <Image x:Name="ImagePreview" Width="200" Height="100"
+                                   Source="{Binding PreviewImage, Mode=OneWay}" />
                         </DockPanel>
                     </Grid>
                 </TabItem>

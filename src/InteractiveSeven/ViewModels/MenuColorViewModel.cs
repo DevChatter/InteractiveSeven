@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace InteractiveSeven.ViewModels
 {
@@ -20,6 +21,7 @@ namespace InteractiveSeven.ViewModels
                 topLeft = value;
                 OnPropertyChanged();
                 OnPropertyChanged("MidPoint");
+                OnPropertyChanged("PreviewImage");
             }
         }
         public Color BotLeft
@@ -30,6 +32,7 @@ namespace InteractiveSeven.ViewModels
                 botLeft = value;
                 OnPropertyChanged();
                 OnPropertyChanged("MidPoint");
+                OnPropertyChanged("PreviewImage");
             }
         }
         public Color TopRight
@@ -40,6 +43,7 @@ namespace InteractiveSeven.ViewModels
                 topRight = value;
                 OnPropertyChanged();
                 OnPropertyChanged("MidPoint");
+                OnPropertyChanged("PreviewImage");
             }
         }
         public Color BotRight
@@ -50,11 +54,17 @@ namespace InteractiveSeven.ViewModels
                 botRight = value;
                 OnPropertyChanged();
                 OnPropertyChanged("MidPoint");
+                OnPropertyChanged("PreviewImage");
             }
         }
         public Color MidPoint
         {
             get => Color.FromRgb((byte)AverageRed(), (byte)AverageGreen(), (byte)AverageBlue());
+        }
+
+        public ImageSource PreviewImage
+        {
+            get => ColorPreview.MakeBmp(TopLeft.ToOther(), TopRight.ToOther(), BotRight.ToOther(), BotLeft.ToOther());
         }
 
         private int AverageRed() => (int)(new int[] { topLeft.R, topRight.R, botLeft.R, botRight.R }).Average();
@@ -66,6 +76,14 @@ namespace InteractiveSeven.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public static class ColorExtension
+    {
+        public static System.Drawing.Color ToOther(this Color color)
+        {
+            return System.Drawing.Color.FromArgb(color.R, color.G, color.B);
         }
     }
 }
