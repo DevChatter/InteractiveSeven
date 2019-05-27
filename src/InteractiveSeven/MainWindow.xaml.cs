@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.ViewModels;
+﻿using InteractiveSeven.Core.Models;
+using InteractiveSeven.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -14,12 +15,13 @@ namespace InteractiveSeven
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MenuColorViewModel menuColorViewModel = new MenuColorViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
-            MenuColorViewModel menuColorViewModel = new MenuColorViewModel();
             MenuColorGrid.DataContext = menuColorViewModel;
-            ColorPreview.DataContext = menuColorViewModel;
+            MenuColorGroup.DataContext = menuColorViewModel;
         }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -31,6 +33,15 @@ namespace InteractiveSeven
             };
             Process.Start(psi);
             e.Handled = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            menuColorViewModel.Changes.Insert(0, new ChangeRecord
+            {
+                Changer = $"Brendoneus ({new Random().Next(100, 200)})",
+                Change = $"#FF0000 #00FF00 #FF0000 #000000"
+            });
         }
     }
 

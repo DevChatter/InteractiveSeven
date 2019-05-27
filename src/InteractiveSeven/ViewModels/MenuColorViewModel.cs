@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using InteractiveSeven.Core.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using System.Linq;
-using System.Windows.Media.Imaging;
 
 namespace InteractiveSeven.ViewModels
 {
@@ -57,19 +57,12 @@ namespace InteractiveSeven.ViewModels
                 OnPropertyChanged("PreviewImage");
             }
         }
-        public Color MidPoint
-        {
-            get => Color.FromRgb((byte)AverageRed(), (byte)AverageGreen(), (byte)AverageBlue());
-        }
-
         public ImageSource PreviewImage
         {
             get => ColorPreview.MakeBmp(TopLeft.ToOther(), TopRight.ToOther(), BotRight.ToOther(), BotLeft.ToOther());
         }
 
-        private int AverageRed() => (int)(new int[] { topLeft.R, topRight.R, botLeft.R, botRight.R }).Average();
-        private int AverageGreen() => (int)(new int[] { topLeft.G, topRight.G, botLeft.G, botRight.G }).Average();
-        private int AverageBlue() => (int)(new int[] { topLeft.B, topRight.B, botLeft.B, botRight.B }).Average();
+        public ObservableCollection<ChangeRecord> Changes { get; } = new ObservableCollection<ChangeRecord>();
 
         public event PropertyChangedEventHandler PropertyChanged;
 

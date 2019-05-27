@@ -46,21 +46,37 @@
             <TabControl TabStripPlacement="Top" HorizontalAlignment="Center"
                         Height="464" VerticalAlignment="Center" Width="580">
                 <TabItem Header="Dashboard">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <DockPanel x:Name="ColorPreview">
-                            <TextBlock DockPanel.Dock="Top" Text="Menu Preview" />
-                            <Image x:Name="ImagePreview" Width="200" Height="100"
+                    <Canvas>
+                        <GroupBox x:Name="MenuColorGroup" Header="Menu Color - Preview" Canvas.Left="10" Canvas.Top="10"
+                                  MaxHeight="123">
+                            <StackPanel Orientation="Horizontal" MaxHeight="100">
+                                <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay}" />
+                                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" Width="300">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" Margin="4">
+                                                    <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
+                                                    <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Current Names" Canvas.Left="10" Canvas.Top="140">
+                            <Image Width="200" Height="100"
                                    Source="{Binding PreviewImage, Mode=OneWay}" />
-                        </DockPanel>
-                    </Grid>
+                        </GroupBox>
+                        <Button Content="Button" Canvas.Left="140" Canvas.Top="325" Click="Button_Click" />
+                    </Canvas>
                 </TabItem>
                 <TabItem Header="Menu Colors">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
