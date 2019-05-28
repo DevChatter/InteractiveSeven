@@ -62,10 +62,46 @@ namespace UnitTests.Twitch.Commands
                 x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Once);
         }
 
-        private void SetSettings(bool enabled, int bits)
+        [Fact]
+        public void SetColor_GivenModWithoutEnoughBits()
+        {
+            SetSettings(true, 1);
+            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var commandData = new CommandData
+            {
+                IsMod = true,
+                Arguments = new List<string> { "red" },
+            };
+
+            menuCommand.Execute(commandData);
+
+            menuColorAcc.Verify(
+                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Once);
+        }
+
+        [Fact]
+        public void DoNothing_GivenNotEnoughBitsAndModOverrideTurnedOff()
+        {
+            SetSettings(true, 1, false);
+            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var commandData = new CommandData
+            {
+                IsMod = true,
+                Arguments = new List<string> { "red" },
+            };
+
+            menuCommand.Execute(commandData);
+
+            menuColorAcc.Verify(
+                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Never);
+        }
+
+
+        private void SetSettings(bool enabled, int bits, bool allowOverride = true)
         {
             ApplicationSettings.Instance.MenuSettings.Enabled = enabled;
             ApplicationSettings.Instance.MenuSettings.BitCost = bits;
+            ApplicationSettings.Instance.MenuSettings.AllowModOverride = allowOverride;
         }
 
         private static (Mock<IMenuColorAccessor>, Mock<ITwitchClient>, MenuCommand)

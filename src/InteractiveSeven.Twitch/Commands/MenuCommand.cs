@@ -31,7 +31,7 @@ namespace InteractiveSeven.Twitch.Commands
         public override void Execute(CommandData commandData)
         {
             if (!MenuSettings.Enabled) return;
-            if (commandData.Bits < MenuSettings.BitCost)
+            if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
             {
                 var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
@@ -47,6 +47,12 @@ namespace InteractiveSeven.Twitch.Commands
                 _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
             }
         }
+
+        private bool CanOverrideBitRestriction(CommandData commandData) 
+            => MenuSettings.AllowModOverride && (commandData.IsMod || commandData.IsBroadcaster);
+
+        private bool BelowBitThreshold(CommandData commandData) 
+            => commandData.Bits < MenuSettings.BitCost;
 
         private static MenuColors GetMenuColorsFromArgs(List<string> args)
         {
