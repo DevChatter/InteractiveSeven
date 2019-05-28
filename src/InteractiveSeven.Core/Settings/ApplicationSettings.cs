@@ -33,11 +33,12 @@ namespace InteractiveSeven.Core.Settings
     {
         public bool Enabled { get; set; } = true;
         public int BitCost { get; set; }
+        public bool AllowModOverride { get; set; } = true;
     }
 
     public class NameBiddingSettings
     {
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
         public NamingSettings NamingCloud { get; set; } = new NamingSettings();
         public NamingSettings NamingBarret { get; set; } = new NamingSettings();
         public NamingSettings NamingTifa { get; set; } = new NamingSettings();

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600">
@@ -12,19 +12,13 @@
     </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
-            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Height="30">
-                <TextBlock Text="Process Name" Margin="2" VerticalAlignment="Center" />
-                <TextBox Text="ff7_en" Width="100" Margin="2" VerticalAlignment="Center" />
-                <Button Margin="2" Content="Browse" Padding="5 0 5 0">
-                </Button>
-            </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <Button Content="Connect" Margin="2" VerticalAlignment="Center" Padding="4" />
                 <TextBlock Text="Waiting" Margin="2" VerticalAlignment="Center" Padding="4" />
                 <Button Content="Disconnect" Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
-                <TextBlock TextAlignment="Center" VerticalAlignment="Center">Interactive Seven</TextBlock>
+                <Label Content="Welcome to Interactive Seven!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             </Grid>
         </DockPanel>
         <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
@@ -89,10 +83,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <xctk:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay}" />
-                            <xctk:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay}" />
-                            <xctk:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay}" />
-                            <xctk:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay}" />
+                            <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay}" />
+                            <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay}" />
+                            <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay}" />
+                            <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay}" />
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
@@ -101,10 +95,118 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="Settings">
-                    <Grid Background="#FFE5E5E5">
+                <TabItem Header="Settings" x:Name="SettingsTab">
+                    <WrapPanel Background="#FFE5E5E5" Orientation="Horizontal">
+                        <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                            <DockPanel Width="275">
+                                <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                <Grid Margin="5,5,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                    </Grid>
+                                    <TextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                             Text="{Binding Path=ProcessName, Mode=TwoWay}" />
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                        <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
+                            <DockPanel Width="275">
+                                <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                <Grid Margin="5,5,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                    <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod/Streamer Override" FontSize="12" Margin="5,0,0,0" />
+
+                                    <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                                        Value="{Binding Path=BitCost, Mode=TwoWay}" />
+                                    <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                        <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                            <DockPanel Width="275">
+                                <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
+
+                                    <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingCloud.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingBarret.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="2" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingTifa.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="3" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingAeris.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingCaitSith.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingCid.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingRed.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingVincent.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
+
+                                    <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                              IsChecked="{Binding Path=NamingYuffie.Enabled, Mode=TwoWay}" />
+                                    <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                    </WrapPanel>
                 </TabItem>
             </TabControl>
         </Grid>

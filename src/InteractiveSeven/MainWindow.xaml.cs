@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.ViewModels;
 using System;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace InteractiveSeven
             InitializeComponent();
             MenuColorGrid.DataContext = menuColorViewModel;
             MenuColorGroup.DataContext = menuColorViewModel;
+            SettingsTab.DataContext = ApplicationSettings.Instance;
         }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
