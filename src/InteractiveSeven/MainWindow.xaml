@@ -7,9 +7,6 @@
         xmlns:local="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600">
-    <Window.Resources>
-        <local:ColorBrushConverter x:Key="ColorBrushConverter" />
-    </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
