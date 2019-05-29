@@ -102,7 +102,9 @@
                         <DockPanel Background="#FFE5E5E5">
                             <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
                                 <Button Content="Save Settings" Command="{Binding Path=SaveSettingsCommand}"
-                                        Width="150" Padding="0,10,0,10" Margin="0,10,0,10" />
+                                        Width="150" Padding="0,10,0,10" Margin="0,10,30,10" />
+                                <Button Content="Load Settings" Command="{Binding Path=LoadSettingsCommand}"
+                                        Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                             </StackPanel>
                             <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
@@ -177,39 +179,39 @@
                                             <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
 
                                             <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingCloud.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingCloudEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="1" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingBarret.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingBarretEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="2" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingTifa.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingTifaEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="3" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingAeris.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingAerisEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingCaitSith.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingCaitSithEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingCid.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingCidEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingRed.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingRedEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingVincent.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingVincentEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
 
                                             <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=NamingYuffie.Enabled, Mode=TwoWay}" />
+                                              IsChecked="{Binding Path=NamingYuffieEnabled, Mode=TwoWay}" />
                                             <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
                                         </Grid>
                                     </DockPanel>

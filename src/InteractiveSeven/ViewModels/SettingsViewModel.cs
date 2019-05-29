@@ -11,9 +11,11 @@ namespace InteractiveSeven.ViewModels
         {
             _settingsStore = settingsStore;
             SaveSettingsCommand = new SimpleCommand(x => _settingsStore.SaveSettings());
+            LoadSettingsCommand = new SimpleCommand(x => _settingsStore.LoadSettings());
         }
 
         public ICommand SaveSettingsCommand { get; }
+        public ICommand LoadSettingsCommand { get; }
 
         public ApplicationSettings Settings => ApplicationSettings.Instance;
     }
