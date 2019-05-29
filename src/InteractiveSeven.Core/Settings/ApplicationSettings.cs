@@ -32,33 +32,12 @@ namespace InteractiveSeven.Core.Settings
             try
             {
                 JsonConvert.PopulateObject(json, Instance);
-                //SetAllInstanceValues(JsonConvert.DeserializeObject<ApplicationSettings>(json));
             }
             catch (Exception)
             {
                 Instance = new ApplicationSettings();
                 // gulp
             }
-        }
-
-        private static void SetAllInstanceValues(ApplicationSettings s)
-        {
-            Instance.ProcessName = s.ProcessName;
-
-            Instance.MenuSettings.AllowModOverride = s.MenuSettings.AllowModOverride;
-            Instance.MenuSettings.BitCost = s.MenuSettings.BitCost;
-            Instance.MenuSettings.Enabled = s.MenuSettings.Enabled;
-
-            Instance.NameBiddingSettings.Enabled = s.NameBiddingSettings.Enabled;
-            Instance.NameBiddingSettings.NamingAerisEnabled = s.NameBiddingSettings.NamingAerisEnabled;
-            Instance.NameBiddingSettings.NamingBarretEnabled = s.NameBiddingSettings.NamingBarretEnabled;
-            Instance.NameBiddingSettings.NamingCaitSithEnabled = s.NameBiddingSettings.NamingCaitSithEnabled;
-            Instance.NameBiddingSettings.NamingCidEnabled = s.NameBiddingSettings.NamingCidEnabled;
-            Instance.NameBiddingSettings.NamingCloudEnabled = s.NameBiddingSettings.NamingCloudEnabled;
-            Instance.NameBiddingSettings.NamingRedEnabled = s.NameBiddingSettings.NamingRedEnabled;
-            Instance.NameBiddingSettings.NamingTifaEnabled = s.NameBiddingSettings.NamingTifaEnabled;
-            Instance.NameBiddingSettings.NamingVincentEnabled = s.NameBiddingSettings.NamingVincentEnabled;
-            Instance.NameBiddingSettings.NamingYuffieEnabled = s.NameBiddingSettings.NamingYuffieEnabled;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
