@@ -17,13 +17,14 @@ namespace InteractiveSeven
     public partial class MainWindow : Window
     {
         private readonly MenuColorViewModel menuColorViewModel = new MenuColorViewModel();
+        private readonly SettingsViewModel settingsViewModel = new SettingsViewModel(new SettingsStore());
 
         public MainWindow()
         {
             InitializeComponent();
             MenuColorGrid.DataContext = menuColorViewModel;
             MenuColorGroup.DataContext = menuColorViewModel;
-            SettingsTab.DataContext = ApplicationSettings.Instance;
+            SettingsTab.DataContext = settingsViewModel;
         }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)

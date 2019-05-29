@@ -101,10 +101,10 @@
                     <ScrollViewer>
                         <DockPanel Background="#FFE5E5E5">
                             <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
-                                <Button Content="Save Settings" Width="150" Padding="0,10,0,10" Margin="0,10,20,10" />
-                                <Button Content="Load Settings" Width="150" Padding="0,10,0,10" Margin="20,10,0,10" />
+                                <Button Content="Save Settings" Command="{Binding Path=SaveSettingsCommand}"
+                                        Width="150" Padding="0,10,0,10" Margin="0,10,0,10" />
                             </StackPanel>
-                            <WrapPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
                                     <DockPanel Width="265">
                                         <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
