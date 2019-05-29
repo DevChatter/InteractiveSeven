@@ -106,7 +106,7 @@
                             </StackPanel>
                             <WrapPanel Orientation="Horizontal">
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="275">
+                                    <DockPanel Width="265">
                                         <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                         <Grid Margin="5,5,0,5">
                                             <Grid.ColumnDefinitions>
@@ -119,12 +119,12 @@
 
                                             <TextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                              Text="{Binding Path=ProcessName, Mode=TwoWay}" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="0" Grid.Column="1" Content="FF7 Process (without .exe)" FontSize="12" Margin="5,0,0,0" />
                                         </Grid>
                                     </DockPanel>
                                 </Border>
                                 <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="275">
+                                    <DockPanel Width="265">
                                         <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                         <Grid Margin="5,5,0,5">
                                             <Grid.ColumnDefinitions>
@@ -152,7 +152,7 @@
                                     </DockPanel>
                                 </Border>
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="275">
+                                    <DockPanel Width="265">
                                         <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                         <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
                                             <Grid.ColumnDefinitions>
