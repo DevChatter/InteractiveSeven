@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Settings;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,14 @@ namespace InteractiveSeven
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitializeSettings();
+        }
+
+        private static void InitializeSettings()
+        {
+            new SettingsStore().EnsureExists();
+        }
     }
 }
