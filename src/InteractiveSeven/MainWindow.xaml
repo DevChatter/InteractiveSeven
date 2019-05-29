@@ -40,37 +40,37 @@
             <TabControl TabStripPlacement="Top" HorizontalAlignment="Center"
                         Height="464" VerticalAlignment="Center" Width="580">
                 <TabItem Header="Dashboard">
-                    <Canvas>
-                        <GroupBox x:Name="MenuColorGroup" Header="Menu Color - Preview" Canvas.Left="10" Canvas.Top="10"
-                                  MaxHeight="123">
-                            <StackPanel Orientation="Horizontal" MaxHeight="100">
-                                <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay}" />
-                                <ScrollViewer VerticalScrollBarVisibility="Visible">
-                                    <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" Width="300">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Vertical" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Vertical" Margin="4">
-                                                    <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
-                                                    <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+                            <GroupBox x:Name="MenuColorGroup" Header="Menu Color - Preview" MaxHeight="123">
+                                <StackPanel Orientation="Horizontal" MaxHeight="100">
+                                    <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay}" />
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" MinWidth="300">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical" Margin="4">
+                                                        <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
+                                                        <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
 
-                                </ScrollViewer>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="Current Names" Canvas.Left="10" Canvas.Top="140">
-                            <Image Width="200" Height="100"
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Current Names" Canvas.Left="10" Canvas.Top="140">
+                                <Image Width="200" Height="100"
                                    Source="{Binding PreviewImage, Mode=OneWay}" />
-                        </GroupBox>
-                        <Button Content="Button" Canvas.Left="140" Canvas.Top="325" Click="Button_Click" />
-                    </Canvas>
+                            </GroupBox>
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Menu Colors">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -91,122 +91,132 @@
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Name Bidding">
-                    <Grid Background="#FFE5E5E5">
+                    <ScrollViewer>
+                        <Grid Background="#FFE5E5E5">
 
-                    </Grid>
+                        </Grid>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Settings" x:Name="SettingsTab">
-                    <WrapPanel Background="#FFE5E5E5" Orientation="Horizontal">
-                        <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                            <DockPanel Width="275">
-                                <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                    <ScrollViewer>
+                        <DockPanel Background="#FFE5E5E5">
+                            <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
+                                <Button Content="Save Settings" Width="150" Padding="0,10,0,10" Margin="0,10,20,10" />
+                                <Button Content="Load Settings" Width="150" Padding="0,10,0,10" Margin="20,10,0,10" />
+                            </StackPanel>
+                            <WrapPanel Orientation="Horizontal">
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="275">
+                                        <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <Grid Margin="5,5,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
 
-                                    <TextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <TextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                              Text="{Binding Path=ProcessName, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
-                                </Grid>
-                            </DockPanel>
-                        </Border>
-                        <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
-                            <DockPanel Width="275">
-                                <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="1" Content="Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                                <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="275">
+                                        <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <Grid Margin="5,5,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
 
-                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
+                                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
-                                    <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod/Streamer Override" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod/Streamer Override" FontSize="12" Margin="5,0,0,0" />
 
-                                    <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                            <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
                                                         Value="{Binding Path=BitCost, Mode=TwoWay}" />
-                                    <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
-                                </Grid>
-                            </DockPanel>
-                        </Border>
-                        <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                            <DockPanel Width="275">
-                                <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                            <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="275">
+                                        <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
 
-                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
+                                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCloud.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="1" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="1" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingBarret.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="2" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="2" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingTifa.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="3" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="3" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingAeris.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCaitSith.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCid.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingRed.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingVincent.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
+                                            <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
 
-                                    <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingYuffie.Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
-                                </Grid>
-                            </DockPanel>
-                        </Border>
-                    </WrapPanel>
+                                            <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                            </WrapPanel>
+                        </DockPanel>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
         </Grid>
