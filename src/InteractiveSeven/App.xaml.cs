@@ -1,7 +1,13 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Twitch;
+using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Windows;
+using TwitchLib.Client;
+using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven
 {
@@ -10,21 +16,20 @@ namespace InteractiveSeven
     /// </summary>
     public partial class App : Application
     {
-        private ServiceProvider _serviceProvider;
-
-        public App()
-        {
-            InitializeSettings();
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-        }
-
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient(typeof(IList<>), typeof(List<>));
+
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<SettingsViewModel>();
+            services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
+            services.AddSingleton<ITwitchClient, TwitchClient>();
+
+            services.AddSingleton<ITwitchCommand, MenuCommand>();
+            services.AddSingleton<ITwitchCommand, NameCommand>();
+
+            services.AddSingleton<ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<MainWindow>();
         }
@@ -36,7 +41,13 @@ namespace InteractiveSeven
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = _serviceProvider.GetService<MainWindow>();
+            InitializeSettings();
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }
     }

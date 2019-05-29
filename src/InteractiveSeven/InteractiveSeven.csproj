@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
+    <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.ViewModels;
+﻿using InteractiveSeven.Twitch;
+using InteractiveSeven.ViewModels;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
@@ -10,12 +11,15 @@ namespace InteractiveSeven
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MenuColorViewModel menuColorViewModel, SettingsViewModel settingsViewModel)
+        private readonly ChatBot _chatBot;
+
+        public MainWindow(MenuColorViewModel menuColorViewModel, SettingsViewModel settingsViewModel, ChatBot chatBot)
         {
             InitializeComponent();
             MenuColorGrid.DataContext = menuColorViewModel;
             MenuColorGroup.DataContext = menuColorViewModel;
             SettingsTab.DataContext = settingsViewModel;
+            _chatBot = chatBot;
         }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
