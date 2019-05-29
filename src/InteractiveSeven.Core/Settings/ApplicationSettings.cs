@@ -24,6 +24,7 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+        public TwitchSettings TwitchSettings { get; set; } = new TwitchSettings();
         public MenuColorSettings MenuSettings { get; set; } = new MenuColorSettings();
         public NameBiddingSettings NameBiddingSettings { get; set; } = new NameBiddingSettings();
 

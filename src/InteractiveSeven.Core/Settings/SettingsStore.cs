@@ -5,7 +5,7 @@ namespace InteractiveSeven.Core.Settings
 {
     public class SettingsStore : ISettingsStore
     {
-        const string SETTINGS_FILE_NAME = "appsettings.json";
+        const string SETTINGS_FILE_NAME = "i7.json";
 
         public void EnsureExists()
         {

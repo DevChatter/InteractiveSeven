@@ -16,24 +16,6 @@ namespace InteractiveSeven
     /// </summary>
     public partial class App : Application
     {
-        private void ConfigureServices(IServiceCollection services)
-        {
-            services.AddTransient(typeof(IList<>), typeof(List<>));
-
-            services.AddSingleton<MenuColorViewModel>();
-            services.AddSingleton<SettingsViewModel>();
-            services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
-            services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
-            services.AddSingleton<ITwitchClient, TwitchClient>();
-
-            services.AddSingleton<ITwitchCommand, MenuCommand>();
-            services.AddSingleton<ITwitchCommand, NameCommand>();
-
-            services.AddSingleton<ChatBot>();
-            services.AddSingleton<ISettingsStore, SettingsStore>();
-            services.AddSingleton<MainWindow>();
-        }
-
         private static void InitializeSettings()
         {
             new SettingsStore().EnsureExists();
@@ -49,6 +31,26 @@ namespace InteractiveSeven
 
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddTransient(typeof(IList<>), typeof(List<>));
+
+            services.AddSingleton<MenuColorViewModel>();
+            services.AddSingleton<SettingsViewModel>();
+            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
+            services.AddSingleton<ITwitchClient, TwitchClient>();
+
+            services.AddSingleton<ITwitchCommand, MenuCommand>();
+            services.AddSingleton<ITwitchCommand, NameCommand>();
+
+            services.AddSingleton<TwitchSettings>();
+            services.AddSingleton<ChatBot>();
+            services.AddSingleton<ISettingsStore, SettingsStore>();
+            services.AddSingleton<MainWindow>();
         }
     }
 }

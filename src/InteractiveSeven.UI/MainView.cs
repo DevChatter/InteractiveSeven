@@ -120,10 +120,7 @@ namespace InteractiveSeven.UI
 
         private void TwitchConnectButton_Click(object sender, EventArgs e)
         {
-            _chatBot.Connect(
-                TwitchSettings.Settings.Username,
-                TwitchSettings.Settings.AccessToken,
-                TwitchSettings.Settings.Channel);
+            _chatBot.Connect();
         }
 
         private void TwitchDisconnectButton_Click(object sender, EventArgs e)

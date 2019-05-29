@@ -39,7 +39,7 @@
                 <TabItem Header="Dashboard">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
-                            <GroupBox x:Name="MenuColorGroup" Header="Menu Color - Preview" MaxHeight="123">
+                            <GroupBox DataContext="{Binding MenuColorViewModel}" Header="Menu Color - Preview" MaxHeight="123">
                                 <StackPanel Orientation="Horizontal" MaxHeight="100">
                                     <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay}" />
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -69,9 +69,9 @@
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Menu Colors">
+                <TabItem Header="Menu Colors" DataContext="{Binding MenuColorViewModel}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid Background="#FFE5E5E5" x:Name="MenuColorGrid">
+                        <Grid Background="#FFE5E5E5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -94,7 +94,7 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Settings" x:Name="SettingsTab">
+                <TabItem Header="Settings" DataContext="{Binding SettingsViewModel}">
                     <ScrollViewer>
                         <DockPanel Background="#FFE5E5E5">
                             <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
@@ -105,7 +105,7 @@
                             </StackPanel>
                             <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="265">
+                                    <DockPanel Width="500">
                                         <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                         <Grid Margin="5,5,0,5">
                                             <Grid.ColumnDefinitions>
@@ -116,9 +116,38 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
-                                            <TextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                             Text="{Binding Path=ProcessName, Mode=TwoWay}" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="FF7 Process (without .exe)" FontSize="12" Margin="5,0,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                Text="{Binding Path=ProcessName, Mode=TwoWay}" Watermark="Example: ff7_en" />
+                                            <Label Grid.Row="0" Grid.Column="1" Content="FF7 Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
+                                        </Grid>
+                                    </DockPanel>
+                                </Border>
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="500">
+                                        <TextBlock Text="Twitch Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <Grid Margin="5,5,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=TwitchSettings.Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=TwitchSettings.AccessToken}"
+                                                PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=TwitchSettings.Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
                                         </Grid>
                                     </DockPanel>
                                 </Border>

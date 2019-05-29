@@ -1,9 +1,9 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
+using InteractiveSeven.Twitch.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -15,9 +15,9 @@ namespace InteractiveSeven.Twitch
     {
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
+        private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
 
-        public ChatBot(IMenuColorAccessor menuColorAccessor,
-            ITwitchClient twitchClient, IList<ITwitchCommand> commands)
+        public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands)
         {
             _client = twitchClient;
             _commands = commands;
@@ -33,11 +33,11 @@ namespace InteractiveSeven.Twitch
         public event EventHandler<OnConnectedArgs> OnConnected;
         public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
 
-        public void Connect(string username, string accessToken, string channel)
+        public void Connect()
         {
             ConnectionCredentials credentials = 
-                new ConnectionCredentials(username, accessToken);
-            _client.Initialize(credentials, channel);
+                new ConnectionCredentials(Settings.Username, Settings.AccessToken);
+            _client.Initialize(credentials, Settings.Channel);
             _client.Connect();
         }
 

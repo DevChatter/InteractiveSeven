@@ -8,7 +8,6 @@ using InteractiveSeven.Core.Settings;
 using InteractiveSeven.UI.UserControls;
 using InteractiveSeven.UI.ViewModels;
 using TwitchLib.Client;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.UI
 {

@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Twitch;
-using InteractiveSeven.ViewModels;
+﻿using InteractiveSeven.ViewModels;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using Xceed.Wpf.Toolkit;
 
 namespace InteractiveSeven
 {
@@ -11,16 +11,15 @@ namespace InteractiveSeven
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ChatBot _chatBot;
 
-        public MainWindow(MenuColorViewModel menuColorViewModel, SettingsViewModel settingsViewModel, ChatBot chatBot)
+        public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
-            MenuColorGrid.DataContext = menuColorViewModel;
-            MenuColorGroup.DataContext = menuColorViewModel;
-            SettingsTab.DataContext = settingsViewModel;
-            _chatBot = chatBot;
+            DataContext = viewModel;
+            ViewModel = viewModel;
         }
+
+        public MainWindowViewModel ViewModel { get; }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -31,6 +30,11 @@ namespace InteractiveSeven
             };
             Process.Start(psi);
             e.Handled = true;
+        }
+
+        private void AccessTokenTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SettingsViewModel.Settings.TwitchSettings.AccessToken = ((WatermarkPasswordBox)sender).Password;
         }
     }
 }
