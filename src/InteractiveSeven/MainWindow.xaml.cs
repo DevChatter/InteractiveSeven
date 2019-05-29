@@ -1,12 +1,6 @@
-﻿using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Settings;
-using InteractiveSeven.ViewModels;
-using System;
+﻿using InteractiveSeven.ViewModels;
 using System.Diagnostics;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace InteractiveSeven
