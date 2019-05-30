@@ -4,6 +4,7 @@ using InteractiveSeven.Twitch.Model;
 using System.Linq;
 using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Twitch.Commands
 {
@@ -30,6 +31,8 @@ namespace InteractiveSeven.Twitch.Commands
                 .Union(YuffieWords)
                 .ToArray();
 
+        public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
+
         public NameCommand()
             : base(AllWords)
         {
@@ -37,45 +40,43 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            if (CloudWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            if (!Settings.Enabled) return;
+
+            if (CloudWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCloudEnabled)
             {
                 TriggerDomainEvent(Constants.Cloud, commandData);
             }
-            else if (BarretWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (BarretWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingBarretEnabled)
             {
                 TriggerDomainEvent(Constants.Barret, commandData);
             }
-            else if (TifaWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (TifaWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingTifaEnabled)
             {
                 TriggerDomainEvent(Constants.Tifa, commandData);
             }
-            else if (AerisWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (AerisWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingAerisEnabled)
             {
                 TriggerDomainEvent(Constants.Aeris, commandData);
             }
-            else if (CaitWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (CaitWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCaitSithEnabled)
             {
                 TriggerDomainEvent(Constants.CaitSith, commandData);
             }
-            else if (CidWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (CidWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCidEnabled)
             {
                 TriggerDomainEvent(Constants.Cid, commandData);
             }
-            else if (RedWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (RedWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingRedEnabled)
             {
                 TriggerDomainEvent(Constants.Red, commandData);
             }
-            else if (VincentWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (VincentWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingVincentEnabled)
             {
                 TriggerDomainEvent(Constants.Vincent, commandData);
             }
-            else if (YuffieWords.Any(word => word.EqualsIns(commandData.CommandText)))
+            else if (YuffieWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingYuffieEnabled)
             {
                 TriggerDomainEvent(Constants.Yuffie, commandData);
-            }
-            else
-            {
-                // TODO: Handle Unknown Character Vote
             }
         }
 
