@@ -38,10 +38,12 @@ namespace InteractiveSeven
             services.AddTransient(typeof(IList<>), typeof(List<>));
 
             services.AddSingleton<MenuColorViewModel>();
+            services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
+            services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
             services.AddSingleton<ITwitchCommand, MenuCommand>();

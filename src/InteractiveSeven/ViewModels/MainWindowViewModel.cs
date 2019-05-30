@@ -6,10 +6,11 @@ namespace InteractiveSeven.ViewModels
 {
     public class MainWindowViewModel
     {
-        public MainWindowViewModel(MenuColorViewModel menuColorViewModel,
+        public MainWindowViewModel(MenuColorViewModel menuColorViewModel, NameBiddingViewModel nameBiddingViewModel,
             SettingsViewModel settingsViewModel, ChatBot chatBot)
         {
             MenuColorViewModel = menuColorViewModel;
+            NameBiddingViewModel = nameBiddingViewModel;
             SettingsViewModel = settingsViewModel;
             ChatBot = chatBot;
             ConnectBotCommand = new SimpleCommand(x => ChatBot.Connect());
@@ -20,6 +21,7 @@ namespace InteractiveSeven.ViewModels
         public ICommand DisconnectBotCommand { get; }
 
         public MenuColorViewModel MenuColorViewModel { get; }
+        public NameBiddingViewModel NameBiddingViewModel { get; }
         public SettingsViewModel SettingsViewModel { get; }
         public ChatBot ChatBot { get; }
     }
