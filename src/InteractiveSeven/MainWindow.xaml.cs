@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.ViewModels;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
@@ -34,7 +35,11 @@ namespace InteractiveSeven
 
         private void AccessTokenTextBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            ViewModel.SettingsViewModel.Settings.TwitchSettings.AccessToken = ((WatermarkPasswordBox)sender).Password;
+            if (sender is WatermarkPasswordBox passwordBox
+                && passwordBox.Password.StartsWith("oauth:", StringComparison.OrdinalIgnoreCase))
+            {
+                ViewModel.SettingsViewModel.Settings.TwitchSettings.AccessToken = passwordBox.Password;
+            }
         }
     }
 }

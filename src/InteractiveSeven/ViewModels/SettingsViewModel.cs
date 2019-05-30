@@ -10,8 +10,18 @@ namespace InteractiveSeven.ViewModels
         public SettingsViewModel(ISettingsStore settingsStore)
         {
             _settingsStore = settingsStore;
-            SaveSettingsCommand = new SimpleCommand(x => _settingsStore.SaveSettings());
-            LoadSettingsCommand = new SimpleCommand(x => _settingsStore.LoadSettings());
+            SaveSettingsCommand = new SimpleCommand(SaveSettings);
+            LoadSettingsCommand = new SimpleCommand(LoadSettings);
+        }
+
+        private void SaveSettings(object obj)
+        {
+            _settingsStore.SaveSettings();
+        }
+
+        private void LoadSettings(object obj)
+        {
+            _settingsStore.LoadSettings();
         }
 
         public ICommand SaveSettingsCommand { get; }

@@ -10,9 +10,9 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
-                <Button Content="Connect" Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Button Content="Connect" Command="{Binding ConnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
                 <TextBlock Text="Waiting" Margin="2" VerticalAlignment="Center" Padding="4" />
-                <Button Content="Disconnect" Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Button Content="Disconnect" Command="{Binding DisconnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
                 <Label Content="Welcome to Interactive Seven!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
@@ -142,7 +142,6 @@
 
                                             <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
                                             <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                                Text="{Binding Path=TwitchSettings.AccessToken}"
                                                 PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
                                             <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
