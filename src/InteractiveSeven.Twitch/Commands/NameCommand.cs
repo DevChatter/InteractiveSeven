@@ -5,6 +5,7 @@ using System.Linq;
 using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
+using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
 {
@@ -19,6 +20,8 @@ namespace InteractiveSeven.Twitch.Commands
         private static readonly string[] RedWords = {"red", "redxiii", "nanaki", "redxii", "redxiiii"};
         private static readonly string[] VincentWords = {"vincent", "vince"};
         private static readonly string[] YuffieWords = {"yuffie"};
+        private readonly ITwitchClient _twitchClient;
+
         private static string[] AllWords
             => CloudWords
                 .Union(BarretWords)
@@ -33,9 +36,10 @@ namespace InteractiveSeven.Twitch.Commands
 
         public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand()
+        public NameCommand(ITwitchClient twitchClient)
             : base(AllWords)
         {
+            _twitchClient = twitchClient;
         }
 
         public override void Execute(CommandData commandData)
@@ -93,7 +97,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (data.Bits < 1)
             {
-                // TODO: Send Message
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
                 return;
             }
 
