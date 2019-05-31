@@ -2,14 +2,14 @@
 {
     public class Constants
     {
-        public const string Cloud = "cloud";
-        public const string Tifa = "tifa";
-        public const string Barret = "barret";
-        public const string Aeris = "aeris";
-        public const string Red = "red";
-        public const string CaitSith = "caitsith";
-        public const string Vincent = "vincent";
-        public const string Yuffie = "yuffie";
-        public const string Cid = "cid";
+        public const string Cloud = "Cloud";
+        public const string Tifa = "Tifa";
+        public const string Barret = "Barret";
+        public const string Aeris = "Aeris";
+        public const string Red = "Red";
+        public const string CaitSith = "CaitSith";
+        public const string Vincent = "Vincent";
+        public const string Yuffie = "Yuffie";
+        public const string Cid = "Cid";
     }
 }

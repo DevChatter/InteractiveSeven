@@ -62,9 +62,15 @@
                                     </ScrollViewer>
                                 </StackPanel>
                             </GroupBox>
-                            <GroupBox Header="Current Names" Canvas.Left="10" Canvas.Top="140">
-                                <Image Width="200" Height="100"
-                                   Source="{Binding PreviewImage, Mode=OneWay}" />
+                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names" Canvas.Left="10" Canvas.Top="140">
+                                <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
+                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                                                      AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Current Name" Binding="{Binding LeadingName}" />
+                                        <DataGridTextColumn Header="Default Name" Binding="{Binding DefaultName}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </GroupBox>
                         </StackPanel>
                     </ScrollViewer>
@@ -87,11 +93,35 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Name Bidding">
-                    <ScrollViewer>
-                        <Grid Background="#FFE5E5E5">
-
-                        </Grid>
+                <TabItem Header="Name Bidding" DataContext="{Binding NameBiddingViewModel}">
+                    <ScrollViewer Background="#FFE5E5E5">
+                        <ItemsControl ItemsSource="{Binding CharacterNameBiddings}" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
+                                        <DockPanel>
+                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                                <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
+                                                <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
+                                            </StackPanel>
+                                            <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
+                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                                                      AutoGenerateColumns="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
+                                                    <DataGridTextColumn Header="Bits" Binding="{Binding TotalBits}" Width="68" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Settings" DataContext="{Binding SettingsViewModel}">

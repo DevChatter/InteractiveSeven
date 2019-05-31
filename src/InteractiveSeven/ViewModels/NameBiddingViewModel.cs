@@ -4,12 +4,11 @@ using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace InteractiveSeven.ViewModels
 {
-    public class NameBiddingViewModel : INotifyPropertyChanged
+    public class NameBiddingViewModel
     {
         private readonly INameAccessor _nameAccessor;
         private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings 
@@ -25,6 +24,8 @@ namespace InteractiveSeven.ViewModels
                 [Constants.Vincent] = new CharacterNameBidding(Constants.Vincent),
                 [Constants.Yuffie] = new CharacterNameBidding(Constants.Yuffie),
             };
+
+        public List<CharacterNameBidding> CharacterNameBiddings => _characterNameBiddings.Values.ToList();
 
         public NameBiddingViewModel(INameAccessor nameAccessor)
         {
@@ -56,13 +57,6 @@ namespace InteractiveSeven.ViewModels
             {
                 Console.WriteLine(exception);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

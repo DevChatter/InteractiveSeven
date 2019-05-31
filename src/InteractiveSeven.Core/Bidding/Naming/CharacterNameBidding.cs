@@ -1,17 +1,18 @@
 ﻿using InteractiveSeven.Core.Events;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace InteractiveSeven.Core.Bidding.Naming
 {
-    public class CharacterNameBidding
+    public class CharacterNameBidding : INotifyPropertyChanged
     {
         public string DefaultName { get; }
 
-        private readonly Dictionary<string, CharacterNameBid> _nameBids = new Dictionary<string, CharacterNameBid>();
-        public string LeadingName => _nameBids.Values
-                                         .OrderByDescending(x => x.TotalBits)
+        public ThreadedObservableCollection<CharacterNameBid> NameBids { get; }
+            = new ThreadedObservableCollection<CharacterNameBid>();
+        public string LeadingName => NameBids.OrderByDescending(x => x.TotalBits)
                                          .FirstOrDefault()?.Name ?? DefaultName;
 
         public CharacterNameBidding(string defaultName)
@@ -25,10 +26,11 @@ namespace InteractiveSeven.Core.Bidding.Naming
             {
                 string currentName = LeadingName;
                 // TODO: Locking
-                if (!_nameBids.TryGetValue(e.BidName, out CharacterNameBid nameBid))
+                CharacterNameBid nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
+                if (nameBid == null)
                 {
                     nameBid = new CharacterNameBid { Name = e.BidName };
-                    _nameBids.Add(e.BidName, nameBid);
+                    NameBids.Add(nameBid);
                 }
 
                 nameBid.AddRecord(e.BidRecord);
@@ -37,13 +39,21 @@ namespace InteractiveSeven.Core.Bidding.Naming
                 {
                     var topNameChanged = new TopNameChanged(DefaultName, LeadingName);
                     DomainEvents.Raise(topNameChanged);
+                    OnPropertyChanged(nameof(LeadingName));
                 }
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
-
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }
