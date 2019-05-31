@@ -94,6 +94,8 @@ namespace InteractiveSeven.Core.Settings
     public class NameBiddingSettings : INotifyPropertyChanged
     {
         private bool _enabled = true;
+        private bool _allowModeration = true;
+        private bool _allowModBits = true;
         private bool _namingCloudEnabled = true;
         private bool _namingBarretEnabled = true;
         private bool _namingTifaEnabled = true;
@@ -110,6 +112,26 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _enabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AllowModeration
+        {
+            get => _allowModeration;
+            set
+            {
+                _allowModeration = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AllowModBits
+        {
+            get => _allowModBits;
+            set
+            {
+                _allowModBits = value;
                 OnPropertyChanged();
             }
         }

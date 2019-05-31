@@ -8,5 +8,11 @@ namespace InteractiveSeven.Core
         {
             return a.Equals(b, StringComparison.OrdinalIgnoreCase);
         }
+
+        public static int SafeIntParse(this string text)
+        {
+            int.TryParse(text, out int result);
+            return result;
+        }
     }
 }

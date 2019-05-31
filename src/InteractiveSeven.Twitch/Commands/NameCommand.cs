@@ -82,9 +82,14 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            // TODO: Remove this!!!
-            // Temp Code!!!
-            data.Bits = Math.Max(data.Bits, 1);
+            if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
+            {
+                int number = data.Arguments.Max(arg => arg.SafeIntParse());
+                if (number > 0)
+                {
+                    data.Bits = number;
+                }
+            }
 
             if (data.Bits < 1)
             {
