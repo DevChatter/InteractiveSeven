@@ -27,10 +27,10 @@ namespace InteractiveSeven.Core.Models
 
         public static MenuColors brendan = new MenuColors
         {
-            TopLeft = Color.FromName("black"),
-            TopRight = Color.FromName("red"),
-            BotLeft = Color.FromName("red"),
-            BotRight = Color.FromName("black"),
+            TopLeft = Color.FromName("red"),
+            TopRight = Color.FromName("black"),
+            BotLeft = Color.FromName("black"),
+            BotRight = Color.FromName("red"),
         };
 
         public static MenuColors strife = new MenuColors
