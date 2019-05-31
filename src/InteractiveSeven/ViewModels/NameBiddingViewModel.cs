@@ -29,6 +29,7 @@ namespace InteractiveSeven.ViewModels
 
         public NameBiddingViewModel(INameAccessor nameAccessor)
         {
+            DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
 
             DomainEvents.Register<TopNameChanged>(HandleTopNameChange);
@@ -52,6 +53,21 @@ namespace InteractiveSeven.ViewModels
             try
             {
                 _characterNameBiddings[e.CharName].HandleNameVote(e);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void HandleNameRemoval(RemovingName e)
+        {
+            try
+            {
+                foreach (var charBidding in CharacterNameBiddings)
+                {
+                    charBidding.TryRemove(e.NameToRemove);
+                }
             }
             catch (Exception exception)
             {
