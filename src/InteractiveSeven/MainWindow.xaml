@@ -4,14 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:local="clr-namespace:InteractiveSeven"
+        xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600">
+    <Window.Resources>
+        <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
+    </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <Button Content="Connect" Command="{Binding ConnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
-                <TextBlock Text="Waiting" Margin="2" VerticalAlignment="Center" Padding="4" />
+                <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}" Margin="2" VerticalAlignment="Center" Padding="4" />
                 <Button Content="Disconnect" Command="{Binding DisconnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>

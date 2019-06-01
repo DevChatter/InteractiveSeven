@@ -3,7 +3,9 @@ using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -11,11 +13,23 @@ using TwitchLib.Communication.Events;
 
 namespace InteractiveSeven.Twitch
 {
-    public class ChatBot
+    public class ChatBot : INotifyPropertyChanged
     {
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
+        private bool isConnected;
+
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
+
+        public bool IsConnected
+        {
+            get => isConnected;
+            set
+            {
+                isConnected = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands)
         {
@@ -35,7 +49,7 @@ namespace InteractiveSeven.Twitch
 
         public void Connect()
         {
-            ConnectionCredentials credentials = 
+            ConnectionCredentials credentials =
                 new ConnectionCredentials(Settings.Username, Settings.AccessToken);
             _client.Initialize(credentials, Settings.Channel);
             _client.Connect();
@@ -60,11 +74,13 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            OnConnected?.Invoke(sender,e);
+            IsConnected = true;
+            OnConnected?.Invoke(sender, e);
         }
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
+            IsConnected = false;
             OnDisconnected?.Invoke(sender, e);
         }
 
@@ -75,6 +91,13 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
