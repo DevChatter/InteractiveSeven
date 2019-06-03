@@ -1,7 +1,6 @@
 ﻿using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -44,13 +43,9 @@ namespace InteractiveSeven.Twitch
             _client.OnDisconnected += Client_OnDisconnected;
         }
 
-        public event EventHandler<OnConnectedArgs> OnConnected;
-        public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
-
         public void Connect()
         {
-            ConnectionCredentials credentials =
-                new ConnectionCredentials(Settings.Username, Settings.AccessToken);
+            ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
             _client.Initialize(credentials, Settings.Channel);
             _client.Connect();
         }
@@ -75,13 +70,11 @@ namespace InteractiveSeven.Twitch
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
             IsConnected = true;
-            OnConnected?.Invoke(sender, e);
         }
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
             IsConnected = false;
-            OnDisconnected?.Invoke(sender, e);
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
