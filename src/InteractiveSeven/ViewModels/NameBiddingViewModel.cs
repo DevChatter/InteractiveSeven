@@ -2,15 +2,18 @@
 using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.ViewModels
 {
     public class NameBiddingViewModel
     {
         private readonly INameAccessor _nameAccessor;
+        private readonly ITwitchClient _twitchClient;
         private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings 
             = new Dictionary<string, CharacterNameBidding>
             {
@@ -27,13 +30,16 @@ namespace InteractiveSeven.ViewModels
 
         public List<CharacterNameBidding> CharacterNameBiddings => _characterNameBiddings.Values.ToList();
 
-        public NameBiddingViewModel(INameAccessor nameAccessor)
+        public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
+
+        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
-
             DomainEvents.Register<TopNameChanged>(HandleTopNameChange);
+
             _nameAccessor = nameAccessor;
+            _twitchClient = twitchClient;
         }
 
         private void HandleTopNameChange(TopNameChanged e)
@@ -41,6 +47,7 @@ namespace InteractiveSeven.ViewModels
             try
             {
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
+                _twitchClient.SendMessage(TwitchSettings.Channel, $"Interactive7: {e.CharName}'s name is now {e.NewName}.");
             }
             catch (Exception exception)
             {
