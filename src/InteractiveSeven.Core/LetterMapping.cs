@@ -9,6 +9,7 @@ namespace InteractiveSeven.Core
 
         private static readonly Dictionary<char,byte> CharToByteMap = new Dictionary<char, byte>
         {
+            [' '] = 0,
             ['!'] = 1,
             ['"'] = 2,
             ['#'] = 3,
@@ -145,6 +146,7 @@ namespace InteractiveSeven.Core
 
         private static readonly Dictionary<byte, char> ByteToCharMap = new Dictionary<byte, char>
         {
+            [0] = ' ',
             [1] = '!',
             [2] = '"',
             [3] = '#',
