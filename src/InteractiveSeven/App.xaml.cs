@@ -52,7 +52,6 @@ namespace InteractiveSeven
             services.AddSingleton<ITwitchCommand, NameCommand>();
             services.AddSingleton<ITwitchCommand, I7Command>();
 
-            services.AddSingleton<TwitchSettings>();
             services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<MainWindow>();
