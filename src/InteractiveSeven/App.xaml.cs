@@ -47,6 +47,7 @@ namespace InteractiveSeven
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
+            services.AddSingleton<ITwitchCommand, NameBidsCommand>();
             services.AddSingleton<ITwitchCommand, MenuCommand>();
             services.AddSingleton<ITwitchCommand, NameCommand>();
             services.AddSingleton<ITwitchCommand, I7Command>();
