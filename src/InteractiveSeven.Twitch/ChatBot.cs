@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using TwitchLib.Communication.Events;
 
 namespace InteractiveSeven.Twitch
 {
-    public class ChatBot : INotifyPropertyChanged
+    public class ChatBot : INotifyPropertyChanged, IChatBot
     {
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;

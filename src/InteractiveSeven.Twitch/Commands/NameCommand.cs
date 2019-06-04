@@ -1,10 +1,9 @@
-﻿using System;
-using InteractiveSeven.Core;
-using InteractiveSeven.Twitch.Model;
-using System.Linq;
+﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Twitch.Model;
+using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

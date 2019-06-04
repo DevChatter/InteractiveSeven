@@ -1,13 +1,12 @@
-﻿using InteractiveSeven.MvvmCommands;
-using InteractiveSeven.Twitch;
+﻿using InteractiveSeven.Core.MvvmCommands;
 using System.Windows.Input;
 
-namespace InteractiveSeven.ViewModels
+namespace InteractiveSeven.Core.ViewModels
 {
     public class MainWindowViewModel
     {
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel, NameBiddingViewModel nameBiddingViewModel,
-            SettingsViewModel settingsViewModel, ChatBot chatBot)
+            SettingsViewModel settingsViewModel, IChatBot chatBot)
         {
             MenuColorViewModel = menuColorViewModel;
             NameBiddingViewModel = nameBiddingViewModel;
@@ -23,6 +22,6 @@ namespace InteractiveSeven.ViewModels
         public MenuColorViewModel MenuColorViewModel { get; }
         public NameBiddingViewModel NameBiddingViewModel { get; }
         public SettingsViewModel SettingsViewModel { get; }
-        public ChatBot ChatBot { get; }
+        public IChatBot ChatBot { get; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Settings;
-using InteractiveSeven.MvvmCommands;
+﻿using InteractiveSeven.Core.MvvmCommands;
+using InteractiveSeven.Core.Settings;
 using System.Windows.Input;
 
-namespace InteractiveSeven.ViewModels
+namespace InteractiveSeven.Core.ViewModels
 {
     public class SettingsViewModel
     {

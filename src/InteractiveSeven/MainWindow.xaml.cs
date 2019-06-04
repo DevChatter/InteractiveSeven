@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.ViewModels;
+﻿using InteractiveSeven.Core.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Windows;

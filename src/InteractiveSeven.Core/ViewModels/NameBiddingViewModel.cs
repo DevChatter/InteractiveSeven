@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.ViewModels
+namespace InteractiveSeven.Core.ViewModels
 {
     public class NameBiddingViewModel
     {

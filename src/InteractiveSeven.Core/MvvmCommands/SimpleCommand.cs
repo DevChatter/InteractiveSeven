@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace InteractiveSeven.MvvmCommands
+namespace InteractiveSeven.Core.MvvmCommands
 {
     public class SimpleCommand : ICommand
     {

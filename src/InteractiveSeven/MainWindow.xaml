@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600">
     <Window.Resources>
+        <lvc:ColorValueConverter x:Key="ColorValueConverter" />
         <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
+        <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
     </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
@@ -44,7 +46,7 @@
                         <StackPanel Orientation="Vertical">
                             <GroupBox DataContext="{Binding MenuColorViewModel}" Header="Menu Color - Preview" MaxHeight="123">
                                 <StackPanel Orientation="Horizontal" MaxHeight="100">
-                                    <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay}" />
+                                    <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" MinWidth="300">
                                             <ItemsControl.ItemsPanel>
@@ -89,10 +91,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay}" />
-                            <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay}" />
-                            <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay}" />
-                            <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay}" />
+                            <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                            <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                            <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                            <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
                         </Grid>
                     </ScrollViewer>
                 </TabItem>

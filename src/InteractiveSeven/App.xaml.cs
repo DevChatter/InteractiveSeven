@@ -1,8 +1,9 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
-using InteractiveSeven.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -51,7 +52,7 @@ namespace InteractiveSeven
             services.AddSingleton<ITwitchCommand, I7Command>();
 
             services.AddSingleton<TwitchSettings>();
-            services.AddSingleton<ChatBot>();
+            services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<MainWindow>();
         }

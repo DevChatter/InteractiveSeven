@@ -3,9 +3,9 @@ using InteractiveSeven.Core.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media;
+using System.Drawing;
 
-namespace InteractiveSeven.ViewModels
+namespace InteractiveSeven.Core.ViewModels
 {
     public class MenuColorViewModel : INotifyPropertyChanged
     {
@@ -14,10 +14,10 @@ namespace InteractiveSeven.ViewModels
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
         }
 
-        private Color topLeft = Color.FromRgb(0, 88, 176);
-        private Color botLeft = Color.FromRgb(0, 0, 80);
-        private Color topRight = Color.FromRgb(0, 0, 128);
-        private Color botRight = Color.FromRgb(0, 0, 32);
+        private Color topLeft = Color.FromArgb(0, 88, 176);
+        private Color botLeft = Color.FromArgb(0, 0, 80);
+        private Color topRight = Color.FromArgb(0, 0, 128);
+        private Color botRight = Color.FromArgb(0, 0, 32);
 
         public Color TopLeft
         {
@@ -63,17 +63,17 @@ namespace InteractiveSeven.ViewModels
                 OnPropertyChanged("PreviewImage");
             }
         }
-        public ImageSource PreviewImage
+        public MenuColors PreviewImage
         {
-            get => ColorPreview.MakeBmp(TopLeft.ToOther(), TopRight.ToOther(), BotRight.ToOther(), BotLeft.ToOther());
+            get => new MenuColors { TopLeft = TopLeft, TopRight = TopRight, BotLeft = BotLeft, BotRight = BotRight };
         }
 
         private void HandleMenuColorChanging(MenuColorChanging obj)
         {
-            TopLeft = obj.MenuColors.TopLeft.ToOther();
-            TopRight = obj.MenuColors.TopRight.ToOther();
-            BotLeft = obj.MenuColors.BotLeft.ToOther();
-            BotRight = obj.MenuColors.BotRight.ToOther();
+            TopLeft = obj.MenuColors.TopLeft;
+            TopRight = obj.MenuColors.TopRight;
+            BotLeft = obj.MenuColors.BotLeft;
+            BotRight = obj.MenuColors.BotRight;
         }
 
         public ObservableCollection<ChangeRecord> Changes { get; } = new ObservableCollection<ChangeRecord>();
@@ -83,18 +83,6 @@ namespace InteractiveSeven.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public static class ColorExtension
-    {
-        public static System.Drawing.Color ToOther(this Color color)
-        {
-            return System.Drawing.Color.FromArgb(color.R, color.G, color.B);
-        }
-        public static Color ToOther(this System.Drawing.Color color)
-        {
-            return Color.FromRgb(color.R, color.G, color.B);
         }
     }
 }
