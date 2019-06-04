@@ -30,21 +30,28 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            if (!MenuSettings.Enabled) return;
-            if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
+            try
             {
-                var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                return;
+                if (!MenuSettings.Enabled) return;
+                if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
+                {
+                    var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
+                    _twitchClient.SendMessage(commandData.Channel, message);
+                    return;
+                }
+
+                MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+
+                if (menuColors != null)
+                {
+                    DomainEvents.Raise(new MenuColorChanging(menuColors));
+
+                    _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
+                }
             }
-
-            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
-
-            if (menuColors != null)
+            catch (Exception ex)
             {
-                DomainEvents.Raise(new MenuColorChanging(menuColors));
-
-                _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
+                Console.WriteLine(ex);
             }
         }
 

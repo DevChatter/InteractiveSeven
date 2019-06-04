@@ -3,6 +3,7 @@ using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
+using System;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -85,26 +86,33 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
+            try
             {
-                int number = data.Arguments.Max(arg => arg.SafeIntParse());
-                if (number > 0)
+                if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
                 {
-                    data.Bits = number;
+                    int number = data.Arguments.Max(arg => arg.SafeIntParse());
+                    if (number > 0)
+                    {
+                        data.Bits = number;
+                    }
                 }
-            }
 
-            if (data.Bits < 1)
+                if (data.Bits < 1)
+                {
+                    _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
+                    return;
+                }
+
+                string newName = data.Arguments.FirstOrDefault() ?? "";
+
+                var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
+                var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
+                DomainEvents.Raise(domainEvent);
+            }
+            catch (Exception ex)
             {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
-                return;
+                Console.WriteLine(ex);
             }
-
-            string newName = data.Arguments.FirstOrDefault() ?? "";
-
-            var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
-            var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
-            DomainEvents.Raise(domainEvent);
         }
     }
 }
