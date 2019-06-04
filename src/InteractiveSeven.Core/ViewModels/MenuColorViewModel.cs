@@ -63,10 +63,8 @@ namespace InteractiveSeven.Core.ViewModels
                 OnPropertyChanged("PreviewImage");
             }
         }
-        public MenuColors PreviewImage
-        {
-            get => new MenuColors { TopLeft = TopLeft, TopRight = TopRight, BotLeft = BotLeft, BotRight = BotRight };
-        }
+
+        public MenuColors PreviewImage => new MenuColors { TopLeft = TopLeft, TopRight = TopRight, BotLeft = BotLeft, BotRight = BotRight };
 
         private void HandleMenuColorChanging(MenuColorChanging obj)
         {
