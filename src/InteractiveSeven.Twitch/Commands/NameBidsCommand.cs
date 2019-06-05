@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
 
         public NameBidsCommand(NameBiddingViewModel nameBiddingViewModel, ITwitchClient twitchClient)
-            : base(new [] { "NameBids" })
+            : base(new[] { "NameBids" })
         {
             _biddingVm = nameBiddingViewModel;
             _twitchClient = twitchClient;
@@ -21,27 +21,20 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            try
+            var requested = commandData.Arguments.FirstOrDefault();
+
+            var bidding = _biddingVm.CharacterNameBiddings.SingleOrDefault(x => x.DefaultName.EqualsIns(requested));
+
+            if (bidding == null)
             {
-                var requested = commandData.Arguments.FirstOrDefault();
-
-                var bidding = _biddingVm.CharacterNameBiddings.SingleOrDefault(x => x.DefaultName.EqualsIns(requested));
-
-                if (bidding == null)
-                {
-                    _twitchClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
-                    return;
-                }
-
-                var values = bidding.NameBids.OrderByDescending(x => x.TotalBits).Take(5).Select(x => $"({x.Name} {x.TotalBits})");
-                string message = string.Join(", ", values);
-
-                _twitchClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
+                _twitchClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                return;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+
+            var values = bidding.NameBids.OrderByDescending(x => x.TotalBits).Take(5).Select(x => $"({x.Name} {x.TotalBits})");
+            string message = string.Join(", ", values);
+
+            _twitchClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
         }
     }
 }

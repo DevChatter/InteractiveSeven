@@ -14,30 +14,23 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            try
-            {
-                if (!commandData.IsBroadcaster && !commandData.IsMe && !commandData.IsMod) return;
+            if (!commandData.IsBroadcaster && !commandData.IsMe && !commandData.IsMod) return;
 
-                var action = commandData.Arguments.FirstOrDefault();
+            var action = commandData.Arguments.FirstOrDefault();
 
-                switch (action)
-                {
-                    case "help":
-                        break;
-                    case "block":
-                    case "delete":
-                    case "remove":
-                    case "del":
-                    case "rem":
-                        RemoveName(commandData);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (System.Exception ex)
+            switch (action)
             {
-                System.Console.WriteLine(ex);
+                case "help":
+                    break;
+                case "block":
+                case "delete":
+                case "remove":
+                case "del":
+                case "rem":
+                    RemoveName(commandData);
+                    break;
+                default:
+                    break;
             }
         }
 

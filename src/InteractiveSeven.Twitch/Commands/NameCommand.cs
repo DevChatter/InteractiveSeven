@@ -3,7 +3,6 @@ using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
-using System;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -11,15 +10,15 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class NameCommand : BaseCommand
     {
-        private static readonly string[] CloudWords = {"cloud", "cluod", "clodu"};
-        private static readonly string[] BarretWords = {"barret", "baret", "barett", "barrett"};
-        private static readonly string[] TifaWords = {"tifa", "tiaf", "tfia"};
-        private static readonly string[] AerisWords = {"aeris", "aerith"};
-        private static readonly string[] CaitWords = {"caitsith"};
-        private static readonly string[] CidWords = {"cid"};
-        private static readonly string[] RedWords = {"red", "redxiii", "nanaki", "redxii", "redxiiii"};
-        private static readonly string[] VincentWords = {"vincent", "vince"};
-        private static readonly string[] YuffieWords = {"yuffie"};
+        private static readonly string[] CloudWords = { "cloud", "cluod", "clodu" };
+        private static readonly string[] BarretWords = { "barret", "baret", "barett", "barrett" };
+        private static readonly string[] TifaWords = { "tifa", "tiaf", "tfia" };
+        private static readonly string[] AerisWords = { "aeris", "aerith" };
+        private static readonly string[] CaitWords = { "caitsith" };
+        private static readonly string[] CidWords = { "cid" };
+        private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii" };
+        private static readonly string[] VincentWords = { "vincent", "vince" };
+        private static readonly string[] YuffieWords = { "yuffie" };
         private readonly ITwitchClient _twitchClient;
 
         private static string[] AllWords
@@ -86,33 +85,26 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            try
+            if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
             {
-                if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
+                int number = data.Arguments.Max(arg => arg.SafeIntParse());
+                if (number > 0)
                 {
-                    int number = data.Arguments.Max(arg => arg.SafeIntParse());
-                    if (number > 0)
-                    {
-                        data.Bits = number;
-                    }
+                    data.Bits = number;
                 }
-
-                if (data.Bits < 1)
-                {
-                    _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
-                    return;
-                }
-
-                string newName = data.Arguments.FirstOrDefault() ?? "";
-
-                var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
-                var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
-                DomainEvents.Raise(domainEvent);
             }
-            catch (Exception ex)
+
+            if (data.Bits < 1)
             {
-                Console.WriteLine(ex);
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
+                return;
             }
+
+            string newName = data.Arguments.FirstOrDefault() ?? "";
+
+            var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
+            var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
+            DomainEvents.Raise(domainEvent);
         }
     }
 }
