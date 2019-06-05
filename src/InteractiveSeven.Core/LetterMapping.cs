@@ -199,18 +199,22 @@ namespace InteractiveSeven.Core
                     break;
                 }
             }
-            return new string(chars.TakeWhile(x => x != '\0').ToArray());
+            return new string(chars.TakeWhile(x => x != (char)255).ToArray());
         }
 
         public static byte[] MapStringToFf7Bytes(this string text)
         {
             var bytes = new byte[MAX_CHARS];
-            for (int i = 0; i < MAX_CHARS; i++)
+            for (int i = 0; i < text.Length; i++)
             {
                 if (!CharToByteMap.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
                 {
                     break;
                 }
+            }
+            for (int i = text.Length; i < MAX_CHARS; i++)
+            {
+                bytes[i] = 255;
             }
             return bytes;
         }
