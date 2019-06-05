@@ -5,6 +5,7 @@ using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.Collections.Generic;
 using System.Windows;
 using TwitchLib.Client;
@@ -25,6 +26,11 @@ namespace InteractiveSeven
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             InitializeSettings();
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("i7.log")
+                .CreateLogger();
+
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
@@ -55,6 +61,11 @@ namespace InteractiveSeven
             services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<MainWindow>();
+
+            services.AddLogging(config =>
+            {
+                config.AddSerilog();
+            });
         }
     }
 }
