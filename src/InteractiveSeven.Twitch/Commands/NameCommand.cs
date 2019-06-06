@@ -41,47 +41,50 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(CommandData data)
         {
             if (!Settings.Enabled) return;
 
-            if (CloudWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCloudEnabled)
+            if (ShouldTriggerFor(data, CloudWords, Settings.NamingCloudEnabled))
             {
-                TriggerDomainEvent(Constants.Cloud, commandData);
+                TriggerDomainEvent(Constants.Cloud, data);
             }
-            else if (BarretWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingBarretEnabled)
+            else if (ShouldTriggerFor(data, BarretWords, Settings.NamingBarretEnabled))
             {
-                TriggerDomainEvent(Constants.Barret, commandData);
+                TriggerDomainEvent(Constants.Barret, data);
             }
-            else if (TifaWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingTifaEnabled)
+            else if (ShouldTriggerFor(data, TifaWords, Settings.NamingTifaEnabled))
             {
-                TriggerDomainEvent(Constants.Tifa, commandData);
+                TriggerDomainEvent(Constants.Tifa, data);
             }
-            else if (AerisWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingAerisEnabled)
+            else if (ShouldTriggerFor(data, AerisWords, Settings.NamingAerisEnabled))
             {
-                TriggerDomainEvent(Constants.Aeris, commandData);
+                TriggerDomainEvent(Constants.Aeris, data);
             }
-            else if (CaitWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCaitSithEnabled)
+            else if (ShouldTriggerFor(data, CaitWords, Settings.NamingCaitSithEnabled))
             {
-                TriggerDomainEvent(Constants.CaitSith, commandData);
+                TriggerDomainEvent(Constants.CaitSith, data);
             }
-            else if (CidWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingCidEnabled)
+            else if (ShouldTriggerFor(data, CidWords, Settings.NamingCidEnabled))
             {
-                TriggerDomainEvent(Constants.Cid, commandData);
+                TriggerDomainEvent(Constants.Cid, data);
             }
-            else if (RedWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingRedEnabled)
+            else if (ShouldTriggerFor(data, RedWords, Settings.NamingRedEnabled))
             {
-                TriggerDomainEvent(Constants.Red, commandData);
+                TriggerDomainEvent(Constants.Red, data);
             }
-            else if (VincentWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingVincentEnabled)
+            else if (ShouldTriggerFor(data, VincentWords, Settings.NamingVincentEnabled))
             {
-                TriggerDomainEvent(Constants.Vincent, commandData);
+                TriggerDomainEvent(Constants.Vincent, data);
             }
-            else if (YuffieWords.Any(word => word.EqualsIns(commandData.CommandText)) && Settings.NamingYuffieEnabled)
+            else if (ShouldTriggerFor(data, YuffieWords, Settings.NamingYuffieEnabled))
             {
-                TriggerDomainEvent(Constants.Yuffie, commandData);
+                TriggerDomainEvent(Constants.Yuffie, data);
             }
         }
+
+        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled) 
+            => words.Any(word => word.EqualsIns(commandData.CommandText)) && enabled;
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
