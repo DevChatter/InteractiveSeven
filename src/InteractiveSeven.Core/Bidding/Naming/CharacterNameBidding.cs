@@ -34,6 +34,8 @@ namespace InteractiveSeven.Core.Bidding.Naming
             DefaultName = defaultName;
             _leadingName = defaultName;
 
+            NameBids.Add(new CharacterNameBid { Name = DefaultName });
+
             NameBids.CollectionChanged += NameBids_CollectionChanged;
         }
 
