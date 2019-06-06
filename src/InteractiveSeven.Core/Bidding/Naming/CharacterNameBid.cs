@@ -9,6 +9,8 @@ namespace InteractiveSeven.Core.Bidding.Naming
         private string name;
         private int totalBits;
 
+        private readonly object padlock = new object();
+
         public string Name
         {
             get => name;
@@ -31,9 +33,11 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         public void AddRecord(BidRecord record)
         {
-            // TODO: Locking
-            BidRecords.Add(record);
-            TotalBits += record.Bits;
+            lock (padlock)
+            {
+                BidRecords.Add(record);
+                TotalBits += record.Bits;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

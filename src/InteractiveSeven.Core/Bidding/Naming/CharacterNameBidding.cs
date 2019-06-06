@@ -15,6 +15,8 @@ namespace InteractiveSeven.Core.Bidding.Naming
         public ThreadedObservableCollection<CharacterNameBid> NameBids { get; }
             = new ThreadedObservableCollection<CharacterNameBid>();
 
+        private readonly object padlock = new object();
+
         private string GetHighestBid() => NameBids.OrderByDescending(x => x.TotalBits)
                   .FirstOrDefault()?.Name ?? DefaultName;
 
@@ -74,12 +76,18 @@ namespace InteractiveSeven.Core.Bidding.Naming
             try
             {
                 string currentName = LeadingName;
-                // TODO: Locking
                 CharacterNameBid nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
                 if (nameBid == null)
                 {
-                    nameBid = new CharacterNameBid { Name = e.BidName };
-                    NameBids.Add(nameBid);
+                    lock (padlock)
+                    {
+                        nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
+                        if (nameBid == null)
+                        {
+                            nameBid = new CharacterNameBid { Name = e.BidName };
+                            NameBids.Add(nameBid);
+                        }
+                    }
                 }
 
                 nameBid.AddRecord(e.BidRecord);
