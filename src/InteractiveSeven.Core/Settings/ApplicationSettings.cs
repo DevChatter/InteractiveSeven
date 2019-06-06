@@ -94,6 +94,7 @@ namespace InteractiveSeven.Core.Settings
     public class NameBiddingSettings : INotifyPropertyChanged
     {
         private bool _enabled = true;
+        private int _defaultStartBits = 100;
         private bool _allowModeration = true;
         private bool _allowModBits = true;
         private bool _namingCloudEnabled = true;
@@ -112,6 +113,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _enabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int DefaultStartBits
+        {
+            get => _defaultStartBits;
+            set
+            {
+                _defaultStartBits = value;
                 OnPropertyChanged();
             }
         }

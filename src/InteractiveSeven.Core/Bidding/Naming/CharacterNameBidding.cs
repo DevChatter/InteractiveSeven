@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -29,14 +30,16 @@ namespace InteractiveSeven.Core.Bidding.Naming
             }
         }
 
+        private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
+
         public CharacterNameBidding(string defaultName)
         {
             DefaultName = defaultName;
             _leadingName = defaultName;
 
-            NameBids.Add(new CharacterNameBid { Name = DefaultName });
-
             NameBids.CollectionChanged += NameBids_CollectionChanged;
+
+            NameBids.Add(new CharacterNameBid { Name = DefaultName, TotalBits = Settings.DefaultStartBits });
         }
 
         private void NameBids_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
