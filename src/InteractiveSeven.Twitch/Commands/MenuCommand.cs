@@ -22,7 +22,7 @@ namespace InteractiveSeven.Twitch.Commands
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
         public MenuCommand(IMenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
-            : base(new[] { "Menu", "MenuColor", "Window", "Windows" })
+            : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
         {
             _menuColorAccessor = menuColorAccessor;
             _twitchClient = twitchClient;
@@ -30,7 +30,6 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            if (!MenuSettings.Enabled) return;
             if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
             {
                 var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";

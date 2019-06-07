@@ -36,15 +36,13 @@ namespace InteractiveSeven.Twitch.Commands
         public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
         public NameCommand(ITwitchClient twitchClient)
-            : base(AllWords)
+            : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
             _twitchClient = twitchClient;
         }
 
         public override void Execute(CommandData data)
         {
-            if (!Settings.Enabled) return;
-
             if (ShouldTriggerFor(data, CloudWords, Settings.NamingCloudEnabled))
             {
                 TriggerDomainEvent(Constants.Cloud, data);

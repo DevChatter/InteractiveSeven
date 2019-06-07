@@ -1,7 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
-using System;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -13,7 +12,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
 
         public NameBidsCommand(NameBiddingViewModel nameBiddingViewModel, ITwitchClient twitchClient)
-            : base(new[] { "NameBids" })
+            : base(new[] { "NameBids" }, x => x.NameBiddingSettings.Enabled)
         {
             _biddingVm = nameBiddingViewModel;
             _twitchClient = twitchClient;
