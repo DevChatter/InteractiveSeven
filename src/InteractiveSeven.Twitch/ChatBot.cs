@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
@@ -17,6 +18,7 @@ namespace InteractiveSeven.Twitch
     {
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
+        private readonly IIntervalMessagingService _intervalMessaging;
         private bool isConnected;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
@@ -31,10 +33,12 @@ namespace InteractiveSeven.Twitch
             }
         }
 
-        public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands)
+        public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
+            IIntervalMessagingService intervalMessaging)
         {
             _client = twitchClient;
             _commands = commands;
+            _intervalMessaging = intervalMessaging;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -59,9 +63,9 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands
-                .SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+            _commands.SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
                 ?.Execute(CommandData.FromChatCommand(e.Command));
+            _intervalMessaging.MessageReceived();
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)

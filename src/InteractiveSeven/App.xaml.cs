@@ -1,9 +1,11 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
+using InteractiveSeven.Twitch.IntervalMessages;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
@@ -48,6 +50,7 @@ namespace InteractiveSeven
             services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
