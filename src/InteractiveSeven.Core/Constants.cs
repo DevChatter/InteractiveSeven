@@ -6,7 +6,7 @@
         public const string Tifa = "Tifa";
         public const string Barret = "Barret";
         public const string Aeris = "Aeris";
-        public const string Red = "Red";
+        public const string Red = "Red XIII";
         public const string CaitSith = "CaitSith";
         public const string Vincent = "Vincent";
         public const string Yuffie = "Yuffie";
