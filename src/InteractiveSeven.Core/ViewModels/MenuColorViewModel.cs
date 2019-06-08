@@ -4,14 +4,23 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Drawing;
+using System;
+using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.ViewModels
 {
     public class MenuColorViewModel : INotifyPropertyChanged
     {
-        public MenuColorViewModel()
+        private readonly IMenuColorAccessor _menuColorAccessor;
+        private string ProcessName => ApplicationSettings.Instance.ProcessName;
+
+        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor)
         {
+            _menuColorAccessor = menuColorAccessor;
+
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
+            DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
         }
 
         private Color topLeft = Color.FromArgb(0, 88, 176);
@@ -72,6 +81,20 @@ namespace InteractiveSeven.Core.ViewModels
             TopRight = obj.MenuColors.TopRight;
             BotLeft = obj.MenuColors.BotLeft;
             BotRight = obj.MenuColors.BotRight;
+
+            _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
+        }
+
+        private void HandleNameRefresh(RefreshEvent e)
+        {
+            try
+            {
+                _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public ObservableCollection<ChangeRecord> Changes { get; } = new ObservableCollection<ChangeRecord>();

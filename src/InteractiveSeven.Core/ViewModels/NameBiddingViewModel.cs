@@ -37,9 +37,25 @@ namespace InteractiveSeven.Core.ViewModels
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
             DomainEvents.Register<TopNameChanged>(HandleTopNameChange);
+            DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
 
             _nameAccessor = nameAccessor;
             _twitchClient = twitchClient;
+        }
+
+        private void HandleNameRefresh(RefreshEvent e)
+        {
+            try
+            {
+                foreach (var nameBidding in CharacterNameBiddings)
+                {
+                    _nameAccessor.SetCharacterName(nameBidding.DefaultName, nameBidding.LeadingName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         private void HandleTopNameChange(TopNameChanged e)

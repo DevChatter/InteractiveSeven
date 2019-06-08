@@ -1,6 +1,5 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
@@ -14,17 +13,14 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class MenuCommand : BaseCommand
     {
-        private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _twitchClient;
         private static readonly Random Rand = new Random();
 
-        private string ProcessName => ApplicationSettings.Instance.ProcessName;
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(IMenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
+        public MenuCommand(ITwitchClient twitchClient)
             : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
         {
-            _menuColorAccessor = menuColorAccessor;
             _twitchClient = twitchClient;
         }
 
@@ -42,8 +38,6 @@ namespace InteractiveSeven.Twitch.Commands
             if (menuColors != null)
             {
                 DomainEvents.Raise(new MenuColorChanging(menuColors));
-
-                _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
             }
         }
 
