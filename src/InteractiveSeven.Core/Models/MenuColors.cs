@@ -20,17 +20,17 @@ namespace InteractiveSeven.Core.Models
         public static MenuColors tsuna = new MenuColors
         {
             TopLeft = Color.FromName("black"),
-            TopRight = Color.FromName("silver"),
-            BotLeft = Color.FromName("silver"),
+            TopRight = Color.FromName("gray"),
+            BotLeft = Color.FromName("gray"),
             BotRight = Color.FromName("black"),
         };
 
         public static MenuColors brendan = new MenuColors
         {
-            TopLeft = Color.FromName("red"),
-            TopRight = Color.FromName("black"),
-            BotLeft = Color.FromName("black"),
-            BotRight = Color.FromName("red"),
+            TopLeft = Color.FromName("DarkRed"),
+            TopRight = Color.FromName("Black"),
+            BotLeft = Color.FromName("Black"),
+            BotRight = Color.FromName("DarkRed"),
         };
 
         public static MenuColors strife = new MenuColors

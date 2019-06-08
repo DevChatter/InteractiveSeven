@@ -96,6 +96,8 @@ namespace InteractiveSeven.Twitch.Commands
                     return MenuColors.brendan;
                 case "classic":
                 case "default":
+                case "vanilla":
+                case "original":
                 case "base":
                     return MenuColors.classic;
                 case "strife":
