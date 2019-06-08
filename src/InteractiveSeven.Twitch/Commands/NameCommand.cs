@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         private static readonly string[] AerisWords = { "aeris", "aerith" };
         private static readonly string[] CaitWords = { "caitsith" };
         private static readonly string[] CidWords = { "cid" };
-        private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii" };
+        private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
         private static readonly string[] VincentWords = { "vincent", "vince" };
         private static readonly string[] YuffieWords = { "yuffie" };
         private readonly ITwitchClient _twitchClient;
