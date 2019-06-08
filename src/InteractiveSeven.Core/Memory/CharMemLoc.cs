@@ -20,7 +20,7 @@ namespace InteractiveSeven.Core.Memory
         public MemLoc MaxHP { get; }
         public MemLoc CurMP { get; }
         public MemLoc MaxMP { get; }
-        public MemLoc StartingName { get; }
+        public MemLoc StartingName { get; } // Contiguous 12 bytes for each character.
 
         private CharMemLoc(IntPtr baseAddress, IntPtr startingNameAddress)
         {
