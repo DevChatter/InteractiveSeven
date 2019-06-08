@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveSeven.Core
 {
     public static class LetterMapping
     {
-        private const int MAX_CHARS = 10;
+        private const int BYTE_COUNT = 10;
 
         private static readonly Dictionary<char,byte> CharToByteMap = new Dictionary<char, byte>
         {
@@ -191,8 +192,8 @@ namespace InteractiveSeven.Core
 
         public static string MapFf7BytesToString(this byte[] bytes)
         {
-            var chars = new char[MAX_CHARS];
-            for (int i = 0; i < MAX_CHARS; i++)
+            var chars = new char[BYTE_COUNT];
+            for (int i = 0; i < BYTE_COUNT; i++)
             {
                 if (!ByteToCharMap.TryGetValue(bytes.ElementAtOrDefault(i), out chars[i]))
                 {
@@ -204,15 +205,16 @@ namespace InteractiveSeven.Core
 
         public static byte[] MapStringToFf7Bytes(this string text)
         {
-            var bytes = new byte[MAX_CHARS];
-            for (int i = 0; i < text.Length; i++)
+            int charCount = Math.Min(BYTE_COUNT-1, text.Length);
+            var bytes = new byte[BYTE_COUNT];
+            for (int i = 0; i < charCount; i++)
             {
                 if (!CharToByteMap.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
                 {
                     break;
                 }
             }
-            for (int i = text.Length; i < MAX_CHARS; i++)
+            for (int i = charCount; i < BYTE_COUNT; i++)
             {
                 bytes[i] = 255;
             }
