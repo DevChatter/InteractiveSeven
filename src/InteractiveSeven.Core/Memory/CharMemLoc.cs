@@ -20,9 +20,12 @@ namespace InteractiveSeven.Core.Memory
         public MemLoc MaxHP { get; }
         public MemLoc CurMP { get; }
         public MemLoc MaxMP { get; }
+        public MemLoc StartingName { get; }
 
-        private CharMemLoc(IntPtr baseAddress)
+        private CharMemLoc(IntPtr baseAddress, IntPtr startingNameAddress)
         {
+            StartingName = new MemLoc(startingNameAddress, 12);
+
             Level = new MemLoc(baseAddress);
             Str = new MemLoc(IntPtr.Add(baseAddress, 1));
             Int = new MemLoc(IntPtr.Add(baseAddress, 2));
@@ -46,23 +49,23 @@ namespace InteractiveSeven.Core.Memory
         }
 
         public static CharMemLoc Cloud { get; }
-            = new CharMemLoc(new IntPtr(0xDBFD8D));
+            = new CharMemLoc(new IntPtr(0xDBFD8D), new IntPtr(0x921CB8));
         public static CharMemLoc Barret { get; }
-            = new CharMemLoc(new IntPtr(0xDBFE11));
+            = new CharMemLoc(new IntPtr(0xDBFE11), new IntPtr(0x921CC4));
         public static CharMemLoc Tifa { get; }
-            = new CharMemLoc(new IntPtr(0xDBFE95));
+            = new CharMemLoc(new IntPtr(0xDBFE95), new IntPtr(0x921CD0));
         public static CharMemLoc Aeris { get; }
-            = new CharMemLoc(new IntPtr(0xDBFF19));
+            = new CharMemLoc(new IntPtr(0xDBFF19), new IntPtr(0x921CDC));
         public static CharMemLoc Red { get; }
-            = new CharMemLoc(new IntPtr(0xDBFF9D));
+            = new CharMemLoc(new IntPtr(0xDBFF9D), new IntPtr(0x921CE8));
         public static CharMemLoc Yuffie { get; }
-            = new CharMemLoc(new IntPtr(0xDC0021));
+            = new CharMemLoc(new IntPtr(0xDC0021), new IntPtr(0x921CF4));
         public static CharMemLoc CaitSith { get; }
-            = new CharMemLoc(new IntPtr(0xDC00A5));
+            = new CharMemLoc(new IntPtr(0xDC00A5), new IntPtr(0x921D00));
         public static CharMemLoc Vincent { get; }
-            = new CharMemLoc(new IntPtr(0xDC0129));
+            = new CharMemLoc(new IntPtr(0xDC0129), new IntPtr(0x921D0C));
         public static CharMemLoc Cid { get; }
-            = new CharMemLoc(new IntPtr(0xDC01AD));
+            = new CharMemLoc(new IntPtr(0xDC01AD), new IntPtr(0x921D18));
 
         private static readonly Dictionary<string, CharMemLoc> All
             = new Dictionary<string, CharMemLoc>
@@ -77,6 +80,5 @@ namespace InteractiveSeven.Core.Memory
                 [Constants.Vincent] = Vincent,
                 [Constants.Cid] = Cid,
             };
-
     }
 }
