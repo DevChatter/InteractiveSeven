@@ -109,7 +109,7 @@ namespace UnitTests.Twitch.Commands
         {
             var menuColorAccessor = new Mock<IMenuColorAccessor>();
             var twitchClient = new Mock<ITwitchClient>();
-            var menuCommand = new MenuCommand(menuColorAccessor.Object, twitchClient.Object);
+            var menuCommand = new MenuCommand(twitchClient.Object);
             return (menuColorAccessor, twitchClient, menuCommand);
         }
     }
