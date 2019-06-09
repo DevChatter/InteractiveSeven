@@ -30,7 +30,9 @@ namespace InteractiveSeven.Core.Memory
             CharMemLoc cml = CharMemLoc.ByName(charName);
 
             byte[] bytes = newName.MapStringToFf7Bytes();
+
             _memoryAccessor.WriteMem(ProcessName, cml.Name.Address, bytes);
+            _memoryAccessor.WriteMem(ProcessName, cml.StartingName.Address, bytes);
         }
     }
 }
