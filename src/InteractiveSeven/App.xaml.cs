@@ -30,7 +30,8 @@ namespace InteractiveSeven
             InitializeSettings();
 
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("i7.log")
+                .MinimumLevel.Information()
+                .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             var serviceCollection = new ServiceCollection();
