@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch;
@@ -51,6 +52,7 @@ namespace InteractiveSeven
             services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
@@ -65,6 +67,7 @@ namespace InteractiveSeven
 
             services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
+            services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<MainWindow>();
 
             services.AddLogging(config =>

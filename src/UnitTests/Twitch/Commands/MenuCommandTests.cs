@@ -1,8 +1,11 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using FluentAssertions;
+using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
 using TwitchLib.Client.Interfaces;
@@ -15,6 +18,9 @@ namespace UnitTests.Twitch.Commands
         [Fact]
         public void SetColors_GivenValidRequestNoBits()
         {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 0);
             var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
             var commandData = new CommandData
@@ -24,13 +30,16 @@ namespace UnitTests.Twitch.Commands
 
             menuCommand.Execute(commandData);
 
-            menuColorAcc.Verify(
-                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()));
+
+            called.Should().BeTrue();
         }
 
         [Fact]
         public void DoNothing_GivenNotEnoughBits()
         {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
             var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
             var commandData = new CommandData
@@ -40,13 +49,15 @@ namespace UnitTests.Twitch.Commands
 
             menuCommand.Execute(commandData);
 
-            menuColorAcc.Verify(
-                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Never);
+            called.Should().BeFalse();
         }
 
         [Fact]
         public void SetColor_GivenEnoughBits()
         {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
             var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
             var commandData = new CommandData
@@ -58,13 +69,15 @@ namespace UnitTests.Twitch.Commands
 
             menuCommand.Execute(commandData);
 
-            menuColorAcc.Verify(
-                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Once);
+            called.Should().BeTrue();
         }
 
         [Fact]
         public void SetColor_GivenModWithoutEnoughBits()
         {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
             var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
             var commandData = new CommandData
@@ -75,13 +88,15 @@ namespace UnitTests.Twitch.Commands
 
             menuCommand.Execute(commandData);
 
-            menuColorAcc.Verify(
-                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Once);
+            called.Should().BeTrue();
         }
 
         [Fact]
         public void DoNothing_GivenNotEnoughBitsAndModOverrideTurnedOff()
         {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1, false);
             var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
             var commandData = new CommandData
@@ -92,8 +107,7 @@ namespace UnitTests.Twitch.Commands
 
             menuCommand.Execute(commandData);
 
-            menuColorAcc.Verify(
-                x => x.SetMenuColors(It.IsAny<string>(), It.IsAny<MenuColors>()), Times.Never);
+            called.Should().BeFalse();
         }
 
 
@@ -109,7 +123,8 @@ namespace UnitTests.Twitch.Commands
         {
             var menuColorAccessor = new Mock<IMenuColorAccessor>();
             var twitchClient = new Mock<ITwitchClient>();
-            var menuCommand = new MenuCommand(twitchClient.Object);
+            var logger = new Mock<ILogger<ColorPaletteCollection>>();
+            var menuCommand = new MenuCommand(twitchClient.Object, new ColorPaletteCollection(logger.Object));
             return (menuColorAccessor, twitchClient, menuCommand);
         }
     }

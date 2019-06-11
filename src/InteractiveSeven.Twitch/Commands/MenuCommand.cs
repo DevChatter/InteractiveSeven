@@ -14,14 +14,16 @@ namespace InteractiveSeven.Twitch.Commands
     public class MenuCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
+        private readonly ColorPaletteCollection _paletteCollection;
         private static readonly Random Rand = new Random();
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(ITwitchClient twitchClient)
+        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection)
             : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
         {
             _twitchClient = twitchClient;
+            _paletteCollection = paletteCollection;
         }
 
         public override void Execute(CommandData commandData)
@@ -47,7 +49,7 @@ namespace InteractiveSeven.Twitch.Commands
         private bool BelowBitThreshold(CommandData commandData)
             => commandData.Bits < MenuSettings.BitCost;
 
-        private static MenuColors GetMenuColorsFromArgs(List<string> args)
+        private MenuColors GetMenuColorsFromArgs(List<string> args)
         {
             var specialColor = GetSpecialColor(args.FirstOrDefault());
             if (specialColor != null)
@@ -80,32 +82,14 @@ namespace InteractiveSeven.Twitch.Commands
             return menuColors;
         }
 
-        private static MenuColors GetSpecialColor(string firstArg)
+        private MenuColors GetSpecialColor(string firstArg)
         {
-            switch (firstArg.ToLower())
+            if (firstArg.EqualsIns("random"))
             {
-                case "random":
-                    return RandomPalette();
-                case "tsunamods":
-                case "tsunamix":
-                case "tsuna":
-                    return MenuColors.tsuna;
-                case "brendan":
-                case "brendoneus":
-                case "devchatter":
-                    return MenuColors.brendan;
-                case "classic":
-                case "default":
-                case "vanilla":
-                case "original":
-                case "base":
-                    return MenuColors.classic;
-                case "strife":
-                case "strife98":
-                    return MenuColors.strife;
-                default:
-                    return null;
+                return RandomPalette();
             }
+
+            return _paletteCollection.ByName(firstArg);
         }
 
         private static MenuColors RandomPalette()

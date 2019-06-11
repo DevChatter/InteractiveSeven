@@ -31,5 +31,10 @@ namespace InteractiveSeven.Core.Events
                 }
             }
         }
+
+        public static void Clear()
+        {
+            _callbacks?.Clear();
+        }
     }
 }

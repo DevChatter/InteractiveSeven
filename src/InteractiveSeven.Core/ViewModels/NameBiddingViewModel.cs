@@ -1,5 +1,4 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Bidding.Naming;
+﻿using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Settings;
