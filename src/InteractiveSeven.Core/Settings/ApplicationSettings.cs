@@ -95,6 +95,8 @@ namespace InteractiveSeven.Core.Settings
     {
         private bool _enabled = true;
         private int _defaultStartBits = 100;
+        private bool _giveSubscriberBonusBits = true;
+        private int _subscriberBonusBits = 150;
         private bool _allowModeration = true;
         private bool _allowModBits = true;
         private bool _namingCloudEnabled = true;
@@ -123,6 +125,26 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _defaultStartBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool GiveSubscriberBonusBits
+        {
+            get => _giveSubscriberBonusBits;
+            set
+            {
+                _giveSubscriberBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int SubscriberBonusBits
+        {
+            get => _subscriberBonusBits;
+            set
+            {
+                _subscriberBonusBits = value;
                 OnPropertyChanged();
             }
         }
