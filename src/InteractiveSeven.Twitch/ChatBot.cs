@@ -1,9 +1,12 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.IntervalMessages;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using InteractiveSeven.Twitch.Model;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -11,16 +14,31 @@ using TwitchLib.Communication.Events;
 
 namespace InteractiveSeven.Twitch
 {
-    public class ChatBot
+    public class ChatBot : INotifyPropertyChanged, IChatBot
     {
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
+        private readonly IIntervalMessagingService _intervalMessaging;
+        private bool isConnected;
 
-        public ChatBot(IMenuColorAccessor menuColorAccessor,
-            ITwitchClient twitchClient, IList<ITwitchCommand> commands)
+        private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
+
+        public bool IsConnected
+        {
+            get => isConnected;
+            set
+            {
+                isConnected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
+            IIntervalMessagingService intervalMessaging)
         {
             _client = twitchClient;
             _commands = commands;
+            _intervalMessaging = intervalMessaging;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -30,14 +48,10 @@ namespace InteractiveSeven.Twitch
             _client.OnDisconnected += Client_OnDisconnected;
         }
 
-        public event EventHandler<OnConnectedArgs> OnConnected;
-        public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
-
-        public void Connect(string username, string accessToken, string channel)
+        public void Connect()
         {
-            ConnectionCredentials credentials = 
-                new ConnectionCredentials(username, accessToken);
-            _client.Initialize(credentials, channel);
+            ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
+            _client.Initialize(credentials, Settings.Channel);
             _client.Connect();
         }
 
@@ -49,9 +63,9 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands
-                .SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+            _commands.SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
                 ?.Execute(CommandData.FromChatCommand(e.Command));
+            _intervalMessaging.MessageReceived();
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
@@ -60,12 +74,12 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            OnConnected?.Invoke(sender,e);
+            IsConnected = true;
         }
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
-            OnDisconnected?.Invoke(sender, e);
+            IsConnected = false;
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
@@ -75,6 +89,13 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

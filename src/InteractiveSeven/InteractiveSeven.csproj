@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>logowork_X8u_icon.ico</ApplicationIcon>
+    <AssemblyVersion>0.6.0.0</AssemblyVersion>
+    <FileVersion>0.6.0.0</FileVersion>
+    <Version>0.6.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\BecomePatron.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0-preview5.19227.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.1" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
+    <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\BecomePatron.png" />
+  </ItemGroup>
+
+</Project>

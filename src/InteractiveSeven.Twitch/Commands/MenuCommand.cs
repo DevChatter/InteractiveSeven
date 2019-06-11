@@ -1,9 +1,9 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,30 +13,50 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class MenuCommand : BaseCommand
     {
-        private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ITwitchClient _twitchClient;
+        private readonly ColorPaletteCollection _paletteCollection;
+        private static readonly Random Rand = new Random();
 
-        private string ProcessName => ApplicationSettings.Instance.ProcessName;
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(IMenuColorAccessor menuColorAccessor, ITwitchClient twitchClient)
-            : base(new []{ "Menu", "MenuColor", "Window", "Windows" })
+        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection)
+            : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
         {
-            _menuColorAccessor = menuColorAccessor;
             _twitchClient = twitchClient;
+            _paletteCollection = paletteCollection;
         }
 
         public override void Execute(CommandData commandData)
         {
-            if (!MenuSettings.Enabled) return;
-            if (commandData.Bits < MenuSettings.BitCost)
+            if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
             {
                 var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
-            List<string> colorArgs = commandData.Arguments.Where(arg => arg.IsColor()).ToList();
+            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+
+            if (menuColors != null)
+            {
+                DomainEvents.Raise(new MenuColorChanging(menuColors));
+            }
+        }
+
+        private bool CanOverrideBitRestriction(CommandData commandData)
+            => MenuSettings.AllowModOverride && (commandData.IsMod || commandData.IsBroadcaster);
+
+        private bool BelowBitThreshold(CommandData commandData)
+            => commandData.Bits < MenuSettings.BitCost;
+
+        private MenuColors GetMenuColorsFromArgs(List<string> args)
+        {
+            var specialColor = GetSpecialColor(args.FirstOrDefault());
+            if (specialColor != null)
+            {
+                return specialColor;
+            }
+            List<string> colorArgs = args.Where(arg => arg.IsColor()).ToList();
             var menuColors = new MenuColors();
 
             switch (colorArgs.Count)
@@ -56,12 +76,37 @@ namespace InteractiveSeven.Twitch.Commands
                     break;
                 default:
                     // Invalid case, do nothing.
-                    return;
+                    return null;
             }
 
-            DomainEvents.Raise(new MenuColorChanging(menuColors));
+            return menuColors;
+        }
 
-            _menuColorAccessor.SetMenuColors(ProcessName, menuColors);
+        private MenuColors GetSpecialColor(string firstArg)
+        {
+            if (firstArg.EqualsIns("random"))
+            {
+                return RandomPalette();
+            }
+
+            return _paletteCollection.ByName(firstArg);
+        }
+
+        private static MenuColors RandomPalette()
+        {
+            return new MenuColors
+            {
+                TopLeft = GetRandomColor(),
+                TopRight = GetRandomColor(),
+                BotLeft = GetRandomColor(),
+                BotRight = GetRandomColor()
+            };
+            Color GetRandomColor()
+            {
+                byte[] b = new byte[3];
+                Rand.NextBytes(b);
+                return Color.FromArgb(b[0], b[1], b[2]);
+            }
         }
     }
 }

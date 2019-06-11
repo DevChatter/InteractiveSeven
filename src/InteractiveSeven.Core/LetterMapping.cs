@@ -6,8 +6,11 @@ namespace InteractiveSeven.Core
 {
     public static class LetterMapping
     {
+        private const int BYTE_COUNT = 10;
+
         private static readonly Dictionary<char,byte> CharToByteMap = new Dictionary<char, byte>
         {
+            [' '] = 0,
             ['!'] = 1,
             ['"'] = 2,
             ['#'] = 3,
@@ -21,7 +24,6 @@ namespace InteractiveSeven.Core
             [','] = 12,
             ['-'] = 13,
             ['.'] = 14,
-            ['/'] = 15,
             ['0'] = 16,
             ['1'] = 17,
             ['2'] = 18,
@@ -69,7 +71,6 @@ namespace InteractiveSeven.Core
             [']'] = 61,
             ['^'] = 62,
             ['_'] = 63,
-            ['`'] = 64,
             ['a'] = 65,
             ['b'] = 66,
             ['c'] = 67,
@@ -96,54 +97,11 @@ namespace InteractiveSeven.Core
             ['x'] = 88,
             ['y'] = 89,
             ['z'] = 90,
-            ['{'] = 91,
-            ['|'] = 92,
-            ['}'] = 93,
-            ['~'] = 94,
-            ['Ä'] = 96,
-            ['Á'] = 97,
-            ['Ç'] = 98,
-            ['É'] = 99,
-            ['Ñ'] = 100,
-            ['Ö'] = 101,
-            ['Ü'] = 102,
-            ['à'] = 103,
-            ['á'] = 104,
-            ['â'] = 105,
-            ['ä'] = 106,
-            ['ã'] = 107,
-            ['å'] = 108,
-            ['ç'] = 109,
-            ['è'] = 110,
-            ['é'] = 111,
-            ['ê'] = 112,
-            ['ë'] = 113,
-            ['ì'] = 114,
-            ['í'] = 115,
-            ['î'] = 116,
-            ['ï'] = 117,
-            ['ñ'] = 118,
-            ['ò'] = 119,
-            ['ó'] = 120,
-            ['ô'] = 121,
-            ['ö'] = 122,
-            ['õ'] = 123,
-            ['ù'] = 124,
-            ['ú'] = 125,
-            ['û'] = 126,
-            ['ü'] = 127,
-            ['¤'] = 128,
-            ['º'] = 129,
-            ['¢'] = 130,
-            ['£'] = 131,
-            ['ú'] = 132,
-            ['ù'] = 133,
-            ['¸'] = 135,
-            ['¨'] = 140
         };
 
         private static readonly Dictionary<byte, char> ByteToCharMap = new Dictionary<byte, char>
         {
+            [0] = ' ',
             [1] = '!',
             [2] = '"',
             [3] = '#',
@@ -157,7 +115,6 @@ namespace InteractiveSeven.Core
             [12] = ',',
             [13] = '-',
             [14] = '.',
-            [15] = '/',
             [16] = '0',
             [17] = '1',
             [18] = '2',
@@ -205,7 +162,6 @@ namespace InteractiveSeven.Core
             [61] = ']',
             [62] = '^',
             [63] = '_',
-            [64] = '`',
             [65] = 'a',
             [66] = 'b',
             [67] = 'c',
@@ -232,79 +188,37 @@ namespace InteractiveSeven.Core
             [88] = 'x',
             [89] = 'y',
             [90] = 'z',
-            [91] = '{',
-            [92] = '|',
-            [93] = '}',
-            [94] = '~',
-            [96] = 'Ä',
-            [97] = 'Á',
-            [98] = 'Ç',
-            [99] = 'É',
-            [100] = 'Ñ',
-            [101] = 'Ö',
-            [102] = 'Ü',
-            [103] = 'à',
-            [104] = 'á',
-            [105] = 'â',
-            [106] = 'ä',
-            [107] = 'ã',
-            [108] = 'å',
-            [109] = 'ç',
-            [110] = 'è',
-            [111] = 'é',
-            [112] = 'ê',
-            [113] = 'ë',
-            [114] = 'ì',
-            [115] = 'í',
-            [116] = 'î',
-            [117] = 'ï',
-            [118] = 'ñ',
-            [119] = 'ò',
-            [120] = 'ó',
-            [121] = 'ô',
-            [122] = 'ö',
-            [123] = 'õ',
-            [124] = 'ù',
-            [125] = 'ú',
-            [126] = 'û',
-            [127] = 'ü',
-            [128] = '¤',
-            [129] = 'º',
-            [130] = '¢',
-            [131] = '£',
-            [132] = 'ú',
-            [133] = 'ù',
-            [135] = '¸',
-            [140] = '¨'
         };
 
-
-        public static string MapBytesToString(byte[] bytes)
+        public static string MapFf7BytesToString(this byte[] bytes)
         {
-            var chars = new char[9];
-            for (int i = 0; i < 9; i++)
+            var chars = new char[BYTE_COUNT];
+            for (int i = 0; i < BYTE_COUNT; i++)
             {
                 if (!ByteToCharMap.TryGetValue(bytes.ElementAtOrDefault(i), out chars[i]))
                 {
                     break;
                 }
             }
-            return new string(chars.TakeWhile(x => x != '\0').ToArray());
-            //return new string(bytes.Take(9).Select(c => ByteToCharMap[c]).ToArray());
+            return new string(chars.TakeWhile(x => x != (char)255).ToArray());
         }
 
-        public static byte[] MapStringToBytes(string text)
+        public static byte[] MapStringToFf7Bytes(this string text)
         {
-            var bytes = new byte[9];
-            for (int i = 0; i < 9; i++)
+            int charCount = Math.Min(BYTE_COUNT-1, text.Length);
+            var bytes = new byte[BYTE_COUNT];
+            for (int i = 0; i < charCount; i++)
             {
                 if (!CharToByteMap.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
                 {
                     break;
                 }
             }
+            for (int i = charCount; i < BYTE_COUNT; i++)
+            {
+                bytes[i] = 255;
+            }
             return bytes;
-            //return text.Take(9).Select(c => CharToByteMap[c]).ToArray();
         }
     }
 }

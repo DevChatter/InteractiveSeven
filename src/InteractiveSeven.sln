@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveSeven.UI", "InteractiveSeven.UI\InteractiveSeven.UI.csproj", "{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Core", "InteractiveSeven.Core\InteractiveSeven.Core.csproj", "{AE410D04-A553-45D1-B631-7941228EE624}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Twitch", "InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj", "{BDB4E559-28A8-4701-BE84-7C67375D35C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D610871A-4B1B-42DC-94B4-56841A318702}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D610871A-4B1B-42DC-94B4-56841A318702}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven", "InteractiveSeven\InteractiveSeven.csproj", "{A666950C-E4FB-46C3-8FB6-71F2C5805540}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DABDDBE6-11DD-40B4-91D2-A8695BB1AD73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE410D04-A553-45D1-B631-7941228EE624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE410D04-A553-45D1-B631-7941228EE624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE410D04-A553-45D1-B631-7941228EE624}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{D610871A-4B1B-42DC-94B4-56841A318702}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D610871A-4B1B-42DC-94B4-56841A318702}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D610871A-4B1B-42DC-94B4-56841A318702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
