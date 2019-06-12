@@ -15,15 +15,17 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
         private readonly ColorPaletteCollection _paletteCollection;
+        private readonly GilBank _gilBank;
         private static readonly Random Rand = new Random();
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection)
+        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection, GilBank gilBank)
             : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _paletteCollection = paletteCollection;
+            _gilBank = gilBank;
         }
 
         public override void Execute(CommandData commandData)
