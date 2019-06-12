@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            if (!commandData.IsBroadcaster && !commandData.IsMe && !commandData.IsMod) return;
+            if (!commandData.User.IsBroadcaster && !commandData.User.IsMe && !commandData.User.IsMod) return;
 
             var action = commandData.Arguments.FirstOrDefault();
 

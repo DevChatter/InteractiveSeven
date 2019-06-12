@@ -8,6 +8,7 @@ using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
+using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 
@@ -82,7 +83,7 @@ namespace UnitTests.Twitch.Commands
             var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
-                IsMod = true,
+                User = new ChatUser { IsMod = true },
                 Arguments = new List<string> { "red" },
             };
 
@@ -101,7 +102,7 @@ namespace UnitTests.Twitch.Commands
             var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
-                IsMod = true,
+                User = new ChatUser { IsMod = true },
                 Arguments = new List<string> { "red" },
             };
 

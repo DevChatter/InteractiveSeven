@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch.Model
@@ -13,13 +14,13 @@ namespace InteractiveSeven.Twitch.Model
                 Bits = chatCommand.ChatMessage.Bits,
                 Channel = chatCommand.ChatMessage.Channel,
                 CommandText = chatCommand.CommandText,
-                IsBroadcaster = chatCommand.ChatMessage.IsBroadcaster,
-                IsMe = chatCommand.ChatMessage.IsMe,
-                IsMod = chatCommand.ChatMessage.IsModerator,
-                IsSubscriber = chatCommand.ChatMessage.IsSubscriber,
                 Message = chatCommand.ChatMessage.Message,
-                UserId = chatCommand.ChatMessage.UserId,
-                Username = chatCommand.ChatMessage.Username
+                User = new ChatUser(chatCommand.ChatMessage.Username,
+                    chatCommand.ChatMessage.UserId,
+                    chatCommand.ChatMessage.IsBroadcaster,
+                    chatCommand.ChatMessage.IsMe,
+                    chatCommand.ChatMessage.IsModerator,
+                    chatCommand.ChatMessage.IsSubscriber),
             };
         }
 
@@ -28,11 +29,6 @@ namespace InteractiveSeven.Twitch.Model
         public int Bits { get; set; }
         public string Channel { get; set; }
         public string Message { get; set; }
-        public bool IsBroadcaster { get; set; }
-        public bool IsMe { get; set; }
-        public bool IsMod { get; set; }
-        public bool IsSubscriber { get; set; }
-        public string UserId { get; set; }
-        public string Username { get; set; }
+        public ChatUser User { get; set; }
     }
 }

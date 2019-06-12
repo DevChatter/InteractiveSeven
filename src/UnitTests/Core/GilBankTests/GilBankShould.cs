@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using Xunit;
 
@@ -6,6 +7,8 @@ namespace UnitTests.Core.GilBankTests
 {
     public class GilBankShould
     {
+        private readonly ChatUser _user = new ChatUser("any", "123456", false, false, false, false);
+
         [Theory]
         [InlineData(0)]
         [InlineData(25)]
@@ -14,7 +17,7 @@ namespace UnitTests.Core.GilBankTests
         {
             var bank = new GilBank();
 
-            int balance = bank.Deposit("username", bits);
+            int balance = bank.Deposit(_user, bits);
 
             balance.Should().Be(bits);
         }
@@ -27,8 +30,8 @@ namespace UnitTests.Core.GilBankTests
         {
             var bank = new GilBank();
 
-            bank.Deposit("username", first);
-            int balance = bank.Deposit("username", second);
+            bank.Deposit(_user, first);
+            int balance = bank.Deposit(_user, second);
 
             balance.Should().Be(expected);
         }
@@ -40,11 +43,10 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100, 25, 25, 75)]
         public void ReturnBalanceAndWithdrawnAfterWithdrawal(int start, int withdraw, int expectWithdrawn, int expectBal)
         {
-            const string Username = "username";
             var bank = new GilBank();
 
-            bank.Deposit(Username, start);
-            (int balance, int withdrawn) = bank.Withdraw(Username, withdraw);
+            bank.Deposit(_user, start);
+            (int balance, int withdrawn) = bank.Withdraw(_user, withdraw);
 
             balance.Should().Be(expectBal);
             withdrawn.Should().Be(expectWithdrawn);
@@ -56,11 +58,10 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100, 200)]
         public void ReturnBalanceAndZeroForRequireFullWithdraw(int start, int withdraw)
         {
-            const string Username = "username";
             var bank = new GilBank();
 
-            bank.Deposit(Username, start);
-            (int balance, int withdrawn) = bank.Withdraw(Username, withdraw, true);
+            bank.Deposit(_user, start);
+            (int balance, int withdrawn) = bank.Withdraw(_user, withdraw, true);
 
             balance.Should().Be(start);
             withdrawn.Should().Be(0);

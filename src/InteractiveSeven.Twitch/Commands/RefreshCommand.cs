@@ -31,7 +31,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         private bool IsAvailable(CommandData data)
         {
-            return data.IsBroadcaster || data.IsMod || DateTime.UtcNow > _nextAvailable;
+            return data.User.IsBroadcaster || data.User.IsMod || DateTime.UtcNow > _nextAvailable;
         }
     }
 }

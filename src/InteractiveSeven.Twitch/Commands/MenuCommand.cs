@@ -41,12 +41,12 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (menuColors != null)
             {
-                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.Username));
+                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User.Username));
             }
         }
 
         private bool CanOverrideBitRestriction(CommandData commandData)
-            => MenuSettings.AllowModOverride && (commandData.IsMod || commandData.IsBroadcaster);
+            => MenuSettings.AllowModOverride && (commandData.User.IsMod || commandData.User.IsBroadcaster);
 
         private bool BelowBitThreshold(CommandData commandData)
             => commandData.Bits < MenuSettings.BitCost;

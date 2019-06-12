@@ -86,7 +86,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
+            if (data.Bits == 0 && Settings.AllowModBits && (data.User.IsMod || data.User.IsMe || data.User.IsBroadcaster))
             {
                 int number = data.Arguments.Max(arg => arg.SafeIntParse());
                 if (number > 0)
@@ -97,13 +97,13 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (data.Bits < 1)
             {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.User.Username}");
                 return;
             }
 
             string newName = data.Arguments.FirstOrDefault() ?? "";
 
-            var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
+            var bidRecord = new BidRecord(data.User.Username, data.User.UserId, data.Bits);
             var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
             DomainEvents.Raise(domainEvent);
         }

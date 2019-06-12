@@ -20,9 +20,9 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData data)
         {
-            int balance = _gilBank.CheckBalance(data.Username);
+            int balance = _gilBank.CheckBalance(data.User);
 
-            _twitchClient.SendMessage(data.Channel, $"You have {balance} gil, {data.Username}.");
+            _twitchClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
         }
     }
 }
