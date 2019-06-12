@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using InteractiveSeven.Core.Model;
+﻿using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Settings;
+using System;
+using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Models
 {

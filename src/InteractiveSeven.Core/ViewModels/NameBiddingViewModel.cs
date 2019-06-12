@@ -13,7 +13,7 @@ namespace InteractiveSeven.Core.ViewModels
     {
         private readonly INameAccessor _nameAccessor;
         private readonly ITwitchClient _twitchClient;
-        private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings 
+        private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings
             = new Dictionary<string, CharacterNameBidding>
             {
                 [CharNames.Cloud] = new CharacterNameBidding(CharNames.Cloud),

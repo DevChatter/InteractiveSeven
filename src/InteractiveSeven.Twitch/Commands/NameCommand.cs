@@ -81,7 +81,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled) 
+        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled)
             => words.Any(word => word.EqualsIns(commandData.CommandText)) && enabled;
 
         private void TriggerDomainEvent(string charName, CommandData data)

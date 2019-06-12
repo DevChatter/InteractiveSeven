@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
@@ -8,7 +8,6 @@ using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Collections.Generic;
-using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 

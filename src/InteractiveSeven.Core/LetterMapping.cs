@@ -8,7 +8,7 @@ namespace InteractiveSeven.Core
     {
         private const int BYTE_COUNT = 10;
 
-        private static readonly Dictionary<char,byte> CharToByteMap = new Dictionary<char, byte>
+        private static readonly Dictionary<char, byte> CharToByteMap = new Dictionary<char, byte>
         {
             [' '] = 0,
             ['!'] = 1,
@@ -205,7 +205,7 @@ namespace InteractiveSeven.Core
 
         public static byte[] MapStringToFf7Bytes(this string text)
         {
-            int charCount = Math.Min(BYTE_COUNT-1, text.Length);
+            int charCount = Math.Min(BYTE_COUNT - 1, text.Length);
             var bytes = new byte[BYTE_COUNT];
             for (int i = 0; i < charCount; i++)
             {

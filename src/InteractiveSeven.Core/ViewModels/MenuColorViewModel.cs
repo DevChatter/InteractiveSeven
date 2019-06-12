@@ -1,12 +1,12 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Drawing;
-using System;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Settings;
+using System.Runtime.CompilerServices;
 
 namespace InteractiveSeven.Core.ViewModels
 {

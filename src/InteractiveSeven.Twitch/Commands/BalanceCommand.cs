@@ -1,6 +1,4 @@
-﻿using System;
-using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
 
@@ -12,7 +10,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly GilBank _gilBank;
 
         public BalanceCommand(ITwitchClient twitchClient, GilBank gilBank)
-            : base(new []{ "Balance", "Bal", "Gil" }, x => true)
+            : base(new[] { "Balance", "Bal", "Gil" }, x => true)
         {
             _twitchClient = twitchClient;
             _gilBank = gilBank;
