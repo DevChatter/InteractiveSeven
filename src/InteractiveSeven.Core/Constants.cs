@@ -1,4 +1,6 @@
-﻿namespace InteractiveSeven.Core
+﻿using System;
+
+namespace InteractiveSeven.Core
 {
     public static class CharNames
     {
@@ -11,5 +13,12 @@
         public const string Vincent = "Vincent";
         public const string Yuffie = "Yuffie";
         public const string Cid = "Cid";
+    }
+
+    public static class Constants
+    {
+        public const string AppDataFolder = "InteractiveSeven";
+        public static readonly string LocalAppData
+            = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     }
 }
