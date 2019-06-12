@@ -16,15 +16,15 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings 
             = new Dictionary<string, CharacterNameBidding>
             {
-                [Constants.Cloud] = new CharacterNameBidding(Constants.Cloud),
-                [Constants.Barret] = new CharacterNameBidding(Constants.Barret),
-                [Constants.Tifa] = new CharacterNameBidding(Constants.Tifa),
-                [Constants.Aeris] = new CharacterNameBidding(Constants.Aeris),
-                [Constants.Red] = new CharacterNameBidding(Constants.Red),
-                [Constants.CaitSith] = new CharacterNameBidding(Constants.CaitSith),
-                [Constants.Cid] = new CharacterNameBidding(Constants.Cid),
-                [Constants.Vincent] = new CharacterNameBidding(Constants.Vincent),
-                [Constants.Yuffie] = new CharacterNameBidding(Constants.Yuffie),
+                [CharNames.Cloud] = new CharacterNameBidding(CharNames.Cloud),
+                [CharNames.Barret] = new CharacterNameBidding(CharNames.Barret),
+                [CharNames.Tifa] = new CharacterNameBidding(CharNames.Tifa),
+                [CharNames.Aeris] = new CharacterNameBidding(CharNames.Aeris),
+                [CharNames.Red] = new CharacterNameBidding(CharNames.Red),
+                [CharNames.CaitSith] = new CharacterNameBidding(CharNames.CaitSith),
+                [CharNames.Cid] = new CharacterNameBidding(CharNames.Cid),
+                [CharNames.Vincent] = new CharacterNameBidding(CharNames.Vincent),
+                [CharNames.Yuffie] = new CharacterNameBidding(CharNames.Yuffie),
             };
 
         public List<CharacterNameBidding> CharacterNameBiddings => _characterNameBiddings.Values.ToList();

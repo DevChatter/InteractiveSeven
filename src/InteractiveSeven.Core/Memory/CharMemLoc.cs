@@ -70,15 +70,15 @@ namespace InteractiveSeven.Core.Memory
         private static readonly Dictionary<string, CharMemLoc> All
             = new Dictionary<string, CharMemLoc>
             {
-                [Constants.Cloud] = Cloud,
-                [Constants.Barret] = Barret,
-                [Constants.Tifa] = Tifa,
-                [Constants.Aeris] = Aeris,
-                [Constants.Red] = Red,
-                [Constants.Yuffie] = Yuffie,
-                [Constants.CaitSith] = CaitSith,
-                [Constants.Vincent] = Vincent,
-                [Constants.Cid] = Cid,
+                [CharNames.Cloud] = Cloud,
+                [CharNames.Barret] = Barret,
+                [CharNames.Tifa] = Tifa,
+                [CharNames.Aeris] = Aeris,
+                [CharNames.Red] = Red,
+                [CharNames.Yuffie] = Yuffie,
+                [CharNames.CaitSith] = CaitSith,
+                [CharNames.Vincent] = Vincent,
+                [CharNames.Cid] = Cid,
             };
     }
 }

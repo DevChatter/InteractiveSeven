@@ -45,39 +45,39 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (ShouldTriggerFor(data, CloudWords, Settings.NamingCloudEnabled))
             {
-                TriggerDomainEvent(Constants.Cloud, data);
+                TriggerDomainEvent(CharNames.Cloud, data);
             }
             else if (ShouldTriggerFor(data, BarretWords, Settings.NamingBarretEnabled))
             {
-                TriggerDomainEvent(Constants.Barret, data);
+                TriggerDomainEvent(CharNames.Barret, data);
             }
             else if (ShouldTriggerFor(data, TifaWords, Settings.NamingTifaEnabled))
             {
-                TriggerDomainEvent(Constants.Tifa, data);
+                TriggerDomainEvent(CharNames.Tifa, data);
             }
             else if (ShouldTriggerFor(data, AerisWords, Settings.NamingAerisEnabled))
             {
-                TriggerDomainEvent(Constants.Aeris, data);
+                TriggerDomainEvent(CharNames.Aeris, data);
             }
             else if (ShouldTriggerFor(data, CaitWords, Settings.NamingCaitSithEnabled))
             {
-                TriggerDomainEvent(Constants.CaitSith, data);
+                TriggerDomainEvent(CharNames.CaitSith, data);
             }
             else if (ShouldTriggerFor(data, CidWords, Settings.NamingCidEnabled))
             {
-                TriggerDomainEvent(Constants.Cid, data);
+                TriggerDomainEvent(CharNames.Cid, data);
             }
             else if (ShouldTriggerFor(data, RedWords, Settings.NamingRedEnabled))
             {
-                TriggerDomainEvent(Constants.Red, data);
+                TriggerDomainEvent(CharNames.Red, data);
             }
             else if (ShouldTriggerFor(data, VincentWords, Settings.NamingVincentEnabled))
             {
-                TriggerDomainEvent(Constants.Vincent, data);
+                TriggerDomainEvent(CharNames.Vincent, data);
             }
             else if (ShouldTriggerFor(data, YuffieWords, Settings.NamingYuffieEnabled))
             {
-                TriggerDomainEvent(Constants.Yuffie, data);
+                TriggerDomainEvent(CharNames.Yuffie, data);
             }
         }
 
