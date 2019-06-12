@@ -35,8 +35,7 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 _topLeft = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color BotLeft
@@ -46,8 +45,7 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 _botLeft = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color TopRight
@@ -57,8 +55,7 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 _topRight = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color BotRight
@@ -68,8 +65,7 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 _botRight = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
 
