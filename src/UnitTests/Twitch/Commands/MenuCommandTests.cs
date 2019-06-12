@@ -124,7 +124,7 @@ namespace UnitTests.Twitch.Commands
             var menuColorAccessor = new Mock<IMenuColorAccessor>();
             var twitchClient = new Mock<ITwitchClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
-            var menuCommand = new MenuCommand(twitchClient.Object, new ColorPaletteCollection(logger.Object));
+            var menuCommand = new MenuCommand(twitchClient.Object, new ColorPaletteCollection(logger.Object), new GilBank());
             return (menuColorAccessor, twitchClient, menuCommand);
         }
     }

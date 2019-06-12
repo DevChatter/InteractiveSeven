@@ -18,23 +18,21 @@ namespace InteractiveSeven
             Rectangle rect = new Rectangle(0, 0, 200, 100);
             graphicsPath.AddRectangle(rect);
 
-            using (var bmp = new Bitmap(200, 100))
-            using (Graphics graphics = Graphics.FromImage(bmp))
-            using (PathGradientBrush pathGradientBrush = new PathGradientBrush(graphicsPath)
+            using var bmp = new Bitmap(200, 100);
+            using Graphics graphics = Graphics.FromImage(bmp);
+            using PathGradientBrush pathGradientBrush = new PathGradientBrush(graphicsPath)
             {
                 CenterColor = Color.FromArgb((int)colorArray.Average(a => a.R), (int)colorArray.Average(a => a.G), (int)colorArray.Average(a => a.B)),
                 SurroundColors = colorArray
-            })
-            {
-                graphics.FillPath(pathGradientBrush, graphicsPath);
-                graphics.DrawImage(bmp, rect);
+            };
+            graphics.FillPath(pathGradientBrush, graphicsPath);
+            graphics.DrawImage(bmp, rect);
 
-                return Imaging.CreateBitmapSourceFromHBitmap(
-                   bmp.GetHbitmap(),
-                   IntPtr.Zero,
-                   Int32Rect.Empty,
-                   BitmapSizeOptions.FromWidthAndHeight(200, 100));
-            }
+            return Imaging.CreateBitmapSourceFromHBitmap(
+                bmp.GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromWidthAndHeight(200, 100));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace InteractiveSeven.Twitch.Commands
     public class I7Command : BaseCommand
     {
         public I7Command()
-            : base(new[] { "i7", "iseven", "interactive" }, x => true) // TODO: Add a Setting to Allow this Command
+            : base(new[] { "i7", "interactive7", "interactive" }, x => true) // TODO: Add a Setting to Allow this Command
         {
         }
 
@@ -26,8 +26,6 @@ namespace InteractiveSeven.Twitch.Commands
                 case "del":
                 case "rem":
                     RemoveName(commandData);
-                    break;
-                default:
                     break;
             }
         }

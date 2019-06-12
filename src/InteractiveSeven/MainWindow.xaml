@@ -67,7 +67,7 @@
                                     </ScrollViewer>
                                 </StackPanel>
                             </GroupBox>
-                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names" Canvas.Left="10" Canvas.Top="140">
+                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names">
                                 <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
                                                       AutoGenerateColumns="False">

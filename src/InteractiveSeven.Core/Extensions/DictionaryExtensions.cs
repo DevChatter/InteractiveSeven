@@ -7,9 +7,7 @@ namespace InteractiveSeven.Core
         public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
             where TValue : new()
         {
-            TValue val;
-
-            if (!dict.TryGetValue(key, out val))
+            if (!dict.TryGetValue(key, out TValue val))
             {
                 val = new TValue();
                 dict.Add(key, val);

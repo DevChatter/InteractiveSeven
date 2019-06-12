@@ -7,18 +7,15 @@ namespace InteractiveSeven.Core.Models
 {
     public class ColorPaletteCollection
     {
-        private readonly ILogger<ColorPaletteCollection> _logger;
-
         public ColorPaletteCollection(ILogger<ColorPaletteCollection> logger)
         {
-            _logger = logger;
             try
             {
                 All.AddRange(new[] { Default, Brendan, Tsuna, Strife });
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error Initializing {nameof(ColorPaletteCollection)}", ex);
+                logger.LogError($"Error Initializing {nameof(ColorPaletteCollection)}", ex);
             }
         }
 

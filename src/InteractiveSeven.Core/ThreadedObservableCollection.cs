@@ -8,7 +8,7 @@ namespace InteractiveSeven.Core
 {
     public class ThreadedObservableCollection<T> : ObservableCollection<T>
     {
-        private SynchronizationContext synchronizationContext = SynchronizationContext.Current;
+        private readonly SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
 
         public ThreadedObservableCollection()
         {
@@ -21,13 +21,13 @@ namespace InteractiveSeven.Core
 
     protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-        if (SynchronizationContext.Current == synchronizationContext)
+        if (SynchronizationContext.Current == _synchronizationContext)
         {
             RaiseCollectionChanged(e);
         }
         else
         {
-            synchronizationContext.Send(RaiseCollectionChanged, e);
+            _synchronizationContext.Send(RaiseCollectionChanged, e);
         }
     }
 
@@ -38,13 +38,13 @@ namespace InteractiveSeven.Core
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
-        if (SynchronizationContext.Current == synchronizationContext)
+        if (SynchronizationContext.Current == _synchronizationContext)
         {
             RaisePropertyChanged(e);
         }
         else
         {
-            synchronizationContext.Send(RaisePropertyChanged, e);
+            _synchronizationContext.Send(RaisePropertyChanged, e);
         }
     }
 
