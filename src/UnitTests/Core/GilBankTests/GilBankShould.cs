@@ -49,5 +49,21 @@ namespace UnitTests.Core.GilBankTests
             balance.Should().Be(expectBal);
             withdrawn.Should().Be(expectWithdrawn);
         }
+
+        [Theory]
+        [InlineData(12, 25)]
+        [InlineData(25, 26)]
+        [InlineData(100, 200)]
+        public void ReturnBalanceAndZeroForRequireFullWithdraw(int start, int withdraw)
+        {
+            const string Username = "username";
+            var bank = new GilBank();
+
+            bank.Deposit(Username, start);
+            (int balance, int withdrawn) = bank.Withdraw(Username, withdraw, true);
+
+            balance.Should().Be(start);
+            withdrawn.Should().Be(0);
+        }
     }
 }
