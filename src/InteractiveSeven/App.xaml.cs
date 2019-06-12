@@ -63,6 +63,7 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<MenuCommand>();
             services.RegisterTwitchCommand<NameCommand>();
             services.RegisterTwitchCommand<RefreshCommand>();
+            services.RegisterTwitchCommand<BalanceCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();

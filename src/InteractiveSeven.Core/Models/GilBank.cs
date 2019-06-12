@@ -5,7 +5,7 @@ namespace InteractiveSeven.Core.Models
 {
     public class GilBank
     {
-        private Dictionary<string, int> Accounts { get; } = new Dictionary<string, int>();
+        private Dictionary<string, Account> Accounts { get; } = new Dictionary<string, Account>();
 
         private readonly object _padlock = new object();
 
@@ -13,10 +13,9 @@ namespace InteractiveSeven.Core.Models
         {
             lock (_padlock)
             {
-                Accounts.TryGetValue(username, out int balance);
-                balance += bits;
-                Accounts[username] = balance;
-                return balance;
+                var account = AccessAccount(username);
+                account.Balance += bits;
+                return account.Balance;
             }
         }
 
@@ -24,16 +23,28 @@ namespace InteractiveSeven.Core.Models
         {
             lock (_padlock)
             {
-                Accounts.TryGetValue(username, out int balance);
-                if (requireBalance && balance < bits)
+                var account = AccessAccount(username);
+                if (requireBalance && account.Balance < bits)
                 {
-                    return (balance, 0);
+                    return (account.Balance, 0);
                 }
-                int withdrawn = Math.Min(balance, bits);
-                balance -= withdrawn;
-                Accounts[username] = balance;
-                return (balance, withdrawn);
+                int withdrawn = Math.Min(account.Balance, bits);
+                account.Balance -= withdrawn;
+                return (account.Balance, withdrawn);
             }
+        }
+
+        public int CheckBalance(string username)
+        {
+            var account = AccessAccount(username);
+            return account.Balance;
+        }
+
+        private Account AccessAccount(string username)
+        {
+            var account = Accounts.GetOrCreate(username);
+
+            return account;
         }
     }
 }
