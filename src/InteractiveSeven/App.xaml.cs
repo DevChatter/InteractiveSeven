@@ -67,6 +67,7 @@ namespace InteractiveSeven
 
             services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
+            services.AddSingleton<GilBank>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<MainWindow>();
 
