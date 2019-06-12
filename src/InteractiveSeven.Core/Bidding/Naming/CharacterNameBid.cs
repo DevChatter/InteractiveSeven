@@ -6,26 +6,26 @@ namespace InteractiveSeven.Core.Bidding.Naming
 {
     public class CharacterNameBid : INotifyPropertyChanged
     {
-        private string name;
-        private int totalBits;
+        private string _name;
+        private int _totalBits;
 
-        private readonly object padlock = new object();
+        private readonly object _padlock = new object();
 
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
-                name = value;
+                _name = value;
                 OnPropertyChanged();
             }
         }
         public int TotalBits
         {
-            get => totalBits;
+            get => _totalBits;
             set
             {
-                totalBits = value;
+                _totalBits = value;
                 OnPropertyChanged();
             }
         }
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         public void AddRecord(BidRecord record)
         {
-            lock (padlock)
+            lock (_padlock)
             {
                 BidRecords.Add(record);
                 TotalBits += record.Bits;

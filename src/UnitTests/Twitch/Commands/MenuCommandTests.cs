@@ -22,7 +22,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 0);
-            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
                 Arguments = new List<string> { "red" },
@@ -41,7 +41,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
                 Arguments = new List<string> { "red" },
@@ -59,7 +59,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
                 Arguments = new List<string> { "red", "Cheer1" },
@@ -79,7 +79,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
                 IsMod = true,
@@ -98,7 +98,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1, false);
-            var (menuColorAcc, twitchClient, menuCommand) = SetUpTest();
+            var menuCommand = SetUpTest();
             var commandData = new CommandData
             {
                 IsMod = true,
@@ -118,14 +118,12 @@ namespace UnitTests.Twitch.Commands
             ApplicationSettings.Instance.MenuSettings.AllowModOverride = allowOverride;
         }
 
-        private static (Mock<IMenuColorAccessor>, Mock<ITwitchClient>, MenuCommand)
-            SetUpTest()
+        private static MenuCommand SetUpTest()
         {
-            var menuColorAccessor = new Mock<IMenuColorAccessor>();
             var twitchClient = new Mock<ITwitchClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
             var menuCommand = new MenuCommand(twitchClient.Object, new ColorPaletteCollection(logger.Object), new GilBank());
-            return (menuColorAccessor, twitchClient, menuCommand);
+            return menuCommand;
         }
     }
 }

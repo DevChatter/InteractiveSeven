@@ -41,7 +41,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (menuColors != null)
             {
-                DomainEvents.Raise(new MenuColorChanging(menuColors));
+                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.Username));
             }
         }
 

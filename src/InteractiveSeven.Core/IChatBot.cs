@@ -2,7 +2,7 @@
 {
     public interface IChatBot
     {
-        bool IsConnected { get; set; }
+        bool IsConnected { get; }
 
         void Connect();
         void Disconnect();

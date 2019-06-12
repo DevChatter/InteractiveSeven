@@ -31,7 +31,7 @@
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
                        VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by Brendan Enrick (@Brendoneus/@DevChatter)" />
-            <Button Grid.Column="2" Margin="2 2 2 2">
+            <Button Grid.Column="1" Margin="2 2 2 2">
                 <Hyperlink x:Name="PatreonLink" RequestNavigate="PatreonLink_RequestNavigate"
                            NavigateUri="https://www.patreon.com/DevChatter">
                     <Image Source="/Assets/BecomePatron.png" />

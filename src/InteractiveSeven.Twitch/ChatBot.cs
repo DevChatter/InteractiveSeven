@@ -19,16 +19,16 @@ namespace InteractiveSeven.Twitch
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
         private readonly IIntervalMessagingService _intervalMessaging;
-        private bool isConnected;
+        private bool _isConnected;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
 
         public bool IsConnected
         {
-            get => isConnected;
+            get => _isConnected;
             set
             {
-                isConnected = value;
+                _isConnected = value;
                 OnPropertyChanged();
             }
         }

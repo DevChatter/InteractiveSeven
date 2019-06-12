@@ -20,7 +20,7 @@ namespace InteractiveSeven.ValueConverters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value.ToString().ToLower())
+            switch (value?.ToString()?.ToLower())
             {
                 case "connected":
                     return true;
