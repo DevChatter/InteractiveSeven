@@ -8,6 +8,8 @@ namespace InteractiveSeven.Core.Settings
     public class ApplicationSettings : INotifyPropertyChanged
     {
         private string _processName = "ff7_en";
+        private bool _giveSubscriberBonusBits = true;
+        private int _subscriberBonusBits = 150;
 
         public static ApplicationSettings Instance { get; private set; }
         static ApplicationSettings()
@@ -24,6 +26,27 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
+        public bool GiveSubscriberBonusBits
+        {
+            get => _giveSubscriberBonusBits;
+            set
+            {
+                _giveSubscriberBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int SubscriberBonusBits
+        {
+            get => _subscriberBonusBits;
+            set
+            {
+                _subscriberBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TwitchSettings TwitchSettings { get; set; } = new TwitchSettings();
         public MenuColorSettings MenuSettings { get; set; } = new MenuColorSettings();
         public NameBiddingSettings NameBiddingSettings { get; set; } = new NameBiddingSettings();
@@ -95,8 +118,6 @@ namespace InteractiveSeven.Core.Settings
     {
         private bool _enabled = true;
         private int _defaultStartBits = 100;
-        private bool _giveSubscriberBonusBits = true;
-        private int _subscriberBonusBits = 150;
         private bool _allowModeration = true;
         private bool _allowModBits = true;
         private bool _namingCloudEnabled = true;
@@ -125,26 +146,6 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _defaultStartBits = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool GiveSubscriberBonusBits
-        {
-            get => _giveSubscriberBonusBits;
-            set
-            {
-                _giveSubscriberBonusBits = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int SubscriberBonusBits
-        {
-            get => _subscriberBonusBits;
-            set
-            {
-                _subscriberBonusBits = value;
                 OnPropertyChanged();
             }
         }
