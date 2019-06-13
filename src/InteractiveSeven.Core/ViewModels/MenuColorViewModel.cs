@@ -7,25 +7,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels
 {
     public class MenuColorViewModel : INotifyPropertyChanged
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
-        private readonly GilBank _gilBank;
-        private readonly ITwitchClient _twitchClient;
-        private TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
-        private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor,
-            GilBank gilBank, ITwitchClient twitchClient)
+        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor)
         {
             _menuColorAccessor = menuColorAccessor;
-            _gilBank = gilBank;
-            _twitchClient = twitchClient;
 
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
             DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
@@ -81,13 +73,6 @@ namespace InteractiveSeven.Core.ViewModels
 
         private void HandleMenuColorChanging(MenuColorChanging obj)
         {
-            var (_, withdrawn) = _gilBank.Withdraw(obj.User, obj.Gil, requireBalance: true);
-            if (obj.Gil > withdrawn)
-            {
-                _twitchClient.SendMessage(TwitchSettings.Channel, $"Oops, you don't have {obj.Gil} gil, {obj.User.Username}.");
-                return;
-            }
-
             TopLeft = obj.MenuColors.TopLeft;
             TopRight = obj.MenuColors.TopRight;
             BotLeft = obj.MenuColors.BotLeft;

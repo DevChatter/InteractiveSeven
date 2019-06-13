@@ -32,30 +32,26 @@ namespace InteractiveSeven.Twitch.Commands
         public override void Execute(CommandData commandData)
         {
             MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
-            var colorChanging = new MenuColorChanging(menuColors, commandData.User, MenuSettings.BitCost);
-
-            if (CanOverrideBitRestriction(commandData.User))
+            int gil = 0;
+            if (!CanOverrideBitRestriction(commandData.User))
             {
-                colorChanging.Gil = 0;
-            }
-            else if (BelowBitThreshold(commandData))
-            {
-                var message = $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                return;
+                (_, gil) = _gilBank.Withdraw(commandData.User, MenuSettings.BitCost, true);
+                if (gil < MenuSettings.BitCost)
+                {
+                    var message = $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.";
+                    _twitchClient.SendMessage(commandData.Channel, message);
+                    return;
+                }
             }
 
             if (menuColors != null)
             {
-                DomainEvents.Raise(colorChanging);
+                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, gil));
             }
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
-            => MenuSettings.AllowModOverride && (user.IsMod || user.IsBroadcaster);
-
-        private bool BelowBitThreshold(CommandData commandData)
-            => _gilBank.CheckBalance(commandData.User) < MenuSettings.BitCost;
+        private bool CanOverrideBitRestriction(ChatUser user) 
+            => MenuSettings.AllowModOverride && (user.IsMod || user.IsMe || user.IsBroadcaster);
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)
         {
