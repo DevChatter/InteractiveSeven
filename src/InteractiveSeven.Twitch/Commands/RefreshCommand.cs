@@ -7,7 +7,7 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class RefreshCommand : BaseCommand
     {
-        private static readonly TimeSpan _cooldownTime = TimeSpan.FromMinutes(1);
+        private static readonly TimeSpan CooldownTime = TimeSpan.FromMinutes(1);
         private readonly ITwitchClient _twitchClient;
         private DateTime _nextAvailable = DateTime.UtcNow;
         public RefreshCommand(ITwitchClient twitchClient)
@@ -21,7 +21,7 @@ namespace InteractiveSeven.Twitch.Commands
             if (IsAvailable(commandData))
             {
                 DomainEvents.Raise(new RefreshEvent());
-                _nextAvailable = DateTime.UtcNow.Add(_cooldownTime);
+                _nextAvailable = DateTime.UtcNow.Add(CooldownTime);
             }
             else
             {

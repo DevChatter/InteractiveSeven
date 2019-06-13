@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels
