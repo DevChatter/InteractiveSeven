@@ -59,6 +59,7 @@ namespace InteractiveSeven
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
+            services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
             services.RegisterTwitchCommand<MenuCommand>();
             services.RegisterTwitchCommand<NameCommand>();
