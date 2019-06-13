@@ -4,6 +4,8 @@ using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
+using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -14,12 +16,13 @@ namespace InteractiveSeven.Twitch.Commands
         private static readonly string[] BarretWords = { "barret", "baret", "barett", "barrett" };
         private static readonly string[] TifaWords = { "tifa", "tiaf", "tfia" };
         private static readonly string[] AerisWords = { "aeris", "aerith" };
-        private static readonly string[] CaitWords = { "caitsith" };
+        private static readonly string[] CaitWords = { "caitsith", "cait" };
         private static readonly string[] CidWords = { "cid" };
         private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
         private static readonly string[] VincentWords = { "vincent", "vince" };
         private static readonly string[] YuffieWords = { "yuffie" };
         private readonly ITwitchClient _twitchClient;
+        private readonly GilBank _gilBank;
 
         private static string[] AllWords
             => CloudWords
@@ -35,10 +38,11 @@ namespace InteractiveSeven.Twitch.Commands
 
         public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand(ITwitchClient twitchClient)
+        public NameCommand(ITwitchClient twitchClient, GilBank gilBank)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
             _twitchClient = twitchClient;
+            _gilBank = gilBank;
         }
 
         public override void Execute(CommandData data)
@@ -86,26 +90,33 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            if (data.Bits == 0 && Settings.AllowModBits && (data.User.IsMod || data.User.IsMe || data.User.IsBroadcaster))
+            int gil = data.Arguments.Count > 1 ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse()) : 0;
+            if (!CanOverrideBitRestriction(data.User))
             {
-                int number = data.Arguments.Max(arg => arg.SafeIntParse());
-                if (number > 0)
+                (int balance, int withdrawn) = _gilBank.Withdraw(data.User, gil, true);
+                if (withdrawn == 0)
                 {
-                    data.Bits = number;
+                    string message = $"You don't have {gil} gil, {data.User.Username}. You have {balance} gil.";
+                    _twitchClient.SendMessage(data.Channel, message);
+                    return;
                 }
             }
 
-            if (data.Bits < 1)
+            if (gil < 1)
             {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.User.Username}");
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
                 return;
             }
 
             string newName = data.Arguments.FirstOrDefault() ?? "";
 
-            var bidRecord = new BidRecord(data.User.Username, data.User.UserId, data.Bits);
+            var bidRecord = new BidRecord(data.User.Username, data.User.UserId, gil);
             var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
             DomainEvents.Raise(domainEvent);
         }
+
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => Settings.AllowModBits && (user.IsMod || user.IsMe || user.IsBroadcaster);
+
     }
 }
