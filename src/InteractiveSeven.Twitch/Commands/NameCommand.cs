@@ -90,11 +90,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            int gil = data.Arguments.Count > 1 ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse()) : 0;
-            if (gil == 0 && data.Bits > 0) // If their cheer is the bits amount
-            {
-                gil = data.Bits;
-            }
+            int gil = GetGilFromCommandData(data);
             if (!CanOverrideBitRestriction(data.User))
             {
                 (int balance, int withdrawn) = _gilBank.Withdraw(data.User, gil, true);
@@ -117,6 +113,19 @@ namespace InteractiveSeven.Twitch.Commands
             var bidRecord = new BidRecord(data.User.Username, data.User.UserId, gil);
             var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
             DomainEvents.Raise(domainEvent);
+        }
+
+        private static int GetGilFromCommandData(CommandData data)
+        {
+            int gil = data.Arguments.Count > 1
+                ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse())
+                : 0;
+            if (gil == 0 && data.Bits > 0) // If their cheer is the bits amount
+            {
+                gil = data.Bits;
+            }
+
+            return gil;
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)
