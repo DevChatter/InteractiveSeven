@@ -53,6 +53,7 @@ namespace InteractiveSeven
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
 
+            services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
