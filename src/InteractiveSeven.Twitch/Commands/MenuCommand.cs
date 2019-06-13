@@ -50,8 +50,8 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user) 
-            => MenuSettings.AllowModOverride && (user.IsMod || user.IsMe || user.IsBroadcaster);
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => (MenuSettings.AllowModOverride && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)
         {

@@ -129,7 +129,7 @@ namespace InteractiveSeven.Twitch.Commands
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)
-            => Settings.AllowModBits && (user.IsMod || user.IsMe || user.IsBroadcaster);
+            => (Settings.AllowModBits && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
     }
 }
