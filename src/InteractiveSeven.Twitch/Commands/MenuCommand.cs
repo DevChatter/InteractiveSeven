@@ -36,7 +36,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (CanOverrideBitRestriction(commandData.User))
             {
-                //colorChanging.Gil = 0;
+                colorChanging.Gil = 0;
             }
             else if (BelowBitThreshold(commandData))
             {
