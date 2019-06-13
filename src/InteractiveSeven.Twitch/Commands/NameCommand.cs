@@ -91,6 +91,10 @@ namespace InteractiveSeven.Twitch.Commands
         private void TriggerDomainEvent(string charName, CommandData data)
         {
             int gil = data.Arguments.Count > 1 ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse()) : 0;
+            if (gil == 0 && data.Bits > 0) // If their cheer is the bits amount
+            {
+                gil = data.Bits;
+            }
             if (!CanOverrideBitRestriction(data.User))
             {
                 (int balance, int withdrawn) = _gilBank.Withdraw(data.User, gil, true);
