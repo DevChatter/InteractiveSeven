@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -30,26 +31,31 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
+            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+            var colorChanging = new MenuColorChanging(menuColors, commandData.User, MenuSettings.BitCost);
+
+            if (CanOverrideBitRestriction(commandData.User))
             {
-                var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
+                //colorChanging.Gil = 0;
+            }
+            else if (BelowBitThreshold(commandData))
+            {
+                var message = $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.";
                 _twitchClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
-            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
-
             if (menuColors != null)
             {
-                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User.Username));
+                DomainEvents.Raise(colorChanging);
             }
         }
 
-        private bool CanOverrideBitRestriction(CommandData commandData)
-            => MenuSettings.AllowModOverride && (commandData.User.IsMod || commandData.User.IsBroadcaster);
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => MenuSettings.AllowModOverride && (user.IsMod || user.IsBroadcaster);
 
         private bool BelowBitThreshold(CommandData commandData)
-            => commandData.Bits < MenuSettings.BitCost;
+            => _gilBank.CheckBalance(commandData.User) < MenuSettings.BitCost;
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)
         {

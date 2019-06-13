@@ -7,7 +7,7 @@ namespace UnitTests.Core.GilBankTests
 {
     public class GilBankShould
     {
-        private readonly ChatUser _user = new ChatUser("any", "123456", false, false, false, false);
+        private readonly ChatUser _user = new ChatUser("any", "123456");
 
         [Theory]
         [InlineData(0)]

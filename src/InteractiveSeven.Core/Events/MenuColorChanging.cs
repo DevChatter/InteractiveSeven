@@ -1,16 +1,19 @@
-﻿using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Events
 {
     public class MenuColorChanging : BaseDomainEvent
     {
         public MenuColors MenuColors { get; }
-        public string Username { get; }
+        public ChatUser User { get; }
+        public int Gil { get; set; }
 
-        public MenuColorChanging(MenuColors menuColors, string username)
+        public MenuColorChanging(MenuColors menuColors, ChatUser user, int gil)
         {
             MenuColors = menuColors;
-            Username = username;
+            User = user;
+            Gil = gil;
         }
     }
 }

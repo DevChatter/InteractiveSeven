@@ -15,12 +15,7 @@ namespace InteractiveSeven.Twitch.Model
                 Channel = chatCommand.ChatMessage.Channel,
                 CommandText = chatCommand.CommandText,
                 Message = chatCommand.ChatMessage.Message,
-                User = new ChatUser(chatCommand.ChatMessage.Username,
-                    chatCommand.ChatMessage.UserId,
-                    chatCommand.ChatMessage.IsBroadcaster,
-                    chatCommand.ChatMessage.IsMe,
-                    chatCommand.ChatMessage.IsModerator,
-                    chatCommand.ChatMessage.IsSubscriber),
+                User = ChatUser.FromChatMessage(chatCommand.ChatMessage)
             };
         }
 

@@ -10,7 +10,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly GilBank _gilBank;
 
         public BalanceCommand(ITwitchClient twitchClient, GilBank gilBank)
-            : base(new[] { "Balance", "Bal", "Gil" }, x => true)
+            : base(new[] { "i7gil", "Balance", "Gil", "Gils" }, x => true)
         {
             _twitchClient = twitchClient;
             _gilBank = gilBank;
