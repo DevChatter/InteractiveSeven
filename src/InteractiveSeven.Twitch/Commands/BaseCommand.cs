@@ -3,24 +3,36 @@ using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System;
 using System.Linq;
+using ApplicationSettings = InteractiveSeven.Core.Settings.ApplicationSettings;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public abstract class BaseCommand : ITwitchCommand
     {
-        private readonly string[] _commandWords;
+        private readonly Func<CommandSettings, string[]> _commandWordsSelector;
         private readonly Func<ApplicationSettings, bool> _enableCheck;
 
-        protected BaseCommand(string[] commandWords, Func<ApplicationSettings, bool> enableCheck)
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
+
+        protected BaseCommand(Func<CommandSettings, string[]> commandWordsSelector, Func<ApplicationSettings, bool> enableCheck)
         {
-            _commandWords = commandWords;
+            _commandWordsSelector = commandWordsSelector;
             _enableCheck = enableCheck;
         }
 
+        protected BaseCommand(string[] commandWords, Func<ApplicationSettings, bool> enableCheck)
+        {
+            _commandWordsSelector = x => commandWords;
+            _enableCheck = enableCheck;
+        }
+
+        protected string DefaultCommandWord
+            => _commandWordsSelector?.Invoke(Settings.CommandSettings)?.FirstOrDefault();
+
         public virtual bool ShouldExecute(string commandWord)
         {
-            return _enableCheck(ApplicationSettings.Instance)
-                && _commandWords.Any(word => word.EqualsIns(commandWord));
+            return _enableCheck?.Invoke(Settings) == true
+                && _commandWordsSelector?.Invoke(Settings.CommandSettings)?.Any(word => word.EqualsIns(commandWord)) == true;
         }
 
         public abstract void Execute(CommandData commandData);

@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
@@ -15,39 +16,42 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
         private readonly ColorPaletteCollection _paletteCollection;
+        private readonly GilBank _gilBank;
         private static readonly Random Rand = new Random();
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection)
-            : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
+        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection, GilBank gilBank)
+            : base(x => x.MenuCommandWords, x => x.MenuSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _paletteCollection = paletteCollection;
+            _gilBank = gilBank;
         }
 
         public override void Execute(CommandData commandData)
         {
-            if (BelowBitThreshold(commandData) && !CanOverrideBitRestriction(commandData))
-            {
-                var message = $"Sorry, '!{commandData.CommandText}' has a minimum cheer cost of {MenuSettings.BitCost}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                return;
-            }
-
             MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+            int gil = 0;
+            if (!CanOverrideBitRestriction(commandData.User))
+            {
+                (_, gil) = _gilBank.Withdraw(commandData.User, MenuSettings.BitCost, true);
+                if (gil < MenuSettings.BitCost)
+                {
+                    var message = $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.";
+                    _twitchClient.SendMessage(commandData.Channel, message);
+                    return;
+                }
+            }
 
             if (menuColors != null)
             {
-                DomainEvents.Raise(new MenuColorChanging(menuColors));
+                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, gil));
             }
         }
 
-        private bool CanOverrideBitRestriction(CommandData commandData)
-            => MenuSettings.AllowModOverride && (commandData.IsMod || commandData.IsBroadcaster);
-
-        private bool BelowBitThreshold(CommandData commandData)
-            => commandData.Bits < MenuSettings.BitCost;
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => (MenuSettings.AllowModOverride && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)
         {

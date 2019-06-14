@@ -5,9 +5,12 @@ using System.Runtime.CompilerServices;
 
 namespace InteractiveSeven.Core.Settings
 {
-    public class ApplicationSettings : INotifyPropertyChanged
+    public class ApplicationSettings : ObservableSettingsBase
     {
         private string _processName = "ff7_en";
+        private bool _giveSubscriberBonusBits = true;
+        private int _subscriberBonusBits = 150;
+        private bool _modsGiveBonusBits = true;
 
         public static ApplicationSettings Instance { get; private set; }
         static ApplicationSettings()
@@ -24,6 +27,37 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
+        public bool GiveSubscriberBonusBits
+        {
+            get => _giveSubscriberBonusBits;
+            set
+            {
+                _giveSubscriberBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int SubscriberBonusBits
+        {
+            get => _subscriberBonusBits;
+            set
+            {
+                _subscriberBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool ModsGiveBonusBits
+        {
+            get => _modsGiveBonusBits;
+            set
+            {
+                _modsGiveBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CommandSettings CommandSettings { get; set; } = new CommandSettings();
         public TwitchSettings TwitchSettings { get; set; } = new TwitchSettings();
         public MenuColorSettings MenuSettings { get; set; } = new MenuColorSettings();
         public NameBiddingSettings NameBiddingSettings { get; set; } = new NameBiddingSettings();
@@ -40,17 +74,9 @@ namespace InteractiveSeven.Core.Settings
                 // gulp
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
     }
 
-    public class MenuColorSettings : INotifyPropertyChanged
+    public class MenuColorSettings : ObservableSettingsBase
     {
         private bool _enabled = true;
         private int _bitCost;
@@ -83,15 +109,9 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 
-    public class NameBiddingSettings : INotifyPropertyChanged
+    public class NameBiddingSettings : ObservableSettingsBase
     {
         private bool _enabled = true;
         private int _defaultStartBits = 100;
@@ -228,7 +248,10 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+    }
 
+    public abstract class ObservableSettingsBase : INotifyPropertyChanged
+    {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

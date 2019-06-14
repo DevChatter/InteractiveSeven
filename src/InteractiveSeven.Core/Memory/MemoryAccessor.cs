@@ -31,7 +31,7 @@ namespace InteractiveSeven.Core.Memory
 
             IntPtr processHandle = OpenProcess(PROCESS_WM_READ, false, process.Id);
 
-            ReadProcessMemory(processHandle, address, buffer, buffer.Length, out int bytesRead);
+            ReadProcessMemory(processHandle, address, buffer, buffer.Length, out int _);
 
             CloseHandle(processHandle);
         }
@@ -43,7 +43,7 @@ namespace InteractiveSeven.Core.Memory
 
             IntPtr processHandle = OpenProcess(PROCESS_ALL_ACCESS, false, process.Id);
 
-            WriteProcessMemory(processHandle, address, bytes, bytes.Length, out int bytesWritten);
+            WriteProcessMemory(processHandle, address, bytes, bytes.Length, out int _);
 
             CloseHandle(processHandle);
         }

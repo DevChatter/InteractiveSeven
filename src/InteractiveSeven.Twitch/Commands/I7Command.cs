@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
 
@@ -6,14 +7,16 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class I7Command : BaseCommand
     {
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
+
         public I7Command()
-            : base(new[] { "i7", "iseven", "interactive" }, x => true) // TODO: Add a Setting to Allow this Command
+            : base(x => x.I7CommandWords, x => true) // TODO: Add a Setting to Allow this Command
         {
         }
 
         public override void Execute(CommandData commandData)
         {
-            if (!commandData.IsBroadcaster && !commandData.IsMe && !commandData.IsMod) return;
+            if (!commandData.User.IsBroadcaster && !commandData.User.IsMe && !commandData.User.IsMod) return;
 
             var action = commandData.Arguments.FirstOrDefault();
 
@@ -27,17 +30,18 @@ namespace InteractiveSeven.Twitch.Commands
                 case "rem":
                     RemoveName(commandData);
                     break;
-                default:
-                    break;
             }
         }
 
         private void RemoveName(CommandData commandData)
         {
-            var name = commandData.Arguments.ElementAtOrDefault(1);
-            if (!string.IsNullOrWhiteSpace(name))
+            if (Settings.NameBiddingSettings.AllowModeration)
             {
-                DomainEvents.Raise(new RemovingName(name));
+                var name = commandData.Arguments.ElementAtOrDefault(1);
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    DomainEvents.Raise(new RemovingName(name));
+                }
             }
         }
     }

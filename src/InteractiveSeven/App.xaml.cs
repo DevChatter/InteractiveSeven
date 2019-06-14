@@ -53,20 +53,25 @@ namespace InteractiveSeven
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
 
+            services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
+            services.RegisterTwitchCommand<CostsCommand>();
+            services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
             services.RegisterTwitchCommand<MenuCommand>();
             services.RegisterTwitchCommand<NameCommand>();
             services.RegisterTwitchCommand<RefreshCommand>();
+            services.RegisterTwitchCommand<BalanceCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
+            services.AddSingleton<GilBank>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<MainWindow>();
 

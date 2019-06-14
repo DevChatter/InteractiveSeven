@@ -9,7 +9,7 @@ namespace InteractiveSeven.Core.Models
         public Color TopRight { get; set; }
         public Color BotRight { get; set; }
 
-        public static MenuColors classic = new MenuColors
+        public static MenuColors Classic = new MenuColors
         {
             TopLeft = Color.FromArgb(0, 88, 176),
             TopRight = Color.FromArgb(0, 0, 80),
@@ -17,7 +17,7 @@ namespace InteractiveSeven.Core.Models
             BotRight = Color.FromArgb(0, 0, 32)
         };
 
-        public static MenuColors tsuna = new MenuColors
+        public static MenuColors Tsuna = new MenuColors
         {
             TopLeft = Color.FromName("black"),
             TopRight = Color.FromName("gray"),
@@ -25,7 +25,7 @@ namespace InteractiveSeven.Core.Models
             BotRight = Color.FromName("black"),
         };
 
-        public static MenuColors brendan = new MenuColors
+        public static MenuColors Brendan = new MenuColors
         {
             TopLeft = Color.FromName("DarkRed"),
             TopRight = Color.FromName("Black"),
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Core.Models
             BotRight = Color.FromName("DarkRed"),
         };
 
-        public static MenuColors strife = new MenuColors
+        public static MenuColors Strife = new MenuColors
         {
             TopLeft = Color.FromName("DarkGreen"),
             TopRight = Color.FromName("black"),

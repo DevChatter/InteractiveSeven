@@ -1,6 +1,8 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
@@ -10,102 +12,117 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class NameCommand : BaseCommand
     {
-        private static readonly string[] CloudWords = { "cloud", "cluod", "clodu" };
-        private static readonly string[] BarretWords = { "barret", "baret", "barett", "barrett" };
-        private static readonly string[] TifaWords = { "tifa", "tiaf", "tfia" };
-        private static readonly string[] AerisWords = { "aeris", "aerith" };
-        private static readonly string[] CaitWords = { "caitsith" };
-        private static readonly string[] CidWords = { "cid" };
-        private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
-        private static readonly string[] VincentWords = { "vincent", "vince" };
-        private static readonly string[] YuffieWords = { "yuffie" };
         private readonly ITwitchClient _twitchClient;
+        private readonly GilBank _gilBank;
 
-        private static string[] AllWords
-            => CloudWords
-                .Union(BarretWords)
-                .Union(TifaWords)
-                .Union(AerisWords)
-                .Union(CaitWords)
-                .Union(CidWords)
-                .Union(RedWords)
-                .Union(VincentWords)
-                .Union(YuffieWords)
+        private CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
+
+        private static string[] AllWords(CommandSettings settings) =>
+            settings.CloudCommandWords
+                .Union(settings.BarretCommandWords)
+                .Union(settings.TifaCommandWords)
+                .Union(settings.AerisCommandWords)
+                .Union(settings.CaitCommandWords)
+                .Union(settings.CidCommandWords)
+                .Union(settings.RedCommandWords)
+                .Union(settings.VincentCommandWords)
+                .Union(settings.YuffieCommandWords)
                 .ToArray();
 
         public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand(ITwitchClient twitchClient)
+        public NameCommand(ITwitchClient twitchClient, GilBank gilBank)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
             _twitchClient = twitchClient;
+            _gilBank = gilBank;
         }
 
         public override void Execute(CommandData data)
         {
-            if (ShouldTriggerFor(data, CloudWords, Settings.NamingCloudEnabled))
+            if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, Settings.NamingCloudEnabled))
             {
-                TriggerDomainEvent(Constants.Cloud, data);
+                TriggerDomainEvent(CharNames.Cloud, data);
             }
-            else if (ShouldTriggerFor(data, BarretWords, Settings.NamingBarretEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, Settings.NamingBarretEnabled))
             {
-                TriggerDomainEvent(Constants.Barret, data);
+                TriggerDomainEvent(CharNames.Barret, data);
             }
-            else if (ShouldTriggerFor(data, TifaWords, Settings.NamingTifaEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, Settings.NamingTifaEnabled))
             {
-                TriggerDomainEvent(Constants.Tifa, data);
+                TriggerDomainEvent(CharNames.Tifa, data);
             }
-            else if (ShouldTriggerFor(data, AerisWords, Settings.NamingAerisEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, Settings.NamingAerisEnabled))
             {
-                TriggerDomainEvent(Constants.Aeris, data);
+                TriggerDomainEvent(CharNames.Aeris, data);
             }
-            else if (ShouldTriggerFor(data, CaitWords, Settings.NamingCaitSithEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, Settings.NamingCaitSithEnabled))
             {
-                TriggerDomainEvent(Constants.CaitSith, data);
+                TriggerDomainEvent(CharNames.CaitSith, data);
             }
-            else if (ShouldTriggerFor(data, CidWords, Settings.NamingCidEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, Settings.NamingCidEnabled))
             {
-                TriggerDomainEvent(Constants.Cid, data);
+                TriggerDomainEvent(CharNames.Cid, data);
             }
-            else if (ShouldTriggerFor(data, RedWords, Settings.NamingRedEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, Settings.NamingRedEnabled))
             {
-                TriggerDomainEvent(Constants.Red, data);
+                TriggerDomainEvent(CharNames.Red, data);
             }
-            else if (ShouldTriggerFor(data, VincentWords, Settings.NamingVincentEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, Settings.NamingVincentEnabled))
             {
-                TriggerDomainEvent(Constants.Vincent, data);
+                TriggerDomainEvent(CharNames.Vincent, data);
             }
-            else if (ShouldTriggerFor(data, YuffieWords, Settings.NamingYuffieEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, Settings.NamingYuffieEnabled))
             {
-                TriggerDomainEvent(Constants.Yuffie, data);
+                TriggerDomainEvent(CharNames.Yuffie, data);
             }
         }
 
-        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled) 
+        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled)
             => words.Any(word => word.EqualsIns(commandData.CommandText)) && enabled;
 
         private void TriggerDomainEvent(string charName, CommandData data)
         {
-            if (data.Bits == 0 && Settings.AllowModBits && (data.IsMod || data.IsMe || data.IsBroadcaster))
+            int gil = GetGilFromCommandData(data);
+            if (!CanOverrideBitRestriction(data.User))
             {
-                int number = data.Arguments.Max(arg => arg.SafeIntParse());
-                if (number > 0)
+                (int balance, int withdrawn) = _gilBank.Withdraw(data.User, gil, true);
+                if (withdrawn == 0)
                 {
-                    data.Bits = number;
+                    string message = $"You don't have {gil} gil, {data.User.Username}. You have {balance} gil.";
+                    _twitchClient.SendMessage(data.Channel, message);
+                    return;
                 }
             }
 
-            if (data.Bits < 1)
+            if (gil < 1)
             {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include bits in your name bid, {data.Username}");
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
                 return;
             }
 
             string newName = data.Arguments.FirstOrDefault() ?? "";
 
-            var bidRecord = new BidRecord(data.Username, data.UserId, data.Bits);
+            var bidRecord = new BidRecord(data.User.Username, data.User.UserId, gil);
             var domainEvent = new NameVoteReceived(charName, newName, bidRecord);
             DomainEvents.Raise(domainEvent);
         }
+
+        private static int GetGilFromCommandData(CommandData data)
+        {
+            int gil = data.Arguments.Count > 1
+                ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse())
+                : 0;
+            if (gil == 0 && data.Bits > 0) // If their cheer is the bits amount
+            {
+                gil = data.Bits;
+            }
+
+            return gil;
+        }
+
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => (Settings.AllowModBits && user.IsMod) || user.IsMe || user.IsBroadcaster;
+
     }
 }

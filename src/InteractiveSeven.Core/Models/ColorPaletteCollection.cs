@@ -7,18 +7,15 @@ namespace InteractiveSeven.Core.Models
 {
     public class ColorPaletteCollection
     {
-        private readonly ILogger<ColorPaletteCollection> _logger;
-
         public ColorPaletteCollection(ILogger<ColorPaletteCollection> logger)
         {
-            _logger = logger;
             try
             {
                 All.AddRange(new[] { Default, Brendan, Tsuna, Strife });
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error Initializing {nameof(ColorPaletteCollection)}", ex);
+                logger.LogError($"Error Initializing {nameof(ColorPaletteCollection)}", ex);
             }
         }
 
@@ -26,9 +23,9 @@ namespace InteractiveSeven.Core.Models
 
         public List<ColorPalette> All { get; } = new List<ColorPalette>();
 
-        public static ColorPalette Default = new ColorPalette(MenuColors.classic, "classic", "default", "original", "base");
-        public static ColorPalette Brendan = new ColorPalette(MenuColors.brendan, "brendan", "brendoneus", "devchatter");
-        public static ColorPalette Tsuna = new ColorPalette(MenuColors.tsuna, "tsuna", "tsunamods", "tsunamix");
-        public static ColorPalette Strife = new ColorPalette(MenuColors.strife, "strife", "strife98");
+        public static ColorPalette Default = new ColorPalette(MenuColors.Classic, "classic", "default", "original", "base");
+        public static ColorPalette Brendan = new ColorPalette(MenuColors.Brendan, "brendan", "brendoneus", "devchatter");
+        public static ColorPalette Tsuna = new ColorPalette(MenuColors.Tsuna, "tsuna", "tsunamods", "tsunamix");
+        public static ColorPalette Strife = new ColorPalette(MenuColors.Strife, "strife", "strife98");
     }
 }

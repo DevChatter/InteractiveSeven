@@ -1,12 +1,12 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Drawing;
-using System;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Settings;
+using System.Runtime.CompilerServices;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -23,53 +23,49 @@ namespace InteractiveSeven.Core.ViewModels
             DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
         }
 
-        private Color topLeft = Color.FromArgb(0, 88, 176);
-        private Color botLeft = Color.FromArgb(0, 0, 80);
-        private Color topRight = Color.FromArgb(0, 0, 128);
-        private Color botRight = Color.FromArgb(0, 0, 32);
+        private Color _topLeft = Color.FromArgb(0, 88, 176);
+        private Color _botLeft = Color.FromArgb(0, 0, 80);
+        private Color _topRight = Color.FromArgb(0, 0, 128);
+        private Color _botRight = Color.FromArgb(0, 0, 32);
 
         public Color TopLeft
         {
-            get => topLeft;
+            get => _topLeft;
             set
             {
-                topLeft = value;
+                _topLeft = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color BotLeft
         {
-            get => botLeft;
+            get => _botLeft;
             set
             {
-                botLeft = value;
+                _botLeft = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color TopRight
         {
-            get => topRight;
+            get => _topRight;
             set
             {
-                topRight = value;
+                _topRight = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
         public Color BotRight
         {
-            get => botRight;
+            get => _botRight;
             set
             {
-                botRight = value;
+                _botRight = value;
                 OnPropertyChanged();
-                OnPropertyChanged("MidPoint");
-                OnPropertyChanged("PreviewImage");
+                OnPropertyChanged(nameof(PreviewImage));
             }
         }
 

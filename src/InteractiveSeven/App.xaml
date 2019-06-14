@@ -1,6 +1,8 @@
 ﻿<Application x:Class="InteractiveSeven.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:InteractiveSeven"
              Startup="App_OnStartup">
+    <Application.Resources>
+        <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
+    </Application.Resources>
 </Application>

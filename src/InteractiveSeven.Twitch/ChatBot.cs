@@ -1,5 +1,7 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
+using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
@@ -19,26 +21,28 @@ namespace InteractiveSeven.Twitch
         private readonly ITwitchClient _client;
         private readonly IList<ITwitchCommand> _commands;
         private readonly IIntervalMessagingService _intervalMessaging;
-        private bool isConnected;
+        private readonly GilBank _gilBank;
+        private bool _isConnected;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
 
         public bool IsConnected
         {
-            get => isConnected;
+            get => _isConnected;
             set
             {
-                isConnected = value;
+                _isConnected = value;
                 OnPropertyChanged();
             }
         }
 
         public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
-            IIntervalMessagingService intervalMessaging)
+            IIntervalMessagingService intervalMessaging, GilBank gilBank)
         {
             _client = twitchClient;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
+            _gilBank = gilBank;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -63,7 +67,7 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands.SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+            _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
                 ?.Execute(CommandData.FromChatCommand(e.Command));
             _intervalMessaging.MessageReceived();
         }
@@ -89,6 +93,15 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
+            int bits = e.ChatMessage.Bits;
+            if (bits > 0)
+            {
+                _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+            }
+            else
+            {
+                _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

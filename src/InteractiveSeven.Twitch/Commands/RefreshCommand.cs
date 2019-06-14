@@ -1,19 +1,19 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Twitch.Commands.Components;
 using InteractiveSeven.Twitch.Model;
-using System;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public class RefreshCommand : BaseCommand
     {
-        private static TimeSpan _cooldownTime = TimeSpan.FromMinutes(1);
         private readonly ITwitchClient _twitchClient;
-        private DateTime _nextAvailable = DateTime.UtcNow;
+        private readonly CooldownTracker _cooldownTracker;
         public RefreshCommand(ITwitchClient twitchClient)
-            : base(new[] { "refresh" }, x => true)
+            : base(x => x.RefreshCommandWords, x => true)
         {
             _twitchClient = twitchClient;
+            _cooldownTracker = new CooldownTracker(1);
         }
 
         public override void Execute(CommandData commandData)
@@ -21,7 +21,7 @@ namespace InteractiveSeven.Twitch.Commands
             if (IsAvailable(commandData))
             {
                 DomainEvents.Raise(new RefreshEvent());
-                _nextAvailable = DateTime.UtcNow.Add(_cooldownTime);
+                _cooldownTracker.Run(commandData.User);
             }
             else
             {
@@ -31,7 +31,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         private bool IsAvailable(CommandData data)
         {
-            return data.IsBroadcaster || data.IsMod || DateTime.UtcNow > _nextAvailable;
+            return data.User.IsBroadcaster || data.User.IsMod || _cooldownTracker.IsReady;
         }
     }
 }
