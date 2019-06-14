@@ -2,10 +2,10 @@
 {
     public class CommandSettings : ObservableSettingsBase
     {
-        private string[] _costsCommandWords = { "costs", "cost", "price", "prices"};
+        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices"};
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
-        private string[] _i7CommandWords = { "i7", "interactive7", "interactive" };
+        private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
