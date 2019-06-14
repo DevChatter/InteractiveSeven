@@ -98,6 +98,10 @@ namespace InteractiveSeven.Twitch
             {
                 _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
             }
+            else
+            {
+                _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

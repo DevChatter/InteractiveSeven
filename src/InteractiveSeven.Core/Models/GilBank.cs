@@ -2,15 +2,19 @@
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InteractiveSeven.Core.Models
 {
     public class GilBank
     {
+        private readonly HashSet<string> _knownUsers = new HashSet<string>();
         private ApplicationSettings Settings => ApplicationSettings.Instance;
-        private Dictionary<string, Account> Accounts { get; } = new Dictionary<string, Account>();
+        private List<Account> Accounts { get; } = new List<Account>();
 
         private readonly object _padlock = new object();
+
+        public bool HasAccount(string username) => _knownUsers.Contains(username.ToLower());
 
         public int Deposit(ChatUser user, int bits)
         {
@@ -45,7 +49,12 @@ namespace InteractiveSeven.Core.Models
 
         private Account AccessAccount(ChatUser user)
         {
-            var account = Accounts.GetOrCreate(user.Username);
+            Account account = Accounts.SingleOrDefault(a => a.Username.EqualsIns(user.Username));
+            if (account == null)
+            {
+                account = new Account(user.Username);
+                Accounts.Add(account);
+            }
 
             if (user.IsSubscriber && !account.ReceivedSubBonus && Settings.GiveSubscriberBonusBits)
             {
@@ -54,6 +63,18 @@ namespace InteractiveSeven.Core.Models
             }
 
             return account;
+        }
+
+        public void EnsureAccountExists(ChatUser user)
+        {
+            bool newUser = _knownUsers.Add(user.Username.ToLower());
+            if (newUser)
+            {
+                lock (_padlock)
+                {
+                    AccessAccount(user);
+                }
+            }
         }
     }
 }

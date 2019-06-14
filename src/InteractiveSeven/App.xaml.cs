@@ -61,6 +61,7 @@ namespace InteractiveSeven
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
             services.RegisterTwitchCommand<CostsCommand>();
+            services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
             services.RegisterTwitchCommand<MenuCommand>();
             services.RegisterTwitchCommand<NameCommand>();
