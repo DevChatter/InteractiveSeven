@@ -12,28 +12,21 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class NameCommand : BaseCommand
     {
-        private static readonly string[] CloudWords = { "cloud", "cluod", "clodu" };
-        private static readonly string[] BarretWords = { "barret", "baret", "barett", "barrett" };
-        private static readonly string[] TifaWords = { "tifa", "tiaf", "tfia" };
-        private static readonly string[] AerisWords = { "aeris", "aerith" };
-        private static readonly string[] CaitWords = { "caitsith", "cait" };
-        private static readonly string[] CidWords = { "cid" };
-        private static readonly string[] RedWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
-        private static readonly string[] VincentWords = { "vincent", "vince" };
-        private static readonly string[] YuffieWords = { "yuffie" };
         private readonly ITwitchClient _twitchClient;
         private readonly GilBank _gilBank;
 
-        private static string[] AllWords
-            => CloudWords
-                .Union(BarretWords)
-                .Union(TifaWords)
-                .Union(AerisWords)
-                .Union(CaitWords)
-                .Union(CidWords)
-                .Union(RedWords)
-                .Union(VincentWords)
-                .Union(YuffieWords)
+        private CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
+
+        private static string[] AllWords(CommandSettings settings) =>
+            settings.CloudCommandWords
+                .Union(settings.BarretCommandWords)
+                .Union(settings.TifaCommandWords)
+                .Union(settings.AerisCommandWords)
+                .Union(settings.CaitCommandWords)
+                .Union(settings.CidCommandWords)
+                .Union(settings.RedCommandWords)
+                .Union(settings.VincentCommandWords)
+                .Union(settings.YuffieCommandWords)
                 .ToArray();
 
         public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
@@ -47,39 +40,39 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData data)
         {
-            if (ShouldTriggerFor(data, CloudWords, Settings.NamingCloudEnabled))
+            if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, Settings.NamingCloudEnabled))
             {
                 TriggerDomainEvent(CharNames.Cloud, data);
             }
-            else if (ShouldTriggerFor(data, BarretWords, Settings.NamingBarretEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, Settings.NamingBarretEnabled))
             {
                 TriggerDomainEvent(CharNames.Barret, data);
             }
-            else if (ShouldTriggerFor(data, TifaWords, Settings.NamingTifaEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, Settings.NamingTifaEnabled))
             {
                 TriggerDomainEvent(CharNames.Tifa, data);
             }
-            else if (ShouldTriggerFor(data, AerisWords, Settings.NamingAerisEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, Settings.NamingAerisEnabled))
             {
                 TriggerDomainEvent(CharNames.Aeris, data);
             }
-            else if (ShouldTriggerFor(data, CaitWords, Settings.NamingCaitSithEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, Settings.NamingCaitSithEnabled))
             {
                 TriggerDomainEvent(CharNames.CaitSith, data);
             }
-            else if (ShouldTriggerFor(data, CidWords, Settings.NamingCidEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, Settings.NamingCidEnabled))
             {
                 TriggerDomainEvent(CharNames.Cid, data);
             }
-            else if (ShouldTriggerFor(data, RedWords, Settings.NamingRedEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, Settings.NamingRedEnabled))
             {
                 TriggerDomainEvent(CharNames.Red, data);
             }
-            else if (ShouldTriggerFor(data, VincentWords, Settings.NamingVincentEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, Settings.NamingVincentEnabled))
             {
                 TriggerDomainEvent(CharNames.Vincent, data);
             }
-            else if (ShouldTriggerFor(data, YuffieWords, Settings.NamingYuffieEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, Settings.NamingYuffieEnabled))
             {
                 TriggerDomainEvent(CharNames.Yuffie, data);
             }

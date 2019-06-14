@@ -14,6 +14,17 @@ namespace InteractiveSeven.Core.Settings
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
+
+        private string[] _cloudWords = { "cloud", "cluod", "clodu" };
+        private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
+        private string[] _tifaWords = { "tifa", "tiaf", "tfia" };
+        private string[] _aerisWords = { "aeris", "aerith" };
+        private string[] _caitWords = { "caitsith", "cait" };
+        private string[] _cidWords = { "cid" };
+        private string[] _redWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
+        private string[] _vincentWords = { "vincent", "vince" };
+        private string[] _yuffieWords = { "yuffie" };
+
         private List<(string Name, Func<string[]> Words)> AllWordSets { get; }
 
         public CommandSettings()
@@ -34,6 +45,25 @@ namespace InteractiveSeven.Core.Settings
                     () => NameBidsCommandWords),
                 (nameof(RefreshCommandWords),
                     () => RefreshCommandWords),
+
+                (nameof(CloudCommandWords),
+                    () => CloudCommandWords),
+                (nameof(BarretCommandWords),
+                    () => BarretCommandWords),
+                (nameof(TifaCommandWords),
+                    () => TifaCommandWords),
+                (nameof(AerisCommandWords),
+                    () => AerisCommandWords),
+                (nameof(CaitCommandWords),
+                    () => CaitCommandWords),
+                (nameof(CidCommandWords),
+                    () => CidCommandWords),
+                (nameof(RedCommandWords),
+                    () => RedCommandWords),
+                (nameof(VincentCommandWords),
+                    () => VincentCommandWords),
+                (nameof(YuffieCommandWords),
+                    () => YuffieCommandWords),
             };
         }
 
@@ -113,6 +143,96 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _refreshCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] CloudCommandWords
+        {
+            get => _cloudWords;
+            set
+            {
+                _cloudWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] BarretCommandWords
+        {
+            get => _barretWords;
+            set
+            {
+                _barretWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] TifaCommandWords
+        {
+            get => _tifaWords;
+            set
+            {
+                _tifaWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] AerisCommandWords
+        {
+            get => _aerisWords;
+            set
+            {
+                _aerisWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] CaitCommandWords
+        {
+            get => _caitWords;
+            set
+            {
+                _caitWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] CidCommandWords
+        {
+            get => _cidWords;
+            set
+            {
+                _cidWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] RedCommandWords
+        {
+            get => _redWords;
+            set
+            {
+                _redWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] VincentCommandWords
+        {
+            get => _vincentWords;
+            set
+            {
+                _vincentWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] YuffieCommandWords
+        {
+            get => _yuffieWords;
+            set
+            {
+                _yuffieWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
