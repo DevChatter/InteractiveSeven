@@ -152,11 +152,45 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
                                             <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
                                             <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.CostsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="1" Grid.Column="0" Content="Balance Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.BalanceCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="2" Grid.Column="0" Content="Give Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.GiveGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="3" Grid.Column="0" Content="I7 Mod Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="3" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.I7CommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="4" Grid.Column="0" Content="Menu Color Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="4" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.MenuCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="5" Grid.Column="0" Content="Name Bids Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="5" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.NameBidsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                            <Label Grid.Row="6" Grid.Column="0" Content="Refresh Command Words" FontSize="12" Margin="5,10,0,0" />
+                                            <wpfTool:WatermarkTextBox Grid.Row="6" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.RefreshCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
                                         </Grid>
                                     </DockPanel>
