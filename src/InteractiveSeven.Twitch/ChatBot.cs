@@ -67,7 +67,7 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands.SingleOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+            _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
                 ?.Execute(CommandData.FromChatCommand(e.Command));
             _intervalMessaging.MessageReceived();
         }

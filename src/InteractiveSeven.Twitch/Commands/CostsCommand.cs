@@ -1,5 +1,4 @@
-﻿using System;
-using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
 
@@ -11,7 +10,7 @@ namespace InteractiveSeven.Twitch.Commands
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public CostsCommand(ITwitchClient twitchClient)
-            : base(new[] { "costs", "cost", "price", "prices" }, x => true)
+            : base(x => x.CostsCommandWords, x => true)
         {
             _twitchClient = twitchClient;
         }
