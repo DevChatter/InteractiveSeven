@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public GiveGilCommand(GilBank gilBank, ITwitchClient twitchClient)
-            : base(new[] { "GiveGil", "Give" }, x => true)
+            : base(x => x.GiveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
             _twitchClient = twitchClient;
@@ -27,7 +27,8 @@ namespace InteractiveSeven.Twitch.Commands
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Invalid Request - Example usage: !give DevChatter 100");
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
 

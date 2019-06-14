@@ -26,6 +26,9 @@ namespace InteractiveSeven.Twitch.Commands
             _enableCheck = enableCheck;
         }
 
+        protected string DefaultCommandWord
+            => _commandWordsSelector?.Invoke(Settings.CommandSettings)?.FirstOrDefault();
+
         public virtual bool ShouldExecute(string commandWord)
         {
             return _enableCheck?.Invoke(Settings) == true

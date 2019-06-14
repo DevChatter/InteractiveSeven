@@ -111,21 +111,6 @@ namespace InteractiveSeven.Core.Settings
         }
     }
 
-    public class CommandSettings : ObservableSettingsBase
-    {
-        private string[] _costsCommandWords = { "costs", "cost", "price", "prices"};
-
-        public string[] CostsCommandWords
-        {
-            get => _costsCommandWords;
-            set
-            {
-                _costsCommandWords = value;
-                OnPropertyChanged();
-            }
-        }
-    }
-
     public class NameBiddingSettings : ObservableSettingsBase
     {
         private bool _enabled = true;

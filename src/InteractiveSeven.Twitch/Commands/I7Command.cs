@@ -10,7 +10,7 @@ namespace InteractiveSeven.Twitch.Commands
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public I7Command()
-            : base(new[] { "i7", "interactive7", "interactive" }, x => true) // TODO: Add a Setting to Allow this Command
+            : base(x => x.I7CommandWords, x => true) // TODO: Add a Setting to Allow this Command
         {
         }
 

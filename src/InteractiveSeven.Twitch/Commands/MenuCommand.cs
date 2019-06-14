@@ -22,7 +22,7 @@ namespace InteractiveSeven.Twitch.Commands
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
         public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection, GilBank gilBank)
-            : base(new[] { "Menu", "MenuColor", "Window", "Windows" }, x => x.MenuSettings.Enabled)
+            : base(x => x.MenuCommandWords, x => x.MenuSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _paletteCollection = paletteCollection;

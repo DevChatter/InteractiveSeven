@@ -12,7 +12,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
 
         public NameBidsCommand(NameBiddingViewModel nameBiddingViewModel, ITwitchClient twitchClient)
-            : base(new[] { "NameBids" }, x => x.NameBiddingSettings.Enabled)
+            : base(x => x.NameBidsCommandWords, x => x.NameBiddingSettings.Enabled)
         {
             _biddingVm = nameBiddingViewModel;
             _twitchClient = twitchClient;

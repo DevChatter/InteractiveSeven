@@ -10,7 +10,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
         private readonly CooldownTracker _cooldownTracker;
         public RefreshCommand(ITwitchClient twitchClient)
-            : base(new[] { "refresh" }, x => true)
+            : base(x => x.RefreshCommandWords, x => true)
         {
             _twitchClient = twitchClient;
             _cooldownTracker = new CooldownTracker(1);
