@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
 
@@ -6,6 +7,8 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class I7Command : BaseCommand
     {
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
+
         public I7Command()
             : base(new[] { "i7", "interactive7", "interactive" }, x => true) // TODO: Add a Setting to Allow this Command
         {
@@ -32,10 +35,13 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void RemoveName(CommandData commandData)
         {
-            var name = commandData.Arguments.ElementAtOrDefault(1);
-            if (!string.IsNullOrWhiteSpace(name))
+            if (Settings.NameBiddingSettings.AllowModeration)
             {
-                DomainEvents.Raise(new RemovingName(name));
+                var name = commandData.Arguments.ElementAtOrDefault(1);
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    DomainEvents.Raise(new RemovingName(name));
+                }
             }
         }
     }
