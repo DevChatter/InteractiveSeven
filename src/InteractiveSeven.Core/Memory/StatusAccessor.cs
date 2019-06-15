@@ -36,7 +36,7 @@ namespace InteractiveSeven.Core.Memory
                 }
                 else
                 {
-                    WriteStatus(actor, status + manipStatus);
+                    WriteStatus(actor, status);
                     int trueStatus = GetTrueStatus(actor);
                     if (trueStatus == status)
                     {
@@ -45,8 +45,6 @@ namespace InteractiveSeven.Core.Memory
                 }
                 Thread.Sleep(100);
             }
-
-            int x = 0; // Done;
         }
 
         private void WriteStatus(Allies actor, int status)
