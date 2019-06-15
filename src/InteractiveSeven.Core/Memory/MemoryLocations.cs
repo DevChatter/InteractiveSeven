@@ -6,7 +6,7 @@ namespace InteractiveSeven.Core.Memory
     {
         public IntPtr Address { get; set; }
         public int NumBytes { get; set; }
-        private MemLoc(int address, int numBytes = 1)
+        internal MemLoc(int address, int numBytes = 1)
         {
             Address = new IntPtr(address);
             NumBytes = numBytes;

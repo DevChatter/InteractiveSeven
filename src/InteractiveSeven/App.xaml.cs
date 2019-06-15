@@ -58,8 +58,10 @@ namespace InteractiveSeven
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
+            services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
+            services.RegisterTwitchCommand<StatusEffectCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
