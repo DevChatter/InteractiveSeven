@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
+        xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600">
     <Window.Resources>
@@ -163,6 +164,25 @@
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                             </StackPanel>
                             <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
+
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="500" DataContext="{Binding BattleSettings}">
+                                        <TextBlock Text="Status Effect Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <ItemsControl Margin="5,5,0,5" ItemsSource="{Binding StatusEffects}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <lc:StatusEffectSettings DataContext="{Binding}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DockPanel>
+                                </Border>
+
 
 
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
