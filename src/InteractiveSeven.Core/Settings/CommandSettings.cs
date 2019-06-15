@@ -25,7 +25,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _vincentWords = { "vincent", "vince" };
         private string[] _yuffieWords = { "yuffie" };
 
-        private List<(string Name, Func<string[]> Words)> AllWordSets { get; }
+        public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
 
         public CommandSettings()
         {
