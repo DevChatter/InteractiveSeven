@@ -17,11 +17,14 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
-                <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}" Margin="2" VerticalAlignment="Center" Padding="4" />
-                <Button Content="Connect" Command="{Binding ConnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
+                <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
+                           Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Button Content="Connect" Command="{Binding ConnectBotCommand}"
+                        Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
-                <Label Content="Interactive Seven" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+                <Label Content="Interactive Seven" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             </Grid>
         </DockPanel>
         <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
@@ -41,21 +44,25 @@
         </Grid>
         <Grid>
             <TabControl TabStripPlacement="Top" HorizontalAlignment="Center"
-                        Height="464" VerticalAlignment="Center" Width="580">
+                        MinHeight="464" VerticalAlignment="Center" MinWidth="580">
                 <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf06e;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xf06e;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
                             <TextBlock Text="Dashboard" />
                         </StackPanel>
                     </TabItem.Header>
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
-                            <GroupBox DataContext="{Binding MenuColorViewModel}" Header="Menu Color - Preview" MaxHeight="123">
+                            <GroupBox DataContext="{Binding MenuColorViewModel}"
+                                      Header="Menu Color - Preview" MaxHeight="123">
                                 <StackPanel Orientation="Horizontal" MaxHeight="100">
-                                    <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
+                                    <Image Width="200" Height="100"
+                                           Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" MinWidth="300">
+                                        <ItemsControl ItemsSource="{Binding Changes, Mode=OneWay}"
+                                                      MinWidth="300">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation="Vertical" />
@@ -90,7 +97,8 @@
                 <TabItem DataContext="{Binding MenuColorViewModel}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf0c8;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xf0c8;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
                             <TextBlock Text="Menu Colors" />
                         </StackPanel>
                     </TabItem.Header>
@@ -114,12 +122,14 @@
                 <TabItem DataContext="{Binding NameBiddingViewModel}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
                             <TextBlock Text="Name Bidding" />
                         </StackPanel>
                     </TabItem.Header>
                     <ScrollViewer Background="#FFE5E5E5">
-                        <ItemsControl ItemsSource="{Binding CharacterNameBiddings}" HorizontalAlignment="Stretch">
+                        <ItemsControl ItemsSource="{Binding CharacterNameBiddings}"
+                                      HorizontalAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel />
@@ -164,43 +174,6 @@
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                             </StackPanel>
                             <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
-
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500" DataContext="{Binding BattleSettings}">
-                                        <TextBlock Text="Status Effect Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
-                                                      DockPanel.Dock="Bottom" Margin="5,5,0,5"
-                                                      ItemsSource="{Binding StatusEffects}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <WrapPanel Orientation="Horizontal" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <lc:StatusEffectSettings DataContext="{Binding}" />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-
-                                        <Grid HorizontalAlignment="Left" Margin="5,5,0,5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-
-                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                      IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
-
-                                        </Grid>
-
-                                    </DockPanel>
-                                </Border>
-
 
                                 <Border BorderThickness="1" BorderBrush="Black" Margin="5">
                                     <DockPanel Width="500">
@@ -493,6 +466,45 @@
                                         </Grid>
                                     </DockPanel>
                                 </Border>
+
+
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                    <DockPanel Width="500" DataContext="{Binding BattleSettings}">
+                                        <TextBlock Text="Status Effect Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                        <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
+                                                      DockPanel.Dock="Bottom" Margin="5,5,0,5"
+                                                      ItemsSource="{Binding StatusEffects}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <lc:StatusEffectSettings DataContext="{Binding}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                        <Grid HorizontalAlignment="Left" Margin="5,5,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                      IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
+                                            <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
+
+                                        </Grid>
+
+                                    </DockPanel>
+                                </Border>
+
+
                             </WrapPanel>
                         </DockPanel>
                     </ScrollViewer>
