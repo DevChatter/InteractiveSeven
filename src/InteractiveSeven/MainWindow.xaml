@@ -42,8 +42,7 @@
                 </Hyperlink>
             </Button>
         </Grid>
-        <Grid>
-            <TabControl TabStripPlacement="Top" HorizontalAlignment="Center"
+            <TabControl TabStripPlacement="Top" HorizontalAlignment="Center" 
                         MinHeight="464" VerticalAlignment="Center" MinWidth="580">
                 <TabItem>
                     <TabItem.Header>
@@ -510,6 +509,5 @@
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
-        </Grid>
     </DockPanel>
 </Window>
