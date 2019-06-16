@@ -78,28 +78,28 @@ namespace InteractiveSeven.Core.Settings
 
     public class BattleSettings : ObservableSettingsBase
     {
-        private bool _allowStatusEffects = true;
+        private bool _allowStatusEffects = false;
         public BattleSettings()
         {
             StatusEffects = new[]
             {
-                Sleep,
-                Poison,
-                Sadness,
-                Fury,
-                Confusion,
-                Silence,
-                Haste,
-                Slow,
-                Stop,
-                Frog,
-                Small,
-                Regen,
                 Barrier,
-                MBarrier,
-                Reflect,
                 Berserk,
+                Confusion,
                 Darkness,
+                Frog,
+                Fury,
+                Haste,
+                MBarrier,
+                Poison,
+                Reflect,
+                Regen,
+                Sadness,
+                Silence,
+                Sleep,
+                Slow,
+                Small,
+                Stop,
             };
         }
 
