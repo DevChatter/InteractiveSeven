@@ -12,7 +12,7 @@ namespace InteractiveSeven.Twitch.Commands
         private CommandSettings CommandSettings => ApplicationSettings.Instance.CommandSettings;
 
         public HelpCommand(ITwitchClient twitchClient)
-            : base(x => new []{ "help" }, x => true)
+            : base(x => x.HelpCommandWords, x => true)
         {
             _twitchClient = twitchClient;
         }
