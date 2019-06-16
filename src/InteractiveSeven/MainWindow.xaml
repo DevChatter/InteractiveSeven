@@ -7,7 +7,7 @@
         xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         mc:Ignorable="d"
-        Title="Interactive Seven" Height="600" Width="600">
+        Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
     <Window.Resources>
         <lvc:ColorValueConverter x:Key="ColorValueConverter" />
         <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
@@ -35,15 +35,16 @@
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
                        VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by Brendan Enrick (@Brendoneus/@DevChatter)" />
-            <Button Grid.Column="1" Margin="2 2 2 2">
+            <Button Grid.Column="1" Margin="2 5 5 5">
                 <Hyperlink x:Name="PatreonLink" RequestNavigate="PatreonLink_RequestNavigate"
                            NavigateUri="https://www.patreon.com/DevChatter">
                     <Image Source="/Assets/BecomePatron.png" />
                 </Hyperlink>
             </Button>
         </Grid>
-        <TabControl TabStripPlacement="Top" HorizontalAlignment="Center" 
-                        MinHeight="464" VerticalAlignment="Center" MinWidth="580">
+        <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
+                        MinHeight="464" VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Stretch" MinWidth="580">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
