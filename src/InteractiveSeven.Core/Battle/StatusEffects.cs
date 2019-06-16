@@ -34,18 +34,18 @@ namespace InteractiveSeven.Core.Battle
         public static StatusEffects Frog = new StatusEffects(2048, "frog", "toad");
         public static StatusEffects Small = new StatusEffects(4096, "small");
         public static StatusEffects SlowNumb = new StatusEffects(8192);
-        public static StatusEffects Petrify = new StatusEffects(16384);
+        public static StatusEffects Petrify = new StatusEffects(16384, "petrify");
         public static StatusEffects Regen = new StatusEffects(32768, "regen");
         public static StatusEffects Barrier = new StatusEffects(65536, "barrier");
         public static StatusEffects MBarrier = new StatusEffects(131072, "mbarrier");
         public static StatusEffects Reflect = new StatusEffects(262144, "reflect");
-        public static StatusEffects Dual = new StatusEffects(524288);
-        public static StatusEffects Shield = new StatusEffects(1048576);
-        public static StatusEffects DeathSentence = new StatusEffects(2097152);
+        public static StatusEffects Dual = new StatusEffects(524288, "dual");
+        public static StatusEffects Shield = new StatusEffects(1048576, "shield");
+        public static StatusEffects DeathSentence = new StatusEffects(2097152, "deathsentence");
         public static StatusEffects Manipulate = new StatusEffects(4194304);
         public static StatusEffects Berserk = new StatusEffects(8388608, "berserk");
-        public static StatusEffects Peerless = new StatusEffects(16777216);
-        public static StatusEffects Paralyze = new StatusEffects(33554432);
+        public static StatusEffects Peerless = new StatusEffects(16777216, "peerless");
+        public static StatusEffects Paralyze = new StatusEffects(33554432, "paralyze");
         public static StatusEffects Darkness = new StatusEffects(67108864, "darkness");
 
     }
