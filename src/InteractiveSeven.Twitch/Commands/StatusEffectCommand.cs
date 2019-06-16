@@ -19,7 +19,7 @@ namespace InteractiveSeven.Twitch.Commands
 
 
         public StatusEffectCommand(ITwitchClient twitchClient, IStatusAccessor statusAccessor)
-            : base(AllWords, x => true) // TODO: Add Settings
+            : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
             _statusAccessor = statusAccessor;

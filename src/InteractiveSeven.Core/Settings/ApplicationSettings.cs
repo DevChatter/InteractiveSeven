@@ -78,6 +78,7 @@ namespace InteractiveSeven.Core.Settings
 
     public class BattleSettings : ObservableSettingsBase
     {
+        private bool _allowStatusEffects = true;
         public BattleSettings()
         {
             StatusEffects = new[]
@@ -101,6 +102,17 @@ namespace InteractiveSeven.Core.Settings
                 Darkness,
             };
         }
+
+        public bool AllowStatusEffects
+        {
+            get => _allowStatusEffects;
+            set
+            {
+                _allowStatusEffects = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         [JsonIgnore]
         public StatusEffectSettings[] StatusEffects { get; set; }
