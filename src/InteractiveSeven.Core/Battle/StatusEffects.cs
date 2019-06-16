@@ -47,6 +47,5 @@ namespace InteractiveSeven.Core.Battle
         public static StatusEffects Peerless = new StatusEffects(16777216, "peerless");
         public static StatusEffects Paralyze = new StatusEffects(33554432, "paralyze");
         public static StatusEffects Darkness = new StatusEffects(67108864, "darkness");
-
     }
 }

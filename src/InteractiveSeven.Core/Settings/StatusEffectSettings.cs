@@ -2,6 +2,17 @@
 {
     public class StatusEffectSettings : ObservableSettingsBase
     {
+        public StatusEffectSettings()
+        {
+        }
+
+        public StatusEffectSettings(string name, bool enabled, int cost)
+        {
+            Name = name;
+            _enabled = enabled;
+            _cost = cost;
+        }
+
         public string Name { get; set; }
 
         private bool _enabled = true;
