@@ -1,19 +1,38 @@
-﻿namespace InteractiveSeven.Core.Settings
+﻿using InteractiveSeven.Core.Battle;
+using Newtonsoft.Json;
+
+namespace InteractiveSeven.Core.Settings
 {
     public class StatusEffectSettings : ObservableSettingsBase
     {
+        [JsonIgnore]
+        public StatusEffects Effect { get; }
+
+        public string Name { get; }
+
         public StatusEffectSettings()
         {
         }
 
-        public StatusEffectSettings(string name, bool enabled, int cost)
+        public StatusEffectSettings(string name, StatusEffects effect, bool enabled, int cost, params string[] words)
         {
             Name = name;
+            Effect = effect;
+            _words = words ?? new string[0];
             _enabled = enabled;
             _cost = cost;
         }
 
-        public string Name { get; set; }
+        private string[] _words;
+        public string[] Words
+        {
+            get => _words;
+            set
+            {
+                _words = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool _enabled = true;
         public bool Enabled
