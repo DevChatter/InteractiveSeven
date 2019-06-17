@@ -8,12 +8,6 @@
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
-    <Window.Resources>
-        <lvc:ColorValueConverter x:Key="ColorValueConverter" />
-        <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
-        <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
-        <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
-    </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">

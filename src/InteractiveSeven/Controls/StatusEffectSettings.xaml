@@ -6,10 +6,18 @@
              xmlns:local="clr-namespace:InteractiveSeven.Controls"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
-             d:DesignHeight="90" d:DesignWidth="160">
+             d:DesignHeight="120" d:DesignWidth="160">
     <Border Background="#CCC" BorderThickness="1" BorderBrush="Black">
         <DockPanel>
-            <Label DockPanel.Dock="Top" Content="{Binding Name, StringFormat={}{0} Status Effect Settings}" FontSize="12" FontWeight="Bold" />
+            <Label DockPanel.Dock="Top" Content="{Binding Name, StringFormat={}{0} Status Effect Settings}"
+                   FontSize="12" FontWeight="Bold" />
+            <DockPanel DockPanel.Dock="Bottom">
+                <Label DockPanel.Dock="Top" Content="Words" />
+                <xctk:WatermarkTextBox Width="150" VerticalContentAlignment="Top" HorizontalAlignment="Stretch"
+                      Text="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                      Watermark="Comma Separated Words" Margin="4 0 4 5" IsEnabled="{Binding Path=Enabled}" />
+
+            </DockPanel>
             <Grid Margin="4 0 4 4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

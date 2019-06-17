@@ -1,8 +1,13 @@
 ﻿<Application x:Class="InteractiveSeven.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
              Startup="App_OnStartup">
     <Application.Resources>
+        <lvc:ColorValueConverter x:Key="ColorValueConverter" />
+        <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
+        <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
+        <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
         <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
     </Application.Resources>
 </Application>
