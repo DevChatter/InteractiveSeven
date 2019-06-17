@@ -43,7 +43,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (!statusSettings.Enabled)
             {
-                _twitchClient.SendMessage(commandData.Channel, $"The {commandData.CommandText} setting is disabled.");
+                _twitchClient.SendMessage(commandData.Channel, $"The {commandData.CommandText} status effect is disabled.");
                 return;
             }
 
