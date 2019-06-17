@@ -61,7 +61,8 @@ namespace InteractiveSeven
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
-            services.RegisterTwitchCommand<StatusEffectCommand>();
+            services.RegisterBattleCommand<StatusEffectCommand>();
+
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();

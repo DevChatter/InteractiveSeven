@@ -57,7 +57,7 @@ namespace InteractiveSeven.Core.Memory
         {
             var bytes = new byte[4];
             _memoryAccessor.ReadMem(ProcessName, actor.SecondaryStatus.Address, bytes);
-            int status = BitConverter.ToInt32(bytes, 0);
+            int status = BitConverter.ToInt32(bytes);
             return status;
         }
     }
