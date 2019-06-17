@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
