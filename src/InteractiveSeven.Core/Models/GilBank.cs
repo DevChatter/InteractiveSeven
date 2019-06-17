@@ -18,6 +18,7 @@ namespace InteractiveSeven.Core.Models
 
         public int Deposit(ChatUser user, int bits)
         {
+            bits = Math.Max(0, bits);
             lock (_padlock)
             {
                 var account = AccessAccount(user);
@@ -31,7 +32,7 @@ namespace InteractiveSeven.Core.Models
             lock (_padlock)
             {
                 var account = AccessAccount(user);
-                if (requireBalance && account.Balance < bits)
+                if (bits < 0 || (requireBalance && account.Balance < bits))
                 {
                     return (account.Balance, 0);
                 }

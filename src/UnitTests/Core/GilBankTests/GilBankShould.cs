@@ -10,6 +10,35 @@ namespace UnitTests.Core.GilBankTests
         private readonly ChatUser _user = new ChatUser("any", "123456");
 
         [Theory]
+        [InlineData(-1)]
+        [InlineData(-25)]
+        [InlineData(-100)]
+        public void IgnoreNegativeDeposits(int bits)
+        {
+            var bank = new GilBank();
+
+            int balance = bank.Deposit(_user, 100);
+            int result = bank.Deposit(_user, bits);
+
+            result.Should().Be(balance);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(-25)]
+        [InlineData(-100)]
+        public void IgnoreNegativeWithdraws(int bits)
+        {
+            var bank = new GilBank();
+
+            int balance = bank.Deposit(_user, 100);
+            (int result, int withdrawn) = bank.Withdraw(_user, bits);
+
+            result.Should().Be(balance);
+            withdrawn.Should().Be(0);
+        }
+
+        [Theory]
         [InlineData(0)]
         [InlineData(25)]
         [InlineData(100)]
