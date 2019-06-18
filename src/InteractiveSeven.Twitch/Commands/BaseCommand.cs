@@ -3,7 +3,6 @@ using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System;
 using System.Linq;
-using ApplicationSettings = InteractiveSeven.Core.Settings.ApplicationSettings;
 
 namespace InteractiveSeven.Twitch.Commands
 {

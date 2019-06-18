@@ -14,6 +14,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
+        private string[] _helpCommandWords = { "Help" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -25,7 +26,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _vincentWords = { "vincent", "vince" };
         private string[] _yuffieWords = { "yuffie" };
 
-        private List<(string Name, Func<string[]> Words)> AllWordSets { get; }
+        public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
 
         public CommandSettings()
         {
@@ -45,6 +46,8 @@ namespace InteractiveSeven.Core.Settings
                     () => NameBidsCommandWords),
                 (nameof(RefreshCommandWords),
                     () => RefreshCommandWords),
+                (nameof(HelpCommandWords),
+                    () => HelpCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -143,6 +146,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _refreshCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] HelpCommandWords
+        {
+            get => _helpCommandWords;
+            set
+            {
+                _helpCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

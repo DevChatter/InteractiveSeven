@@ -4,23 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
+        xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         mc:Ignorable="d"
-        Title="Interactive Seven" Height="600" Width="600">
-    <Window.Resources>
-        <lvc:ColorValueConverter x:Key="ColorValueConverter" />
-        <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
-        <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
-        <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
-    </Window.Resources>
+        Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
-                <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}" Margin="2" VerticalAlignment="Center" Padding="4" />
-                <Button Content="Connect" Command="{Binding ConnectBotCommand}" Margin="2" VerticalAlignment="Center" Padding="4" />
+                <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
+                           Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Button Content="Connect" Command="{Binding ConnectBotCommand}"
+                        Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
-                <Label Content="Interactive Seven" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+                <Label Content="Interactive Seven" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
             </Grid>
         </DockPanel>
         <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
@@ -31,430 +28,480 @@
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
                        VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by Brendan Enrick (@Brendoneus/@DevChatter)" />
-            <Button Grid.Column="1" Margin="2 2 2 2">
+            <Button Grid.Column="1" Margin="2 5 5 5">
                 <Hyperlink x:Name="PatreonLink" RequestNavigate="PatreonLink_RequestNavigate"
                            NavigateUri="https://www.patreon.com/DevChatter">
                     <Image Source="/Assets/BecomePatron.png" />
                 </Hyperlink>
             </Button>
         </Grid>
-        <Grid>
-            <TabControl TabStripPlacement="Top" HorizontalAlignment="Center"
-                        Height="464" VerticalAlignment="Center" Width="580">
-                <TabItem>
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf06e;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                            <TextBlock Text="Dashboard" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <ScrollViewer>
-                        <StackPanel Orientation="Vertical">
-                            <GroupBox DataContext="{Binding MenuColorViewModel}" Header="Menu Color - Preview" MaxHeight="123">
-                                <StackPanel Orientation="Horizontal" MaxHeight="100">
-                                    <Image Width="200" Height="100" Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <ItemsControl x:Name="menuChanges" ItemsSource="{Binding Changes, Mode=OneWay}" MinWidth="300">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Vertical" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Vertical" Margin="4">
-                                                        <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
-                                                        <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+        <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
+                        MinHeight="464" VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Stretch" MinWidth="580">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf06e;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
+                        <TextBlock Text="Dashboard" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical">
+                        <GroupBox DataContext="{Binding MenuColorViewModel}"
+                                      Header="Menu Color - Preview" MaxHeight="123">
+                            <StackPanel Orientation="Horizontal" MaxHeight="100">
+                                <Image Width="200" Height="100"
+                                           Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Changes, Mode=OneWay}"
+                                                      MinWidth="300">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" Margin="4">
+                                                    <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
+                                                    <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
 
-                                    </ScrollViewer>
-                                </StackPanel>
-                            </GroupBox>
-                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names">
-                                <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
-                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
-                                                      AutoGenerateColumns="False">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Current Name" Binding="{Binding LeadingName}" />
-                                        <DataGridTextColumn Header="Default Name" Binding="{Binding DefaultName}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </GroupBox>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem DataContext="{Binding MenuColorViewModel}">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf0c8;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                            <TextBlock Text="Menu Colors" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid Background="#FFE5E5E5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                            <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                            <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                            <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem DataContext="{Binding NameBiddingViewModel}">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                            <TextBlock Text="Name Bidding" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <ScrollViewer Background="#FFE5E5E5">
-                        <ItemsControl ItemsSource="{Binding CharacterNameBiddings}" HorizontalAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
-                                        <DockPanel>
-                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                                                <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
-                                                <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
-                                            </StackPanel>
-                                            <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
-                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
-                                                      AutoGenerateColumns="False">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
-                                                    <DataGridTextColumn Header="Bits" Binding="{Binding TotalBits}" Width="68" />
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem DataContext="{Binding SettingsViewModel}">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xf013;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                            <TextBlock Text="Settings" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <ScrollViewer>
-                        <DockPanel Background="#FFE5E5E5">
-                            <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
-                                <Button Content="Save Settings" Command="{Binding Path=SaveSettingsCommand}"
-                                        Width="150" Padding="0,10,0,10" Margin="0,10,30,10" />
-                                <Button Content="Load Settings" Command="{Binding Path=LoadSettingsCommand}"
-                                        Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
+                                </ScrollViewer>
                             </StackPanel>
-                            <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
-
-
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500">
-                                        <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <Grid Margin="5,5,0,5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-
-                                            <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                Text="{Binding Path=ProcessName, Mode=TwoWay}" Watermark="Example: ff7_en" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="FF7 Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
-
-                                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                      IsChecked="{Binding Path=GiveSubscriberBonusBits, Mode=TwoWay}" />
-                                            <Label Grid.Row="1" Grid.Column="1" Content="Enable Subscriber Bonus Bits" FontSize="12" Margin="5,0,0,0"/>
-
-                                            <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" IsEnabled="{Binding Path=GiveSubscriberBonusBits}"
-                                                                   Value="{Binding Path=SubscriberBonusBits, Mode=TwoWay}"  Width="50" Minimum="0" Increment="10" FormatString="N0" />
-                                            <Label Grid.Row="2" Grid.Column="1" Content="Bonus Bits for Subscribers" FontSize="12" Margin="5,0,0,0"/>
-
-                                            <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                      IsChecked="{Binding Path=ModsGiveBonusBits, Mode=TwoWay}" />
-                                            <Label Grid.Row="3" Grid.Column="1" Content="Allow Mods to Give Bonus Bits" FontSize="12" Margin="5,0,0,0" />
-
-                                        </Grid>
+                        </GroupBox>
+                        <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names">
+                            <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
+                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                                                      AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Current Name" Binding="{Binding LeadingName}" />
+                                    <DataGridTextColumn Header="Default Name" Binding="{Binding DefaultName}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem DataContext="{Binding MenuColorViewModel}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf0c8;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
+                        <TextBlock Text="Menu Colors" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                        <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                        <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                        <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem DataContext="{Binding NameBiddingViewModel}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
+                        <TextBlock Text="Name Bidding" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer Background="#FFE5E5E5">
+                    <ItemsControl ItemsSource="{Binding CharacterNameBiddings}"
+                                      HorizontalAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
+                                    <DockPanel>
+                                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                            <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
+                                            <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
+                                        </StackPanel>
+                                        <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
+                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                                                      AutoGenerateColumns="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
+                                                <DataGridTextColumn Header="Bits" Binding="{Binding TotalBits}" Width="68" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </DockPanel>
                                 </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem DataContext="{Binding SettingsViewModel}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf013;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Settings" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <DockPanel Background="#FFE5E5E5">
+                        <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Button Content="Save Settings" Command="{Binding Path=SaveSettingsCommand}"
+                                        Width="150" Padding="0,10,0,10" Margin="0,10,30,10" />
+                            <Button Content="Load Settings" Command="{Binding Path=LoadSettingsCommand}"
+                                        Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
+                        </StackPanel>
+                        <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
+
+                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                Text="{Binding Path=ProcessName, Mode=TwoWay}" Watermark="Example: ff7_en" />
+                                        <Label Grid.Row="0" Grid.Column="1" Content="FF7 Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
+
+                                        <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                      IsChecked="{Binding Path=GiveSubscriberBonusBits, Mode=TwoWay}" />
+                                        <Label Grid.Row="1" Grid.Column="1" Content="Enable Subscriber Bonus Bits" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" IsEnabled="{Binding Path=GiveSubscriberBonusBits}"
+                                                                   Value="{Binding Path=SubscriberBonusBits, Mode=TwoWay}"  Width="50" Minimum="0" Increment="10" FormatString="N0" />
+                                        <Label Grid.Row="2" Grid.Column="1" Content="Bonus Bits for Subscribers" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                      IsChecked="{Binding Path=ModsGiveBonusBits, Mode=TwoWay}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Allow Mods to Give Bonus Bits" FontSize="12" Margin="5,0,0,0" />
+
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
 
 
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500">
-                                        <TextBlock Text="Twitch Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <Grid Margin="5,5,0,5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="Twitch Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=TwitchSettings.Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=TwitchSettings.Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
-                                        </Grid>
-                                    </DockPanel>
-                                </Border>
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
 
 
-                                <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500">
-                                        <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <Grid Margin="5,5,0,5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                            <Border DataContext="{Binding Path=MenuSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
 
-                                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
-                                            <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod/Streamer Override" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod/Streamer Override" FontSize="12" Margin="5,0,0,0" />
 
-                                            <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                        <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
                                                 Value="{Binding Path=BitCost, Mode=TwoWay}" />
-                                            <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
-                                        </Grid>
-                                    </DockPanel>
-                                </Border>
+                                        <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
 
 
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500">
-                                        <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5" DataContext="{Binding NameBiddingSettings}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                 IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                                            <wpfTool:IntegerUpDown Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <wpfTool:IntegerUpDown Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                 Value="{Binding Path=DefaultStartBits, Mode=TwoWay}"  Width="50" Minimum="0" Increment="10" FormatString="N0" />
-                                            <Label Grid.Row="1" Grid.Column="1" Content="Default Name Starting Bits" FontSize="12" Margin="5,0,0,0"/>
+                                        <Label Grid.Row="1" Grid.Column="1" Content="Default Name Starting Bits" FontSize="12" Margin="5,0,0,0"/>
 
-                                            <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                 IsChecked="{Binding Path=AllowModeration, Mode=TwoWay}" />
-                                            <Label Grid.Row="2" Grid.Column="1" Content="Enable Moderation of Names" FontSize="12" Margin="5,0,0,0"/>
+                                        <Label Grid.Row="2" Grid.Column="1" Content="Enable Moderation of Names" FontSize="12" Margin="5,0,0,0"/>
 
-                                            <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                 IsChecked="{Binding Path=AllowModBits, Mode=TwoWay}" />
-                                            <Label Grid.Row="3" Grid.Column="1" Content="Enable Mod Override - Free Bits" FontSize="12" Margin="5,0,0,0"/>
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Enable Mod Override - Free Bits" FontSize="12" Margin="5,0,0,0"/>
 
-                                            <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCloudEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="4" Grid.Column="1" Content="Allow Naming Cloud" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingBarretEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="5" Grid.Column="1" Content="Allow Naming Barret" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingTifaEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="6" Grid.Column="1" Content="Allow Naming Tifa" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingAerisEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="7" Grid.Column="1" Content="Allow Naming Aeris" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="8" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCaitSithEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="8" Grid.Column="1" Content="Allow Naming Cait Sith" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingCidEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="9" Grid.Column="1" Content="Allow Naming Cid" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="10" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="10" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingRedEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="10" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="10" Grid.Column="1" Content="Allow Naming Red XIII" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="11" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="11" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingVincentEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="11" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="11" Grid.Column="1" Content="Allow Naming Vincent" FontSize="12" Margin="5,0,0,0" />
 
-                                            <CheckBox Grid.Row="12" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                        <CheckBox Grid.Row="12" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                               IsChecked="{Binding Path=NamingYuffieEnabled, Mode=TwoWay}" />
-                                            <Label Grid.Row="12" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
-                                        </Grid>
-                                    </DockPanel>
-                                </Border>
+                                        <Label Grid.Row="12" Grid.Column="1" Content="Allow Naming Yuffie" FontSize="12" Margin="5,0,0,0" />
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
 
 
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5">
-                                    <DockPanel Width="500">
-                                        <TextBlock Text="Command Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
-                                        <Grid Margin="5,5,0,5">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="Command Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.CostsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Balance Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Balance Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.BalanceCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Give Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Give Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.GiveGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="3" Grid.Column="0" Content="I7 Mod Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="3" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="3" Grid.Column="0" Content="I7 Mod Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="3" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.I7CommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="4" Grid.Column="0" Content="Menu Color Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="4" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="4" Grid.Column="0" Content="Menu Color Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="4" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.MenuCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="5" Grid.Column="0" Content="Name Bids Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="5" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="5" Grid.Column="0" Content="Name Bids Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="5" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.NameBidsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="6" Grid.Column="0" Content="Refresh Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="6" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="6" Grid.Column="0" Content="Refresh Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="6" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.RefreshCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="7" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="7" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="7" Grid.Column="0" Content="Help Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="7" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=CommandSettings.HelpCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                        <Label Grid.Row="8" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="8" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.CloudCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="8" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="8" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="9" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="9" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.BarretCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="9" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="9" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="10" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="10" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.TifaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="10" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="10" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="11" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="11" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.AerisCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="11" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="11" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="12" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="12" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.CaitCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="12" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="12" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="13" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="13" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.CidCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="13" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="13" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="14" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="14" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.RedCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="14" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="14" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="15" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="15" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.VincentCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                            <Label Grid.Row="15" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
-                                            <wpfTool:WatermarkTextBox Grid.Row="15" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="16" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="16" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CommandSettings.YuffieCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
-                                        </Grid>
-                                    </DockPanel>
-                                </Border>
-                            </WrapPanel>
-                        </DockPanel>
-                    </ScrollViewer>
-                </TabItem>
-            </TabControl>
-        </Grid>
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
+
+
+                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500" DataContext="{Binding BattleSettings}">
+                                    <TextBlock Text="Status Effect Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
+                                                      DockPanel.Dock="Bottom" Margin="5,5,0,5"
+                                                      ItemsSource="{Binding AllStatusEffects}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <lc:StatusEffectSettings DataContext="{Binding}" Margin="2" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Grid HorizontalAlignment="Left" Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                      IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
+                                        <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
+
+                                    </Grid>
+
+                                </DockPanel>
+                            </Border>
+
+
+                        </WrapPanel>
+                    </DockPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>

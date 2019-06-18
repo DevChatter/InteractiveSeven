@@ -12,5 +12,13 @@ namespace InteractiveSeven
             return services.AddSingleton(typeof(T))
                 .AddSingleton(typeof(ITwitchCommand), typeof(LoggingCommand<T>));
         }
+
+        public static IServiceCollection RegisterBattleCommand<T>(this IServiceCollection services)
+            where T : ITwitchCommand
+        {
+            return services.AddSingleton(typeof(T))
+                .AddSingleton(typeof(BattleOnlyCommand<T>))
+                .AddSingleton(typeof(ITwitchCommand), typeof(LoggingCommand<BattleOnlyCommand<T>>));
+        }
     }
 }

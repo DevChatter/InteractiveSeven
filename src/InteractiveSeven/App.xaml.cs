@@ -58,7 +58,10 @@ namespace InteractiveSeven
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
+            services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
+
+            services.RegisterBattleCommand<StatusEffectCommand>();
 
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
@@ -67,6 +70,7 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<NameCommand>();
             services.RegisterTwitchCommand<RefreshCommand>();
             services.RegisterTwitchCommand<BalanceCommand>();
+            services.RegisterTwitchCommand<HelpCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
