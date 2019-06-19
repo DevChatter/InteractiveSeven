@@ -55,6 +55,7 @@ namespace InteractiveSeven
 
             services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
+            services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
@@ -62,6 +63,8 @@ namespace InteractiveSeven
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
             services.RegisterBattleCommand<StatusEffectCommand>();
+
+            services.RegisterTwitchCommand<WeaponCommand>(); // TODO: non-combat
 
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
