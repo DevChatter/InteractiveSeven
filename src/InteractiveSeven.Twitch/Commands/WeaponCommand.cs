@@ -28,9 +28,8 @@ namespace InteractiveSeven.Twitch.Commands
             var characterName = commandData.Arguments.FirstOrDefault();
             var weaponText = commandData.Arguments.ElementAtOrDefault(1);
 
-            // TODO: Verify the character Name is valid
-            if (HasValues(characterName, weaponText)
-                || (!int.TryParse(weaponText, out int weaponId) && IsValidWeaponId(characterName, weaponId)))
+            if (!int.TryParse(weaponText ?? "", out int weaponId)
+                || !Weapons.IsValid(characterName, weaponId))
             {
                 _twitchClient.SendMessage(commandData.Channel, "Invalid Request - Specify character and weapon number like this !weapon cloud 15");
                 return;
@@ -44,16 +43,8 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            _equipmentAccessor.SetCharacterWeapon(characterName, weaponId);
+            Weapons weapon = Weapons.Get(characterName, weaponId);
+            _equipmentAccessor.SetCharacterWeapon(characterName, weapon.Value);
         }
-
-        private bool IsValidWeaponId(string characterName, in int weaponId)
-        {
-            // TODO: Check non-cloud
-            return Enum.IsDefined(typeof(CloudWeapons), weaponId);
-        }
-
-        private static bool HasValues(string characterName, string weaponText)
-            => characterName == null || weaponText == null;
     }
 }
