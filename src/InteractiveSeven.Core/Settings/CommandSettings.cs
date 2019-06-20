@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -26,6 +27,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _vincentWords = { "vincent", "vince" };
         private string[] _yuffieWords = { "yuffie" };
 
+        [JsonIgnore]
         public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
 
         public CommandSettings()
