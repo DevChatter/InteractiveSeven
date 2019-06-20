@@ -1,4 +1,5 @@
 ﻿using System;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Memory
@@ -14,9 +15,9 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor = memoryAccessor;
         }
 
-        public void SetCharacterWeapon(string characterName, int weapon)
+        public void SetCharacterWeapon(CharNames charName, int weapon)
         {
-            CharMemLoc charMemLoc = CharMemLoc.ByName(characterName);
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
             var bytes = new[] { (byte)weapon };
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
         }

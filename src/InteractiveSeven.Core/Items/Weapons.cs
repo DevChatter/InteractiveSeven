@@ -180,26 +180,26 @@ namespace InteractiveSeven.Core.Items
             new Weapons(13, 126, "Death Penalty"),
         };
 
-        public static Dictionary<string, IList<Weapons>> AllWeapons
-            = new Dictionary<string, IList<Weapons>>
+        public static Dictionary<int, IList<Weapons>> AllWeapons
+            = new Dictionary<int, IList<Weapons>>
             {
-                [CharNames.Cloud] = CloudWeapons,
-                [CharNames.Tifa] = TifaWeapons,
-                [CharNames.Barret] = BarretWeapons,
-                [CharNames.Red] = RedWeapons,
-                [CharNames.Aeris] = AerisWeapons,
-                [CharNames.Cid] = CidWeapons,
-                [CharNames.Yuffie] = YuffieWeapons,
-                [CharNames.CaitSith] = CaitSithWeapons,
-                [CharNames.Vincent] = VincentWeapons,
+                [CharNames.Cloud.Id] = CloudWeapons,
+                [CharNames.Tifa.Id] = TifaWeapons,
+                [CharNames.Barret.Id] = BarretWeapons,
+                [CharNames.Red.Id] = RedWeapons,
+                [CharNames.Aeris.Id] = AerisWeapons,
+                [CharNames.Cid.Id] = CidWeapons,
+                [CharNames.Yuffie.Id] = YuffieWeapons,
+                [CharNames.CaitSith.Id] = CaitSithWeapons,
+                [CharNames.Vincent.Id] = VincentWeapons,
             };
 
-        public static bool IsValid(string charName, int weaponId)
+        public static bool IsValid(CharNames charName, int weaponId)
             => Get(charName, weaponId) != null;
 
-        public static Weapons Get(string charName, int weaponId)
+        public static Weapons Get(CharNames charName, int weaponId)
         {
-            if (!AllWeapons.TryGetValue(charName, out IList<Weapons> charWeapons))
+            if (!AllWeapons.TryGetValue(charName.Id, out IList<Weapons> charWeapons))
             {
                 return null;
             }

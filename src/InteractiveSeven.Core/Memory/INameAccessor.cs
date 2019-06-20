@@ -1,8 +1,10 @@
-﻿namespace InteractiveSeven.Core.Memory
+﻿using InteractiveSeven.Core.Data;
+
+namespace InteractiveSeven.Core.Memory
 {
     public interface INameAccessor
     {
-        string GetCharacterName(string charName);
-        void SetCharacterName(string charName, string newName);
+        string GetCharacterName(CharNames charName);
+        void SetCharacterName(CharNames charName, string newName);
     }
 }

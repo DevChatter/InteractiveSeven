@@ -82,7 +82,7 @@ namespace InteractiveSeven.Twitch.Commands
         private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled)
             => words.Any(word => word.EqualsIns(commandData.CommandText)) && enabled;
 
-        private void TriggerDomainEvent(string charName, CommandData data)
+        private void TriggerDomainEvent(CharNames charName, CommandData data)
         {
             int gil = GetGilFromCommandData(data);
             if (!CanOverrideBitRestriction(data.User))

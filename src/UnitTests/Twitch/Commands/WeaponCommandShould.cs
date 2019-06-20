@@ -6,6 +6,7 @@ using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using Moq;
 using System.Linq;
+using InteractiveSeven.Core.Data;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 
@@ -16,13 +17,13 @@ namespace UnitTests.Twitch.Commands
         [Fact]
         public void ChangeCharacterWeapon_GivenValidCallAndEnoughGil()
         {
-            var (characterName, weaponNumber) = ("cloud", 1);
+            var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, accessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
             var weaponCommand = new WeaponCommand(accessor.Object, gilBank, chat.Object);
 
             weaponCommand.Execute(commandData);
 
-            accessor.Verify(x => x.SetCharacterWeapon(characterName, weaponNumber), Times.Once);
+            accessor.Verify(x => x.SetCharacterWeapon(CharNames.Cloud, weaponNumber), Times.Once);
         }
 
         [Fact]
@@ -34,7 +35,7 @@ namespace UnitTests.Twitch.Commands
             weaponCommand.Execute(commandData);
 
             chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>(), false), Times.Once);
-            accessor.Verify(x => x.SetCharacterWeapon(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            accessor.Verify(x => x.SetCharacterWeapon(It.IsAny<CharNames>(), It.IsAny<int>()), Times.Never);
         }
 
         [Fact]
@@ -46,7 +47,7 @@ namespace UnitTests.Twitch.Commands
             weaponCommand.Execute(commandData);
 
             chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>(), false), Times.Once);
-            accessor.Verify(x => x.SetCharacterWeapon(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            accessor.Verify(x => x.SetCharacterWeapon(It.IsAny<CharNames>(), It.IsAny<int>()), Times.Never);
         }
 
         private (CommandData data, GilBank gilBank,

@@ -44,9 +44,9 @@ namespace InteractiveSeven.Core.Memory
             MaxMp = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
         }
 
-        public static CharMemLoc ByName(string name)
+        public static CharMemLoc ByName(CharNames charName)
         {
-            return All[name];
+            return All[charName.Id];
         }
 
         public static CharMemLoc Cloud { get; }
@@ -68,18 +68,18 @@ namespace InteractiveSeven.Core.Memory
         public static CharMemLoc Cid { get; }
             = new CharMemLoc(new IntPtr(0xDC01AD), new IntPtr(0x921D18));
 
-        private static readonly Dictionary<string, CharMemLoc> All
-            = new Dictionary<string, CharMemLoc>
+        private static readonly Dictionary<int, CharMemLoc> All
+            = new Dictionary<int, CharMemLoc>
             {
-                [CharNames.Cloud] = Cloud,
-                [CharNames.Barret] = Barret,
-                [CharNames.Tifa] = Tifa,
-                [CharNames.Aeris] = Aeris,
-                [CharNames.Red] = Red,
-                [CharNames.Yuffie] = Yuffie,
-                [CharNames.CaitSith] = CaitSith,
-                [CharNames.Vincent] = Vincent,
-                [CharNames.Cid] = Cid,
+                [CharNames.Cloud.Id] = Cloud,
+                [CharNames.Barret.Id] = Barret,
+                [CharNames.Tifa.Id] = Tifa,
+                [CharNames.Aeris.Id] = Aeris,
+                [CharNames.Red.Id] = Red,
+                [CharNames.Yuffie.Id] = Yuffie,
+                [CharNames.CaitSith.Id] = CaitSith,
+                [CharNames.Vincent.Id] = Vincent,
+                [CharNames.Cid.Id] = Cid,
             };
     }
 }

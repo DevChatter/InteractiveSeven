@@ -2,8 +2,8 @@
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch.Model;
-using System;
 using System.Linq;
+using InteractiveSeven.Core.Data;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -25,11 +25,13 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            var characterName = commandData.Arguments.FirstOrDefault();
+            (bool isValidName, CharNames charName) =
+                CharNames.GetByName(commandData.Arguments.FirstOrDefault());
             var weaponText = commandData.Arguments.ElementAtOrDefault(1);
 
-            if (!int.TryParse(weaponText ?? "", out int weaponId)
-                || !Weapons.IsValid(characterName, weaponId))
+            if (!isValidName
+                || !int.TryParse(weaponText ?? "", out int weaponId)
+                || !Weapons.IsValid(charName, weaponId))
             {
                 _twitchClient.SendMessage(commandData.Channel, "Invalid Request - Specify character and weapon number like this !weapon cloud 15");
                 return;
@@ -43,8 +45,8 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Weapons weapon = Weapons.Get(characterName, weaponId);
-            _equipmentAccessor.SetCharacterWeapon(characterName, weapon.Value);
+            Weapons weapon = Weapons.Get(charName, weaponId);
+            _equipmentAccessor.SetCharacterWeapon(charName, weapon.Value);
         }
     }
 }

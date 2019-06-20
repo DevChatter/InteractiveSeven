@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Specialized;
@@ -10,6 +11,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
 {
     public class CharacterNameBidding : INotifyPropertyChanged
     {
+        public CharNames CharName { get; }
         public string DefaultName { get; }
 
         public ThreadedObservableCollection<CharacterNameBid> NameBids { get; }
@@ -28,16 +30,17 @@ namespace InteractiveSeven.Core.Bidding.Naming
             {
                 _leadingName = value;
                 OnPropertyChanged();
-                DomainEvents.Raise(new TopNameChanged(DefaultName, LeadingName));
+                DomainEvents.Raise(new TopNameChanged(CharName, LeadingName));
             }
         }
 
         private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public CharacterNameBidding(string defaultName)
+        public CharacterNameBidding(CharNames charNames)
         {
-            DefaultName = defaultName;
-            _leadingName = defaultName;
+            CharName = charNames;
+            DefaultName = charNames.DefaultName;
+            _leadingName = charNames.DefaultName;
 
             NameBids.CollectionChanged += NameBids_CollectionChanged;
 

@@ -1,7 +1,9 @@
-﻿namespace InteractiveSeven.Core.Memory
+﻿using InteractiveSeven.Core.Data;
+
+namespace InteractiveSeven.Core.Memory
 {
     public interface IEquipmentAccessor
     {
-        void SetCharacterWeapon(string characterName, int weapon);
+        void SetCharacterWeapon(CharNames charName, int weapon);
     }
 }
