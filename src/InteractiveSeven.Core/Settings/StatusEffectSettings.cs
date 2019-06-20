@@ -5,7 +5,6 @@ namespace InteractiveSeven.Core.Settings
 {
     public class StatusEffectSettings : ObservableSettingsBase
     {
-        [JsonIgnore]
         public StatusEffects Effect { get; }
 
         public string Name { get; }
