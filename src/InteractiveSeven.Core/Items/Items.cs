@@ -105,8 +105,7 @@ namespace InteractiveSeven.Core.Items
             new Items(86, 86, "Tissue"),
         };
 
-        public static bool IsValid(int armletId)
-            => Get(armletId) != null;
+        public static bool IsValid(int armletId) => armletId > 0 && armletId < 87;
 
         public static Items Get(int armletId)
             => All.SingleOrDefault(x => x.Id == armletId);

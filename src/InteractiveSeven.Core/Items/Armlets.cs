@@ -51,8 +51,7 @@ namespace InteractiveSeven.Core.Items
             new Armlets(31, 30, "Precious Watch"),
         };
 
-        public static bool IsValid(int armletId)
-            => Get(armletId) != null;
+        public static bool IsValid(int armletId) => armletId > 0 && armletId < 32;
 
         public static Armlets Get(int armletId)
             => All.SingleOrDefault(x => x.Id == armletId);
