@@ -13,7 +13,6 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
-        private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public GiveGilCommand(GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.GiveGilCommandWords, x => true)

@@ -9,8 +9,6 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
 
-        private CommandSettings CommandSettings => ApplicationSettings.Instance.CommandSettings;
-
         public HelpCommand(ITwitchClient twitchClient)
             : base(x => x.HelpCommandWords, x => true)
         {
@@ -19,7 +17,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            string[] commandWords = CommandSettings.AllWordSets.Select(wordSet => wordSet.Words().First()).ToArray();
+            string[] commandWords = Settings.CommandSettings.AllWordSets.Select(wordSet => wordSet.Words().First()).ToArray();
             _twitchClient.SendMessage(commandData.Channel,
                 $"These are the available commands: {string.Join(", ", commandWords)}");
         }

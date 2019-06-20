@@ -14,10 +14,8 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IStatusAccessor _statusAccessor;
         private readonly GilBank _gilBank;
 
-        private static BattleSettings Settings => ApplicationSettings.Instance.BattleSettings;
-
         private static string[] AllWords(CommandSettings settings)
-            => Settings.AllStatusEffects
+            => Settings.BattleSettings.AllStatusEffects
                 .SelectMany(effect => effect.Words)
                 .ToArray();
 
@@ -33,7 +31,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            var statusSettings = Settings.ByWord(commandData.CommandText);
+            var statusSettings = Settings.BattleSettings.ByWord(commandData.CommandText);
             var actor = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (statusSettings == null || actor == null)
             {

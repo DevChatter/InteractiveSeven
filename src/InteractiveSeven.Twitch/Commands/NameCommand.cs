@@ -15,7 +15,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
         private readonly GilBank _gilBank;
 
-        private CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
+        private static CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
 
         private static string[] AllWords(CommandSettings settings) =>
             settings.CloudCommandWords
@@ -29,7 +29,7 @@ namespace InteractiveSeven.Twitch.Commands
                 .Union(settings.YuffieCommandWords)
                 .ToArray();
 
-        public NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
+        public NameBiddingSettings NameBidSettings => ApplicationSettings.Instance.NameBiddingSettings;
 
         public NameCommand(ITwitchClient twitchClient, GilBank gilBank)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
@@ -40,39 +40,39 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData data)
         {
-            if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, Settings.NamingCloudEnabled))
+            if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, NameBidSettings.NamingCloudEnabled))
             {
                 TriggerDomainEvent(CharNames.Cloud, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, Settings.NamingBarretEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, NameBidSettings.NamingBarretEnabled))
             {
                 TriggerDomainEvent(CharNames.Barret, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, Settings.NamingTifaEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, NameBidSettings.NamingTifaEnabled))
             {
                 TriggerDomainEvent(CharNames.Tifa, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, Settings.NamingAerisEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, NameBidSettings.NamingAerisEnabled))
             {
                 TriggerDomainEvent(CharNames.Aeris, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, Settings.NamingCaitSithEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, NameBidSettings.NamingCaitSithEnabled))
             {
                 TriggerDomainEvent(CharNames.CaitSith, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, Settings.NamingCidEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, NameBidSettings.NamingCidEnabled))
             {
                 TriggerDomainEvent(CharNames.Cid, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, Settings.NamingRedEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, NameBidSettings.NamingRedEnabled))
             {
                 TriggerDomainEvent(CharNames.Red, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, Settings.NamingVincentEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, NameBidSettings.NamingVincentEnabled))
             {
                 TriggerDomainEvent(CharNames.Vincent, data);
             }
-            else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, Settings.NamingYuffieEnabled))
+            else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, NameBidSettings.NamingYuffieEnabled))
             {
                 TriggerDomainEvent(CharNames.Yuffie, data);
             }
@@ -122,7 +122,7 @@ namespace InteractiveSeven.Twitch.Commands
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)
-            => (Settings.AllowModBits && user.IsMod) || user.IsMe || user.IsBroadcaster;
+            => (NameBidSettings.AllowModBits && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
     }
 }
