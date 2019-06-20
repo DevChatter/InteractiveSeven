@@ -52,10 +52,10 @@ namespace InteractiveSeven.Core.Data.Items
             new Accessories(32, 31, "HypnoCrown"),
         };
 
-        public static bool IsValid(int armletId)
-            => Get(armletId) != null;
+        public static bool IsValid(int accessoryId)
+            => Get(accessoryId) != null;
 
-        public static Accessories Get(int armletId)
-            => All.SingleOrDefault(x => x.Id == armletId);
+        public static Accessories Get(int accessoryId)
+            => All.SingleOrDefault(x => x.Id == accessoryId);
     }
 }
