@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
@@ -37,16 +38,23 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            const int cost = 100;
-            (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
-            if (withdrawn < cost)
+            if (!CanOverrideBitRestriction(commandData.User))
             {
-                _twitchClient.SendMessage(commandData.Channel, $"Insufficient gil. You only have {balance} gil and needed {cost}");
-                return;
+                const int cost = 100;
+                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
+                if (withdrawn < cost)
+                {
+                    _twitchClient.SendMessage(commandData.Channel, $"Insufficient gil. You only have {balance} gil and needed {cost}");
+                    return;
+                }
             }
 
             Weapons weapon = Weapons.Get(charName, weaponId);
             _equipmentAccessor.SetCharacterWeapon(charName, weapon.Value);
         }
+
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => (Settings.EquipmentSettings.AllowModOverride && user.IsMod)
+               || user.IsMe || user.IsBroadcaster;
     }
 }
