@@ -4,6 +4,7 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
+using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -45,13 +46,16 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, statusSettings.Cost, true);
-
-            if (withdrawn < statusSettings.Cost)
+            if (!CanOverrideBitRestriction(commandData.User))
             {
-                _twitchClient.SendMessage(commandData.Channel,
-                    $"The {commandData.CommandText} effect costs {statusSettings.Cost}. Your balance {balance}");
-                return;
+                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, statusSettings.Cost, true);
+
+                if (withdrawn < statusSettings.Cost)
+                {
+                    _twitchClient.SendMessage(commandData.Channel,
+                        $"The {commandData.CommandText} effect costs {statusSettings.Cost}. Your balance {balance}");
+                    return;
+                }
             }
 
             _statusAccessor.SetActorStatus(actor, statusSettings.Effect);
@@ -59,5 +63,10 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient.SendMessage(commandData.Channel,
                 $"Applied {commandData.CommandText} to {actor.Words.First()}.");
         }
+
+        private bool CanOverrideBitRestriction(ChatUser user)
+            => (Settings.BattleSettings.AllowModOverride && user.IsMod)
+               || user.IsMe || user.IsBroadcaster;
+
     }
 }

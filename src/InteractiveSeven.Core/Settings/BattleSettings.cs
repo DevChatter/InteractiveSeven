@@ -7,6 +7,8 @@ namespace InteractiveSeven.Core.Settings
     public class BattleSettings : ObservableSettingsBase
     {
         private bool _allowStatusEffects = false;
+        private bool _allowModOverride = true;
+
         public BattleSettings()
         {
             AllStatusEffects = new[]
@@ -46,6 +48,17 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
+        public bool AllowModOverride // TODO: Add to Settings Screen
+        {
+            get => _allowModOverride;
+            set
+            {
+                _allowModOverride = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         [JsonIgnore]
         public StatusEffectSettings[] AllStatusEffects { get; set; }
