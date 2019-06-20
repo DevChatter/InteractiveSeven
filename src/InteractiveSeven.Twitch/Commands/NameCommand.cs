@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;

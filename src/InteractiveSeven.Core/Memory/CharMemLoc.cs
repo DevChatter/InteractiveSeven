@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Data;
+using System;
 using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Memory
