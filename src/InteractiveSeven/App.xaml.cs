@@ -65,6 +65,7 @@ namespace InteractiveSeven
             services.RegisterBattleCommand<StatusEffectCommand>();
 
             services.RegisterTwitchCommand<WeaponCommand>(); // TODO: non-combat
+            services.RegisterTwitchCommand<ArmletCommand>(); // TODO: non-combat
 
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
