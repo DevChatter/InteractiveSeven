@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Battle;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -46,6 +47,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
+        [JsonIgnore]
         public StatusEffectSettings[] AllStatusEffects { get; set; }
 
         public StatusEffectSettings ByWord(string word)
