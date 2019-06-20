@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace InteractiveSeven.Core.Items
+namespace InteractiveSeven.Core.Data.Items
 {
     public class Accessories
     {
