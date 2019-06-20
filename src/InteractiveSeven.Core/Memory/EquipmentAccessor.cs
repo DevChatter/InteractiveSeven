@@ -27,5 +27,12 @@ namespace InteractiveSeven.Core.Memory
             var bytes = new[] { (byte)armlet };
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Armlet.Address, bytes);
         }
+
+        public void SetCharacterAccessory(CharNames charName, int accessory)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
+            var bytes = new[] { (byte)accessory };
+            _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Accessory.Address, bytes);
+        }
     }
 }
