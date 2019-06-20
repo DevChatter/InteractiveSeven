@@ -16,6 +16,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+        private string[] _weaponCommandWords = { "Weapon", "Weap" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -50,6 +51,8 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+                (nameof(WeaponCommandWords),
+                    () => WeaponCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -158,6 +161,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _helpCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] WeaponCommandWords
+        {
+            get => _weaponCommandWords;
+            set
+            {
+                _weaponCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

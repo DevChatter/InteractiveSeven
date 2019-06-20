@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public WeaponCommand(IEquipmentAccessor equipmentAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
-            : base(x => new []{"weapon"}, x => true) // TODO: Wire up the settings
+            : base(x => x.WeaponCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
             _gilBank = gilBank;
