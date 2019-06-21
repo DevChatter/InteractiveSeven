@@ -8,12 +8,14 @@ namespace InteractiveSeven.Core.Data.Items
         public string Name { get; }
         public int Id { get; }
         public int Value { get; }
+        public string[] Words { get; set; }
 
-        private Items(int id, int value, string name)
+        private Items(int id, int value, string name, params string[] words)
         {
             Name = name;
             Id = id;
             Value = value;
+            Words = words ?? new string[0];
         }
 
         public static IList<Items> All = new[]
@@ -105,9 +107,9 @@ namespace InteractiveSeven.Core.Data.Items
             new Items(86, 86, "Tissue"),
         };
 
-        public static bool IsValid(int armletId) => armletId > 0 && armletId < 87;
+        public static bool IsValid(int itemId) => itemId > 0 && itemId < 87;
 
-        public static Items Get(int armletId)
-            => All.SingleOrDefault(x => x.Id == armletId);
+        public static Items Get(int itemId)
+            => All.SingleOrDefault(x => x.Id == itemId);
     }
 }

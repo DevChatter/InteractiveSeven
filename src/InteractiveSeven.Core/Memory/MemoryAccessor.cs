@@ -36,6 +36,34 @@ namespace InteractiveSeven.Core.Memory
             CloseHandle(processHandle);
         }
 
+        public ScanResult ScanMem(string processName, IntPtr startAddr,
+            ushort itemSize, uint capacity, Func<byte[], bool> isMatch)
+        {
+            Process process = Process.GetProcessesByName(processName).FirstOrDefault();
+            if (process == null) return new ScanResult(-1, null);
+
+            IntPtr processHandle = OpenProcess(PROCESS_WM_READ, false, process.Id);
+
+            int offset = 0;
+            byte[] buffer = new byte[0];
+            for (; offset < capacity; offset+=2)
+            {
+                IntPtr address = IntPtr.Add(startAddr, offset);
+                buffer = new byte[itemSize];
+
+                ReadProcessMemory(processHandle, address, buffer, itemSize, out int _);
+
+                if (isMatch(buffer))
+                {
+                    break;
+                }
+            }
+
+            CloseHandle(processHandle);
+
+            return offset < capacity ? new ScanResult(offset, buffer) : new ScanResult(-1, null);
+        }
+
         public void WriteMem(string processName, IntPtr address, byte[] bytes)
         {
             Process process = Process.GetProcessesByName(processName).FirstOrDefault();
