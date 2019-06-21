@@ -23,7 +23,7 @@ namespace UnitTests.Twitch.Commands
 
             weaponCommand.Execute(commandData);
 
-            accessor.Verify(x => x.SetCharacterWeapon(CharNames.Cloud, weaponNumber), Times.Once);
+            accessor.Verify(x => x.SetCharacterWeapon(CharNames.Cloud, It.IsAny<int>()), Times.Once);
         }
 
         [Fact]
