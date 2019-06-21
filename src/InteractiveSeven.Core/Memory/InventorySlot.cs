@@ -9,6 +9,16 @@ namespace InteractiveSeven.Core.Memory
         public byte[] AsBytes => BitConverter.GetBytes(Value);
         public ushort Value { get; set; }
 
+        public InventorySlot()
+        {
+            Value = 0b_1111_1111_1111_1111;
+        }
+
+        public InventorySlot(ushort fullValue)
+        {
+            Value = fullValue;
+        }
+
         public ushort ItemId
         {
             get => (ushort)(Value >> 7);

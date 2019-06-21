@@ -8,21 +8,21 @@ namespace UnitTests.Core.Memory
     public class InventorySlotShould
     {
         [Fact]
-        public void BeZeros_AtCreation()
+        public void BeOnes_AtCreation()
         {
             var inventorySlot = new InventorySlot();
 
-            inventorySlot.AsBytes.Should().AllBeEquivalentTo(0);
-            inventorySlot.Value.Should().Be(0);
-            Convert.ToString(inventorySlot.Value, 2).Should().Be("0");
+            inventorySlot.AsBytes.Should().AllBeEquivalentTo(byte.MaxValue);
+            inventorySlot.Value.Should().Be(ushort.MaxValue);
+            Convert.ToString(inventorySlot.Value, 2).Should().Be("1111111111111111");
         }
 
         [Theory]
-        [InlineData(0, "0")]
-        [InlineData(5, "101")]
-        [InlineData(10, "1010")]
-        [InlineData(99, "1100011")]
-        [InlineData(100, "1100100")]
+        [InlineData(0, "1111111110000000")]
+        [InlineData(5, "1111111110000101")]
+        [InlineData(10, "1111111110001010")]
+        [InlineData(99, "1111111111100011")]
+        [InlineData(100, "1111111111100100")]
         public void SetQuantityCorrectly(byte quantity, string expected)
         {
             var inventorySlot = new InventorySlot();
@@ -34,11 +34,11 @@ namespace UnitTests.Core.Memory
         }
 
         [Theory]
-        [InlineData(0, "0")]
-        [InlineData(5, "1010000000")]
-        [InlineData(10, "10100000000")]
-        [InlineData(99, "11000110000000")]
-        [InlineData(511, "1111111110000000")]
+        [InlineData(0, "1111111")]
+        [InlineData(5, "1011111111")]
+        [InlineData(10, "10101111111")]
+        [InlineData(99, "11000111111111")]
+        [InlineData(511, "1111111111111111")]
         public void SetItemIdCorrectly(ushort itemId, string expected)
         {
             var inventorySlot = new InventorySlot();
