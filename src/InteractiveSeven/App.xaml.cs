@@ -67,11 +67,11 @@ namespace InteractiveSeven
 
             services.RegisterBattleCommand<StatusEffectCommand>();
 
-            services.RegisterTwitchCommand<WeaponCommand>(); // TODO: non-combat
-            services.RegisterTwitchCommand<ArmletCommand>(); // TODO: non-combat
-            services.RegisterTwitchCommand<AccessoryCommand>(); // TODO: non-combat
+            services.RegisterNonBattleCommand<WeaponCommand>();
+            services.RegisterNonBattleCommand<ArmletCommand>();
+            services.RegisterNonBattleCommand<AccessoryCommand>();
+            services.RegisterNonBattleCommand<PauperCommand>();
 
-            services.RegisterTwitchCommand<PauperCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
