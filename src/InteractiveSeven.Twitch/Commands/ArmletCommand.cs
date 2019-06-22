@@ -12,14 +12,16 @@ namespace InteractiveSeven.Twitch.Commands
     public class ArmletCommand : BaseCommand
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
+        private readonly IInventoryAccessor _inventoryAccessor;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
 
-        public ArmletCommand(IEquipmentAccessor equipmentAccessor,
+        public ArmletCommand(IEquipmentAccessor equipmentAccessor, IInventoryAccessor inventoryAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.ArmletCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
+            _inventoryAccessor = inventoryAccessor;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
         }
@@ -39,10 +41,11 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
+            (int balance, int withdrawn) = (0, 0);
             if (!CanOverrideBitRestriction(commandData.User))
             {
                 const int cost = 100; // TODO: Configurable Costs
-                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
+                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
                 if (withdrawn < cost)
                 {
                     _twitchClient.SendMessage(commandData.Channel,
@@ -52,7 +55,23 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             Armlets armlet = Armlets.Get(armletId);
+            int existingArmletId = _equipmentAccessor.GetCharacterArmlet(charName);
+            if (armlet.Value == existingArmletId)
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Sorry, {charName.DefaultName} already has {armlet.Name} equipped.");
+                if (withdrawn > 0) // return the gil, since we did nothing
+                {
+                    _gilBank.Deposit(commandData.User, withdrawn);
+                }
+                return;
+            }
+
+            Armlets removedArmlet = Armlets.Get(existingArmletId);
             _equipmentAccessor.SetCharacterArmlet(charName, armlet.Value);
+            _inventoryAccessor.AddItem(removedArmlet.ItemId, 1, true);
+            _twitchClient.SendMessage(commandData.Channel,
+                $"Equipped {charName.DefaultName} with a {armlet.Name}.");
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)

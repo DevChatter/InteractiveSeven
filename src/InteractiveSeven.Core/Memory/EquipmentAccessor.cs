@@ -42,5 +42,21 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
             return bytes[0];
         }
+
+        public byte GetCharacterArmlet(CharNames charName)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
+            var bytes = new byte[1];
+            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Armlet.Address, bytes);
+            return bytes[0];
+        }
+
+        public byte GetCharacterAccessory(CharNames charName)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
+            var bytes = new byte[1];
+            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Accessory.Address, bytes);
+            return bytes[0];
+        }
     }
 }

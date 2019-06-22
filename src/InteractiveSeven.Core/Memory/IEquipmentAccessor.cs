@@ -8,5 +8,7 @@ namespace InteractiveSeven.Core.Memory
         void SetCharacterArmlet(CharNames charName, int armlet);
         void SetCharacterAccessory(CharNames charName, int accessory);
         byte GetCharacterWeapon(CharNames charName);
+        byte GetCharacterArmlet(CharNames charName);
+        byte GetCharacterAccessory(CharNames charName);
     }
 }

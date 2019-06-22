@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch.Model;
+using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -12,14 +12,16 @@ namespace InteractiveSeven.Twitch.Commands
     public class AccessoryCommand : BaseCommand
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
+        private readonly IInventoryAccessor _inventoryAccessor;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
 
-        public AccessoryCommand(IEquipmentAccessor equipmentAccessor,
+        public AccessoryCommand(IEquipmentAccessor equipmentAccessor, IInventoryAccessor inventoryAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.AccessoryCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
+            _inventoryAccessor = inventoryAccessor;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
         }
@@ -39,10 +41,11 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
+            (int balance, int withdrawn) = (0, 0);
             if (!CanOverrideBitRestriction(commandData.User))
             {
                 const int cost = 100; // TODO: Configurable Costs
-                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
+                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
                 if (withdrawn < cost)
                 {
                     _twitchClient.SendMessage(commandData.Channel,
@@ -52,7 +55,26 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             Accessories accessory = Accessories.Get(accessoryId);
+            int existingAccessoryId = _equipmentAccessor.GetCharacterAccessory(charName);
+            if (accessory.Value == existingAccessoryId)
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Sorry, {charName.DefaultName} already has {accessory.Name} equipped.");
+                if (withdrawn > 0) // return the gil, since we did nothing
+                {
+                    _gilBank.Deposit(commandData.User, withdrawn);
+                }
+                return;
+            }
+
+            Accessories removedAccessory = Accessories.Get(existingAccessoryId);
             _equipmentAccessor.SetCharacterAccessory(charName, accessory.Value);
+            if (removedAccessory != null)
+            {
+                _inventoryAccessor.AddItem(removedAccessory.ItemId, 1, true);
+            }
+            _twitchClient.SendMessage(commandData.Channel,
+                $"Equipped {charName.DefaultName} with a {accessory.Name}.");
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)
