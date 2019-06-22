@@ -41,7 +41,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (!CanOverrideBitRestriction(commandData.User))
             {
-                const int cost = 100;
+                const int cost = 100; // TODO: Configurable Costs
                 (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
                 if (withdrawn < cost)
                 {

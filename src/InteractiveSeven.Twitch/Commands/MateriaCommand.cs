@@ -20,6 +20,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
+            // TODO: Allow Moderators to Use this Command
             if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
 
             string materiaIdText = commandData.Arguments.FirstOrDefault();
