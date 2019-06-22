@@ -40,10 +40,11 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
+            (int balance, int withdrawn) = (0, 0);
             if (!CanOverrideBitRestriction(commandData.User))
             {
                 const int cost = 100;
-                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
+                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
                 if (withdrawn < cost)
                 {
                     _twitchClient.SendMessage(commandData.Channel, $"Insufficient gil. You only have {balance} gil and needed {cost}");
@@ -57,6 +58,10 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {weapon.Name} equipped.");
+                if (withdrawn > 0) // return the gil, since we did nothing
+                {
+                    _gilBank.Deposit(commandData.User, withdrawn);
+                }
                 return;
             }
 
