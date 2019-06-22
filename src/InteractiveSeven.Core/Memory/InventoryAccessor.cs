@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using InteractiveSeven.Core.Memory.Model;
 using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Memory

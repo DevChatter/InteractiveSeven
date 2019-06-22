@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Memory.Model;
 using Xunit;
 
 namespace UnitTests.Core.Memory
