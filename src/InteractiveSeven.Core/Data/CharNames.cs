@@ -20,7 +20,9 @@ namespace InteractiveSeven.Core.Data
             All.Add(this);
         }
 
-        private static readonly List<CharNames> All = new List<CharNames>();
+        public static readonly List<CharNames> All = new List<CharNames>();
+
+        public static CharNames GetById(int id) => All.SingleOrDefault(x => x.Id == id);
 
         public static bool TryGetByName(string word, out CharNames charName)
         {

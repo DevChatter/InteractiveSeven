@@ -21,14 +21,14 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
         }
 
-        public void SetCharacterArmlet(CharNames charName, int armlet)
+        public void SetCharacterArmlet(CharNames charName, ushort armlet)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
             var bytes = new[] { (byte)armlet };
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Armlet.Address, bytes);
         }
 
-        public void SetCharacterAccessory(CharNames charName, int accessory)
+        public void SetCharacterAccessory(CharNames charName, byte accessory)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
             var bytes = new[] { (byte)accessory };

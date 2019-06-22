@@ -31,5 +31,30 @@ namespace InteractiveSeven.Core.Memory
 
             bool IsEmpty(byte[] bytes) => bytes.All(b => b == byte.MaxValue);
         }
+
+        public void RemoveAllMateria()
+        {
+            int totalOffset = 0;
+            int inventoryTotalSize = (InvCapacity * ItemSize);
+            IntPtr nextAddress = IntPtr.Add(FirstAddress, totalOffset);
+
+            do
+            {
+                var scanResult = _memory.ScanMem(Settings.ProcessName,
+                    nextAddress, ItemSize, InvCapacity, HasItem);
+                if (scanResult.BaseAddrOffset == -1) return;
+
+                RemoveItem(totalOffset + scanResult.BaseAddrOffset);
+
+                totalOffset += scanResult.BaseAddrOffset + ItemSize;
+                nextAddress = IntPtr.Add(FirstAddress, totalOffset);
+            } while (totalOffset < inventoryTotalSize);
+
+            bool HasItem(byte[] bytes) => bytes.Any(b => b != byte.MaxValue);
+            void RemoveItem(int addrOffset)
+                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset),
+                    new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue });
+        }
+
     }
 }

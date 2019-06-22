@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using InteractiveSeven.Core.Memory.Model;
+﻿using InteractiveSeven.Core.Memory.Model;
 using InteractiveSeven.Core.Settings;
+using System;
+using System.Linq;
 
 namespace InteractiveSeven.Core.Memory
 {
     public class InventoryAccessor : IInventoryAccessor
     {
         private readonly IMemoryAccessor _memory;
-        private const ushort InvCapacity = 319;
+        private const ushort InvCapacity = 320;
         private const int ItemSize = 2;
         private static readonly IntPtr FirstAddress = new IntPtr(0xDC0234);
         private ApplicationSettings Settings => ApplicationSettings.Instance;
@@ -41,6 +41,30 @@ namespace InteractiveSeven.Core.Memory
             bool IsEmpty(byte[] bytes) => bytes.All(b => b == byte.MaxValue);
             void WriteInventoryItem(InventorySlot inventorySlot, int addrOffset)
                 => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset), inventorySlot.AsBytes());
+        }
+
+        public void RemoveAllItems()
+        {
+            int totalOffset = 0;
+            int inventoryTotalSize = (InvCapacity * ItemSize);
+            IntPtr nextAddress = IntPtr.Add(FirstAddress, totalOffset);
+
+            do
+            {
+                var scanResult = _memory.ScanMem(Settings.ProcessName,
+                    nextAddress, ItemSize, InvCapacity, HasItem);
+                if (scanResult.BaseAddrOffset == -1) return;
+
+                RemoveItem(totalOffset + scanResult.BaseAddrOffset);
+
+                totalOffset += scanResult.BaseAddrOffset + ItemSize;
+                nextAddress = IntPtr.Add(FirstAddress, totalOffset);
+            } while (totalOffset < inventoryTotalSize);
+
+            bool HasItem(byte[] bytes) => bytes.Any(b => b != byte.MaxValue);
+            void RemoveItem(int addrOffset)
+                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset),
+                    new []{ byte.MaxValue, byte.MaxValue });
         }
     }
 }

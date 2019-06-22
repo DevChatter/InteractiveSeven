@@ -46,7 +46,8 @@ namespace InteractiveSeven.Core.Memory
 
             int offset = 0;
             byte[] buffer = new byte[0];
-            for (; offset < capacity; offset+=itemSize)
+            uint capacityInBytes = capacity * itemSize;
+            for (; offset < capacityInBytes; offset+=itemSize)
             {
                 IntPtr address = IntPtr.Add(startAddr, offset);
                 buffer = new byte[itemSize];
@@ -61,7 +62,7 @@ namespace InteractiveSeven.Core.Memory
 
             CloseHandle(processHandle);
 
-            return offset < capacity ? new ScanResult(offset, buffer) : new ScanResult(-1, null);
+            return offset < capacityInBytes ? new ScanResult(offset, buffer) : new ScanResult(-1, null);
         }
 
         public void WriteMem(string processName, IntPtr address, byte[] bytes)

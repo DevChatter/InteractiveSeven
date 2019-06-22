@@ -8,9 +8,9 @@ namespace InteractiveSeven.Core.Data.Items
         private const int ItemOffset = 288;
         public ushort ItemId => (ushort)(Value + ItemOffset);
         public string Name { get; }
-        public int Value { get; }
+        public byte Value { get; }
 
-        private Accessories(int value, string name)
+        private Accessories(byte value, string name)
         {
             Name = name;
             Value = value;

@@ -58,6 +58,7 @@ namespace InteractiveSeven
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
+            services.AddSingleton<IGilAccessor, GilAccessor>();
             services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
             services.AddSingleton<IMateriaAccessor, MateriaAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
@@ -70,6 +71,7 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<ArmletCommand>(); // TODO: non-combat
             services.RegisterTwitchCommand<AccessoryCommand>(); // TODO: non-combat
 
+            services.RegisterTwitchCommand<PauperCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
