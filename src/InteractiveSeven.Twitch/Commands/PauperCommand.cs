@@ -35,6 +35,8 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (var charName in CharNames.All)
             {
+                _materiaAccessor.RemoveWeaponMateria(charName);
+                _materiaAccessor.RemoveArmletMateria(charName);
                 var charWeaponSet = Weapons.AllWeapons[charName.Id];
                 _equipmentAccessor.SetCharacterWeapon(charName, charWeaponSet.Min(x => x.Value));
                 _equipmentAccessor.SetCharacterArmlet(charName, Armlets.All.Min(x => x.Value));

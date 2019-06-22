@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Linq;
+using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -32,6 +33,38 @@ namespace InteractiveSeven.Core.Memory
             bool IsEmpty(byte[] bytes) => bytes.All(b => b == byte.MaxValue);
         }
 
+        public void RemoveWeaponMateria(CharNames charNames)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charNames);
+            byte[] emptyRow = { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
+
+            for (int i = 0; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
+            {
+                IntPtr address = IntPtr.Add(charMemLoc.WeaponMateria.Address, i);
+                var bytes = new byte[ItemSize];
+                _memory.ReadMem(Settings.ProcessName, address, bytes);
+                var materia = new MateriaSlot(bytes);
+                AddMateria(materia.MateriaId, materia.Experience);
+                _memory.WriteMem(Settings.ProcessName, address, emptyRow);
+            }
+        }
+
+        public void RemoveArmletMateria(CharNames charNames)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charNames);
+            byte[] emptyRow = { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
+
+            for (int i = 0; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
+            {
+                IntPtr address = IntPtr.Add(charMemLoc.ArmorMateria.Address, i);
+                var bytes = new byte[ItemSize];
+                _memory.ReadMem(Settings.ProcessName, address, bytes);
+                var materia = new MateriaSlot(bytes);
+                AddMateria(materia.MateriaId, materia.Experience);
+                _memory.WriteMem(Settings.ProcessName, address, emptyRow);
+            }
+        }
+
         public void RemoveAllMateria()
         {
             int totalOffset = 0;
@@ -55,6 +88,5 @@ namespace InteractiveSeven.Core.Memory
                 => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset),
                     new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue });
         }
-
     }
 }

@@ -44,8 +44,8 @@ namespace InteractiveSeven.Core.Memory
             MaxHp = new MemLoc(IntPtr.Add(baseAddress, 45), 2);
             CurMp = new MemLoc(IntPtr.Add(baseAddress, 47), 2);
             MaxMp = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
-            WeaponMateria = new MemLoc(IntPtr.Add(baseAddress, 63), 2);
-            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 71), 2);
+            WeaponMateria = new MemLoc(IntPtr.Add(baseAddress, 63), 32);
+            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 71), 32);
         }
 
         public static CharMemLoc ByName(CharNames charName)
