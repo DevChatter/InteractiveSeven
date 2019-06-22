@@ -17,15 +17,12 @@
             ItemId = (ushort)(bytes[0] + (bytes[1] % 2 == 0 ? 0 : 256));
         }
 
-        public byte[] AsBytes
+        public byte[] AsBytes()
         {
-            get
-            {
-                var bytes = new byte[2];
-                bytes[0] = (byte) (ItemId > 255 ? ItemId - 256 : ItemId);
-                bytes[1] = (byte) (Quantity * 2 + (ItemId > 255 ? 1 : 0));
-                return bytes;
-            }
+            var bytes = new byte[2];
+            bytes[0] = (byte) (ItemId > 255 ? ItemId - 256 : ItemId);
+            bytes[1] = (byte) (Quantity * 2 + (ItemId > 255 ? 1 : 0));
+            return bytes;
         }
     }
 }

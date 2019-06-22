@@ -19,8 +19,9 @@ namespace UnitTests.Core.Memory
         {
             var fromValues = new InventorySlot(itemId, quantity);
 
-            fromValues.AsBytes[0].Should().Be(bytes[0]);
-            fromValues.AsBytes[1].Should().Be(bytes[1]);
+            byte[] asBytes = fromValues.AsBytes();
+            asBytes[0].Should().Be(bytes[0]);
+            asBytes[1].Should().Be(bytes[1]);
 
             var fromBytes = new InventorySlot(bytes);
 

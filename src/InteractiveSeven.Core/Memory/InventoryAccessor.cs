@@ -40,7 +40,7 @@ namespace InteractiveSeven.Core.Memory
             bool IsItem(byte[] bytes) => new InventorySlot(bytes).ItemId == itemId;
             bool IsEmpty(byte[] bytes) => bytes.All(b => b == byte.MaxValue);
             void WriteInventoryItem(InventorySlot inventorySlot, int addrOffset)
-                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset), inventorySlot.AsBytes);
+                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset), inventorySlot.AsBytes());
         }
     }
 }
