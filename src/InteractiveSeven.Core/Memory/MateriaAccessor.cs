@@ -18,7 +18,7 @@ namespace InteractiveSeven.Core.Memory
             _memory = memory;
         }
 
-        public void AddMateria(byte materiaId, ushort experience = ushort.MinValue)
+        public void AddMateria(byte materiaId, uint experience = 0)
         {
             var scanResult = _memory.ScanMem(Settings.ProcessName,
                 FirstAddress, ItemSize, InvCapacity, IsEmpty);

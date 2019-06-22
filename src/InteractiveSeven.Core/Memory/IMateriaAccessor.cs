@@ -2,6 +2,6 @@
 {
     public interface IMateriaAccessor
     {
-        void AddMateria(byte materiaId, ushort experience = ushort.MinValue);
+        void AddMateria(byte materiaId, uint experience = 0);
     }
 }

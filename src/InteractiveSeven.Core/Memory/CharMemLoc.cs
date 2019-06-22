@@ -21,6 +21,8 @@ namespace InteractiveSeven.Core.Memory
         public MemLoc MaxHp { get; }
         public MemLoc CurMp { get; }
         public MemLoc MaxMp { get; }
+        public MemLoc WeaponMateria { get; }
+        public MemLoc ArmorMateria { get; }
         public MemLoc StartingName { get; } // Contiguous 12 bytes for each character.
 
         private CharMemLoc(IntPtr baseAddress, IntPtr startingNameAddress)
@@ -42,6 +44,8 @@ namespace InteractiveSeven.Core.Memory
             MaxHp = new MemLoc(IntPtr.Add(baseAddress, 45), 2);
             CurMp = new MemLoc(IntPtr.Add(baseAddress, 47), 2);
             MaxMp = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
+            WeaponMateria = new MemLoc(IntPtr.Add(baseAddress, 63), 2);
+            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 71), 2);
         }
 
         public static CharMemLoc ByName(CharNames charName)
