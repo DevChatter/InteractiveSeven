@@ -13,15 +13,18 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
+        private readonly IMateriaAccessor _materiaAccessor;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
 
-        public WeaponCommand(IEquipmentAccessor equipmentAccessor, IInventoryAccessor inventoryAccessor,
+        public WeaponCommand(IEquipmentAccessor equipmentAccessor,
+            IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.WeaponCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
             _inventoryAccessor = inventoryAccessor;
+            _materiaAccessor = materiaAccessor;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
         }
@@ -68,6 +71,7 @@ namespace InteractiveSeven.Twitch.Commands
             Weapons removedWeapon = Weapons.Get(charName, existingWeaponId);
             _equipmentAccessor.SetCharacterWeapon(charName, weapon.Value);
             _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
+            _materiaAccessor.RemoveWeaponMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {weapon.Name}.");
         }

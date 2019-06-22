@@ -13,15 +13,18 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
+        private readonly IMateriaAccessor _materiaAccessor;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
 
-        public ArmletCommand(IEquipmentAccessor equipmentAccessor, IInventoryAccessor inventoryAccessor,
+        public ArmletCommand(IEquipmentAccessor equipmentAccessor,
+            IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.ArmletCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
             _inventoryAccessor = inventoryAccessor;
+            _materiaAccessor = materiaAccessor;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
         }
@@ -70,6 +73,7 @@ namespace InteractiveSeven.Twitch.Commands
             Armlets removedArmlet = Armlets.Get(existingArmletId);
             _equipmentAccessor.SetCharacterArmlet(charName, armlet.Value);
             _inventoryAccessor.AddItem(removedArmlet.ItemId, 1, true);
+            _materiaAccessor.RemoveArmletMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {armlet.Name}.");
         }
