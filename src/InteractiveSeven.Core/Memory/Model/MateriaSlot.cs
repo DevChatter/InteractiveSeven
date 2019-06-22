@@ -14,7 +14,7 @@
         public MateriaSlot(byte[] bytes)
         {
             MateriaId = bytes[0];
-            Experience = (uint)((bytes[1] << 16) + (bytes[1] << 8) + bytes[2]);
+            Experience = (uint)((bytes[3] << 16) + (bytes[2] << 8) + bytes[1]);
         }
 
         public byte[] AsBytes()
