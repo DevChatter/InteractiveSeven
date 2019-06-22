@@ -26,8 +26,7 @@ namespace InteractiveSeven.Core.Memory
             {
                 scanResult = _memory.ScanMem(Settings.ProcessName,
                     FirstAddress, ItemSize, InvCapacity, IsEmpty);
-                var item = new InventorySlot { ItemId = itemId, Quantity = quantity };
-                WriteInventoryItem(item, scanResult.BaseAddrOffset);
+                WriteInventoryItem(new InventorySlot(itemId, quantity), scanResult.BaseAddrOffset);
             }
             else if (allowIncrement)
             {
