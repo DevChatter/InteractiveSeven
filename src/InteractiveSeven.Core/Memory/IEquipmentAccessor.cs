@@ -4,8 +4,9 @@ namespace InteractiveSeven.Core.Memory
 {
     public interface IEquipmentAccessor
     {
-        void SetCharacterWeapon(CharNames charName, int weapon);
+        void SetCharacterWeapon(CharNames charName, byte weapon);
         void SetCharacterArmlet(CharNames charName, int armlet);
         void SetCharacterAccessory(CharNames charName, int accessory);
+        byte GetCharacterWeapon(CharNames charName);
     }
 }

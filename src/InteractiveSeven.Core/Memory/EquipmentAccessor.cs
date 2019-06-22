@@ -14,10 +14,10 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor = memoryAccessor;
         }
 
-        public void SetCharacterWeapon(CharNames charName, int weapon)
+        public void SetCharacterWeapon(CharNames charName, byte weapon)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new[] { (byte)weapon };
+            var bytes = new[] { weapon };
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
         }
 
@@ -33,6 +33,14 @@ namespace InteractiveSeven.Core.Memory
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
             var bytes = new[] { (byte)accessory };
             _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Accessory.Address, bytes);
+        }
+
+        public byte GetCharacterWeapon(CharNames charName)
+        {
+            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
+            var bytes = new byte[1];
+            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
+            return bytes[0];
         }
     }
 }

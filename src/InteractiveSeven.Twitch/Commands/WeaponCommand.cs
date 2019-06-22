@@ -12,14 +12,16 @@ namespace InteractiveSeven.Twitch.Commands
     public class WeaponCommand : BaseCommand
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
+        private readonly IInventoryAccessor _inventoryAccessor;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
 
-        public WeaponCommand(IEquipmentAccessor equipmentAccessor,
+        public WeaponCommand(IEquipmentAccessor equipmentAccessor, IInventoryAccessor inventoryAccessor,
             GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.WeaponCommandWords, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
+            _inventoryAccessor = inventoryAccessor;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
         }
@@ -50,7 +52,19 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             Weapons weapon = Weapons.Get(charName, weaponId);
+            int existingWeaponId = _equipmentAccessor.GetCharacterWeapon(charName);
+            if (weapon.Value == existingWeaponId)
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Sorry, {charName.DefaultName} already has {weapon.Name} equipped.");
+                return;
+            }
+
+            Weapons removedWeapon = Weapons.Get(charName, existingWeaponId);
             _equipmentAccessor.SetCharacterWeapon(charName, weapon.Value);
+            _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
+            _twitchClient.SendMessage(commandData.Channel,
+                $"Equipped {charName.DefaultName} with a {weapon.Name}.");
         }
 
         private bool CanOverrideBitRestriction(ChatUser user)
