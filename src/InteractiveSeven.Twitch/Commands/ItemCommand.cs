@@ -20,6 +20,8 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
+            if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
+
             string itemIdText = commandData.Arguments.FirstOrDefault();
             if (itemIdText != null && ushort.TryParse(itemIdText, out ushort itemId) && itemId < 319)
             {
