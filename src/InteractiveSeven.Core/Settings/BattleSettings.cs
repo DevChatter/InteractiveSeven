@@ -59,8 +59,6 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-
-        [JsonIgnore]
         public StatusEffectSettings[] AllStatusEffects { get; set; }
 
         public StatusEffectSettings ByWord(string word)
