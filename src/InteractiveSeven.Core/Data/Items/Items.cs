@@ -203,6 +203,64 @@ namespace InteractiveSeven.Core.Data.Items
             new AerisWeapons(198, "Fairy Tale"),
             new AerisWeapons(199, "Umbrella"),
             new AerisWeapons(200, "Princess Guard"),
+
+            new CidWeapons(201, "Spear"),
+            new CidWeapons(202, "Slash Lance"),
+            new CidWeapons(203, "Trident"),
+            new CidWeapons(204, "Mast Axe"),
+            new CidWeapons(205, "Partisan"),
+            new CidWeapons(206, "Viper Halberd"),
+            new CidWeapons(207, "Javelin"),
+            new CidWeapons(208, "Grow Lance"),
+            new CidWeapons(209, "Mop"),
+            new CidWeapons(210, "Dragoon Lance"),
+            new CidWeapons(211, "Scimitar"),
+            new CidWeapons(212, "Flayer"),
+            new CidWeapons(213, "Spirit Lance"),
+            new CidWeapons(214, "Venus Gospel"),
+
+            new YuffieWeapons(215, "4-point Sherukin"),
+            new YuffieWeapons(216, "Boomerang"),
+            new YuffieWeapons(217, "Pinwheel"),
+            new YuffieWeapons(218, "Razor Ring"),
+            new YuffieWeapons(219, "Hawkeye"),
+            new YuffieWeapons(220, "Crystal Cross"),
+            new YuffieWeapons(221, "Wind Slash"),
+            new YuffieWeapons(222, "Twin Viper"),
+            new YuffieWeapons(223, "Spiral Shuriken"),
+            new YuffieWeapons(224, "Superball"),
+            new YuffieWeapons(225, "Magic Shuriken"),
+            new YuffieWeapons(226, "Rising Sun"),
+            new YuffieWeapons(227, "Oritsuru"),
+            new YuffieWeapons(228, "Conformer"),
+
+            new CaitSithWeapons(229, "Yellow M-phone"),
+            new CaitSithWeapons(230, "Green M-phone"),
+            new CaitSithWeapons(231, "Blue M-phone"),
+            new CaitSithWeapons(232, "Red M-phone"),
+            new CaitSithWeapons(233, "Crystal M-phone"),
+            new CaitSithWeapons(234, "White M-phone"),
+            new CaitSithWeapons(235, "Black M-phone"),
+            new CaitSithWeapons(236, "Silver M-phone"),
+            new CaitSithWeapons(237, "Trumpet Shell"),
+            new CaitSithWeapons(238, "Gold M-phone"),
+            new CaitSithWeapons(239, "Battle Trumpet"),
+            new CaitSithWeapons(240, "Starlight Phone"),
+            new CaitSithWeapons(241, "HP Shout"),
+
+            new VincentWeapons(242, "Quicksilver"),
+            new VincentWeapons(243, "Shotgun"),
+            new VincentWeapons(244, "Shortbarrel"),
+            new VincentWeapons(245, "Lariat"),
+            new VincentWeapons(246, "Winchester"),
+            new VincentWeapons(247, "Peacemaker"),
+            new VincentWeapons(248, "Buntline"),
+            new VincentWeapons(249, "Long Barrel R"),
+            new VincentWeapons(250, "Silver Rifle"),
+            new VincentWeapons(251, "Sniper CR"),
+            new VincentWeapons(252, "Supershot ST"),
+            new VincentWeapons(253, "Outsider"),
+            new VincentWeapons(254, "Death Penalty"),
         };
 
         public static bool IsValid(int itemId) => Get(itemId) != null;
@@ -260,6 +318,38 @@ namespace InteractiveSeven.Core.Data.Items
     {
         internal AerisWeapons(ushort value, string name, params string[] words)
             : base(value, name, 190, 62, words)
+        {
+        }
+    }
+
+    public class CidWeapons : BaseWeapons
+    {
+        internal CidWeapons(ushort value, string name, params string[] words)
+            : base(value, name, 201, 73, words)
+        {
+        }
+    }
+
+    public class YuffieWeapons : BaseWeapons
+    {
+        internal YuffieWeapons(ushort value, string name, params string[] words)
+            : base(value, name, 215, 87, words)
+        {
+        }
+    }
+
+    public class CaitSithWeapons : BaseWeapons
+    {
+        internal CaitSithWeapons(ushort value, string name, params string[] words)
+            : base(value, name, 229, 101, words)
+        {
+        }
+    }
+
+    public class VincentWeapons : BaseWeapons
+    {
+        internal VincentWeapons(ushort value, string name, params string[] words)
+            : base(value, name, 242, 114, words)
         {
         }
     }
