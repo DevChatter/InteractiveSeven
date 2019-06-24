@@ -49,7 +49,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool AllowModOverride // TODO: Add to Settings Screen
+        public bool AllowModOverride
         {
             get => _allowModOverride;
             set
