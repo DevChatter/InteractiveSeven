@@ -55,9 +55,9 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
 
-            Weapons weapon = Weapons.Get(charName, weaponId);
+            var weapon = Weapons.Get(charName, weaponId);
             int existingWeaponId = _equipmentAccessor.GetCharacterWeapon(charName);
-            if (weapon.Value == existingWeaponId)
+            if (weapon.WeaponId == existingWeaponId)
             {
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {weapon.Name} equipped.");
@@ -68,8 +68,8 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Weapons removedWeapon = Weapons.Get(charName, existingWeaponId);
-            _equipmentAccessor.SetCharacterWeapon(charName, weapon.Value);
+            var removedWeapon = Weapons.Get(charName, existingWeaponId);
+            _equipmentAccessor.SetCharacterWeapon(charName, weapon.WeaponId);
             _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
             _materiaAccessor.RemoveWeaponMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
