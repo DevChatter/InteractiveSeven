@@ -57,7 +57,7 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
 
-            Armlets armlet = Armlets.Get(armletId);
+            Armlets armlet = Armlets.GetArmlet(armletId);
             int existingArmletId = _equipmentAccessor.GetCharacterArmlet(charName);
             if (armlet.Value == existingArmletId)
             {
@@ -70,7 +70,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Armlets removedArmlet = Armlets.Get(existingArmletId);
+            Armlets removedArmlet = Armlets.GetArmlet(existingArmletId);
             _equipmentAccessor.SetCharacterArmlet(charName, armlet.Value);
             _inventoryAccessor.AddItem(removedArmlet.ItemId, 1, true);
             _materiaAccessor.RemoveArmletMateria(charName);

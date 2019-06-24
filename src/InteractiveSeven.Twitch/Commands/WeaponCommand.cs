@@ -36,8 +36,8 @@ namespace InteractiveSeven.Twitch.Commands
             var weaponText = commandData.Arguments.ElementAtOrDefault(1);
 
             if (!isValidName
-                || !int.TryParse(weaponText ?? "", out int weaponId)
-                || !Weapons.IsValid(charName, weaponId))
+                || !int.TryParse(weaponText ?? "", out int value)
+                || !Weapons.IsValid(charName, value))
             {
                 _twitchClient.SendMessage(commandData.Channel, "Invalid Request - Specify character and weapon number like this !weapon cloud 15");
                 return;
@@ -55,7 +55,7 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
 
-            var weapon = Weapons.Get(charName, weaponId);
+            var weapon = Weapons.GetByValue(charName, value);
             int existingWeaponId = _equipmentAccessor.GetCharacterWeapon(charName);
             if (weapon.WeaponId == existingWeaponId)
             {
@@ -68,7 +68,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            var removedWeapon = Weapons.Get(charName, existingWeaponId);
+            var removedWeapon = Weapons.GetByWeaponId(charName, existingWeaponId);
             _equipmentAccessor.SetCharacterWeapon(charName, weapon.WeaponId);
             _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
             _materiaAccessor.RemoveWeaponMateria(charName);

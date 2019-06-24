@@ -19,10 +19,20 @@ namespace InteractiveSeven.Core.Data.Items
                 [CharNames.Vincent.Id] = Items.All.OfType<VincentWeapons>().Select(x => (BaseWeapons)x).ToList(),
             };
 
-        public static bool IsValid(CharNames charName, int weaponId)
-            => Get(charName, weaponId) != null;
+        public static bool IsValid(CharNames charName, int value)
+            => GetByValue(charName, value) != null;
 
-        public static BaseWeapons Get(CharNames charName, int weaponId)
+        public static BaseWeapons GetByValue(CharNames charName, int value)
+        {
+            if (!AllWeapons.TryGetValue(charName.Id, out IList<BaseWeapons> charWeapons))
+            {
+                return null;
+            }
+
+            return charWeapons.SingleOrDefault(x => x.Value == value);
+        }
+
+        public static BaseWeapons GetByWeaponId(CharNames charName, int weaponId)
         {
             if (!AllWeapons.TryGetValue(charName.Id, out IList<BaseWeapons> charWeapons))
             {
@@ -37,11 +47,11 @@ namespace InteractiveSeven.Core.Data.Items
     {
         public byte WeaponId { get; }
 
-        protected BaseWeapons(ushort value, string name, ushort weaponIdOffset,
-            ushort itemIdOffset = 0, params string[] words)
-            : base(value, name, itemIdOffset, words)
+        protected BaseWeapons(ushort value, string name, ushort typeOffset,
+            ushort weaponOffset = 0, params string[] words)
+            : base(value, name, typeOffset, words)
         {
-            WeaponId = (byte)(ItemId - weaponIdOffset);
+            WeaponId = (byte)(value + weaponOffset);
         }
     }
 
@@ -113,6 +123,14 @@ namespace InteractiveSeven.Core.Data.Items
     {
         internal VincentWeapons(ushort value, string name, params string[] words)
             : base(value, name, 242, 114, words)
+        {
+        }
+    }
+
+    public class SephirothWeapons : BaseWeapons
+    {
+        internal SephirothWeapons(ushort value, string name, params string[] words)
+            : base(value, name, 255, 127, words)
         {
         }
     }
