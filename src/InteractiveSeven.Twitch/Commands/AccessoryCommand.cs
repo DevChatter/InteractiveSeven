@@ -54,7 +54,7 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
 
-            Accessories accessory = Accessories.Get(accessoryId);
+            Accessories accessory = Accessories.GetAccessory(accessoryId);
             int existingAccessoryId = _equipmentAccessor.GetCharacterAccessory(charName);
             if (accessory.Value == existingAccessoryId)
             {
@@ -67,8 +67,8 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Accessories removedAccessory = Accessories.Get(existingAccessoryId);
-            _equipmentAccessor.SetCharacterAccessory(charName, accessory.Value);
+            Accessories removedAccessory = Accessories.GetAccessory(existingAccessoryId);
+            _equipmentAccessor.SetCharacterAccessory(charName, (byte)accessory.Value);
             if (removedAccessory != null)
             {
                 _inventoryAccessor.AddItem(removedAccessory.ItemId, 1, true);
