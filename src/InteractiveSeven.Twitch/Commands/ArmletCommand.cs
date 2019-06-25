@@ -70,9 +70,12 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Armlets removedArmlet = Armlets.GetArmlet(existingArmletId);
             _equipmentAccessor.SetCharacterArmlet(charName, armlet.Value);
-            _inventoryAccessor.AddItem(removedArmlet.ItemId, 1, true);
+            if (Settings.EquipmentSettings.KeepPreviousEquipment)
+            {
+                Armlets removedArmlet = Armlets.GetArmlet(existingArmletId);
+                _inventoryAccessor.AddItem(removedArmlet.ItemId, 1, true);
+            }
             _materiaAccessor.RemoveArmletMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {armlet.Name}.");

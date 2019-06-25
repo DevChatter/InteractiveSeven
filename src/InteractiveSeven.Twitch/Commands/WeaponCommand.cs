@@ -68,9 +68,12 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            var removedWeapon = Weapons.GetByWeaponId(charName, existingWeaponId);
             _equipmentAccessor.SetCharacterWeapon(charName, weapon.WeaponId);
-            _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
+            if (Settings.EquipmentSettings.KeepPreviousEquipment)
+            {
+                var removedWeapon = Weapons.GetByWeaponId(charName, existingWeaponId);
+                _inventoryAccessor.AddItem(removedWeapon.ItemId, 1, true);
+            }
             _materiaAccessor.RemoveWeaponMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {weapon.Name}.");

@@ -67,9 +67,9 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Accessories removedAccessory = Accessories.GetAccessory(existingAccessoryId);
             _equipmentAccessor.SetCharacterAccessory(charName, (byte)accessory.Value);
-            if (removedAccessory != null)
+            Accessories removedAccessory = Accessories.GetAccessory(existingAccessoryId);
+            if (removedAccessory != null && Settings.EquipmentSettings.KeepPreviousEquipment)
             {
                 _inventoryAccessor.AddItem(removedAccessory.ItemId, 1, true);
             }
