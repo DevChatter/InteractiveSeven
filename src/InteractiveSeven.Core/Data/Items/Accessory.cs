@@ -1,6 +1,6 @@
 ﻿namespace InteractiveSeven.Core.Data.Items
 {
-    public class Accessory : Equipment // Rename to Accessory
+    public class Accessory : Equipment
     {
         private const int ItemOffset = 288;
 
