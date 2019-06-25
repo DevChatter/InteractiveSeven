@@ -92,15 +92,15 @@ namespace InteractiveSeven.Twitch.Commands
 
         private static Func<CharMemLoc, IntPtr> AddressSelector()
         {
-            if (typeof(T) == typeof(Weapons))
+            if (typeof(T) == typeof(Weapon))
             {
                 return x => x.Weapon.Address;
             }
-            if (typeof(T) == typeof(Accessories))
+            if (typeof(T) == typeof(Accessory))
             {
                 return x => x.Accessory.Address;
             }
-            if (typeof(T) == typeof(Armlets))
+            if (typeof(T) == typeof(Armlet))
             {
                 return x => x.Armlet.Address;
             }

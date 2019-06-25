@@ -1,10 +1,10 @@
 ﻿namespace InteractiveSeven.Core.Data.Items
 {
-    public class Accessories : Equipment // Rename to Accessory
+    public class Accessory : Equipment // Rename to Accessory
     {
         private const int ItemOffset = 288;
 
-        internal Accessories(byte value, string name)
+        internal Accessory(byte value, string name)
             : base(value, name, ItemOffset)
         {
         }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Twitch.Model;
@@ -14,15 +13,15 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IGilAccessor _gilAccessor;
         private readonly ITwitchClient _twitchClient;
-        private readonly EquipmentData<Weapons> _weaponData;
-        private readonly EquipmentData<Armlets> _armletData;
+        private readonly EquipmentData<Weapon> _weaponData;
+        private readonly EquipmentData<Armlet> _armletData;
 
         public PauperCommand(IEquipmentAccessor equipmentAccessor,
             IMateriaAccessor materiaAccessor,
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
-            EquipmentData<Weapons> weaponData, EquipmentData<Armlets> armletData)
+            EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData)
             : base(x => new []{ "pauper" }, x => true)
         {
             _equipmentAccessor = equipmentAccessor;

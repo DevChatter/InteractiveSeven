@@ -1,10 +1,10 @@
 ﻿namespace InteractiveSeven.Core.Data.Items
 {
-    public abstract class Weapons : Equipment
+    public abstract class Weapon : Equipment
     {
         public CharNames CharName { get; }
 
-        protected Weapons(ushort value, string name, ushort typeOffset, CharNames charName,
+        protected Weapon(ushort value, string name, ushort typeOffset, CharNames charName,
             byte weaponOffset = 0, params string[] words)
             : base(value, name, typeOffset, weaponOffset, words)
         {
@@ -21,81 +21,81 @@
             => EquipmentId == equipId && CharName == charName;
     }
 
-    public class CloudWeapons : Weapons
+    public class CloudWeapon : Weapon
     {
-        internal CloudWeapons(ushort value, string name, params string[] words)
+        internal CloudWeapon(ushort value, string name, params string[] words)
             : base(value, name, 128, CharNames.Cloud, 0, words)
         {
         }
     }
 
-    public class TifaWeapons : Weapons
+    public class TifaWeapon : Weapon
     {
-        internal TifaWeapons(ushort value, string name, params string[] words)
+        internal TifaWeapon(ushort value, string name, params string[] words)
             : base(value, name, 144, CharNames.Tifa, 16, words)
         {
         }
     }
 
-    public class BarretWeapons : Weapons
+    public class BarretWeapon : Weapon
     {
-        internal BarretWeapons(ushort value, string name, params string[] words)
+        internal BarretWeapon(ushort value, string name, params string[] words)
             : base(value, name, 160, CharNames.Barret, 32, words)
         {
         }
     }
 
-    public class RedWeapons : Weapons
+    public class RedWeapon : Weapon
     {
-        internal RedWeapons(ushort value, string name, params string[] words)
+        internal RedWeapon(ushort value, string name, params string[] words)
             : base(value, name, 176, CharNames.Red, 48, words)
         {
         }
     }
 
-    public class AerisWeapons : Weapons
+    public class AerisWeapon : Weapon
     {
-        internal AerisWeapons(ushort value, string name, params string[] words)
+        internal AerisWeapon(ushort value, string name, params string[] words)
             : base(value, name, 190, CharNames.Aeris, 62, words)
         {
         }
     }
 
-    public class CidWeapons : Weapons
+    public class CidWeapon : Weapon
     {
-        internal CidWeapons(ushort value, string name, params string[] words)
+        internal CidWeapon(ushort value, string name, params string[] words)
             : base(value, name, 201, CharNames.Cid, 73, words)
         {
         }
     }
 
-    public class YuffieWeapons : Weapons
+    public class YuffieWeapon : Weapon
     {
-        internal YuffieWeapons(ushort value, string name, params string[] words)
+        internal YuffieWeapon(ushort value, string name, params string[] words)
             : base(value, name, 215, CharNames.Yuffie, 87, words)
         {
         }
     }
 
-    public class CaitSithWeapons : Weapons
+    public class CaitSithWeapon : Weapon
     {
-        internal CaitSithWeapons(ushort value, string name, params string[] words)
+        internal CaitSithWeapon(ushort value, string name, params string[] words)
             : base(value, name, 229, CharNames.CaitSith, 101, words)
         {
         }
     }
 
-    public class VincentWeapons : Weapons
+    public class VincentWeapon : Weapon
     {
-        internal VincentWeapons(ushort value, string name, params string[] words)
+        internal VincentWeapon(ushort value, string name, params string[] words)
             : base(value, name, 242, CharNames.Vincent, 114, words)
         {
         }
     }
 
-    public class SephirothWeapons : Weapons
+    public class SephirothWeapon : Weapon
     {
-        internal SephirothWeapons(ushort value, string name, params string[] words)
+        internal SephirothWeapon(ushort value, string name, params string[] words)
             : base(value, name, 255, null, 127, words)
         {
         }

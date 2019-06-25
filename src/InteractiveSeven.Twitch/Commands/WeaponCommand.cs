@@ -5,11 +5,11 @@ using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
 {
-    public class WeaponCommand : EquipmentCommand<Weapons>
+    public class WeaponCommand : EquipmentCommand<Weapon>
     {
         public WeaponCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
-            GilBank gilBank, ITwitchClient twitchClient, EquipmentData<Weapons> equipmentData)
+            GilBank gilBank, ITwitchClient twitchClient, EquipmentData<Weapon> equipmentData)
             : base(equipmentAccessor, inventoryAccessor, materiaAccessor,
                 gilBank, twitchClient, equipmentData, x => x.WeaponCommandWords)
         {

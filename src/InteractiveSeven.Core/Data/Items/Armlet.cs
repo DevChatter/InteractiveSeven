@@ -1,10 +1,10 @@
 ﻿namespace InteractiveSeven.Core.Data.Items
 {
-    public class Armlets : Equipment // TODO: Rename to Armlet
+    public class Armlet : Equipment
     {
         private const int ArmletOffset = 256;
 
-        internal Armlets(byte value, string name)
+        internal Armlet(byte value, string name)
             : base(value, name, ArmletOffset)
         {
         }

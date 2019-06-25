@@ -32,9 +32,9 @@ namespace InteractiveSeven
 
         public static IServiceCollection RegisterEquipmentData(this IServiceCollection services)
         {
-            return services.AddSingleton<EquipmentData<Weapons>>()
-                .AddSingleton<EquipmentData<Armlets>>()
-                .AddSingleton<EquipmentData<Accessories>>();
+            return services.AddSingleton<EquipmentData<Weapon>>()
+                .AddSingleton<EquipmentData<Armlet>>()
+                .AddSingleton<EquipmentData<Accessory>>();
         }
     }
 }

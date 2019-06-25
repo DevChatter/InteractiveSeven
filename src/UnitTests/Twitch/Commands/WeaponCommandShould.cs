@@ -19,7 +19,7 @@ namespace UnitTests.Twitch.Commands
         {
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapons>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
 
             weaponCommand.Execute(commandData);
 
@@ -30,7 +30,7 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInvalidCommandArgs()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, "cloud");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapons>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
 
             weaponCommand.Execute(commandData);
 
@@ -42,7 +42,7 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInsufficientGil()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapons>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
 
             weaponCommand.Execute(commandData);
 
