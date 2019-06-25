@@ -6,17 +6,16 @@ namespace InteractiveSeven.Core.Data.Items
     public class Items
     {
         public string Name { get; }
-        public ushort Value { get; } // TODO: Rename to ID
+        public ushort Id { get; }
         public string[] Words { get; set; }
-        public ushort TypeOffset { get; set; }
-        public ushort ItemId => (ushort)(Value + TypeOffset);
+        public ushort ItemId { get; }
 
-        protected Items(ushort value, string name, ushort typeOffset = 0, params string[] words)
+        protected Items(ushort id, string name, ushort typeOffset = 0, params string[] words)
         {
             Name = name;
-            Value = value;
+            Id = id;
+            ItemId = (ushort)(id + typeOffset);
             Words = words ?? new string[0];
-            TypeOffset = typeOffset;
         }
 
         public static IList<Items> All = new[]

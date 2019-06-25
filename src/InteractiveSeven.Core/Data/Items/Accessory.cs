@@ -4,13 +4,13 @@
     {
         private const int ItemOffset = 288;
 
-        internal Accessory(byte value, string name)
-            : base(value, name, ItemOffset)
+        internal Accessory(byte id, string name)
+            : base(id, name, ItemOffset)
         {
         }
 
         public override bool IsMatchById(ushort id, CharNames charName = null)
-            => Value == id;
+            => Id == id;
 
         public override bool IsMatchByItemId(ushort itemId, CharNames charName = null)
             => ItemId == itemId;

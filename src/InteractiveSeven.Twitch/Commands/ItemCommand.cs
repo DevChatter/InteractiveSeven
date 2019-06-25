@@ -27,7 +27,7 @@ namespace InteractiveSeven.Twitch.Commands
             if (itemIdText != null && ushort.TryParse(itemIdText, out ushort itemId) && itemId < 319)
             {
                 _inventoryAccessor.AddItem(itemId, 1, true);
-                Items item = Items.All.SingleOrDefault(x => x.Value == itemId);
+                Items item = Items.All.SingleOrDefault(x => x.Id == itemId);
                 string itemName = item == null ? "Unknown Item" : item.Name;
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Item {itemName} Added");

@@ -3,11 +3,11 @@
     public abstract class Equipment : Items
     {
         public byte EquipmentId { get; }
-        protected Equipment(ushort value, string name, ushort typeOffset = 0,
+        protected Equipment(ushort id, string name, ushort typeOffset = 0,
             byte weaponOffset = 0, params string[] words)
-            : base(value, name, typeOffset, words)
+            : base(id, name, typeOffset, words)
         {
-            EquipmentId = (byte)(value + weaponOffset);
+            EquipmentId = (byte)(id + weaponOffset);
         }
 
         public abstract bool IsMatchById(ushort id, CharNames charName = null);
