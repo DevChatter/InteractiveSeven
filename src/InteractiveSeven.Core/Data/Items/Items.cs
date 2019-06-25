@@ -331,7 +331,7 @@ namespace InteractiveSeven.Core.Data.Items
 
         };
 
-        public static Items Get(int itemId)
-            => All.SingleOrDefault(x => x.Value == itemId);
+        public static Items GetByItemId(int itemId)
+            => All.SingleOrDefault(x => x.ItemId == itemId);
     }
 }

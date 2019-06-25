@@ -15,7 +15,7 @@ namespace InteractiveSeven.Core.Data.Items
         public static IList<Armlets> AllArmlets = Items.All.OfType<Armlets>().ToList();
 
         public static bool IsValid(int armletId)
-            => Get(armletId) != null;
+            => GetArmlet(armletId) != null;
 
         public static Armlets GetArmlet(int armletId)
             => AllArmlets.SingleOrDefault(x => x.Value == armletId);
