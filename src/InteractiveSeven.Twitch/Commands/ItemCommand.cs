@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using InteractiveSeven.Core.Data.Items;
+﻿using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Twitch.Model;
+using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -12,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
 
         public ItemCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor)
-            : base(x => new[] {"item"}, x => true)
+            : base(x => new[] {"item"}, x => x.ItemSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _inventoryAccessor = inventoryAccessor;
@@ -20,8 +21,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
-            // TODO: Allow Moderators to Use this Command
-            if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
+            if (!IsAllowedToUseCommand(commandData.User)) return;
 
             string itemIdText = commandData.Arguments.FirstOrDefault();
             if (itemIdText != null && ushort.TryParse(itemIdText, out ushort itemId) && itemId < 319)
@@ -33,5 +33,10 @@ namespace InteractiveSeven.Twitch.Commands
                     $"Item {itemName} Added");
             }
         }
+
+        private bool IsAllowedToUseCommand(ChatUser user)
+            => (Settings.ItemSettings.AllowMod && user.IsMod)
+               || user.IsMe || user.IsBroadcaster;
+
     }
 }

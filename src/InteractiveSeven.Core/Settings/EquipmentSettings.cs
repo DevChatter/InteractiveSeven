@@ -8,10 +8,6 @@ namespace InteractiveSeven.Core.Settings
         private bool _allowModOverride = true;
         private bool _keepPreviousEquipment = true;
 
-        public EquipmentSettings()
-        {
-        }
-
         public bool Enabled // TODO: Add to Settings Screen
         {
             get => _enabled;
