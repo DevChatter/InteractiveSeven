@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
+using System;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -14,49 +15,20 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor = memoryAccessor;
         }
 
-        public void SetCharacterWeapon(CharNames charName, byte weapon)
-        {
-            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new[] { weapon };
-            _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
-        }
-
-        public void SetCharacterArmlet(CharNames charName, ushort armlet)
-        {
-            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new[] { (byte)armlet };
-            _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Armlet.Address, bytes);
-        }
-
-        public void SetCharacterAccessory(CharNames charName, byte accessory)
-        {
-            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new[] { (byte)accessory };
-            _memoryAccessor.WriteMem(Settings.ProcessName, charMemLoc.Accessory.Address, bytes);
-        }
-
-        public byte GetCharacterWeapon(CharNames charName)
+        public byte GetCharacterEquipment(CharNames charName, Func<CharMemLoc, IntPtr> addressSelector)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
             var bytes = new byte[1];
-            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Weapon.Address, bytes);
+            _memoryAccessor.ReadMem(Settings.ProcessName, addressSelector(charMemLoc), bytes);
             return bytes[0];
         }
 
-        public byte GetCharacterArmlet(CharNames charName)
+        public void SetCharacterEquipment(CharNames charName, byte equipmentEquipmentId,
+            Func<CharMemLoc, IntPtr> addressSelector)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new byte[1];
-            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Armlet.Address, bytes);
-            return bytes[0];
-        }
-
-        public byte GetCharacterAccessory(CharNames charName)
-        {
-            CharMemLoc charMemLoc = CharMemLoc.ByName(charName);
-            var bytes = new byte[1];
-            _memoryAccessor.ReadMem(Settings.ProcessName, charMemLoc.Accessory.Address, bytes);
-            return bytes[0];
+            var bytes = new[] { equipmentEquipmentId };
+            _memoryAccessor.WriteMem(Settings.ProcessName, addressSelector(charMemLoc), bytes);
         }
     }
 }

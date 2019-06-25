@@ -14,12 +14,15 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IGilAccessor _gilAccessor;
         private readonly ITwitchClient _twitchClient;
+        private readonly EquipmentData<Weapons> _weaponData;
+        private readonly EquipmentData<Armlets> _armletData;
 
         public PauperCommand(IEquipmentAccessor equipmentAccessor,
             IMateriaAccessor materiaAccessor,
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
-            ITwitchClient twitchClient)
+            ITwitchClient twitchClient,
+            EquipmentData<Weapons> weaponData, EquipmentData<Armlets> armletData)
             : base(x => new []{ "pauper" }, x => true)
         {
             _equipmentAccessor = equipmentAccessor;
@@ -27,6 +30,8 @@ namespace InteractiveSeven.Twitch.Commands
             _inventoryAccessor = inventoryAccessor;
             _gilAccessor = gilAccessor;
             _twitchClient = twitchClient;
+            _weaponData = weaponData;
+            _armletData = armletData;
         }
 
         public override void Execute(CommandData commandData)
@@ -37,10 +42,10 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 _materiaAccessor.RemoveWeaponMateria(charName);
                 _materiaAccessor.RemoveArmletMateria(charName);
-                var charWeaponSet = Weapons.AllWeapons[charName.Id];
-                _equipmentAccessor.SetCharacterWeapon(charName, charWeaponSet.Min(x => x.WeaponId));
-                _equipmentAccessor.SetCharacterArmlet(charName, Armlets.All.Min(x => x.Value));
-                _equipmentAccessor.SetCharacterAccessory(charName, byte.MaxValue);
+                var startWeapon = _weaponData.GetById(0, charName);
+                _equipmentAccessor.SetCharacterEquipment(charName, startWeapon.EquipmentId, x => x.Weapon.Address);
+                _equipmentAccessor.SetCharacterEquipment(charName, _armletData.GetById(0).EquipmentId, x => x.Armlet.Address);
+                _equipmentAccessor.SetCharacterEquipment(charName, byte.MaxValue, x => x.Accessory.Address);
             }
 
             _materiaAccessor.RemoveAllMateria();

@@ -41,5 +41,8 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
+        [JsonIgnore]
+        public EquippableSettings[] AllEquippableSettings { get; set; }
     }
 }

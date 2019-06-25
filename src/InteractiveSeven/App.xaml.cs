@@ -65,6 +65,8 @@ namespace InteractiveSeven
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
 
+            services.RegisterEquipmentData();
+
             services.RegisterBattleCommand<StatusEffectCommand>();
 
             services.RegisterNonBattleCommand<WeaponCommand>();

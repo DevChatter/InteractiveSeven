@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace InteractiveSeven.Core.Data.Items
+﻿namespace InteractiveSeven.Core.Data.Items
 {
-    public class Accessories : Items
+    public class Accessories : Equipment // Rename to Accessory
     {
         private const int ItemOffset = 288;
 
@@ -12,12 +9,13 @@ namespace InteractiveSeven.Core.Data.Items
         {
         }
 
-        public static IList<Accessories> AllAccessories = Items.All.OfType<Accessories>().ToList();
+        public override bool IsMatchById(ushort id, CharNames charName = null)
+            => Value == id;
 
-        public static bool IsValid(int accessoryId)
-            => GetAccessory(accessoryId) != null;
+        public override bool IsMatchByItemId(ushort itemId, CharNames charName = null)
+            => ItemId == itemId;
 
-        public static Accessories GetAccessory(int accessoryId)
-            => AllAccessories.SingleOrDefault(x => x.Value == accessoryId);
+        public override bool IsMatchByEquipId(ushort equipId, CharNames charName = null)
+            => EquipmentId == equipId;
     }
 }

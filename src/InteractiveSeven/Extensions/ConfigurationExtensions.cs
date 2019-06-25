@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Twitch.Commands;
+﻿using InteractiveSeven.Core.Data.Items;
+using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Commands.Decorators;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,13 @@ namespace InteractiveSeven
             return services.AddSingleton(typeof(T))
                 .AddSingleton(typeof(NonBattleCommand<T>))
                 .AddSingleton(typeof(ITwitchCommand), typeof(LoggingCommand<NonBattleCommand<T>>));
+        }
+
+        public static IServiceCollection RegisterEquipmentData(this IServiceCollection services)
+        {
+            return services.AddSingleton<EquipmentData<Weapons>>()
+                .AddSingleton<EquipmentData<Armlets>>()
+                .AddSingleton<EquipmentData<Accessories>>();
         }
     }
 }
