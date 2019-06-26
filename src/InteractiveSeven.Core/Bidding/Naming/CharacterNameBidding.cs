@@ -6,11 +6,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Bidding.Naming
 {
     public class CharacterNameBidding : INotifyPropertyChanged
     {
+        private readonly ILogger<CharacterNameBidding> _logger;
         public CharNames CharName { get; }
         public string DefaultName { get; }
 
@@ -36,8 +38,9 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public CharacterNameBidding(CharNames charNames, bool withDefault = true)
+        public CharacterNameBidding(CharNames charNames, ILogger<CharacterNameBidding> logger, bool withDefault = true)
         {
+            _logger = logger;
             CharName = charNames;
             DefaultName = charNames.DefaultName;
             _leadingName = charNames.DefaultName;
@@ -104,7 +107,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to record name bid.");
             }
         }
 

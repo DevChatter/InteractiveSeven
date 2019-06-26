@@ -4,6 +4,7 @@ using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly ITwitchClient _twitchClient;
         private readonly IDataStore _dataStore;
         private readonly IDialogService _dialogService;
+        private readonly ILogger<NameBiddingViewModel> _logger;
+        private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
         public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; }
             = new ThreadedObservableCollection<CharacterNameBidding>();
@@ -25,7 +28,8 @@ namespace InteractiveSeven.Core.ViewModels
         public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
 
         public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
-            IDataStore dataStore, IDialogService dialogService)
+            IDataStore dataStore, IDialogService dialogService, ILogger<NameBiddingViewModel> logger,
+            ILogger<CharacterNameBidding> charNameBiddingLogger)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
@@ -36,6 +40,8 @@ namespace InteractiveSeven.Core.ViewModels
             _twitchClient = twitchClient;
             _dataStore = dataStore;
             _dialogService = dialogService;
+            _logger = logger;
+            _charNameBiddingLogger = charNameBiddingLogger;
 
             ResetDataCommand = new SimpleCommand(x =>
             {
@@ -47,7 +53,7 @@ namespace InteractiveSeven.Core.ViewModels
 
             foreach (CharNames charName in CharNames.All)
             {
-                CharacterNameBiddings.Add(new CharacterNameBidding(charName));
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
             }
         }
 
@@ -58,7 +64,7 @@ namespace InteractiveSeven.Core.ViewModels
             CharacterNameBiddings.Clear();
             foreach (CharNames charName in CharNames.All)
             {
-                var nameBidding = new CharacterNameBidding(charName, false);
+                var nameBidding = new CharacterNameBidding(charName, _charNameBiddingLogger, false);
 
                 foreach (var nameBid in nameBids.Where(x => x.CharNameId == charName.Id))
                 {
@@ -79,7 +85,7 @@ namespace InteractiveSeven.Core.ViewModels
             CharacterNameBiddings.Clear();
             foreach (CharNames charName in CharNames.All)
             {
-                CharacterNameBiddings.Add(new CharacterNameBidding(charName));
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
             }
             _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
             HandleNameRefresh(new RefreshEvent());
@@ -94,9 +100,9 @@ namespace InteractiveSeven.Core.ViewModels
                     _nameAccessor.SetCharacterName(nameBidding.CharName, nameBidding.LeadingName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex);
+                _logger.LogError(exception, "Failed to refresh names.");
             }
         }
 
@@ -110,7 +116,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to update top name.");
             }
         }
 
@@ -123,7 +129,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to record name vote and save.");
             }
         }
 
@@ -139,7 +145,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to remove Name.");
             }
         }
     }

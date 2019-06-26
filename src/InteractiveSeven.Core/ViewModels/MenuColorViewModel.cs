@@ -7,17 +7,20 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.ViewModels
 {
     public class MenuColorViewModel : INotifyPropertyChanged
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
+        private readonly ILogger<MenuColorViewModel> _logger;
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor)
+        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor, ILogger<MenuColorViewModel> logger)
         {
             _menuColorAccessor = menuColorAccessor;
+            _logger = logger;
 
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
             DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
@@ -89,7 +92,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                _logger.LogError(ex, "Failed to refresh menu colors.");
             }
         }
 

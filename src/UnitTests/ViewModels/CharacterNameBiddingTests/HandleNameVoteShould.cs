@@ -13,7 +13,7 @@ namespace UnitTests.ViewModels.CharacterNameBiddingTests
         [Fact]
         public void UpdateLeadingName_GivenFirstBidAboveDefault()
         {
-            var bidding = new CharacterNameBidding(CharNames.Cloud);
+            var bidding = new CharacterNameBidding(CharNames.Cloud, null);
 
             BidRecord bidRecord = new BidRecord("", "", bidding.NameBids.Single().TotalBits + 1);
             bidding.HandleNameVote(new NameVoteReceived(CharNames.Cloud, "StabMan", bidRecord));
