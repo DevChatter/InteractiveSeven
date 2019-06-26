@@ -83,6 +83,7 @@ namespace InteractiveSeven
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
+            services.AddSingleton<IDialogService, DialogService>();
 
             services.RegisterEquipmentData();
 

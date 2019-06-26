@@ -121,34 +121,38 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
-                    <ItemsControl ItemsSource="{Binding CharacterNameBiddings}"
+                    <DockPanel>
+                        <Button DockPanel.Dock="Top" Content="Reset All Name Bid Data" MaxWidth="200"
+                                Command="{Binding ResetDataCommand}" Margin="10 10 10 10" />
+                        <ItemsControl ItemsSource="{Binding CharacterNameBiddings}"
                                       HorizontalAlignment="Stretch">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
-                                    <DockPanel>
-                                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                                            <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
-                                            <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
-                                        </StackPanel>
-                                        <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
+                                        <DockPanel>
+                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                                <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
+                                                <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
+                                            </StackPanel>
+                                            <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
                                                       AutoGenerateColumns="False">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
-                                                <DataGridTextColumn Header="Bits" Binding="{Binding TotalBits}" Width="68" />
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
+                                                    <DataGridTextColumn Header="Bits" Binding="{Binding TotalBits}" Width="68" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DockPanel>
                 </ScrollViewer>
             </TabItem>
             <TabItem DataContext="{Binding SettingsViewModel}">

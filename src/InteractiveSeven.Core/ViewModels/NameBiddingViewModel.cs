@@ -2,12 +2,12 @@
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using InteractiveSeven.Core.MvvmCommands;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels
@@ -17,13 +17,15 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly INameAccessor _nameAccessor;
         private readonly ITwitchClient _twitchClient;
         private readonly IDataStore _dataStore;
+        private readonly IDialogService _dialogService;
 
         public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; }
             = new ThreadedObservableCollection<CharacterNameBidding>();
 
         public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
 
-        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient, IDataStore dataStore)
+        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
+            IDataStore dataStore, IDialogService dialogService)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
@@ -33,8 +35,15 @@ namespace InteractiveSeven.Core.ViewModels
             _nameAccessor = nameAccessor;
             _twitchClient = twitchClient;
             _dataStore = dataStore;
+            _dialogService = dialogService;
 
-            ResetDataCommand = new SimpleCommand(x => Reset());
+            ResetDataCommand = new SimpleCommand(x =>
+            {
+                if (_dialogService.ConfirmDialog("Are you sure you want to reset all name bids?"))
+                {
+                    Reset();
+                }
+            });
 
             foreach (CharNames charName in CharNames.All)
             {
@@ -73,6 +82,7 @@ namespace InteractiveSeven.Core.ViewModels
                 CharacterNameBiddings.Add(new CharacterNameBidding(charName));
             }
             _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
+            HandleNameRefresh(new RefreshEvent());
         }
 
         private void HandleNameRefresh(RefreshEvent e)
