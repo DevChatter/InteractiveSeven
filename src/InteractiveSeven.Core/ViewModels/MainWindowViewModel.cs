@@ -1,12 +1,14 @@
-﻿using InteractiveSeven.Core.MvvmCommands;
+﻿using System.Linq;
+using InteractiveSeven.Core.MvvmCommands;
 using System.Windows.Input;
+using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.ViewModels
 {
     public class MainWindowViewModel
     {
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel, NameBiddingViewModel nameBiddingViewModel,
-            SettingsViewModel settingsViewModel, IChatBot chatBot)
+            SettingsViewModel settingsViewModel, IChatBot chatBot, IDataStore dataStore)
         {
             MenuColorViewModel = menuColorViewModel;
             NameBiddingViewModel = nameBiddingViewModel;

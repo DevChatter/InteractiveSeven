@@ -36,7 +36,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public CharacterNameBidding(CharNames charNames)
+        public CharacterNameBidding(CharNames charNames, bool withDefault = true)
         {
             CharName = charNames;
             DefaultName = charNames.DefaultName;
@@ -44,7 +44,15 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
             NameBids.CollectionChanged += NameBids_CollectionChanged;
 
-            NameBids.Add(new CharacterNameBid { Name = DefaultName, TotalBits = Settings.DefaultStartBits });
+            if (withDefault)
+            {
+                AddDefaultRecord();
+            }
+        }
+
+        public void AddDefaultRecord()
+        {
+            NameBids.Add(new CharacterNameBid(CharName.Id) {Name = DefaultName, TotalBits = Settings.DefaultStartBits});
         }
 
         private void NameBids_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -86,7 +94,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
                         nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
                         if (nameBid == null)
                         {
-                            nameBid = new CharacterNameBid { Name = e.BidName };
+                            nameBid = new CharacterNameBid(e.CharName.Id) { Name = e.BidName };
                             NameBids.Add(nameBid);
                         }
                     }

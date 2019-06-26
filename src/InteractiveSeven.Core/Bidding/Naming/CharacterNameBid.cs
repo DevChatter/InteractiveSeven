@@ -6,10 +6,16 @@ namespace InteractiveSeven.Core.Bidding.Naming
 {
     public class CharacterNameBid : INotifyPropertyChanged
     {
+        public int CharNameId { get; }
         private string _name;
         private int _totalBits;
 
         private readonly object _padlock = new object();
+
+        public CharacterNameBid(int charNameId)
+        {
+            CharNameId = charNameId;
+        }
 
         public string Name
         {
