@@ -31,6 +31,8 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(CommandData commandData)
         {
+            if (commandData.Arguments.Count == 0) return;
+
             MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
             int gil = 0;
             if (!CanOverrideBitRestriction(commandData.User))

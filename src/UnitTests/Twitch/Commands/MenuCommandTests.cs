@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
@@ -8,6 +7,7 @@ using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System;
 using System.Collections.Generic;
 using TwitchLib.Client.Interfaces;
 using Xunit;
@@ -16,6 +16,25 @@ namespace UnitTests.Twitch.Commands
 {
     public class MenuCommandTests
     {
+        [Fact]
+        public void DoNothing_GivenNoArguments()
+        {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
+            SetSettings(true, 0);
+            var (menuCommand, chatUser) = SetUpTest();
+            var commandData = new CommandData
+            {
+                User = chatUser,
+                Arguments = new List<string>(),
+            };
+
+            menuCommand.Execute(commandData);
+
+            called.Should().BeFalse();
+        }
+
         [Fact]
         public void SetColors_GivenValidRequestNoBits()
         {
