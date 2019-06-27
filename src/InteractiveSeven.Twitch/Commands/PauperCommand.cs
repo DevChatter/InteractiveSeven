@@ -22,7 +22,7 @@ namespace InteractiveSeven.Twitch.Commands
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
             EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData)
-            : base(x => new[] { "pauper" }, x => true)
+            : base(x => new[] { "pauper" }, x => true) // TODO: Add a Setting for this command
         {
             _equipmentAccessor = equipmentAccessor;
             _materiaAccessor = materiaAccessor;
