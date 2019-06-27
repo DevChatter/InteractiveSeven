@@ -1,10 +1,14 @@
 ﻿using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels
@@ -13,25 +17,19 @@ namespace InteractiveSeven.Core.ViewModels
     {
         private readonly INameAccessor _nameAccessor;
         private readonly ITwitchClient _twitchClient;
-        private readonly Dictionary<string, CharacterNameBidding> _characterNameBiddings
-            = new Dictionary<string, CharacterNameBidding>
-            {
-                [CharNames.Cloud] = new CharacterNameBidding(CharNames.Cloud),
-                [CharNames.Barret] = new CharacterNameBidding(CharNames.Barret),
-                [CharNames.Tifa] = new CharacterNameBidding(CharNames.Tifa),
-                [CharNames.Aeris] = new CharacterNameBidding(CharNames.Aeris),
-                [CharNames.Red] = new CharacterNameBidding(CharNames.Red),
-                [CharNames.CaitSith] = new CharacterNameBidding(CharNames.CaitSith),
-                [CharNames.Cid] = new CharacterNameBidding(CharNames.Cid),
-                [CharNames.Vincent] = new CharacterNameBidding(CharNames.Vincent),
-                [CharNames.Yuffie] = new CharacterNameBidding(CharNames.Yuffie),
-            };
+        private readonly IDataStore _dataStore;
+        private readonly IDialogService _dialogService;
+        private readonly ILogger<NameBiddingViewModel> _logger;
+        private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
-        public List<CharacterNameBidding> CharacterNameBiddings => _characterNameBiddings.Values.ToList();
+        public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; }
+            = new ThreadedObservableCollection<CharacterNameBidding>();
 
         public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
 
-        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient)
+        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
+            IDataStore dataStore, IDialogService dialogService, ILogger<NameBiddingViewModel> logger,
+            ILogger<CharacterNameBidding> charNameBiddingLogger)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
@@ -40,6 +38,57 @@ namespace InteractiveSeven.Core.ViewModels
 
             _nameAccessor = nameAccessor;
             _twitchClient = twitchClient;
+            _dataStore = dataStore;
+            _dialogService = dialogService;
+            _logger = logger;
+            _charNameBiddingLogger = charNameBiddingLogger;
+
+            ResetDataCommand = new SimpleCommand(x =>
+            {
+                if (_dialogService.ConfirmDialog("Are you sure you want to reset all name bids?"))
+                {
+                    Reset();
+                }
+            });
+
+            foreach (CharNames charName in CharNames.All)
+            {
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
+            }
+        }
+
+        public ICommand ResetDataCommand { get; }
+
+        public void Load(List<CharacterNameBid> nameBids)
+        {
+            CharacterNameBiddings.Clear();
+            foreach (CharNames charName in CharNames.All)
+            {
+                var nameBidding = new CharacterNameBidding(charName, _charNameBiddingLogger, false);
+
+                foreach (var nameBid in nameBids.Where(x => x.CharNameId == charName.Id))
+                {
+                    nameBidding.NameBids.Add(nameBid);
+                }
+
+                if (nameBidding.NameBids.Count == 0)
+                {
+                    nameBidding.AddDefaultRecord();
+                }
+
+                CharacterNameBiddings.Add(nameBidding);
+            }
+        }
+
+        public void Reset()
+        {
+            CharacterNameBiddings.Clear();
+            foreach (CharNames charName in CharNames.All)
+            {
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
+            }
+            _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
+            HandleNameRefresh(new RefreshEvent());
         }
 
         private void HandleNameRefresh(RefreshEvent e)
@@ -48,12 +97,12 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 foreach (var nameBidding in CharacterNameBiddings)
                 {
-                    _nameAccessor.SetCharacterName(nameBidding.DefaultName, nameBidding.LeadingName);
+                    _nameAccessor.SetCharacterName(nameBidding.CharName, nameBidding.LeadingName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Console.WriteLine(ex);
+                _logger.LogError(exception, "Failed to refresh names.");
             }
         }
 
@@ -62,11 +111,12 @@ namespace InteractiveSeven.Core.ViewModels
             try
             {
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
-                _twitchClient.SendMessage(TwitchSettings.Channel, $"Interactive7: {e.CharName}'s name is now {e.NewName}.");
+                _twitchClient.SendMessage(TwitchSettings.Channel,
+                    $"I7: {e.CharName.DefaultName}'s name is now {e.NewName}.");
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to update top name.");
             }
         }
 
@@ -74,11 +124,12 @@ namespace InteractiveSeven.Core.ViewModels
         {
             try
             {
-                _characterNameBiddings[e.CharName].HandleNameVote(e);
+                CharacterNameBiddings.SingleOrDefault(x => x.CharName.Id == e.CharName.Id)?.HandleNameVote(e);
+                _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to record name vote and save.");
             }
         }
 
@@ -90,10 +141,11 @@ namespace InteractiveSeven.Core.ViewModels
                 {
                     charBidding.TryRemove(e.NameToRemove);
                 }
+                _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to remove Name.");
             }
         }
     }

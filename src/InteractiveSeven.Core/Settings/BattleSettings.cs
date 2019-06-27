@@ -1,12 +1,14 @@
-﻿using System.Linq;
+﻿using InteractiveSeven.Core.Battle;
+using System.Linq;
 using Newtonsoft.Json;
-using InteractiveSeven.Core.Battle;
 
 namespace InteractiveSeven.Core.Settings
 {
     public class BattleSettings : ObservableSettingsBase
     {
         private bool _allowStatusEffects = false;
+        private bool _allowModOverride = true;
+
         public BattleSettings()
         {
             AllStatusEffects = new[]
@@ -47,8 +49,16 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
+        public bool AllowModOverride
+        {
+            get => _allowModOverride;
+            set
+            {
+                _allowModOverride = value;
+                OnPropertyChanged();
+            }
+        }
 
-        [JsonIgnore]
         public StatusEffectSettings[] AllStatusEffects { get; set; }
 
         public StatusEffectSettings ByWord(string word)

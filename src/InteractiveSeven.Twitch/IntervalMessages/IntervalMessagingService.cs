@@ -8,6 +8,7 @@ namespace InteractiveSeven.Twitch.IntervalMessages
 {
     public class IntervalMessagingService : IIntervalMessagingService
     {
+        private const int NormalDelayInMinutes = 60;
         private int _messageCount = 0;
         private DateTime _lastMessageTime;
         private readonly ITwitchClient _twitchClient;
@@ -21,13 +22,13 @@ namespace InteractiveSeven.Twitch.IntervalMessages
         {
             _twitchClient = twitchClient;
             _clock = clock;
-            _lastMessageTime = _clock.UtcNow;
+            _lastMessageTime = _clock.UtcNow.AddMinutes(NormalDelayInMinutes - (NormalDelayInMinutes * 1.5));
         }
 
         public void MessageReceived()
         {
             _messageCount++;
-            if (_messageCount > 10 && ElapsedTime > TimeSpan.FromMinutes(30))
+            if (_messageCount > 10 && ElapsedTime > TimeSpan.FromMinutes(NormalDelayInMinutes))
             {
                 const string message = "Enjoying Interactive Seven? Consider supporting @DevChatter too! (https://twitch.tv/DevChatter)";
                 _twitchClient.SendMessage(TwitchSettings.Channel, message);

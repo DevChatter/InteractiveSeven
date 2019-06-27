@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -61,6 +60,9 @@ namespace InteractiveSeven.Core.Settings
         public MenuColorSettings MenuSettings { get; set; } = new MenuColorSettings();
         public NameBiddingSettings NameBiddingSettings { get; set; } = new NameBiddingSettings();
         public BattleSettings BattleSettings { get; set; } = new BattleSettings();
+        public EquipmentSettings EquipmentSettings { get; set; } = new EquipmentSettings();
+        public ItemSettings ItemSettings { get; set; } = new ItemSettings();
+        public MateriaSettings MateriaSettings { get; set; } = new MateriaSettings();
 
         public static void LoadFromJson(string json)
         {

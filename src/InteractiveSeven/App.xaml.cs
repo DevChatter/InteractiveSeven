@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
@@ -10,7 +11,10 @@ using InteractiveSeven.Twitch.IntervalMessages;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Data;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -41,7 +45,22 @@ namespace InteractiveSeven
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var mainWindow = serviceProvider.GetService<MainWindow>();
+
+            LoadPreviousData(mainWindow.ViewModel, serviceProvider);
+
             mainWindow.Show();
+        }
+
+        private void LoadPreviousData(MainWindowViewModel viewModel, IServiceProvider provider)
+        {
+            var dataStore = provider.GetService<IDataStore>();
+
+            List<CharacterNameBid> characterNameBids = dataStore.LoadData();
+
+            if (characterNameBids != null && characterNameBids.Any())
+            {
+                viewModel.NameBiddingViewModel.Load(characterNameBids);
+            }
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -55,14 +74,28 @@ namespace InteractiveSeven
 
             services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
+            services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
+            services.AddSingleton<IGilAccessor, GilAccessor>();
+            services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
+            services.AddSingleton<IMateriaAccessor, MateriaAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
+            services.AddSingleton<IDialogService, DialogService>();
+
+            services.RegisterEquipmentData();
 
             services.RegisterBattleCommand<StatusEffectCommand>();
 
+            services.RegisterNonBattleCommand<WeaponCommand>();
+            services.RegisterNonBattleCommand<ArmletCommand>();
+            services.RegisterNonBattleCommand<AccessoryCommand>();
+            services.RegisterNonBattleCommand<PauperCommand>();
+
+            services.RegisterTwitchCommand<ItemCommand>();
+            services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
@@ -74,6 +107,7 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
+            services.AddSingleton<IDataStore, FileDataStore>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<GilBank>();
             services.AddSingleton<ColorPaletteCollection>();

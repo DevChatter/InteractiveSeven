@@ -1,7 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,6 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
-        private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public GiveGilCommand(GilBank gilBank, ITwitchClient twitchClient)
             : base(x => x.GiveGilCommandWords, x => true)

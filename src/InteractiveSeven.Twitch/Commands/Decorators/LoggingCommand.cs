@@ -24,7 +24,6 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled Command Exception");
-                Console.WriteLine(ex);
             }
         }
 

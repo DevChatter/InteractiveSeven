@@ -1,5 +1,4 @@
 ﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
 
@@ -7,8 +6,6 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class I7Command : BaseCommand
     {
-        private ApplicationSettings Settings => ApplicationSettings.Instance;
-
         public I7Command()
             : base(x => x.I7CommandWords, x => true) // TODO: Add a Setting to Allow this Command
         {

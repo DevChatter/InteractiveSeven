@@ -7,6 +7,7 @@ using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System;
 using System.Collections.Generic;
 using TwitchLib.Client.Interfaces;
 using Xunit;
@@ -16,15 +17,35 @@ namespace UnitTests.Twitch.Commands
     public class MenuCommandTests
     {
         [Fact]
+        public void DoNothing_GivenNoArguments()
+        {
+            bool called = false;
+            DomainEvents.Clear();
+            DomainEvents.Register<MenuColorChanging>(x => called = true);
+            SetSettings(true, 0);
+            var (menuCommand, chatUser) = SetUpTest();
+            var commandData = new CommandData
+            {
+                User = chatUser,
+                Arguments = new List<string>(),
+            };
+
+            menuCommand.Execute(commandData);
+
+            called.Should().BeFalse();
+        }
+
+        [Fact]
         public void SetColors_GivenValidRequestNoBits()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 0);
-            var menuCommand = SetUpTest();
+            var (menuCommand, chatUser) = SetUpTest();
             var commandData = new CommandData
             {
+                User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
@@ -41,9 +62,10 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var menuCommand = SetUpTest();
+            var (menuCommand, chatUser) = SetUpTest();
             var commandData = new CommandData
             {
+                User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
@@ -59,9 +81,10 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var menuCommand = SetUpTest();
+            var (menuCommand, chatUser) = SetUpTest(100);
             var commandData = new CommandData
             {
+                User = chatUser,
                 Arguments = new List<string> { "red", "Cheer1" },
                 Bits = 1,
                 Message = "!menu red Cheer1"
@@ -79,10 +102,10 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var menuCommand = SetUpTest();
+            var (menuCommand, chatUser) = SetUpTest(isMod: true);
             var commandData = new CommandData
             {
-                User = new ChatUser { IsMod = true },
+                User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
@@ -98,10 +121,10 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1, false);
-            var menuCommand = SetUpTest();
+            var (menuCommand, chatUser) = SetUpTest(isMod:true);
             var commandData = new CommandData
             {
-                User = new ChatUser { IsMod = true },
+                User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
@@ -110,7 +133,6 @@ namespace UnitTests.Twitch.Commands
             called.Should().BeFalse();
         }
 
-
         private void SetSettings(bool enabled, int bits, bool allowOverride = true)
         {
             ApplicationSettings.Instance.MenuSettings.Enabled = enabled;
@@ -118,12 +140,16 @@ namespace UnitTests.Twitch.Commands
             ApplicationSettings.Instance.MenuSettings.AllowModOverride = allowOverride;
         }
 
-        private static MenuCommand SetUpTest()
+        private static (MenuCommand, ChatUser) SetUpTest(int bits = 0, bool isMod = false)
         {
             var twitchClient = new Mock<ITwitchClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
-            var menuCommand = new MenuCommand(twitchClient.Object, new ColorPaletteCollection(logger.Object), new GilBank());
-            return menuCommand;
+            var gilBank = new GilBank();
+            var chatUser = new ChatUser { IsMod = isMod, Username = Guid.NewGuid().ToString() };
+            gilBank.Deposit(chatUser, bits);
+            var menuCommand = new MenuCommand(twitchClient.Object,
+                new ColorPaletteCollection(logger.Object), gilBank);
+            return (menuCommand, chatUser);
         }
     }
 }

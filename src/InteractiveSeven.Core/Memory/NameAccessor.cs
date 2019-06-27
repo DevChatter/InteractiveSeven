@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -13,7 +14,7 @@ namespace InteractiveSeven.Core.Memory
             _memoryAccessor = memoryAccessor;
         }
 
-        public string GetCharacterName(string charName)
+        public string GetCharacterName(CharNames charName)
         {
             CharMemLoc cml = CharMemLoc.ByName(charName);
 
@@ -25,7 +26,7 @@ namespace InteractiveSeven.Core.Memory
             return characterName;
         }
 
-        public void SetCharacterName(string charName, string newName)
+        public void SetCharacterName(CharNames charName, string newName)
         {
             CharMemLoc cml = CharMemLoc.ByName(charName);
 

@@ -1,15 +1,19 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Bidding.Naming
 {
     public class CharacterNameBidding : INotifyPropertyChanged
     {
+        private readonly ILogger<CharacterNameBidding> _logger;
+        public CharNames CharName { get; }
         public string DefaultName { get; }
 
         public ThreadedObservableCollection<CharacterNameBid> NameBids { get; }
@@ -28,20 +32,30 @@ namespace InteractiveSeven.Core.Bidding.Naming
             {
                 _leadingName = value;
                 OnPropertyChanged();
-                DomainEvents.Raise(new TopNameChanged(DefaultName, LeadingName));
+                DomainEvents.Raise(new TopNameChanged(CharName, LeadingName));
             }
         }
 
         private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public CharacterNameBidding(string defaultName)
+        public CharacterNameBidding(CharNames charNames, ILogger<CharacterNameBidding> logger, bool withDefault = true)
         {
-            DefaultName = defaultName;
-            _leadingName = defaultName;
+            _logger = logger;
+            CharName = charNames;
+            DefaultName = charNames.DefaultName;
+            _leadingName = charNames.DefaultName;
 
             NameBids.CollectionChanged += NameBids_CollectionChanged;
 
-            NameBids.Add(new CharacterNameBid { Name = DefaultName, TotalBits = Settings.DefaultStartBits });
+            if (withDefault)
+            {
+                AddDefaultRecord();
+            }
+        }
+
+        public void AddDefaultRecord()
+        {
+            NameBids.Add(new CharacterNameBid(CharName.Id) {Name = DefaultName, TotalBits = Settings.DefaultStartBits});
         }
 
         private void NameBids_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -83,7 +97,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
                         nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
                         if (nameBid == null)
                         {
-                            nameBid = new CharacterNameBid { Name = e.BidName };
+                            nameBid = new CharacterNameBid(e.CharName.Id) { Name = e.BidName };
                             NameBids.Add(nameBid);
                         }
                     }
@@ -93,7 +107,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.LogError(exception, "Failed to record name bid.");
             }
         }
 

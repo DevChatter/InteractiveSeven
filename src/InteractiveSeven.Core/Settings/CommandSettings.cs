@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -15,6 +16,9 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+        private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
+        private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
+        private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -26,6 +30,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _vincentWords = { "vincent", "vince" };
         private string[] _yuffieWords = { "yuffie" };
 
+        [JsonIgnore]
         public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
 
         public CommandSettings()
@@ -48,6 +53,12 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+                (nameof(WeaponCommandWords),
+                    () => WeaponCommandWords),
+                (nameof(ArmletCommandWords),
+                    () => ArmletCommandWords),
+                (nameof(AccessoryCommandWords),
+                    () => AccessoryCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -156,6 +167,36 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _helpCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] WeaponCommandWords
+        {
+            get => _weaponCommandWords;
+            set
+            {
+                _weaponCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] ArmletCommandWords // TODO: Add to Settings Screen
+        {
+            get => _armletCommandWords;
+            set
+            {
+                _armletCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] AccessoryCommandWords // TODO: Add to Settings Screen
+        {
+            get => _accessoryCommandWords;
+            set
+            {
+                _accessoryCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

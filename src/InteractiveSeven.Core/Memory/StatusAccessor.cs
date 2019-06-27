@@ -20,7 +20,7 @@ namespace InteractiveSeven.Core.Memory
         {
             int status = GetTrueStatus(actor);
 
-            status += statusEffect.Value;
+            status += (int)statusEffect;
 
             const int manipStatus = 0b_00000000_1000000_00000000_00000000;
             if ((status & manipStatus) == manipStatus‬‬) // If have manip

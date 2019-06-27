@@ -11,7 +11,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly Func<CommandSettings, string[]> _commandWordsSelector;
         private readonly Func<ApplicationSettings, bool> _enableCheck;
 
-        private ApplicationSettings Settings => ApplicationSettings.Instance;
+        protected static ApplicationSettings Settings => ApplicationSettings.Instance;
 
         protected BaseCommand(Func<CommandSettings, string[]> commandWordsSelector, Func<ApplicationSettings, bool> enableCheck)
         {

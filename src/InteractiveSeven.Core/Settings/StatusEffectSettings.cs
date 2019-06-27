@@ -1,14 +1,15 @@
 ﻿using InteractiveSeven.Core.Battle;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace InteractiveSeven.Core.Settings
 {
     public class StatusEffectSettings : ObservableSettingsBase
     {
-        [JsonIgnore]
-        public StatusEffects Effect { get; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StatusEffects Effect { get; set; }
 
-        public string Name { get; }
+        public string Name { get; set; }
 
         public StatusEffectSettings()
         {

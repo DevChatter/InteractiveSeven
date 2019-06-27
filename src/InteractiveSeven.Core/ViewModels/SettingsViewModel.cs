@@ -7,21 +7,26 @@ namespace InteractiveSeven.Core.ViewModels
     public class SettingsViewModel
     {
         private readonly ISettingsStore _settingsStore;
-        public SettingsViewModel(ISettingsStore settingsStore)
+        private readonly IDialogService _dialogService;
+
+        public SettingsViewModel(ISettingsStore settingsStore, IDialogService dialogService)
         {
             _settingsStore = settingsStore;
-            SaveSettingsCommand = new SimpleCommand(SaveSettings);
-            LoadSettingsCommand = new SimpleCommand(LoadSettings);
-        }
-
-        private void SaveSettings(object obj)
-        {
-            _settingsStore.SaveSettings();
-        }
-
-        private void LoadSettings(object obj)
-        {
-            _settingsStore.LoadSettings();
+            _dialogService = dialogService;
+            SaveSettingsCommand = new SimpleCommand(x =>
+            {
+                if (_dialogService.ConfirmDialog("Saving will overwrite your previously saved settings. OK?"))
+                {
+                    _settingsStore.SaveSettings();
+                }
+            });
+            LoadSettingsCommand = new SimpleCommand(x =>
+            {
+                if (_dialogService.ConfirmDialog("Loading will replace your current settings. OK?"))
+                {
+                    _settingsStore.LoadSettings();
+                }
+            });
         }
 
         public ICommand SaveSettingsCommand { get; }

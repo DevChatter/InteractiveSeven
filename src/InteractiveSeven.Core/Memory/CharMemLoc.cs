@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Data;
+using System;
 using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Memory
@@ -20,6 +21,8 @@ namespace InteractiveSeven.Core.Memory
         public MemLoc MaxHp { get; }
         public MemLoc CurMp { get; }
         public MemLoc MaxMp { get; }
+        public MemLoc WeaponMateria { get; }
+        public MemLoc ArmorMateria { get; }
         public MemLoc StartingName { get; } // Contiguous 12 bytes for each character.
 
         private CharMemLoc(IntPtr baseAddress, IntPtr startingNameAddress)
@@ -41,11 +44,13 @@ namespace InteractiveSeven.Core.Memory
             MaxHp = new MemLoc(IntPtr.Add(baseAddress, 45), 2);
             CurMp = new MemLoc(IntPtr.Add(baseAddress, 47), 2);
             MaxMp = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
+            WeaponMateria = new MemLoc(IntPtr.Add(baseAddress, 63), 32);
+            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 71), 32);
         }
 
-        public static CharMemLoc ByName(string name)
+        public static CharMemLoc ByName(CharNames charName)
         {
-            return All[name];
+            return All[charName.Id];
         }
 
         public static CharMemLoc Cloud { get; }
@@ -67,18 +72,18 @@ namespace InteractiveSeven.Core.Memory
         public static CharMemLoc Cid { get; }
             = new CharMemLoc(new IntPtr(0xDC01AD), new IntPtr(0x921D18));
 
-        private static readonly Dictionary<string, CharMemLoc> All
-            = new Dictionary<string, CharMemLoc>
+        private static readonly Dictionary<int, CharMemLoc> All
+            = new Dictionary<int, CharMemLoc>
             {
-                [CharNames.Cloud] = Cloud,
-                [CharNames.Barret] = Barret,
-                [CharNames.Tifa] = Tifa,
-                [CharNames.Aeris] = Aeris,
-                [CharNames.Red] = Red,
-                [CharNames.Yuffie] = Yuffie,
-                [CharNames.CaitSith] = CaitSith,
-                [CharNames.Vincent] = Vincent,
-                [CharNames.Cid] = Cid,
+                [CharNames.Cloud.Id] = Cloud,
+                [CharNames.Barret.Id] = Barret,
+                [CharNames.Tifa.Id] = Tifa,
+                [CharNames.Aeris.Id] = Aeris,
+                [CharNames.Red.Id] = Red,
+                [CharNames.Yuffie.Id] = Yuffie,
+                [CharNames.CaitSith.Id] = CaitSith,
+                [CharNames.Vincent.Id] = Vincent,
+                [CharNames.Cid.Id] = Cid,
             };
     }
 }
