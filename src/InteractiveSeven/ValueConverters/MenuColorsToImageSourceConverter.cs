@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Models;
+using InteractiveSeven.Services;
 using System;
 using System.Globalization;
 using System.Windows.Data;

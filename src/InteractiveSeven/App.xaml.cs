@@ -15,6 +15,7 @@ using System.Linq;
 using System.Windows;
 using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Services;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
