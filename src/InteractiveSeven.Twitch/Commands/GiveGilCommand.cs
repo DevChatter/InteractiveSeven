@@ -48,22 +48,22 @@ namespace InteractiveSeven.Twitch.Commands
                 (balance, withdrawn) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (withdrawn == 0)
                 {
-                    _twitchClient.SendMessage(commandData.Channel, 
+                    _twitchClient.SendMessage(commandData.Channel,
                         $"Insufficient funds, {commandData.User.Username}. You have only {balance} gil.");
                     return;
                 }
             }
 
             string fromMessage = isBonus ? "" : $" from {commandData.User.Username}'s account";
-            _gilBank.Deposit(new ChatUser {Username = recipient}, withdrawn);
-            _twitchClient.SendMessage(commandData.Channel, 
+            _gilBank.Deposit(new ChatUser { Username = recipient }, withdrawn);
+            _twitchClient.SendMessage(commandData.Channel,
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
 
         private bool CanSendBonusBits(ChatUser user)
         {
-            return user.IsBroadcaster 
-                   || user.IsMe 
+            return user.IsBroadcaster
+                   || user.IsMe
                    || (user.IsMod && Settings.ModsGiveBonusBits);
         }
 

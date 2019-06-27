@@ -21,7 +21,7 @@ namespace InteractiveSeven.ValueConverters
             if (value is string text)
             {
                 return text
-                    .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.Trim())
                     .ToArray();
             }

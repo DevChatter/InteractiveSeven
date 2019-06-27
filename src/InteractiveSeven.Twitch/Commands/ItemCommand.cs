@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
 
         public ItemCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor)
-            : base(x => new[] {"item"}, x => x.ItemSettings.Enabled)
+            : base(x => new[] { "item" }, x => x.ItemSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _inventoryAccessor = inventoryAccessor;

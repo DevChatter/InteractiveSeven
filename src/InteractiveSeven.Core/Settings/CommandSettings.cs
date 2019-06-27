@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
     public class CommandSettings : ObservableSettingsBase
     {
-        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices"};
+        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
         private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
@@ -35,7 +35,7 @@ namespace InteractiveSeven.Core.Settings
 
         public CommandSettings()
         {
-            AllWordSets = new List<(string,Func<string[]>)>
+            AllWordSets = new List<(string, Func<string[]>)>
             {
                 (nameof(CostsCommandWords),
                     () => CostsCommandWords),

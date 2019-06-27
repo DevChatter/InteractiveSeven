@@ -1,12 +1,12 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Bidding.Naming
 {
@@ -55,7 +55,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         public void AddDefaultRecord()
         {
-            NameBids.Add(new CharacterNameBid(CharName.Id) {Name = DefaultName, TotalBits = Settings.DefaultStartBits});
+            NameBids.Add(new CharacterNameBid(CharName.Id) { Name = DefaultName, TotalBits = Settings.DefaultStartBits });
         }
 
         private void NameBids_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -47,7 +47,7 @@ namespace InteractiveSeven.Core.Memory
             int offset = 0;
             byte[] buffer = new byte[0];
             uint capacityInBytes = capacity * itemSize;
-            for (; offset < capacityInBytes; offset+=itemSize)
+            for (; offset < capacityInBytes; offset += itemSize)
             {
                 IntPtr address = IntPtr.Add(startAddr, offset);
                 buffer = new byte[itemSize];

@@ -1,5 +1,5 @@
-﻿using System;
-using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Settings;
+using System;
 
 namespace InteractiveSeven.Core.Memory
 {

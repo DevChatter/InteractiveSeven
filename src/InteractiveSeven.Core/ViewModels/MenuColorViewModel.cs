@@ -2,12 +2,12 @@
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.ViewModels
 {

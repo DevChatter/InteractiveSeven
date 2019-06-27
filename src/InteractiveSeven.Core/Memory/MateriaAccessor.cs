@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Memory.Model;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Memory.Model;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Linq;
-using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Memory
 {

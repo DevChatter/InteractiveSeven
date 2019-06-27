@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using System.Linq;
-using InteractiveSeven.Core.Data;
 using Xunit;
 
 namespace UnitTests.ViewModels.CharacterNameBiddingTests

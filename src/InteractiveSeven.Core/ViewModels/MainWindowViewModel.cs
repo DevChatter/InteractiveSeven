@@ -1,7 +1,6 @@
-﻿using System.Linq;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.MvvmCommands;
 using System.Windows.Input;
-using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.ViewModels
 {

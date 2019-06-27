@@ -64,7 +64,7 @@ namespace InteractiveSeven.Core.Memory
             bool HasItem(byte[] bytes) => bytes.Any(b => b != byte.MaxValue);
             void RemoveItem(int addrOffset)
                 => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset),
-                    new []{ byte.MaxValue, byte.MaxValue });
+                    new[] { byte.MaxValue, byte.MaxValue });
         }
     }
 }

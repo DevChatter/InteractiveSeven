@@ -1,5 +1,4 @@
-﻿using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Model;
+﻿using InteractiveSeven.Twitch.Model;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
