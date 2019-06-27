@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core.Services;
 using System.Windows;
 
 namespace InteractiveSeven.Services

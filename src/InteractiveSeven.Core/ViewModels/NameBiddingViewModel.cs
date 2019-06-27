@@ -3,6 +3,7 @@ using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.MvvmCommands;
+using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
 using System;
