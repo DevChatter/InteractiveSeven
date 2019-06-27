@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
@@ -8,7 +9,17 @@ using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TwitchLib.Api;
+using TwitchLib.Api.Core.HttpCallHandlers;
+using TwitchLib.Api.Core.Models.Root;
+using TwitchLib.Api.Core.Models.Undocumented.ChatUser;
+using TwitchLib.Api.V5.Models.Subscriptions;
+using TwitchLib.Api.V5.Models.Users;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -23,6 +34,7 @@ namespace InteractiveSeven.Twitch
         private readonly IIntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
         private bool _isConnected;
+        private bool _proUnlock = false;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
 
@@ -50,6 +62,41 @@ namespace InteractiveSeven.Twitch
             _client.OnChatCommandReceived += Client_OnChatCommandReceived;
             _client.OnConnected += Client_OnConnected;
             _client.OnDisconnected += Client_OnDisconnected;
+
+            var httpClient = new HttpClient();
+            string userId = "57245338";
+            string channelId = "188854137";
+            var url = $"https://api.twitch.tv/kraken/users/{userId}/chat/channels/{channelId}?api_version=5";
+
+            httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("OAuth",
+                    ApplicationSettings.Instance.TwitchSettings.AccessToken.Split(':').Last());
+
+            //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.twitchtv.v5+json"));
+
+            var result = httpClient.GetStringAsync(url).Result;
+
+            var chatUserCheck = JsonConvert.DeserializeObject<ChatUserCheck>(result);
+
+            if (chatUserCheck.badges.Any())
+            {
+
+            }
+
+            var twitchApi = new TwitchAPI();
+            twitchApi.Settings.AccessToken = ApplicationSettings.Instance.TwitchSettings.AccessToken.Split(':').Last();
+            var response = twitchApi.Undocumented.GetChatUserAsync("57245338", "188854137").Result;
+            if (response.Badges.Any())
+            {
+                
+            }
+
+            //Root root = twitchApi.V5.Root.GetRootAsync().Result;
+            //twitchApi.Settings.ClientId = root.Token.ClientId;
+            //Users users = twitchApi.V5.Users.GetUserByNameAsync(ApplicationSettings.Instance.TwitchSettings.Username).Result;
+            //Subscription subscription = twitchApi.V5.Users.CheckUserSubscriptionByChannelAsync(users.Matches[0].Id, "188854137").Result;
+            //Console.WriteLine(subscription.CreatedAt);
         }
 
         public void Connect()
