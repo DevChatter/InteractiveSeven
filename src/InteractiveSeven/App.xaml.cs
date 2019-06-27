@@ -1,21 +1,21 @@
-﻿using System;
-using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
+using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using InteractiveSeven.Core.Bidding.Naming;
-using InteractiveSeven.Core.Data;
-using InteractiveSeven.Services;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
