@@ -8,7 +8,7 @@ namespace InteractiveSeven.Core.Settings
         private bool _allowModOverride = true;
         private bool _keepPreviousEquipment = true;
 
-        public bool Enabled // TODO: Add to Settings Screen
+        public bool Enabled
         {
             get => _enabled;
             set
@@ -18,7 +18,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool AllowModOverride // TODO: Add to Settings Screen
+        public bool AllowModOverride
         {
             get => _allowModOverride;
             set
@@ -28,7 +28,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool KeepPreviousEquipment // TODO: Add to Settings Screen
+        public bool KeepPreviousEquipment
         {
             get => _keepPreviousEquipment;
             set

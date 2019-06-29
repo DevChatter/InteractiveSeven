@@ -464,6 +464,35 @@
                                 </DockPanel>
                             </Border>
 
+                            <Border DataContext="{Binding Path=EquipmentSettings}"  BorderThickness="1" BorderBrush="Black" Margin="5">
+                                <DockPanel Width="500">
+                                    <TextBlock Text="Equipment Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                        <Label Grid.Row="0" Grid.Column="1" Content="Enable Equipment Commands" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                        <Label Grid.Row="1" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
+                                        <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </DockPanel>
+                            </Border>
+
 
                             <Border BorderThickness="1" BorderBrush="Black" Margin="5">
                                 <DockPanel Width="500" DataContext="{Binding BattleSettings}">
