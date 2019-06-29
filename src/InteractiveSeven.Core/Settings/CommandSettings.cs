@@ -181,7 +181,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] ArmletCommandWords // TODO: Add to Settings Screen
+        public string[] ArmletCommandWords
         {
             get => _armletCommandWords;
             set
@@ -191,7 +191,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] AccessoryCommandWords // TODO: Add to Settings Screen
+        public string[] AccessoryCommandWords
         {
             get => _accessoryCommandWords;
             set
