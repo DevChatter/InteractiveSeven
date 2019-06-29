@@ -253,15 +253,15 @@
                                         </Grid.RowDefinitions>
 
                                         <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                            IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
                                         <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Command" FontSize="12" Margin="5,0,0,0"/>
 
                                         <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                            IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
                                         <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0" />
 
                                         <wpfTool:IntegerUpDown Grid.Row="2" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                Value="{Binding Path=BitCost, Mode=TwoWay}" />
+                                            IsEnabled="{Binding Enabled}" Value="{Binding Path=BitCost, Mode=TwoWay}" />
                                         <Label Grid.Row="2" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
                                     </Grid>
                                 </DockPanel>
