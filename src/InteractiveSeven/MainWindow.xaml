@@ -208,7 +208,7 @@
                             </Border>
 
 
-                            <Border BorderThickness="1" BorderBrush="Black" Margin="5">
+                            <Border DataContext="{Binding TwitchSettings}" BorderThickness="1" BorderBrush="Black" Margin="5">
                                 <DockPanel Width="500">
                                     <TextBlock Text="Twitch Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
@@ -224,7 +224,7 @@
 
                                         <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
                                         <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                                Text="{Binding Path=TwitchSettings.Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
+                                                Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
                                         <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
                                         <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
@@ -232,7 +232,7 @@
 
                                         <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
                                         <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                                Text="{Binding Path=TwitchSettings.Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+                                                Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
                                     </Grid>
                                 </DockPanel>
                             </Border>
