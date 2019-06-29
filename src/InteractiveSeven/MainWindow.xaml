@@ -87,6 +87,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
+
             <TabItem DataContext="{Binding MenuColorViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -112,6 +113,7 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
+
             <TabItem DataContext="{Binding NameBiddingViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -155,6 +157,7 @@
                     </DockPanel>
                 </ScrollViewer>
             </TabItem>
+
             <TabItem DataContext="{Binding SettingsViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -558,6 +561,23 @@
                         </WrapPanel>
                     </DockPanel>
                 </ScrollViewer>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="About" />
+                    </StackPanel>
+                </TabItem.Header>
+                <StackPanel>
+                    <Label Content="About Interactive Seven" />
+                    <TextBlock TextWrapping="WrapWithOverflow">
+                        Interactive Seven is an application created by Brendan Enrick (@DevChatter) for use by Twitch 
+                        Streamers playing Final Fantasy 7. It is intended to help the streamers have more interaction with
+                        chat as well as allow them to earn some bits through command actions and bidding features.
+                    </TextBlock>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </DockPanel>

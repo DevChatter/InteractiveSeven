@@ -16,6 +16,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
         private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
@@ -53,6 +54,7 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+
                 (nameof(WeaponCommandWords),
                     () => WeaponCommandWords),
                 (nameof(ArmletCommandWords),
