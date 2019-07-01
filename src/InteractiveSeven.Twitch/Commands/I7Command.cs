@@ -7,7 +7,7 @@ namespace InteractiveSeven.Twitch.Commands
     public class I7Command : BaseCommand
     {
         public I7Command()
-            : base(x => x.I7CommandWords, x => true) // TODO: Add a Setting to Allow this Command
+            : base(x => x.I7CommandWords, x => x.EnableModCommand)
         {
         }
 

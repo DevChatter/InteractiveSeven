@@ -9,6 +9,7 @@ namespace InteractiveSeven.Core.Settings
         private bool _giveSubscriberBonusBits = true;
         private int _subscriberBonusBits = 150;
         private bool _modsGiveBonusBits = true;
+        private bool _enableModCommand = true;
 
         public static ApplicationSettings Instance { get; private set; }
         static ApplicationSettings()
@@ -45,12 +46,23 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
         public bool ModsGiveBonusBits
         {
             get => _modsGiveBonusBits;
             set
             {
                 _modsGiveBonusBits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool EnableModCommand // TODO: Add to Settings View
+        {
+            get => _enableModCommand;
+            set
+            {
+                _enableModCommand = value;
                 OnPropertyChanged();
             }
         }
