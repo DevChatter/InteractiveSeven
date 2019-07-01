@@ -57,7 +57,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool EnableModCommand // TODO: Add to Settings View
+        public bool EnableModCommand
         {
             get => _enableModCommand;
             set

@@ -188,6 +188,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -205,6 +206,10 @@
                                         <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                       IsChecked="{Binding Path=ModsGiveBonusBits, Mode=TwoWay}" />
                                         <Label Grid.Row="3" Grid.Column="1" Content="Allow Mods to Give Bonus Bits" FontSize="12" Margin="5,0,0,0" />
+
+                                        <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                      IsChecked="{Binding Path=EnableModCommand, Mode=TwoWay}" />
+                                        <Label Grid.Row="4" Grid.Column="1" Content="Enable Mod Command" FontSize="12" Margin="5,0,0,0" />
 
                                     </Grid>
                                 </DockPanel>
@@ -571,8 +576,8 @@
                     </StackPanel>
                 </TabItem.Header>
                 <StackPanel>
-                    <Label Content="About Interactive Seven" />
-                    <TextBlock TextWrapping="WrapWithOverflow">
+                    <Label Content="About Interactive Seven" FontWeight="Bold" FontSize="16" />
+                    <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
                         Interactive Seven is an application created by Brendan Enrick (@DevChatter) for use by Twitch 
                         Streamers playing Final Fantasy 7. It is intended to help the streamers have more interaction with
                         chat as well as allow them to earn some bits through command actions and bidding features.
