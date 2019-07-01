@@ -385,6 +385,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
@@ -442,48 +443,53 @@
                                                 Text="{Binding Path=AccessoryCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="11" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <Label Grid.Row="11" Grid.Column="0" Content="Pauper Command Words" FontSize="12" Margin="5,10,0,0" />
                                         <wpfTool:WatermarkTextBox Grid.Row="11" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                Text="{Binding Path=PauperCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                Watermark="Add words separated by commas" Margin="5,10,0,0" />
+
+                                        <Label Grid.Row="12" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="12" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CloudCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="12" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="12" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="13" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="13" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=BarretCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="13" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="13" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="14" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="14" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=TifaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="14" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="14" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="15" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="15" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=AerisCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="15" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="15" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="16" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="16" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CaitCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="16" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="16" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="17" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="17" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=CidCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="17" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="17" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="18" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="18" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=RedCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="18" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="18" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="19" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="19" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=VincentCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="19" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="19" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="20" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="20" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                                 Text="{Binding Path=YuffieCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 Watermark="Add words separated by commas" Margin="5,10,0,0" />
                                     </Grid>
@@ -503,6 +509,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -516,6 +523,10 @@
                                         <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                   IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
                                         <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
                                     </Grid>
                                 </DockPanel>
                             </Border>

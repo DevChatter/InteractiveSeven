@@ -7,6 +7,7 @@ namespace InteractiveSeven.Core.Settings
         private bool _enabled = true;
         private bool _allowModOverride = true;
         private bool _keepPreviousEquipment = true;
+        private bool _enablePauperCommand = true;
 
         public bool Enabled
         {
@@ -34,6 +35,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _keepPreviousEquipment = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool EnablePauperCommand
+        {
+            get => _enablePauperCommand;
+            set
+            {
+                _enablePauperCommand = value;
                 OnPropertyChanged();
             }
         }
