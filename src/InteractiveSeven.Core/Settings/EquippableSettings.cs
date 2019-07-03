@@ -16,6 +16,10 @@ namespace InteractiveSeven.Core.Settings
 
         public string Name { get; set; }
 
+        public EquippableSettings()
+        {
+        }
+
         public EquippableSettings(Items item, bool enabled, params string[] words)
         {
             _item = item;

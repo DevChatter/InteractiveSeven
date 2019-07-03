@@ -2,11 +2,22 @@
 
 namespace InteractiveSeven.Core.Settings
 {
-    public class TwitchSettings
+    public class TwitchSettings : ObservableSettingsBase
     {
         private string _accessToken;
+        private string _username;
+        private string _channel;
 
-        public string Username { get; set; }
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string AccessToken
         {
             get => _accessToken;
@@ -18,6 +29,15 @@ namespace InteractiveSeven.Core.Settings
                 }
             }
         }
-        public string Channel { get; set; }
+
+        public string Channel
+        {
+            get => _channel;
+            set
+            {
+                _channel = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

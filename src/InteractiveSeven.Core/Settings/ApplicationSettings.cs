@@ -82,7 +82,7 @@ namespace InteractiveSeven.Core.Settings
             {
                 JsonConvert.PopulateObject(json, Instance);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Instance = new ApplicationSettings();
                 // gulp
