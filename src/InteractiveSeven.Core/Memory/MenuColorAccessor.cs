@@ -34,10 +34,16 @@ namespace InteractiveSeven.Core.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsBytes());
+            // TODO: Change to writes of contiguous memory.
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsBytesBgr());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsBytesBgr());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsBytesBgr());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsBytesBgr());
+
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeftSave.Address, menuColors.TopLeft.AsBytesRgb());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeftSave.Address, menuColors.BotLeft.AsBytesRgb());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRightSave.Address, menuColors.TopRight.AsBytesRgb());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRightSave.Address, menuColors.BotRight.AsBytesRgb());
         }
 
     }
