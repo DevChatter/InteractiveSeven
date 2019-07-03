@@ -38,5 +38,9 @@
         BarrelMinigame = 152,
         ChurchRooftop = 155,
         JumpingRooftopsWithAeris = 158,
+
+
+
+        AfterKalmFlashback = 385 // Tsuna Found
     }
 }
