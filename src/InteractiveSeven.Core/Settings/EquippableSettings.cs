@@ -16,7 +16,7 @@ namespace InteractiveSeven.Core.Settings
 
         public string Name { get; set; }
 
-        public EquippableSettings()
+        public EquippableSettings() // Required for Json Deserialization
         {
         }
 
