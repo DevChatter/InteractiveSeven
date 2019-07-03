@@ -3,9 +3,9 @@
     public abstract class Equipment : Items
     {
         public byte EquipmentId { get; }
-        protected Equipment(ushort id, string name, ushort typeOffset = 0,
+        protected Equipment(ushort id, string name, ushort defaultPrice, bool enabled, ushort typeOffset = 0,
             byte weaponOffset = 0, params string[] words)
-            : base(id, name, typeOffset, words)
+            : base(id, name, defaultPrice, enabled, typeOffset, words)
         {
             EquipmentId = (byte)(id + weaponOffset);
         }

@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Data.Items;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -8,6 +11,13 @@ namespace InteractiveSeven.Core.Settings
         private bool _allowModOverride = true;
         private bool _keepPreviousEquipment = true;
         private bool _enablePauperCommand = true;
+
+        public EquipmentSettings()
+        {
+            AllWeapons = Items.All.OfType<Weapon>().Select(x => new EquippableSettings(x, true, x.Words)).ToList();
+            AllArmlets = Items.All.OfType<Armlet>().Select(x => new EquippableSettings(x, true, x.Words)).ToList();
+            AllAccessories = Items.All.OfType<Accessory>().Select(x => new EquippableSettings(x, true, x.Words)).ToList();
+        }
 
         public bool Enabled
         {
@@ -49,7 +59,8 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        [JsonIgnore]
-        public EquippableSettings[] AllEquippableSettings { get; set; }
+        public List<EquippableSettings> AllWeapons { get; set; }
+        public List<EquippableSettings> AllArmlets { get; set; }
+        public List<EquippableSettings> AllAccessories { get; set; }
     }
 }

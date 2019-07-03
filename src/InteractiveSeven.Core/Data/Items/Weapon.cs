@@ -4,9 +4,9 @@
     {
         public CharNames CharName { get; }
 
-        protected Weapon(ushort id, string name, ushort typeOffset, CharNames charName,
-            byte weaponOffset = 0, params string[] words)
-            : base(id, name, typeOffset, weaponOffset, words)
+        protected Weapon(ushort id, string name, ushort defaultPrice, ushort typeOffset, CharNames charName,
+            byte weaponOffset, bool enabled, params string[] words)
+            : base(id, name, defaultPrice, enabled, typeOffset, weaponOffset, words)
         {
             CharName = charName;
         }
@@ -23,72 +23,72 @@
 
     public class CloudWeapon : Weapon
     {
-        internal CloudWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 128, CharNames.Cloud, 0, words)
+        internal CloudWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 128, CharNames.Cloud, 0, true, words)
         {
         }
     }
 
     public class TifaWeapon : Weapon
     {
-        internal TifaWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 144, CharNames.Tifa, 16, words)
+        internal TifaWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 144, CharNames.Tifa, 16, true, words)
         {
         }
     }
 
     public class BarretWeapon : Weapon
     {
-        internal BarretWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 160, CharNames.Barret, 32, words)
+        internal BarretWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 160, CharNames.Barret, 32, true, words)
         {
         }
     }
 
     public class RedWeapon : Weapon
     {
-        internal RedWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 176, CharNames.Red, 48, words)
+        internal RedWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 176, CharNames.Red, 48, true, words)
         {
         }
     }
 
     public class AerisWeapon : Weapon
     {
-        internal AerisWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 190, CharNames.Aeris, 62, words)
+        internal AerisWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 190, CharNames.Aeris, 62, true, words)
         {
         }
     }
 
     public class CidWeapon : Weapon
     {
-        internal CidWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 201, CharNames.Cid, 73, words)
+        internal CidWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 201, CharNames.Cid, 73, true, words)
         {
         }
     }
 
     public class YuffieWeapon : Weapon
     {
-        internal YuffieWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 215, CharNames.Yuffie, 87, words)
+        internal YuffieWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 215, CharNames.Yuffie, 87, true, words)
         {
         }
     }
 
     public class CaitSithWeapon : Weapon
     {
-        internal CaitSithWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 229, CharNames.CaitSith, 101, words)
+        internal CaitSithWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 229, CharNames.CaitSith, 101, true, words)
         {
         }
     }
 
     public class VincentWeapon : Weapon
     {
-        internal VincentWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 242, CharNames.Vincent, 114, words)
+        internal VincentWeapon(ushort id, string name, ushort defaultPrice, params string[] words)
+            : base(id, name, defaultPrice, 242, CharNames.Vincent, 114, true, words)
         {
         }
     }
@@ -96,7 +96,7 @@
     public class SephirothWeapon : Weapon
     {
         internal SephirothWeapon(ushort id, string name, params string[] words)
-            : base(id, name, 255, null, 127, words)
+            : base(id, name, ushort.MaxValue, 255, null, 127, false, words)
         {
         }
     }
