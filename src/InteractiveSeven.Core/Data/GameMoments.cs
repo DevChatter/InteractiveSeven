@@ -9,7 +9,7 @@
         AfterBarretNamed = 8,
         FirstReactorBridgeIn = 10,
         BiggsJessieOpenEntrance = 11,
-        FirstEelvatorDown = 12,
+        FirstElevatorDown = 12,
         FirstBattleAfterElevator = 13,
         JessieTaughtLadders = 14,
         ReceivedRestoreMateria = 15,
