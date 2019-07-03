@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -24,5 +25,6 @@ namespace InteractiveSeven.Core.Memory
         public static readonly MemLoc MenuBotRight = new MemLoc(0x91EFD4, 3);
 
         public static readonly MemLoc Gil = new MemLoc(0xDC08B4, 4); // 4 bytes
+        public static readonly MemLoc GameMoment = new MemLoc(0xDC08DC, 2);
     }
 }
