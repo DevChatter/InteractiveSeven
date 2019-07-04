@@ -34,43 +34,10 @@ namespace InteractiveSeven.Core.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            byte[] displayBytes = {
-                menuColors.TopLeft.B,
-                menuColors.TopLeft.G,
-                menuColors.TopLeft.R,
-                128,
-                menuColors.BotLeft.B,
-                menuColors.BotLeft.G,
-                menuColors.BotLeft.R,
-                128,
-                menuColors.TopRight.B,
-                menuColors.TopRight.G,
-                menuColors.TopRight.R,
-                128,
-                menuColors.BotRight.B,
-                menuColors.BotRight.G,
-                menuColors.BotRight.R,
-                128
-            };
             // TODO: Change to writes of contiguous memory.
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, displayBytes);
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
 
-            byte[] saveBytes = {
-                menuColors.TopLeft.R,
-                menuColors.TopLeft.G,
-                menuColors.TopLeft.B,
-                menuColors.BotLeft.R,
-                menuColors.BotLeft.G,
-                menuColors.BotLeft.B,
-                menuColors.TopRight.R,
-                menuColors.TopRight.G,
-                menuColors.TopRight.B,
-                menuColors.BotRight.R,
-                menuColors.BotRight.G,
-                menuColors.BotRight.B
-            };
-
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, saveBytes);
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
         }
 
     }

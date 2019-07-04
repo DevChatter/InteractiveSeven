@@ -9,6 +9,47 @@ namespace InteractiveSeven.Core.Models
         public Color TopRight { get; set; }
         public Color BotRight { get; set; }
 
+        public byte[] GetDisplayBytes()
+        {
+            return new byte[]{
+                TopLeft.B,
+                TopLeft.G,
+                TopLeft.R,
+                128,
+                BotLeft.B,
+                BotLeft.G,
+                BotLeft.R,
+                128,
+                TopRight.B,
+                TopRight.G,
+                TopRight.R,
+                128,
+                BotRight.B,
+                BotRight.G,
+                BotRight.R,
+                128
+            };
+        }
+
+        public byte[] GetSaveBytes()
+        {
+            return new [] {
+                TopLeft.R,
+                TopLeft.G,
+                TopLeft.B,
+                BotLeft.R,
+                BotLeft.G,
+                BotLeft.B,
+                TopRight.R,
+                TopRight.G,
+                TopRight.B,
+                BotRight.R,
+                BotRight.G,
+                BotRight.B
+            };
+
+        }
+
         public static MenuColors Classic = new MenuColors
         {
             TopLeft = Color.FromArgb(0, 88, 176),
