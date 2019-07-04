@@ -1,6 +1,8 @@
-﻿using InteractiveSeven.Core.Data.Items;
+﻿using System;
+using InteractiveSeven.Core.Data.Items;
 using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -56,6 +58,23 @@ namespace InteractiveSeven.Core.Settings
                 _enablePauperCommand = value;
                 OnPropertyChanged();
             }
+        }
+
+        public EquippableSettings GetByValue(string value, CharNames charName, Type type)
+        {
+            if (type == typeof(Weapon))
+            {
+                return AllWeapons.FindByValue(value, charName);
+            }
+            if (type == typeof(Accessory))
+            {
+                return AllAccessories.FindByValue(value, charName);
+            }
+            if (type == typeof(Armlet))
+            {
+                return AllArmlets.FindByValue(value, charName);
+            }
+            return null;
         }
 
         public List<EquippableSettings> AllWeapons { get; set; }

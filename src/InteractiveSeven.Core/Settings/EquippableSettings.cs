@@ -5,11 +5,11 @@ namespace InteractiveSeven.Core.Settings
 {
     public class EquippableSettings : ObservableSettingsBase
     {
-        private Items _item;
+        private Equipment _item;
         [JsonIgnore]
-        public Items Item
+        public Equipment Item
         {
-            get { return _item ??= Items.GetByItemId(ItemId); }
+            get { return _item ??= Items.GetByItemId(ItemId) as Equipment; }
         }
 
         public ushort ItemId { get; set; }
@@ -20,7 +20,7 @@ namespace InteractiveSeven.Core.Settings
         {
         }
 
-        public EquippableSettings(Items item, bool enabled, params string[] words)
+        public EquippableSettings(Equipment item, bool enabled, params string[] words)
         {
             _item = item;
             ItemId = item.ItemId;
