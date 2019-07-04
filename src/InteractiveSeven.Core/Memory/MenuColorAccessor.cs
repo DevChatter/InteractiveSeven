@@ -34,7 +34,6 @@ namespace InteractiveSeven.Core.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            // TODO: Change to writes of contiguous memory.
             _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
 
             _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
