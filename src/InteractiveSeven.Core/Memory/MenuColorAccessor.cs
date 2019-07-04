@@ -34,16 +34,43 @@ namespace InteractiveSeven.Core.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
+            byte[] displayBytes = {
+                menuColors.TopLeft.B,
+                menuColors.TopLeft.G,
+                menuColors.TopLeft.R,
+                128,
+                menuColors.BotLeft.B,
+                menuColors.BotLeft.G,
+                menuColors.BotLeft.R,
+                128,
+                menuColors.TopRight.B,
+                menuColors.TopRight.G,
+                menuColors.TopRight.R,
+                128,
+                menuColors.BotRight.B,
+                menuColors.BotRight.G,
+                menuColors.BotRight.R,
+                128
+            };
             // TODO: Change to writes of contiguous memory.
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsBytesBgr());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsBytesBgr());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsBytesBgr());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsBytesBgr());
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, displayBytes);
 
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeftSave.Address, menuColors.TopLeft.AsBytesRgb());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeftSave.Address, menuColors.BotLeft.AsBytesRgb());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRightSave.Address, menuColors.TopRight.AsBytesRgb());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRightSave.Address, menuColors.BotRight.AsBytesRgb());
+            byte[] saveBytes = {
+                menuColors.TopLeft.R,
+                menuColors.TopLeft.G,
+                menuColors.TopLeft.B,
+                menuColors.BotLeft.R,
+                menuColors.BotLeft.G,
+                menuColors.BotLeft.B,
+                menuColors.TopRight.R,
+                menuColors.TopRight.G,
+                menuColors.TopRight.B,
+                menuColors.BotRight.R,
+                menuColors.BotRight.G,
+                menuColors.BotRight.B
+            };
+
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, saveBytes);
         }
 
     }
