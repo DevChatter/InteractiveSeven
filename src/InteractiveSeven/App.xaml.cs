@@ -78,6 +78,7 @@ namespace InteractiveSeven
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<IGameMomentAccessor, GameMomentAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<IGilAccessor, GilAccessor>();
             services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
