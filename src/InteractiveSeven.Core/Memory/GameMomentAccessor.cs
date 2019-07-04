@@ -1,7 +1,7 @@
-﻿using System;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace InteractiveSeven.Core.Memory
 {

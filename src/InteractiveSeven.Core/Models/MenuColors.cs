@@ -33,7 +33,7 @@ namespace InteractiveSeven.Core.Models
 
         public byte[] GetSaveBytes()
         {
-            return new [] {
+            return new[] {
                 TopLeft.R,
                 TopLeft.G,
                 TopLeft.B,

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using InteractiveSeven.Core.Data.Items;
+using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Core.Data.Items;
-using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {

@@ -39,6 +39,5 @@ namespace InteractiveSeven.Core.Memory
 
             _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
         }
-
     }
 }
