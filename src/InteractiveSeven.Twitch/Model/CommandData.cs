@@ -4,7 +4,7 @@ using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch.Model
 {
-    public class CommandData
+    public struct CommandData
     {
         public static CommandData FromChatCommand(ChatCommand chatCommand)
         {
