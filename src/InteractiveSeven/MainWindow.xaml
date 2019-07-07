@@ -175,6 +175,7 @@
                         </StackPanel>
                         <WrapPanel Orientation="Horizontal" DataContext="{Binding Settings}">
 
+
                             <Border BorderThickness="1" BorderBrush="Black" Margin="5">
                                 <DockPanel Width="500">
                                     <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
@@ -500,6 +501,23 @@
                             <Border DataContext="{Binding EquipmentSettings}"  BorderThickness="1" BorderBrush="Black" Margin="5">
                                 <DockPanel Width="500">
                                     <TextBlock Text="Equipment Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+
+                                    <ItemsControl IsEnabled="{Binding Enabled}"
+                                                  DockPanel.Dock="Bottom" Margin="5,5,0,5"
+                                                  ItemsSource="{Binding AllWeapons}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <lc:EquippableSettingsUc DataContext="{Binding}" Margin="2" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
