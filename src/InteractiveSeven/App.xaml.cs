@@ -97,6 +97,7 @@ namespace InteractiveSeven
             services.RegisterNonBattleCommand<AccessoryCommand>();
             services.RegisterNonBattleCommand<PauperCommand>();
 
+            services.RegisterTwitchCommand<RainbowCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();

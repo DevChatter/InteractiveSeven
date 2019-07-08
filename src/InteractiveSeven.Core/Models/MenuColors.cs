@@ -1,9 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace InteractiveSeven.Core.Models
 {
     public class MenuColors
     {
+        private static readonly Random Rand = new Random();
+
         public Color TopLeft { get; set; }
         public Color BotLeft { get; set; }
         public Color TopRight { get; set; }
@@ -81,5 +84,22 @@ namespace InteractiveSeven.Core.Models
             BotLeft = Color.FromName("black"),
             BotRight = Color.FromName("DarkGreen"),
         };
+
+        public static MenuColors RandomPalette()
+        {
+            return new MenuColors
+            {
+                TopLeft = GetRandomColor(),
+                TopRight = GetRandomColor(),
+                BotLeft = GetRandomColor(),
+                BotRight = GetRandomColor()
+            };
+            Color GetRandomColor()
+            {
+                byte[] b = new byte[3];
+                Rand.NextBytes(b);
+                return Color.FromArgb(b[0], b[1], b[2]);
+            }
+        }
     }
 }

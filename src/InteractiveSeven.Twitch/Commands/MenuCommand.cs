@@ -4,7 +4,6 @@ using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,7 +16,6 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
         private readonly ColorPaletteCollection _paletteCollection;
         private readonly GilBank _gilBank;
-        private static readonly Random Rand = new Random();
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
@@ -92,27 +90,10 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (firstArg.EqualsIns("random"))
             {
-                return RandomPalette();
+                return MenuColors.RandomPalette();
             }
 
             return _paletteCollection.ByName(firstArg);
-        }
-
-        private static MenuColors RandomPalette()
-        {
-            return new MenuColors
-            {
-                TopLeft = GetRandomColor(),
-                TopRight = GetRandomColor(),
-                BotLeft = GetRandomColor(),
-                BotRight = GetRandomColor()
-            };
-            Color GetRandomColor()
-            {
-                byte[] b = new byte[3];
-                Rand.NextBytes(b);
-                return Color.FromArgb(b[0], b[1], b[2]);
-            }
         }
     }
 }
