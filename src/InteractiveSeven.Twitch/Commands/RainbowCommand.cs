@@ -11,7 +11,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IMenuColorAccessor _menuColorAccessor;
 
         public RainbowCommand(IMenuColorAccessor menuColorAccessor)
-            : base(x => new []{"Rainbow"}, x => true)
+            : base(x => new []{ "Rainbow" }, x => x.MenuSettings.EnableRainbowCommand)
         {
             _menuColorAccessor = menuColorAccessor;
         }

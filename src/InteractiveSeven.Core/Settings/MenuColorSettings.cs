@@ -6,6 +6,7 @@
         private int _bitCost;
         private bool _allowModOverride = true;
         private bool _transitionColors = true;
+        private bool _enableRainbowCommand = true;
 
         public bool Enabled
         {
@@ -40,6 +41,15 @@
             set
             {
                 _transitionColors = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool EnableRainbowCommand
+        {
+            get => _enableRainbowCommand;
+            set
+            {
+                _enableRainbowCommand = value;
                 OnPropertyChanged();
             }
         }
