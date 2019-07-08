@@ -76,12 +76,19 @@ namespace InteractiveSeven.Core.ViewModels
 
         private void HandleMenuColorChanging(MenuColorChanging obj)
         {
-            TopLeft = obj.MenuColors.TopLeft;
-            TopRight = obj.MenuColors.TopRight;
-            BotLeft = obj.MenuColors.BotLeft;
-            BotRight = obj.MenuColors.BotRight;
+            try
+            {
+                TopLeft = obj.MenuColors.TopLeft;
+                TopRight = obj.MenuColors.TopRight;
+                BotLeft = obj.MenuColors.BotLeft;
+                BotRight = obj.MenuColors.BotRight;
 
-            _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
+                _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to change menu colors.");
+            }
         }
 
         private void HandleNameRefresh(RefreshEvent e)

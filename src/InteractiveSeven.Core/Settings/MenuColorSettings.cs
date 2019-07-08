@@ -5,6 +5,7 @@
         private bool _enabled = true;
         private int _bitCost;
         private bool _allowModOverride = true;
+        private bool _transitionColors = true;
 
         public bool Enabled
         {
@@ -30,6 +31,15 @@
             set
             {
                 _allowModOverride = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool TransitionColors
+        {
+            get => _transitionColors;
+            set
+            {
+                _transitionColors = value;
                 OnPropertyChanged();
             }
         }
