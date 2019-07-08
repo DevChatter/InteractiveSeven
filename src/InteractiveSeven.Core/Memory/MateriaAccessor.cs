@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Memory.Model;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Memory.Model;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Linq;
-using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -67,26 +67,13 @@ namespace InteractiveSeven.Core.Memory
 
         public void RemoveAllMateria()
         {
-            int totalOffset = 0;
-            int inventoryTotalSize = (InvCapacity * ItemSize);
-            IntPtr nextAddress = IntPtr.Add(FirstAddress, totalOffset);
-
-            do
+            int inventoryTotalBytes = (InvCapacity * ItemSize);
+            byte[] bytes = new byte[inventoryTotalBytes];
+            for (int i = 0; i < inventoryTotalBytes; i++)
             {
-                var scanResult = _memory.ScanMem(Settings.ProcessName,
-                    nextAddress, ItemSize, InvCapacity, HasItem);
-                if (scanResult.BaseAddrOffset == -1) return;
-
-                RemoveItem(totalOffset + scanResult.BaseAddrOffset);
-
-                totalOffset += scanResult.BaseAddrOffset + ItemSize;
-                nextAddress = IntPtr.Add(FirstAddress, totalOffset);
-            } while (totalOffset < inventoryTotalSize);
-
-            bool HasItem(byte[] bytes) => bytes.Any(b => b != byte.MaxValue);
-            void RemoveItem(int addrOffset)
-                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset),
-                    new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue });
+                bytes[i] = byte.MaxValue;
+            }
+            _memory.WriteMem(Settings.ProcessName, FirstAddress, bytes);
         }
     }
 }

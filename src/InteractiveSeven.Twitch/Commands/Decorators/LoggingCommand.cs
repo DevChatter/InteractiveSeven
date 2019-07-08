@@ -15,7 +15,7 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
             _logger = logger;
         }
 
-        public void Execute(CommandData commandData)
+        public void Execute(in CommandData commandData)
         {
             try
             {

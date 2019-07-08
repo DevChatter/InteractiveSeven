@@ -7,11 +7,11 @@ namespace InteractiveSeven.Twitch.Commands
     public class I7Command : BaseCommand
     {
         public I7Command()
-            : base(x => x.I7CommandWords, x => true) // TODO: Add a Setting to Allow this Command
+            : base(x => x.I7CommandWords, x => x.EnableModCommand)
         {
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!commandData.User.IsBroadcaster && !commandData.User.IsMe && !commandData.User.IsMod) return;
 
@@ -30,7 +30,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private void RemoveName(CommandData commandData)
+        private void RemoveName(in CommandData commandData)
         {
             if (Settings.NameBiddingSettings.AllowModeration)
             {

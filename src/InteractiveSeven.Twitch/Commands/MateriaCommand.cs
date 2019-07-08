@@ -1,8 +1,8 @@
 ﻿using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
-using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -13,13 +13,13 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IMateriaAccessor _materiaAccessor;
 
         public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor)
-            : base(x => new[] {"materia"}, x => x.MateriaSettings.Enabled)
+            : base(x => new[] { "materia" }, x => x.MateriaSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _materiaAccessor = materiaAccessor;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
                     $"Materia {materiaName} Added");
             }
         }
-        private bool IsAllowedToUseCommand(ChatUser user)
+        private bool IsAllowedToUseCommand(in ChatUser user)
             => (Settings.MateriaSettings.AllowMod && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
     }

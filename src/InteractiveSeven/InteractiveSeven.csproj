@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Assets\BecomePatron.png" />
     <None Remove="Assets\FontAwesome5_Free-Solid-900.otf" />
+    <None Remove="Controls\EquippableSettingsUc.xaml" />
   </ItemGroup>
 
   <ItemGroup>

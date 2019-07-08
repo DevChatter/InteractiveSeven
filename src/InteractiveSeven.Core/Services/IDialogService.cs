@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core
+﻿namespace InteractiveSeven.Core.Services
 {
     public interface IDialogService
     {

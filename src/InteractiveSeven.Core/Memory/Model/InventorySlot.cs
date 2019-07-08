@@ -20,8 +20,8 @@
         public byte[] AsBytes()
         {
             var bytes = new byte[2];
-            bytes[0] = (byte) (ItemId > 255 ? ItemId - 256 : ItemId);
-            bytes[1] = (byte) (Quantity * 2 + (ItemId > 255 ? 1 : 0));
+            bytes[0] = (byte)(ItemId > 255 ? ItemId - 256 : ItemId);
+            bytes[1] = (byte)(Quantity * 2 + (ItemId > 255 ? 1 : 0));
             return bytes;
         }
     }

@@ -2,12 +2,8 @@
 
 namespace InteractiveSeven.Core.Model
 {
-    public class ChatUser
+    public struct ChatUser
     {
-        public ChatUser()
-        {
-        }
-
         public ChatUser(string username, string userId,
             bool isBroadcaster = false, bool isMe = false, bool isMod = false, bool isSubscriber = false)
         {
@@ -19,17 +15,11 @@ namespace InteractiveSeven.Core.Model
             IsSubscriber = isSubscriber;
         }
 
-        public static ChatUser FromChatMessage(ChatMessage message)
+        public static ChatUser FromChatMessage(in ChatMessage message)
         {
-            return new ChatUser
-            {
-                Username = message.Username,
-                UserId = message.UserId,
-                IsBroadcaster = message.IsBroadcaster,
-                IsMe = message.IsMe,
-                IsMod = message.IsModerator,
-                IsSubscriber = message.IsSubscriber,
-            };
+            return new ChatUser(message.Username, message.UserId,
+                message.IsBroadcaster, message.IsMe,
+                message.IsModerator, message.IsSubscriber);
         }
 
         public string Username { get; set; }

@@ -23,9 +23,19 @@ namespace InteractiveSeven.Core
         /// </summary>
         /// <param name="color"></param>
         /// <returns>bytes in order Blue, Green, Red</returns>
-        public static byte[] AsBytes(this Color color)
+        public static byte[] AsBytesBgr(this Color color)
         {
             return new[] { color.B, color.G, color.R };
+        }
+
+        /// <summary>
+        /// Return Color as bytes in RGB format, which is used for saving only.
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns>bytes in order Red, Green, Blue</returns>
+        public static byte[] AsBytesRgb(this Color color)
+        {
+            return new[] { color.R, color.G, color.B };
         }
 
         /// <summary>

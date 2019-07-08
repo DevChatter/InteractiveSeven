@@ -6,12 +6,14 @@ namespace InteractiveSeven.Core.Memory
     public class NameAccessor : INameAccessor
     {
         private readonly IMemoryAccessor _memoryAccessor;
+        private readonly IGameMomentAccessor _momentAccessor;
 
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-        public NameAccessor(IMemoryAccessor memoryAccessor)
+        public NameAccessor(IMemoryAccessor memoryAccessor, IGameMomentAccessor momentAccessor)
         {
             _memoryAccessor = memoryAccessor;
+            _momentAccessor = momentAccessor;
         }
 
         public string GetCharacterName(CharNames charName)
@@ -32,7 +34,10 @@ namespace InteractiveSeven.Core.Memory
 
             byte[] bytes = newName.MapStringToFf7Bytes();
 
-            _memoryAccessor.WriteMem(ProcessName, cml.Name.Address, bytes);
+            if (_momentAccessor.AtMomentOrLater(charName.AllowNamingAfter))
+            {
+                _memoryAccessor.WriteMem(ProcessName, cml.Name.Address, bytes);
+            }
             _memoryAccessor.WriteMem(ProcessName, cml.StartingName.Address, bytes);
         }
     }

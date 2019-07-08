@@ -121,7 +121,7 @@ namespace UnitTests.Twitch.Commands
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1, false);
-            var (menuCommand, chatUser) = SetUpTest(isMod:true);
+            var (menuCommand, chatUser) = SetUpTest(isMod: true);
             var commandData = new CommandData
             {
                 User = chatUser,

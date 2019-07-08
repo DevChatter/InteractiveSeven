@@ -4,8 +4,8 @@
     {
         private const int ItemOffset = 288;
 
-        internal Accessory(byte id, string name)
-            : base(id, name, ItemOffset)
+        internal Accessory(byte id, string name, ushort defaultPrice, bool enabled = true)
+            : base(id, name, defaultPrice, enabled, ItemOffset)
         {
         }
 

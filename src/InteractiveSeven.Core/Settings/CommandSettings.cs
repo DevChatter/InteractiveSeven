@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
     public class CommandSettings : ObservableSettingsBase
     {
-        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices"};
+        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
         private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
@@ -16,9 +16,11 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
         private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
+        private string[] _pauperCommandWords = { "Pauper", "poor" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -35,7 +37,7 @@ namespace InteractiveSeven.Core.Settings
 
         public CommandSettings()
         {
-            AllWordSets = new List<(string,Func<string[]>)>
+            AllWordSets = new List<(string, Func<string[]>)>
             {
                 (nameof(CostsCommandWords),
                     () => CostsCommandWords),
@@ -53,12 +55,15 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+
                 (nameof(WeaponCommandWords),
                     () => WeaponCommandWords),
                 (nameof(ArmletCommandWords),
                     () => ArmletCommandWords),
                 (nameof(AccessoryCommandWords),
                     () => AccessoryCommandWords),
+                (nameof(PauperCommandWords),
+                    () => PauperCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -181,7 +186,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] ArmletCommandWords // TODO: Add to Settings Screen
+        public string[] ArmletCommandWords
         {
             get => _armletCommandWords;
             set
@@ -191,12 +196,22 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] AccessoryCommandWords // TODO: Add to Settings Screen
+        public string[] AccessoryCommandWords
         {
             get => _accessoryCommandWords;
             set
             {
                 _accessoryCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] PauperCommandWords
+        {
+            get => _pauperCommandWords;
+            set
+            {
+                _pauperCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

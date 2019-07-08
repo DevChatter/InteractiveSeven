@@ -34,11 +34,9 @@ namespace InteractiveSeven.Core.Memory
 
         public void SetMenuColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopLeft.Address, menuColors.TopLeft.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotLeft.Address, menuColors.BotLeft.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuTopRight.Address, menuColors.TopRight.AsBytes());
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuBotRight.Address, menuColors.BotRight.AsBytes());
-        }
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
 
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
+        }
     }
 }

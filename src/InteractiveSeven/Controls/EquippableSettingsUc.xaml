@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="InteractiveSeven.Controls.EquippableSettingsUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:local="clr-namespace:InteractiveSeven.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="140">
+    <Border Background="#CCC" BorderThickness="1" BorderBrush="Black">
+        <StackPanel Orientation="Vertical">
+            <Label Content="{Binding Name}" FontSize="14" FontWeight="Bold" />
+            <StackPanel Orientation="Vertical" Margin="10 5 10 10">
+                <CheckBox Content="Enabled" IsChecked="{Binding Enabled}" />
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 10">
+                    <Label Content="Cost" />
+                    <wpfTool:IntegerUpDown Width="60" Value="{Binding Path=Cost, Mode=TwoWay}" Minimum="0" Maximum="65535" Increment="25" />
+                </StackPanel>
+                <Label Content="Words" FontSize="14" />
+                <wpfTool:WatermarkTextBox MaxWidth="100" MinLines="3" TextWrapping="WrapWithOverflow"
+                                          Watermark="word1, word2..."
+                                          Text="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}" />
+            </StackPanel>
+
+        </StackPanel>
+    </Border>
+</UserControl>

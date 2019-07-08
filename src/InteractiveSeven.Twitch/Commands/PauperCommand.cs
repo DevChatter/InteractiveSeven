@@ -22,7 +22,7 @@ namespace InteractiveSeven.Twitch.Commands
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
             EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData)
-            : base(x => new []{ "pauper" }, x => true)
+            : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
             _equipmentAccessor = equipmentAccessor;
             _materiaAccessor = materiaAccessor;
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
             _armletData = armletData;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
 

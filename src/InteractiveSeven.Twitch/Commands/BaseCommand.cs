@@ -34,6 +34,6 @@ namespace InteractiveSeven.Twitch.Commands
                 && _commandWordsSelector?.Invoke(Settings.CommandSettings)?.Any(word => word.EqualsIns(commandWord)) == true;
         }
 
-        public abstract void Execute(CommandData commandData);
+        public abstract void Execute(in CommandData commandData);
     }
 }

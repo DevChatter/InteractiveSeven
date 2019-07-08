@@ -1,6 +1,5 @@
 ﻿using InteractiveSeven.Core.Battle;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {

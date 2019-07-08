@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
         }
 
-        public override void Execute(CommandData data)
+        public override void Execute(in CommandData data)
         {
             int balance = _gilBank.CheckBalance(data.User);
 

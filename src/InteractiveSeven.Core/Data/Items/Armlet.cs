@@ -4,8 +4,8 @@
     {
         private const int ArmletOffset = 256;
 
-        internal Armlet(byte id, string name)
-            : base(id, name, ArmletOffset)
+        internal Armlet(byte id, string name, ushort defaultPrice, bool enabled = true)
+            : base(id, name, defaultPrice, enabled, ArmletOffset)
         {
         }
 

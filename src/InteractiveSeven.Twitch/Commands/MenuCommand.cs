@@ -29,7 +29,7 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (commandData.Arguments.Count == 0) return;
 
@@ -52,7 +52,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
+        private bool CanOverrideBitRestriction(in ChatUser user)
             => (MenuSettings.AllowModOverride && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)

@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Color = System.Drawing.Color;
 
-namespace InteractiveSeven
+namespace InteractiveSeven.Services
 {
     public static class ColorPreview
     {

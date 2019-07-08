@@ -13,13 +13,13 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
 
         public ItemCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor)
-            : base(x => new[] {"item"}, x => x.ItemSettings.Enabled)
+            : base(x => new[] { "item" }, x => x.ItemSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _inventoryAccessor = inventoryAccessor;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
@@ -34,7 +34,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool IsAllowedToUseCommand(ChatUser user)
+        private bool IsAllowedToUseCommand(in ChatUser user)
             => (Settings.ItemSettings.AllowMod && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
 

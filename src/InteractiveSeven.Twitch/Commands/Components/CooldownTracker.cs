@@ -1,6 +1,6 @@
-﻿using System;
-using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Model;
+using System;
 
 namespace InteractiveSeven.Twitch.Commands.Components
 {
@@ -23,7 +23,7 @@ namespace InteractiveSeven.Twitch.Commands.Components
 
         public bool IsReady => _clock.UtcNow > _nextAvailable;
 
-        public void Run(ChatUser chatUser)
+        public void Run(in ChatUser chatUser)
         {
             _nextAvailable = _clock.UtcNow.Add(_cooldownTime);
         }

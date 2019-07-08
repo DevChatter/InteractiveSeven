@@ -5,16 +5,28 @@ namespace InteractiveSeven.Core.Settings
 {
     public class EquippableSettings : ObservableSettingsBase
     {
+        private Equipment _item;
         [JsonIgnore]
-        public Items Item { get; }
+        public Equipment Item
+        {
+            get { return _item ??= Items.GetByItemId(ItemId) as Equipment; }
+        }
+
+        public ushort ItemId { get; set; }
+
         public string Name { get; set; }
 
-        public EquippableSettings(Items item, bool enabled, int cost, params string[] words)
+        public EquippableSettings() // Required for Json Deserialization
         {
-            Item = item;
+        }
+
+        public EquippableSettings(Equipment item, bool enabled, params string[] words)
+        {
+            _item = item;
+            ItemId = item.ItemId;
             Name = item.Name;
             Enabled = enabled;
-            Cost = cost;
+            Cost = item.DefaultPrice;
             Words = words;
         }
 
@@ -41,7 +53,8 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private string[] _words;
-        public string[] Words
+
+        public string[] Words // TODO: Add to Settings Screen
         {
             get => _words;
             set

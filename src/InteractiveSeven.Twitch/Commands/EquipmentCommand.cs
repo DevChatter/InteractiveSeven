@@ -6,6 +6,7 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -34,41 +35,46 @@ namespace InteractiveSeven.Twitch.Commands
             _equipmentData = equipmentData;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             (bool isValidName, CharNames charName) =
                 CharNames.GetByName(commandData.Arguments.FirstOrDefault());
             var equipmentArg = commandData.Arguments.ElementAtOrDefault(1);
-
-            if (!isValidName
-                || !ushort.TryParse(equipmentArg ?? "", out ushort id)
-                || _equipmentData.GetById(id, charName) == null)
+            if (!isValidName)
             {
                 _twitchClient.SendMessage(commandData.Channel,
                     "Invalid Request - Specify equipment and character like this: !weapon cloud 15");
                 return;
             }
 
+            var equippableSettings = Settings.EquipmentSettings.GetByValue(equipmentArg, charName, typeof(T));
+
+            if (equippableSettings == null)
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    "Invalid Request - Specify equipment and character like this: !weapon cloud 15");
+                return;
+            }
+
+
             int withdrawn = 0;
             if (!CanOverrideBitRestriction(commandData.User))
             {
-                const int cost = 100; // TODO: Configurable Costs
                 int balance;
-                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, cost, true);
-                if (withdrawn < cost)
+                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, equippableSettings.Cost, true);
+                if (withdrawn < equippableSettings.Cost)
                 {
                     _twitchClient.SendMessage(commandData.Channel,
-                        $"Insufficient gil. You only have {balance} gil and needed {cost}");
+                        $"Insufficient gil. You only have {balance} gil and needed {equippableSettings.Cost}");
                     return;
                 }
             }
 
-            var equipment = _equipmentData.GetById(id, charName);
             ushort existingEquipmentId = _equipmentAccessor.GetCharacterEquipment(charName, AddressSelector());
-            if (equipment.EquipmentId == existingEquipmentId)
+            if (equippableSettings.Item.EquipmentId == existingEquipmentId)
             {
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Sorry, {charName.DefaultName} already has {equipment.Name} equipped.");
+                    $"Sorry, {charName.DefaultName} already has {equippableSettings.Name} equipped.");
                 if (withdrawn > 0) // return the gil, since we did nothing
                 {
                     _gilBank.Deposit(commandData.User, withdrawn);
@@ -76,7 +82,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            _equipmentAccessor.SetCharacterEquipment(charName, equipment.EquipmentId, AddressSelector());
+            _equipmentAccessor.SetCharacterEquipment(charName, equippableSettings.Item.EquipmentId, AddressSelector());
             if (Settings.EquipmentSettings.KeepPreviousEquipment)
             {
                 var removedEquip = _equipmentData.GetByEquipId(existingEquipmentId, charName);
@@ -87,7 +93,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
             _materiaAccessor.RemoveWeaponMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
-                $"Equipped {charName.DefaultName} with a {equipment.Name}.");
+                $"Equipped {charName.DefaultName} with a {equippableSettings.Name}.");
         }
 
         private static Func<CharMemLoc, IntPtr> AddressSelector()
@@ -107,7 +113,7 @@ namespace InteractiveSeven.Twitch.Commands
             throw new NotImplementedException();
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
+        private bool CanOverrideBitRestriction(in ChatUser user)
             => (Settings.EquipmentSettings.AllowModOverride && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
     }
