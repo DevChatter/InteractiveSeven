@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
+using System;
+using System.Drawing;
+using System.Threading;
 
 namespace InteractiveSeven.Core.Memory
 {
@@ -60,50 +58,41 @@ namespace InteractiveSeven.Core.Memory
             const double steps = 19d;
             var colorSteps = new MenuColors[(int)steps];
 
-            var tlrInc = (endingColor.TopLeft.R - startColor.TopLeft.R) / steps;
-            var tlgInc = (endingColor.TopLeft.G - startColor.TopLeft.G) / steps;
-            var tlbInc = (endingColor.TopLeft.B - startColor.TopLeft.B) / steps;
-
-            var blrInc = (endingColor.BotLeft.R - startColor.BotLeft.R) / steps;
-            var blgInc = (endingColor.BotLeft.G - startColor.BotLeft.G) / steps;
-            var blbInc = (endingColor.BotLeft.B - startColor.BotLeft.B) / steps;
-
-            var trrInc = (endingColor.TopRight.R - startColor.TopRight.R) / steps;
-            var trgInc = (endingColor.TopRight.G - startColor.TopRight.G) / steps;
-            var trbInc = (endingColor.TopRight.B - startColor.TopRight.B) / steps;
-
-            var brrInc = (endingColor.BotRight.R - startColor.BotRight.R) / steps;
-            var brgInc = (endingColor.BotRight.G - startColor.BotRight.G) / steps;
-            var brbInc = (endingColor.BotRight.B - startColor.BotRight.B) / steps;
+            var tlIncr = GetRgbIncrements(startColor.TopLeft, endingColor.TopLeft, steps);
+            var blIncr = GetRgbIncrements(startColor.BotLeft, endingColor.BotLeft, steps);
+            var trIncr = GetRgbIncrements(startColor.TopRight, endingColor.TopRight, steps);
+            var brIncr = GetRgbIncrements(startColor.BotRight, endingColor.BotRight, steps);
 
             for (int i = 0; i < colorSteps.Length; i++)
             {
-                int tlr = (int)Math.Round(startColor.TopLeft.R + tlrInc * (i + 1));
-                int tlg = (int)Math.Round(startColor.TopLeft.G + tlgInc * (i + 1));
-                int tlb = (int)Math.Round(startColor.TopLeft.B + tlbInc * (i + 1));
-
-                int blr = (int)Math.Round(startColor.BotLeft.R + blrInc * (i + 1));
-                int blg = (int)Math.Round(startColor.BotLeft.G + blgInc * (i + 1));
-                int blb = (int)Math.Round(startColor.BotLeft.B + blbInc * (i + 1));
-
-                int trr = (int)Math.Round(startColor.TopRight.R + trrInc * (i + 1));
-                int trg = (int)Math.Round(startColor.TopRight.G + trgInc * (i + 1));
-                int trb = (int)Math.Round(startColor.TopRight.B + trbInc * (i + 1));
-
-                int brr = (int)Math.Round(startColor.BotRight.R + brrInc * (i + 1));
-                int brg = (int)Math.Round(startColor.BotRight.G + brgInc * (i + 1));
-                int brb = (int)Math.Round(startColor.BotRight.B + brbInc * (i + 1));
-
                 colorSteps[i] = new MenuColors
                 {
-                    TopLeft = Color.FromArgb(tlr, tlg, tlb),
-                    BotLeft = Color.FromArgb(blr, blg, blb),
-                    TopRight = Color.FromArgb(trr, trg, trb),
-                    BotRight = Color.FromArgb(brr, brg, brb),
+                    TopLeft = CalculateStepColor(startColor.TopLeft, tlIncr.r, tlIncr.g, tlIncr.b, i),
+                    BotLeft = CalculateStepColor(startColor.BotLeft, blIncr.r, blIncr.g, blIncr.b, i),
+                    TopRight = CalculateStepColor(startColor.TopRight, trIncr.r, trIncr.g, trIncr.b, i),
+                    BotRight = CalculateStepColor(startColor.BotRight, brIncr.r, brIncr.g, brIncr.b, i),
                 };
             }
 
             return colorSteps;
+        }
+
+        private static Color CalculateStepColor(Color startColor,
+            double incrR, double incrG, double incrB, int stepNumber)
+        {
+            int r = (int)Math.Round(startColor.R + incrR * (stepNumber + 1));
+            int g = (int)Math.Round(startColor.G + incrG * (stepNumber + 1));
+            int b = (int)Math.Round(startColor.B + incrB * (stepNumber + 1));
+            return Color.FromArgb(r, g, b);
+        }
+
+        private static (double r, double g, double b)
+            GetRgbIncrements(Color startColor, Color endingColor, double steps)
+        {
+            double r = (endingColor.R - startColor.R) / steps;
+            double g = (endingColor.G - startColor.G) / steps;
+            double b = (endingColor.B - startColor.B) / steps;
+            return (r, g, b);
         }
     }
 }
