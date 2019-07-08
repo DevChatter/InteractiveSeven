@@ -33,7 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
             _armletData = armletData;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
 

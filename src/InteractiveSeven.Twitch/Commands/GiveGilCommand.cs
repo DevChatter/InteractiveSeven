@@ -20,7 +20,7 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
             AttemptTransfer(commandData, recipient, amount);
         }
 
-        private void AttemptTransfer(CommandData commandData, string recipient, int amount)
+        private void AttemptTransfer(in CommandData commandData, string recipient, int amount)
         {
             bool isBonus = false;
             int withdrawn;
@@ -60,7 +60,7 @@ namespace InteractiveSeven.Twitch.Commands
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
 
-        private bool CanSendBonusBits(ChatUser user)
+        private bool CanSendBonusBits(in ChatUser user)
         {
             return user.IsBroadcaster
                    || user.IsMe

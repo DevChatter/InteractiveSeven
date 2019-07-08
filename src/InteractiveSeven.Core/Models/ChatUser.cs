@@ -15,7 +15,7 @@ namespace InteractiveSeven.Core.Model
             IsSubscriber = isSubscriber;
         }
 
-        public static ChatUser FromChatMessage(ChatMessage message)
+        public static ChatUser FromChatMessage(in ChatMessage message)
         {
             return new ChatUser(message.Username, message.UserId,
                 message.IsBroadcaster, message.IsMe,

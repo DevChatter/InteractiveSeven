@@ -18,7 +18,7 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             var requested = commandData.Arguments.FirstOrDefault();
 

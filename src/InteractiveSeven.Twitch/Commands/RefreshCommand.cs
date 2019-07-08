@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
             _cooldownTracker = new CooldownTracker(1);
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (IsAvailable(commandData))
             {
@@ -29,7 +29,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool IsAvailable(CommandData data)
+        private bool IsAvailable(in CommandData data)
         {
             return data.User.IsBroadcaster || data.User.IsMod || _cooldownTracker.IsReady;
         }

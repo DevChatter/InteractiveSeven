@@ -14,7 +14,7 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             string[] commandWords = Settings.CommandSettings.AllWordSets.Select(wordSet => wordSet.Words().First()).ToArray();
             _twitchClient.SendMessage(commandData.Channel,

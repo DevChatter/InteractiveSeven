@@ -35,7 +35,7 @@ namespace InteractiveSeven.Twitch.Commands
             _equipmentData = equipmentData;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             (bool isValidName, CharNames charName) =
                 CharNames.GetByName(commandData.Arguments.FirstOrDefault());
@@ -113,7 +113,7 @@ namespace InteractiveSeven.Twitch.Commands
             throw new NotImplementedException();
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
+        private bool CanOverrideBitRestriction(in ChatUser user)
             => (Settings.EquipmentSettings.AllowModOverride && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
     }

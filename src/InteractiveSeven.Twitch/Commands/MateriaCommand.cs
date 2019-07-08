@@ -19,7 +19,7 @@ namespace InteractiveSeven.Twitch.Commands
             _materiaAccessor = materiaAccessor;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
@@ -33,7 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
                     $"Materia {materiaName} Added");
             }
         }
-        private bool IsAllowedToUseCommand(ChatUser user)
+        private bool IsAllowedToUseCommand(in ChatUser user)
             => (Settings.MateriaSettings.AllowMod && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
     }

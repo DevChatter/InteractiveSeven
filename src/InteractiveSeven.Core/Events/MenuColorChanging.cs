@@ -9,7 +9,7 @@ namespace InteractiveSeven.Core.Events
         public ChatUser User { get; }
         public int Gil { get; set; }
 
-        public MenuColorChanging(MenuColors menuColors, ChatUser user, int gil)
+        public MenuColorChanging(MenuColors menuColors, in ChatUser user, int gil)
         {
             MenuColors = menuColors;
             User = user;

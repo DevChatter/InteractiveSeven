@@ -16,7 +16,7 @@ namespace InteractiveSeven.Core.Models
 
         public bool HasAccount(string username) => _knownUsers.Contains(username.ToLower());
 
-        public int Deposit(ChatUser user, int bits)
+        public int Deposit(in ChatUser user, int bits)
         {
             bits = Math.Max(0, bits);
             lock (_padlock)
@@ -27,7 +27,7 @@ namespace InteractiveSeven.Core.Models
             }
         }
 
-        public (int balance, int withdrawn) Withdraw(ChatUser user, int bits, bool requireBalance = false)
+        public (int balance, int withdrawn) Withdraw(in ChatUser user, int bits, bool requireBalance = false)
         {
             lock (_padlock)
             {
@@ -42,18 +42,19 @@ namespace InteractiveSeven.Core.Models
             }
         }
 
-        public int CheckBalance(ChatUser user)
+        public int CheckBalance(in ChatUser user)
         {
             var account = AccessAccount(user);
             return account.Balance;
         }
 
-        private Account AccessAccount(ChatUser user)
+        private Account AccessAccount(in ChatUser user)
         {
-            Account account = Accounts.SingleOrDefault(a => a.Username.EqualsIns(user.Username));
+            string username = user.Username;
+            Account account = Accounts.SingleOrDefault(a => a.Username.EqualsIns(username));
             if (account == null)
             {
-                account = new Account(user.Username);
+                account = new Account(username);
                 Accounts.Add(account);
             }
 
@@ -66,7 +67,7 @@ namespace InteractiveSeven.Core.Models
             return account;
         }
 
-        public void EnsureAccountExists(ChatUser user)
+        public void EnsureAccountExists(in ChatUser user)
         {
             bool newUser = _knownUsers.Add(user.Username.ToLower());
             if (newUser)

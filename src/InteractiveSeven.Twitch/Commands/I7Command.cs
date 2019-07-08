@@ -11,7 +11,7 @@ namespace InteractiveSeven.Twitch.Commands
         {
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!commandData.User.IsBroadcaster && !commandData.User.IsMe && !commandData.User.IsMod) return;
 
@@ -30,7 +30,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private void RemoveName(CommandData commandData)
+        private void RemoveName(in CommandData commandData)
         {
             if (Settings.NameBiddingSettings.AllowModeration)
             {

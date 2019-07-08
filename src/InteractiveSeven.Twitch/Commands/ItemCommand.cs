@@ -19,7 +19,7 @@ namespace InteractiveSeven.Twitch.Commands
             _inventoryAccessor = inventoryAccessor;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
@@ -34,7 +34,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool IsAllowedToUseCommand(ChatUser user)
+        private bool IsAllowedToUseCommand(in ChatUser user)
             => (Settings.ItemSettings.AllowMod && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
 

@@ -39,7 +39,7 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
         }
 
-        public override void Execute(CommandData data)
+        public override void Execute(in CommandData data)
         {
             if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, NameBidSettings.NamingCloudEnabled))
             {
@@ -79,10 +79,13 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private static bool ShouldTriggerFor(CommandData commandData, string[] words, bool enabled)
-            => words.Any(word => word.EqualsIns(commandData.CommandText)) && enabled;
+        private static bool ShouldTriggerFor(in CommandData commandData, string[] words, bool enabled)
+        {
+            string commandText = commandData.CommandText;
+            return words.Any(word => word.EqualsIns(commandText)) && enabled;
+        }
 
-        private void TriggerDomainEvent(CharNames charName, CommandData data)
+        private void TriggerDomainEvent(in CharNames charName, in CommandData data)
         {
             int gil = GetGilFromCommandData(data);
             if (!CanOverrideBitRestriction(data.User))
@@ -109,7 +112,7 @@ namespace InteractiveSeven.Twitch.Commands
             DomainEvents.Raise(domainEvent);
         }
 
-        private static int GetGilFromCommandData(CommandData data)
+        private static int GetGilFromCommandData(in CommandData data)
         {
             int gil = data.Arguments.Count > 1
                 ? data.Arguments.Skip(1).Max(arg => arg.SafeIntParse())
@@ -122,7 +125,7 @@ namespace InteractiveSeven.Twitch.Commands
             return gil;
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
+        private bool CanOverrideBitRestriction(in ChatUser user)
             => (NameBidSettings.AllowModBits && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
     }

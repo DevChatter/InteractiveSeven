@@ -27,7 +27,7 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
             return _internalCommand.ShouldExecute(commandWord);
         }
 
-        public void Execute(CommandData commandData)
+        public void Execute(in CommandData commandData)
         {
             if (IsBattleActive())
             {

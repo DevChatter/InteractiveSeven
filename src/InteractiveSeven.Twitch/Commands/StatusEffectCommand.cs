@@ -30,7 +30,7 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             var statusSettings = Settings.BattleSettings.ByWord(commandData.CommandText);
             var actor = Allies.ByWord(commandData.Arguments.FirstOrDefault());
@@ -64,7 +64,7 @@ namespace InteractiveSeven.Twitch.Commands
                 $"Applied {commandData.CommandText} to {actor.Words.First()}.");
         }
 
-        private bool CanOverrideBitRestriction(ChatUser user)
+        private bool CanOverrideBitRestriction(in ChatUser user)
             => (Settings.BattleSettings.AllowModOverride && user.IsMod)
                || user.IsMe || user.IsBroadcaster;
 

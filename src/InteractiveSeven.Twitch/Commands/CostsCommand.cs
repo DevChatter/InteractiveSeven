@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
-        public override void Execute(CommandData commandData)
+        public override void Execute(in CommandData commandData)
         {
             _twitchClient.SendMessage(commandData.Channel,
                 $"[MenuColors costs {Settings.MenuSettings.BitCost}] [Default Names Started At {Settings.NameBiddingSettings.DefaultStartBits}]");
