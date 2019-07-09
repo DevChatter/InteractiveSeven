@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using InteractiveSeven.Core.Workloads;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -27,6 +28,8 @@ namespace InteractiveSeven
     /// </summary>
     public partial class App : Application
     {
+        private WorkloadCoordinator _workloadCoordinator;
+
         private static void InitializeSettings()
         {
             new SettingsStore().EnsureExists();
@@ -45,6 +48,8 @@ namespace InteractiveSeven
             ConfigureServices(serviceCollection);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            _workloadCoordinator = serviceProvider.GetService<WorkloadCoordinator>();
 
             var mainWindow = serviceProvider.GetService<MainWindow>();
 
@@ -68,6 +73,8 @@ namespace InteractiveSeven
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient(typeof(IList<>), typeof(List<>));
+
+            services.AddSingleton<WorkloadCoordinator>();
 
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<NameBiddingViewModel>();

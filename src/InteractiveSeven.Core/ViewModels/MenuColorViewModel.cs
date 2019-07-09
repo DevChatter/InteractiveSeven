@@ -1,7 +1,6 @@
 ﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
@@ -13,17 +12,14 @@ namespace InteractiveSeven.Core.ViewModels
 {
     public class MenuColorViewModel : INotifyPropertyChanged
     {
-        private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ILogger<MenuColorViewModel> _logger;
-        private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-        public MenuColorViewModel(IMenuColorAccessor menuColorAccessor, ILogger<MenuColorViewModel> logger)
+        public MenuColorViewModel(ILogger<MenuColorViewModel> logger)
         {
-            _menuColorAccessor = menuColorAccessor;
             _logger = logger;
 
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
-            DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
+            DomainEvents.Register<RefreshEvent>(HandleColorRefresh);
         }
 
         private Color _topLeft = Color.FromArgb(0, 88, 176);
@@ -83,7 +79,6 @@ namespace InteractiveSeven.Core.ViewModels
                 BotLeft = obj.MenuColors.BotLeft;
                 BotRight = obj.MenuColors.BotRight;
 
-                _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
             }
             catch (Exception ex)
             {
@@ -91,16 +86,9 @@ namespace InteractiveSeven.Core.ViewModels
             }
         }
 
-        private void HandleNameRefresh(RefreshEvent e)
+        private void HandleColorRefresh(RefreshEvent e)
         {
-            try
-            {
-                _menuColorAccessor.SetMenuColors(ProcessName, PreviewImage);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to refresh menu colors.");
-            }
+            DomainEvents.Raise(new MenuColorChanging(PreviewImage, new ChatUser(), 0));
         }
 
         public ObservableCollection<ChangeRecord> Changes { get; } = new ObservableCollection<ChangeRecord>();

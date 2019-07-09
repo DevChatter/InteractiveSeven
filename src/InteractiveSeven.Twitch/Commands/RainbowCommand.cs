@@ -1,19 +1,13 @@
-﻿using System.Threading.Tasks;
-using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.Events;
 using InteractiveSeven.Twitch.Model;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public class RainbowCommand : BaseCommand
     {
-        private readonly IMenuColorAccessor _menuColorAccessor;
-
-        public RainbowCommand(IMenuColorAccessor menuColorAccessor)
+        public RainbowCommand()
             : base(x => new []{ "Rainbow" }, x => x.MenuSettings.EnableRainbowCommand)
         {
-            _menuColorAccessor = menuColorAccessor;
         }
 
         public override void Execute(in CommandData commandData)
@@ -23,15 +17,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Task.Run(() =>
-            {
-                // TODO: Mark as "ON" and disable menu command and further instances of this command.
-                for (int i = 0; i < 100; i++) // TODO: Configurable Time
-                {
-                    _menuColorAccessor.SetMenuColors(ApplicationSettings.Instance.ProcessName,
-                        MenuColors.RandomPalette());
-                }
-            });
+            DomainEvents.Raise(new RainbowModeStarted());
         }
     }
 }
