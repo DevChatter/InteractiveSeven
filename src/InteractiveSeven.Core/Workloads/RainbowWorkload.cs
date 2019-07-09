@@ -22,7 +22,7 @@ namespace InteractiveSeven.Core.Workloads
         {
             try
             {
-                for (int i = 0; i < 10000; i++) // TODO: Configurable Time
+                for (int i = 0; i < 100; i++) // TODO: Configurable Time
                 {
                     _menuColorAccessor.SetMenuColors(ApplicationSettings.Instance.ProcessName,
                         MenuColors.RandomPalette());

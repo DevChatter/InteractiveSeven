@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace InteractiveSeven.Core.Workloads
 {
@@ -9,7 +10,9 @@ namespace InteractiveSeven.Core.Workloads
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ILogger<MenuColorChangeWorkload> _logger;
-        // TODO: Queue of the IWorkload objects to execute one-at-a-time
+        private readonly ConcurrentQueue<IWorkload> _workloads = new ConcurrentQueue<IWorkload>();
+        private bool _isRunning = false;
+        private readonly object _padlock = new object();
 
         public WorkloadCoordinator(IMenuColorAccessor menuColorAccessor,
             ILogger<MenuColorChangeWorkload> logger)
@@ -37,8 +40,27 @@ namespace InteractiveSeven.Core.Workloads
 
         private void AddAndStart(IWorkload workload)
         {
-            // TODO: Method to Add and Start if not already running.
-            Task.Run(workload.Run);
+            _workloads.Enqueue(workload);
+
+            if (!_isRunning)
+            {
+                lock (_padlock)
+                {
+                    if (!_isRunning)
+                    {
+                        _isRunning = true;
+                        Task.Run(() =>
+                        {
+                            while (_workloads.TryDequeue(out IWorkload toRun))
+                            {
+                                toRun.Run();
+                            }
+
+                            _isRunning = false;
+                        });
+                    }
+                }
+            }
         }
     }
 }
