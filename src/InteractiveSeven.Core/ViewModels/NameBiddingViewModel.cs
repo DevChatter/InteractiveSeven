@@ -67,7 +67,9 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 var nameBidding = new CharacterNameBidding(charName, _charNameBiddingLogger, false);
 
-                foreach (var nameBid in nameBids.Where(x => x.CharNameId == charName.Id))
+                var namesForChar = nameBids.Where(x => x.CharNameId == charName.Id)
+                    .OrderByDescending(x => x.TotalBits);
+                foreach (var nameBid in namesForChar)
                 {
                     nameBidding.NameBids.Add(nameBid);
                 }
