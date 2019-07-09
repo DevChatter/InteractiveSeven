@@ -22,6 +22,14 @@ namespace InteractiveSeven.Core.Workloads
 
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
             DomainEvents.Register<RainbowModeStarted>(HandleRainbowModeStarted);
+            DomainEvents.Register<MakoModeStarted>(HandleMakoModeStarted);
+        }
+
+        private void HandleMakoModeStarted(MakoModeStarted obj)
+        {
+            var workload = new MakoColorsWorkload(_menuColorAccessor, _logger);
+
+            AddAndStart(workload);
         }
 
         private void HandleRainbowModeStarted(RainbowModeStarted obj)
