@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Memory;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
@@ -9,13 +10,13 @@ namespace InteractiveSeven.Core.Workloads
     public class WorkloadCoordinator
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
-        private readonly ILogger<MenuColorChangeWorkload> _logger;
+        private readonly ILogger<WorkloadCoordinator> _logger;
         private readonly ConcurrentQueue<IWorkload> _workloads = new ConcurrentQueue<IWorkload>();
         private bool _isRunning = false;
         private readonly object _padlock = new object();
 
         public WorkloadCoordinator(IMenuColorAccessor menuColorAccessor,
-            ILogger<MenuColorChangeWorkload> logger)
+            ILogger<WorkloadCoordinator> logger)
         {
             _menuColorAccessor = menuColorAccessor;
             _logger = logger;
@@ -49,6 +50,7 @@ namespace InteractiveSeven.Core.Workloads
         private void AddAndStart(IWorkload workload)
         {
             _workloads.Enqueue(workload);
+            bool startedHere = false;
 
             if (!_isRunning)
             {
@@ -57,18 +59,28 @@ namespace InteractiveSeven.Core.Workloads
                     if (!_isRunning)
                     {
                         _isRunning = true;
-                        Task.Run(() =>
-                        {
-                            while (_workloads.TryDequeue(out IWorkload toRun))
-                            {
-                                toRun.Run();
-                            }
-
-                            _isRunning = false;
-                        });
+                        startedHere = true;
                     }
                 }
             }
+
+            if (startedHere)
+            {
+                Task.Run(() =>
+                {
+                    while (_workloads.TryDequeue(out IWorkload toRun))
+                    {
+                        toRun.Run();
+                    }
+
+                    _isRunning = false;
+                }).RunInBackgroundSafely(false, LogWorkloadException);
+            }
+        }
+
+        private void LogWorkloadException(Exception ex)
+        {
+            _logger.LogError(ex, "Error Running Workloads");
         }
     }
 }

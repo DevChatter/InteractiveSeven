@@ -10,10 +10,10 @@ namespace InteractiveSeven.Core.Workloads
     {
         private readonly MenuColors _menuColors;
         private readonly IMenuColorAccessor _menuColorAccessor;
-        private readonly ILogger<MenuColorChangeWorkload> _logger;
+        private readonly ILogger<WorkloadCoordinator> _logger;
 
         public MenuColorChangeWorkload(MenuColors menuColors, IMenuColorAccessor menuColorAccessor,
-            ILogger<MenuColorChangeWorkload> logger)
+            ILogger<WorkloadCoordinator> logger)
         {
             _menuColors = menuColors;
             _menuColorAccessor = menuColorAccessor;

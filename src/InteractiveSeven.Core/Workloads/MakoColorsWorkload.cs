@@ -11,10 +11,10 @@ namespace InteractiveSeven.Core.Workloads
     public class MakoColorsWorkload : IWorkload
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
-        private readonly ILogger<MenuColorChangeWorkload> _logger;
+        private readonly ILogger<WorkloadCoordinator> _logger;
 
         public MakoColorsWorkload(IMenuColorAccessor menuColorAccessor,
-            ILogger<MenuColorChangeWorkload> logger)
+            ILogger<WorkloadCoordinator> logger)
         {
             _menuColorAccessor = menuColorAccessor;
             _logger = logger;
