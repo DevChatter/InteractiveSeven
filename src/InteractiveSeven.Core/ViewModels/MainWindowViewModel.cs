@@ -1,13 +1,14 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.MvvmCommands;
 using System.Windows.Input;
+using InteractiveSeven.Core.Bidding.Naming;
 
 namespace InteractiveSeven.Core.ViewModels
 {
     public class MainWindowViewModel
     {
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel, NameBiddingViewModel nameBiddingViewModel,
-            SettingsViewModel settingsViewModel, IChatBot chatBot, IDataStore dataStore)
+            SettingsViewModel settingsViewModel, IChatBot chatBot, IDataStore<CharacterNameBid> dataStore)
         {
             MenuColorViewModel = menuColorViewModel;
             NameBiddingViewModel = nameBiddingViewModel;

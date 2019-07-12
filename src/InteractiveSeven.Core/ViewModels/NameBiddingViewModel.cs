@@ -18,7 +18,7 @@ namespace InteractiveSeven.Core.ViewModels
     {
         private readonly INameAccessor _nameAccessor;
         private readonly ITwitchClient _twitchClient;
-        private readonly IDataStore _dataStore;
+        private readonly IDataStore<CharacterNameBid> _dataStore;
         private readonly IDialogService _dialogService;
         private readonly ILogger<NameBiddingViewModel> _logger;
         private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
@@ -29,7 +29,7 @@ namespace InteractiveSeven.Core.ViewModels
         public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
 
         public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
-            IDataStore dataStore, IDialogService dialogService, ILogger<NameBiddingViewModel> logger,
+            IDataStore<CharacterNameBid> dataStore, IDialogService dialogService, ILogger<NameBiddingViewModel> logger,
             ILogger<CharacterNameBidding> charNameBiddingLogger)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);

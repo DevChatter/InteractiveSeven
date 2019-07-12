@@ -1,5 +1,4 @@
-﻿using InteractiveSeven.Core.Bidding.Naming;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,27 +6,27 @@ using System.IO;
 
 namespace InteractiveSeven.Core.Data
 {
-    public interface IDataStore
+    public interface IDataStore<T>
     {
-        void SaveData(List<CharacterNameBid> nameBids);
-        List<CharacterNameBid> LoadData();
+        void SaveData(List<T> items);
+        List<T> LoadData();
     }
 
-    public class FileDataStore : IDataStore
+    public class FileDataStore<T> : IDataStore<T>
     {
-        private readonly ILogger<FileDataStore> _logger;
-        private const string FileName = "i7-data.json";
+        private readonly ILogger<FileDataStore<T>> _logger;
+        private string FileName => $"i7-{typeof(T).Name}-data.json";
 
-        public FileDataStore(ILogger<FileDataStore> logger)
+        public FileDataStore(ILogger<FileDataStore<T>> logger)
         {
             _logger = logger;
         }
 
-        public void SaveData(List<CharacterNameBid> nameBids)
+        public void SaveData(List<T> items)
         {
             try
             {
-                string text = JsonConvert.SerializeObject(nameBids);
+                string text = JsonConvert.SerializeObject(items);
                 File.WriteAllText(FileName, text);
             }
             catch (Exception e)
@@ -36,14 +35,14 @@ namespace InteractiveSeven.Core.Data
             }
         }
 
-        public List<CharacterNameBid> LoadData()
+        public List<T> LoadData()
         {
             try
             {
                 if (File.Exists(FileName))
                 {
                     string json = File.ReadAllText(FileName);
-                    return JsonConvert.DeserializeObject<List<CharacterNameBid>>(json);
+                    return JsonConvert.DeserializeObject<List<T>>(json);
                 }
             }
             catch (Exception e)

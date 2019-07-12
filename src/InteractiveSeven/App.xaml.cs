@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using InteractiveSeven.Core.Workloads;
+using InteractiveSeven.Startup;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -49,26 +50,16 @@ namespace InteractiveSeven
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
+            var dataLoader = serviceProvider.GetService<DataLoader>();
+            dataLoader.LoadPreviousData();
+
             _workloadCoordinator = serviceProvider.GetService<WorkloadCoordinator>();
 
             var mainWindow = serviceProvider.GetService<MainWindow>();
 
-            LoadPreviousData(mainWindow.ViewModel, serviceProvider);
-
             mainWindow.Show();
         }
 
-        private void LoadPreviousData(MainWindowViewModel viewModel, IServiceProvider provider)
-        {
-            var dataStore = provider.GetService<IDataStore>();
-
-            List<CharacterNameBid> characterNameBids = dataStore.LoadData();
-
-            if (characterNameBids != null && characterNameBids.Any())
-            {
-                viewModel.NameBiddingViewModel.Load(characterNameBids);
-            }
-        }
 
         private void ConfigureServices(IServiceCollection services)
         {
@@ -104,6 +95,7 @@ namespace InteractiveSeven
             services.RegisterNonBattleCommand<AccessoryCommand>();
             services.RegisterNonBattleCommand<PauperCommand>();
 
+            services.RegisterTwitchCommand<PaletteCommand>();
             services.RegisterTwitchCommand<RainbowCommand>();
             services.RegisterTwitchCommand<MakoCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
@@ -119,7 +111,11 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
-            services.AddSingleton<IDataStore, FileDataStore>();
+
+            services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
+
+            services.AddSingleton<DataLoader>();
+
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<GilBank>();
             services.AddSingleton<ColorPaletteCollection>();

@@ -16,6 +16,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+        private string[] _paletteCommandWords = {"Palette", "Pallete", "Pallette", "Palete"};
 
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
@@ -55,6 +56,8 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+                (nameof(PaletteCommandWords),
+                    () => PaletteCommandWords),
 
                 (nameof(WeaponCommandWords),
                     () => WeaponCommandWords),
@@ -172,6 +175,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _helpCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] PaletteCommandWords // TODO: Add to Settings View
+        {
+            get => _paletteCommandWords;
+            set
+            {
+                _paletteCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

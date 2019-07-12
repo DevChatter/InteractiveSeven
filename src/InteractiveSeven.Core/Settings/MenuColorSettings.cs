@@ -7,6 +7,8 @@
         private bool _allowModOverride = true;
         private bool _transitionColors = true;
         private bool _enableRainbowCommand = true;
+        private bool _enablePaletteCommand = true;
+        private bool _allowModsToCreatePalettes = true;
 
         public bool Enabled
         {
@@ -35,7 +37,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool TransitionColors
+        public bool TransitionColors // TODO: Add to Settings View
         {
             get => _transitionColors;
             set
@@ -44,12 +46,30 @@
                 OnPropertyChanged();
             }
         }
-        public bool EnableRainbowCommand
+        public bool EnableRainbowCommand // TODO: Add to Settings View
         {
             get => _enableRainbowCommand;
             set
             {
                 _enableRainbowCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool EnablePaletteCommand // TODO: Add to Settings View
+        {
+            get => _enablePaletteCommand;
+            set
+            {
+                _enablePaletteCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool AllowModsToCreatePalettes // TODO: Add to Settings View
+        {
+            get => _allowModsToCreatePalettes;
+            set
+            {
+                _allowModsToCreatePalettes = value;
                 OnPropertyChanged();
             }
         }
