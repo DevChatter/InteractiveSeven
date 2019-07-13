@@ -16,9 +16,9 @@ namespace InteractiveSeven.Core.Settings
         private string[] _nameBidsCommandWords = { "NameBids" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
-        private string[] _paletteCommandWords = {"Palette", "Pallete", "Pallette", "Palete"};
-        private string[] _rainbowCommandWords = {"Rainbow", "RainbowMode"};
-        private string[] _makoCommandWords = {"Mako", "MakoMode"};
+        private string[] _paletteCommandWords = { "Palette", "Pallete", "Pallette", "Palete" };
+        private string[] _rainbowCommandWords = { "Rainbow", "RainbowMode" };
+        private string[] _makoCommandWords = { "Mako", "MakoMode" };
 
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };

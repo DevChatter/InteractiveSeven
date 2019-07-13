@@ -5,7 +5,7 @@ namespace InteractiveSeven.Twitch.Commands
 {
     public class MakoCommand : BaseCommand
     {
-        public MakoCommand() 
+        public MakoCommand()
             : base(x => x.MakoCommandWords, x => x.MenuSettings.EnableMakoCommand)
         {
         }
@@ -18,7 +18,6 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             //TODO: Add a cost and allow others' access
-
 
             DomainEvents.Raise(new MakoModeStarted());
         }

@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.MvvmCommands;
 using System.Windows.Input;
-using InteractiveSeven.Core.Bidding.Naming;
 
 namespace InteractiveSeven.Core.ViewModels
 {

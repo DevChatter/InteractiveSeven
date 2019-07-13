@@ -1,8 +1,8 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Settings
 {

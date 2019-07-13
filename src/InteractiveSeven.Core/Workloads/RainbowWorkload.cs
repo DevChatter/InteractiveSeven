@@ -1,8 +1,8 @@
-﻿using System;
-using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace InteractiveSeven.Core.Workloads
 {

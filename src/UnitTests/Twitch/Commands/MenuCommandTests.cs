@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
-using InteractiveSeven.Core.Data;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 
