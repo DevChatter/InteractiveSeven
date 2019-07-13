@@ -3,6 +3,7 @@ using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;

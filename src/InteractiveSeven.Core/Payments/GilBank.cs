@@ -1,10 +1,11 @@
 ﻿using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InteractiveSeven.Core.Models
+namespace InteractiveSeven.Core.Payments
 {
     public class GilBank
     {

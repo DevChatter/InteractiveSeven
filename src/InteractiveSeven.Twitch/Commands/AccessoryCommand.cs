@@ -1,6 +1,6 @@
 ﻿using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

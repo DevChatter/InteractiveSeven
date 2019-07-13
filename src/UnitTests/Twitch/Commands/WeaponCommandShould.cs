@@ -2,7 +2,7 @@
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Model;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
 using Moq;
