@@ -16,11 +16,6 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            if (!commandData.User.IsBroadcaster)
-            {
-                return;
-            }
-
             _paymentProcessor.ProcessPayment(commandData,
                 Settings.MenuSettings.RainbowModeCost,
                 Settings.MenuSettings.AllowModOverride);
