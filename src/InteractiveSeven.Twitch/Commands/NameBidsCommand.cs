@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
+using InteractiveSeven.Core.Data;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -22,7 +23,15 @@ namespace InteractiveSeven.Twitch.Commands
         {
             var requested = commandData.Arguments.FirstOrDefault();
 
-            var bidding = _biddingVm.CharacterNameBiddings.SingleOrDefault(x => x.DefaultName.EqualsIns(requested));
+            var (exists, name) = CharNames.GetByName(requested);
+
+            if (!exists)
+            {
+                _twitchClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                return;
+            }
+
+            var bidding = _biddingVm.CharacterNameBiddings.SingleOrDefault(x => x.CharName == name);
 
             if (bidding == null)
             {
