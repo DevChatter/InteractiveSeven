@@ -9,6 +9,7 @@
         private bool _enableRainbowCommand = true;
         private int _rainbowModeCost = 1000;
         private bool _enableMakoCommand = true;
+        private int _makoModeCost = 500;
         private bool _enablePaletteCommand = true;
         private bool _allowModsToCreatePalettes = true;
 
@@ -74,6 +75,16 @@
             set
             {
                 _enableMakoCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MakoModeCost
+        {
+            get => _makoModeCost;
+            set
+            {
+                _makoModeCost = value;
                 OnPropertyChanged();
             }
         }
