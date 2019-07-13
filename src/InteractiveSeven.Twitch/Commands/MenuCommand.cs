@@ -1,6 +1,5 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
@@ -32,26 +31,36 @@ namespace InteractiveSeven.Twitch.Commands
             if (commandData.Arguments.Count == 0) return;
 
             MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
-            int gil = 0;
-            if (!CanOverrideBitRestriction(commandData.User))
+
+            if (menuColors == null) return;
+
+            var (paidFor, paidAmount) = ProcessPayment(commandData,
+                $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.",
+                MenuSettings.BitCost, MenuSettings.AllowModOverride);
+
+            if (!paidFor) return;
+
+            DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, paidAmount));
+        }
+
+        private (bool, int) ProcessPayment(CommandData commandData, string failMessage, int amount, bool canModsOverride)
+        {
+            int gilSpent = 0;
+            bool requiresBits = !commandData.User.IsBroadcaster
+                                && !commandData.User.IsMe
+                                && (!canModsOverride || !commandData.User.IsMod);
+            if (requiresBits)
             {
-                (_, gil) = _gilBank.Withdraw(commandData.User, MenuSettings.BitCost, true);
-                if (gil < MenuSettings.BitCost)
+                (_, gilSpent) = _gilBank.Withdraw(commandData.User, amount, true);
+                if (gilSpent < amount)
                 {
-                    var message = $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.";
-                    _twitchClient.SendMessage(commandData.Channel, message);
-                    return;
+                    _twitchClient.SendMessage(commandData.Channel, failMessage);
+                    return (false, gilSpent);
                 }
             }
 
-            if (menuColors != null)
-            {
-                DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, gil));
-            }
+            return (true, gilSpent);
         }
-
-        private bool CanOverrideBitRestriction(in ChatUser user)
-            => (MenuSettings.AllowModOverride && user.IsMod) || user.IsMe || user.IsBroadcaster;
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)
         {
