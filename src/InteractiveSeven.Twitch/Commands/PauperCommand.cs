@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -15,13 +16,15 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
         private readonly EquipmentData<Weapon> _weaponData;
         private readonly EquipmentData<Armlet> _armletData;
+        private readonly PaymentProcessor _paymentProcessor;
 
         public PauperCommand(IEquipmentAccessor equipmentAccessor,
             IMateriaAccessor materiaAccessor,
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
-            EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData)
+            EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData,
+            PaymentProcessor paymentProcessor)
             : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
             _equipmentAccessor = equipmentAccessor;
@@ -31,11 +34,21 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
             _weaponData = weaponData;
             _armletData = armletData;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
         {
             if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
+
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
+                Settings.EquipmentSettings.PauperCommandCost,
+                Settings.EquipmentSettings.AllowModOverride);
+
+            if (!gilTransaction.Paid)
+            {
+                return;
+            }
 
             foreach (var charName in CharNames.All)
             {
