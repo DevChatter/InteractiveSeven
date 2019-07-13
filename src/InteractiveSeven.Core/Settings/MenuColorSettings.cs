@@ -60,7 +60,7 @@
             }
         }
 
-        public int RainbowModeCost
+        public int RainbowModeCost // TODO: Add to Settings Screen
         {
             get => _rainbowModeCost;
             set
@@ -79,7 +79,7 @@
             }
         }
 
-        public int MakoModeCost
+        public int MakoModeCost // TODO: Add to Settings Screen
         {
             get => _makoModeCost;
             set
