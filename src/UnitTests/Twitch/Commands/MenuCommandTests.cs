@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
+using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 
@@ -148,8 +149,7 @@ namespace UnitTests.Twitch.Commands
             var gilBank = new GilBank();
             var chatUser = new ChatUser { IsMod = isMod, Username = Guid.NewGuid().ToString() };
             gilBank.Deposit(chatUser, bits);
-            var menuCommand = new MenuCommand(twitchClient.Object,
-                new ColorPaletteCollection(logger.Object), gilBank);
+            var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank, twitchClient.Object));
             return (menuCommand, chatUser);
         }
     }

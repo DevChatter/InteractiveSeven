@@ -1,30 +1,27 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using TwitchLib.Client.Interfaces;
+using InteractiveSeven.Twitch.Payments;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public class MenuCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
         private readonly ColorPaletteCollection _paletteCollection;
-        private readonly GilBank _gilBank;
+        private readonly PaymentProcessor _paymentProcessor;
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(ITwitchClient twitchClient, ColorPaletteCollection paletteCollection, GilBank gilBank)
+        public MenuCommand(ColorPaletteCollection paletteCollection, PaymentProcessor paymentProcessor)
             : base(x => x.MenuCommandWords, x => x.MenuSettings.Enabled)
         {
-            _twitchClient = twitchClient;
             _paletteCollection = paletteCollection;
-            _gilBank = gilBank;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
@@ -35,32 +32,13 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (menuColors == null) return;
 
-            var (paidFor, paidAmount) = ProcessPayment(commandData,
+            var gilTransaction = _paymentProcessor.ProcessPayment(commandData,
                 $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.",
                 MenuSettings.BitCost, MenuSettings.AllowModOverride);
 
-            if (!paidFor) return;
+            if (!gilTransaction.Paid) return;
 
-            DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, paidAmount));
-        }
-
-        private (bool, int) ProcessPayment(CommandData commandData, string failMessage, int amount, bool canModsOverride)
-        {
-            int gilSpent = 0;
-            bool requiresBits = !commandData.User.IsBroadcaster
-                                && !commandData.User.IsMe
-                                && (!canModsOverride || !commandData.User.IsMod);
-            if (requiresBits)
-            {
-                (_, gilSpent) = _gilBank.Withdraw(commandData.User, amount, true);
-                if (gilSpent < amount)
-                {
-                    _twitchClient.SendMessage(commandData.Channel, failMessage);
-                    return (false, gilSpent);
-                }
-            }
-
-            return (true, gilSpent);
+            DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, gilTransaction.AmountPaid));
         }
 
         private MenuColors GetMenuColorsFromArgs(List<string> args)

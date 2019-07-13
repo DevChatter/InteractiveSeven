@@ -13,6 +13,7 @@ using InteractiveSeven.Startup;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
+using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
@@ -116,6 +117,7 @@ namespace InteractiveSeven
 
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<GilBank>();
+            services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<MainWindow>();
 
