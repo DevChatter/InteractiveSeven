@@ -5,6 +5,7 @@ using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using Moq;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
@@ -19,7 +20,8 @@ namespace UnitTests.Twitch.Commands
         {
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, 
+                gilBank, chat.Object, new EquipmentData<Weapon>(), new PaymentProcessor(gilBank, chat.Object));
 
             weaponCommand.Execute(commandData);
 
@@ -30,7 +32,8 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInvalidCommandArgs()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, "cloud");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null,
+                gilBank, chat.Object, new EquipmentData<Weapon>(), new PaymentProcessor(gilBank, chat.Object));
 
             weaponCommand.Execute(commandData);
 
@@ -42,7 +45,8 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInsufficientGil()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, gilBank, chat.Object, new EquipmentData<Weapon>());
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null,
+                gilBank, chat.Object, new EquipmentData<Weapon>(), new PaymentProcessor(gilBank, chat.Object));
 
             weaponCommand.Execute(commandData);
 
