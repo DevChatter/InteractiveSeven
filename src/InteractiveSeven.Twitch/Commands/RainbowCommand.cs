@@ -16,9 +16,14 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            _paymentProcessor.ProcessPayment(commandData,
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
                 Settings.MenuSettings.RainbowModeCost,
                 Settings.MenuSettings.AllowModOverride);
+
+            if (!gilTransaction.Paid)
+            {
+                return;
+            }
 
             DomainEvents.Raise(new RainbowModeStarted());
         }
