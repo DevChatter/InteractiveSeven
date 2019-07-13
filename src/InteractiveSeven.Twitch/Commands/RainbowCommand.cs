@@ -6,7 +6,7 @@ namespace InteractiveSeven.Twitch.Commands
     public class RainbowCommand : BaseCommand
     {
         public RainbowCommand()
-            : base(x => new []{ "Rainbow" }, x => x.MenuSettings.EnableRainbowCommand)
+            : base(x => x.RainbowCommandWords, x => x.MenuSettings.EnableRainbowCommand)
         {
         }
 
