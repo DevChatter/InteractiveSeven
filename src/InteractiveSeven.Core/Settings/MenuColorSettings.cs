@@ -7,6 +7,7 @@
         private bool _allowModOverride = true;
         private bool _transitionColors = true;
         private bool _enableRainbowCommand = true;
+        private bool _enableMakoCommand = true;
         private bool _enablePaletteCommand = true;
         private bool _allowModsToCreatePalettes = true;
 
@@ -52,6 +53,15 @@
             set
             {
                 _enableRainbowCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool EnableMakoCommand
+        {
+            get => _enableMakoCommand;
+            set
+            {
+                _enableMakoCommand = value;
                 OnPropertyChanged();
             }
         }

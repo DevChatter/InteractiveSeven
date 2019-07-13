@@ -6,13 +6,18 @@ namespace InteractiveSeven.Twitch.Commands
     public class MakoCommand : BaseCommand
     {
         public MakoCommand() 
-            : base(x => new []{"Mako"}, x => true)
+            : base(x => x.MakoCommandWords, x => x.MenuSettings.EnableMakoCommand)
         {
         }
 
         public override void Execute(in CommandData commandData)
         {
-            //TODO: Restrict Access and/or add a cost
+            if (!commandData.User.IsBroadcaster)
+            {
+                return;
+            }
+
+            //TODO: Add a cost and allow others' access
 
 
             DomainEvents.Raise(new MakoModeStarted());

@@ -263,6 +263,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -286,12 +287,16 @@
                                         <Label Grid.Row="4" Grid.Column="1" Content="Enable Rainbow Mode" FontSize="12" Margin="5,0,0,0" />
 
                                         <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                            IsChecked="{Binding Path=EnablePaletteCommand, Mode=TwoWay}" />
-                                        <Label Grid.Row="5" Grid.Column="1" Content="Enable Palette Command" FontSize="12" Margin="5,0,0,0" />
+                                            IsChecked="{Binding Path=EnableMakoCommand, Mode=TwoWay}" />
+                                        <Label Grid.Row="5" Grid.Column="1" Content="Enable Mako Mode" FontSize="12" Margin="5,0,0,0" />
 
                                         <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsChecked="{Binding Path=EnablePaletteCommand, Mode=TwoWay}" />
+                                        <Label Grid.Row="6" Grid.Column="1" Content="Enable Palette Command" FontSize="12" Margin="5,0,0,0" />
+
+                                        <CheckBox Grid.Row="7" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                             IsEnabled="{Binding EnablePaletteCommand}" IsChecked="{Binding Path=AllowModsToCreatePalettes, Mode=TwoWay}" />
-                                        <Label Grid.Row="6" Grid.Column="1" Content="Allow Mods to Create Palettes" FontSize="12" Margin="5,0,0,0" />
+                                        <Label Grid.Row="7" Grid.Column="1" Content="Allow Mods to Create Palettes" FontSize="12" Margin="5,0,0,0" />
 
                                     </Grid>
                                 </DockPanel>

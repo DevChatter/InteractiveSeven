@@ -18,6 +18,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _helpCommandWords = { "Help" };
         private string[] _paletteCommandWords = {"Palette", "Pallete", "Pallette", "Palete"};
         private string[] _rainbowCommandWords = {"Rainbow", "RainbowMode"};
+        private string[] _makoCommandWords = {"Mako", "MakoMode"};
 
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
@@ -61,6 +62,8 @@ namespace InteractiveSeven.Core.Settings
                     () => PaletteCommandWords),
                 (nameof(RainbowCommandWords),
                     () => RainbowCommandWords),
+                (nameof(MakoCommandWords),
+                    () => MakoCommandWords),
 
                 (nameof(WeaponCommandWords),
                     () => WeaponCommandWords),
@@ -198,6 +201,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _rainbowCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] MakoCommandWords // TODO: Add to Settings View
+        {
+            get => _makoCommandWords;
+            set
+            {
+                _makoCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
