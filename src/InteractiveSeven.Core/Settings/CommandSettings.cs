@@ -100,6 +100,7 @@ namespace InteractiveSeven.Core.Settings
 
         private string[] RemoveAllDuplicates(IEnumerable<string> strings, [CallerMemberName] string propertyName = null)
         {
+            // TODO: Fix the Casing Issue. This needs to be case-insensitive
             foreach (Func<string[]> wordSet in AllWordSets.Where(x => x.Name != propertyName).Select(x => x.Words))
             {
                 strings = strings.Except(wordSet());
