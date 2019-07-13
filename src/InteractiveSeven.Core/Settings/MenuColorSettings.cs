@@ -37,7 +37,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool TransitionColors // TODO: Add to Settings View
+        public bool TransitionColors
         {
             get => _transitionColors;
             set
@@ -46,7 +46,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool EnableRainbowCommand // TODO: Add to Settings View
+        public bool EnableRainbowCommand
         {
             get => _enableRainbowCommand;
             set
@@ -55,7 +55,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool EnablePaletteCommand // TODO: Add to Settings View
+        public bool EnablePaletteCommand
         {
             get => _enablePaletteCommand;
             set
@@ -64,7 +64,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool AllowModsToCreatePalettes // TODO: Add to Settings View
+        public bool AllowModsToCreatePalettes
         {
             get => _allowModsToCreatePalettes;
             set
