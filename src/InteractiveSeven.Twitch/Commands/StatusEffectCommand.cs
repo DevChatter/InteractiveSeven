@@ -1,9 +1,8 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Model;
-using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -13,7 +12,7 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
         private readonly IStatusAccessor _statusAccessor;
-        private readonly GilBank _gilBank;
+        private readonly PaymentProcessor _paymentProcessor;
 
         private static string[] AllWords(CommandSettings settings)
             => Settings.BattleSettings.AllStatusEffects
@@ -22,12 +21,12 @@ namespace InteractiveSeven.Twitch.Commands
 
 
         public StatusEffectCommand(ITwitchClient twitchClient,
-            IStatusAccessor statusAccessor, GilBank gilBank)
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
             _statusAccessor = statusAccessor;
-            _gilBank = gilBank;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
@@ -46,16 +45,13 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            if (!CanOverrideBitRestriction(commandData.User))
-            {
-                (int balance, int withdrawn) = _gilBank.Withdraw(commandData.User, statusSettings.Cost, true);
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
+                statusSettings.Cost,
+                Settings.BattleSettings.AllowModOverride);
 
-                if (withdrawn < statusSettings.Cost)
-                {
-                    _twitchClient.SendMessage(commandData.Channel,
-                        $"The {commandData.CommandText} effect costs {statusSettings.Cost}. Your balance {balance}");
-                    return;
-                }
+            if (!gilTransaction.Paid)
+            {
+                return;
             }
 
             _statusAccessor.SetActorStatus(actor, statusSettings.Effect);
@@ -63,10 +59,5 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient.SendMessage(commandData.Channel,
                 $"Applied {commandData.CommandText} to {actor.Words.First()}.");
         }
-
-        private bool CanOverrideBitRestriction(in ChatUser user)
-            => (Settings.BattleSettings.AllowModOverride && user.IsMod)
-               || user.IsMe || user.IsBroadcaster;
-
     }
 }
