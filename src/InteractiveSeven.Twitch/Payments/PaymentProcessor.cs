@@ -15,7 +15,7 @@ namespace InteractiveSeven.Twitch.Payments
             _twitchClient = twitchClient;
         }
 
-        public GilTransaction ProcessPayment(CommandData commandData, string failMessage, int amount, bool canModsOverride)
+        public GilTransaction ProcessPayment(CommandData commandData, int amount, bool canModsOverride)
         {
             int gilSpent = 0;
             bool requiresBits = !commandData.User.IsBroadcaster
@@ -26,7 +26,8 @@ namespace InteractiveSeven.Twitch.Payments
                 (_, gilSpent) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (gilSpent < amount)
                 {
-                    _twitchClient.SendMessage(commandData.Channel, failMessage);
+                    _twitchClient.SendMessage(commandData.Channel,
+                        $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {amount}. Cheer for gil.");
                     return new GilTransaction(false, gilSpent);
                 }
             }

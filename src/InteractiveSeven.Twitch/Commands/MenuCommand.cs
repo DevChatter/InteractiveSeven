@@ -33,7 +33,6 @@ namespace InteractiveSeven.Twitch.Commands
             if (menuColors == null) return;
 
             var gilTransaction = _paymentProcessor.ProcessPayment(commandData,
-                $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {MenuSettings.BitCost}. Cheer for gil.",
                 MenuSettings.BitCost, MenuSettings.AllowModOverride);
 
             if (!gilTransaction.Paid) return;

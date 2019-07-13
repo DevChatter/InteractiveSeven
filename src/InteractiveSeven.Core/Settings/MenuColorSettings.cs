@@ -7,6 +7,7 @@
         private bool _allowModOverride = true;
         private bool _transitionColors = true;
         private bool _enableRainbowCommand = true;
+        private int _rainbowModeCost = 1000;
         private bool _enableMakoCommand = true;
         private bool _enablePaletteCommand = true;
         private bool _allowModsToCreatePalettes = true;
@@ -47,12 +48,23 @@
                 OnPropertyChanged();
             }
         }
+
         public bool EnableRainbowCommand
         {
             get => _enableRainbowCommand;
             set
             {
                 _enableRainbowCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int RainbowModeCost
+        {
+            get => _rainbowModeCost;
+            set
+            {
+                _rainbowModeCost = value;
                 OnPropertyChanged();
             }
         }
