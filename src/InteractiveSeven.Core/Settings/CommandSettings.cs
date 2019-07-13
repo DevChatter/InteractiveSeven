@@ -13,7 +13,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
         private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
-        private string[] _nameBidsCommandWords = { "NameBids" };
+        private string[] _nameBidsCommandWords = { "NameBids", "NameBid" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
         private string[] _paletteCommandWords = { "Palette", "Pallete", "Pallette", "Palete" };
@@ -24,6 +24,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
         private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
         private string[] _pauperCommandWords = { "Pauper", "poor" };
+        private string[] _materiaCommandWords = { "Materia", "Mats", "Material" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -73,6 +74,8 @@ namespace InteractiveSeven.Core.Settings
                     () => AccessoryCommandWords),
                 (nameof(PauperCommandWords),
                     () => PauperCommandWords),
+                (nameof(MateriaCommandWords),
+                    () => MateriaCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -251,6 +254,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _pauperCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] MateriaCommandWords // TODO: Add to Settings Screen
+        {
+            get => _materiaCommandWords;
+            set
+            {
+                _materiaCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
