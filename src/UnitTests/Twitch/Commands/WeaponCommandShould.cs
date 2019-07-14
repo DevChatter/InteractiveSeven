@@ -20,7 +20,7 @@ namespace UnitTests.Twitch.Commands
         {
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null, 
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, null,
                 gilBank, chat.Object, new EquipmentData<Weapon>(), new PaymentProcessor(gilBank, chat.Object));
 
             weaponCommand.Execute(commandData);

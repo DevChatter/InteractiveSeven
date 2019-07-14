@@ -6,11 +6,11 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
-using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
 using Xunit;
 
