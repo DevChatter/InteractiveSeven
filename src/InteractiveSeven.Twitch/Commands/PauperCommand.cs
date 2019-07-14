@@ -41,9 +41,8 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
-                Settings.EquipmentSettings.PauperCommandCost,
-                Settings.EquipmentSettings.AllowModOverride);
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, Settings.EquipmentSettings.PauperCommandCost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {

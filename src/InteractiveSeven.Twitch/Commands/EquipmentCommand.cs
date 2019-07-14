@@ -59,9 +59,8 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
-                equippableSettings.Cost,
-                Settings.EquipmentSettings.AllowModOverride);
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {

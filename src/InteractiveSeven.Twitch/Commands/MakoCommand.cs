@@ -16,9 +16,8 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(commandData,
-                Settings.MenuSettings.MakoModeCost,
-                Settings.MenuSettings.AllowModOverride);
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, Settings.MenuSettings.MakoModeCost, Settings.MenuSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
