@@ -21,11 +21,40 @@ namespace InteractiveSeven.Core.Models
 
         public MenuColors ByName(string name) => All.SingleOrDefault(x => x.Names.Any(n => n.EqualsIns(name)))?.MenuColors;
 
+        public void AddPalette(ColorPalette colorPalette)
+        {
+            All.Add(colorPalette);
+            ExistingNames.UnionWith(colorPalette.Names);
+        }
+
+        public void Load(List<ColorPalette> colorPalettes)
+        {
+            foreach (ColorPalette colorPalette in colorPalettes)
+            {
+                if (ExistingNames.Overlaps(colorPalette.Names))
+                {
+                    string[] validNames = colorPalette.Names.Except(ExistingNames).ToArray();
+                    if (validNames.Any())
+                    {
+                        AddPalette(new ColorPalette(colorPalette.MenuColors, validNames));
+                    }
+                }
+                else
+                {
+                    AddPalette(colorPalette);
+                }
+            }
+        }
+
+        private HashSet<string> _existingNames;
+        private HashSet<string> ExistingNames => _existingNames ??= All.SelectMany(x => x.Names).ToHashSet();
+
         public List<ColorPalette> All { get; } = new List<ColorPalette>();
 
-        public static ColorPalette Default = new ColorPalette(MenuColors.Classic, "classic", "default", "original", "base");
-        public static ColorPalette Brendan = new ColorPalette(MenuColors.Brendan, "brendan", "brendoneus", "devchatter");
-        public static ColorPalette Tsuna = new ColorPalette(MenuColors.Tsuna, "tsuna", "tsunamods", "tsunamix");
-        public static ColorPalette Strife = new ColorPalette(MenuColors.Strife, "strife", "strife98");
+        public static ColorPalette Default = new ColorPalette(MenuColors.Classic, "Classic", "Default", "Original", "Base");
+        public static ColorPalette Brendan = new ColorPalette(MenuColors.Brendan, "Brendan", "Brendoneus", "DevChatter");
+        public static ColorPalette Tsuna = new ColorPalette(MenuColors.Tsuna, "Tsuna", "TsunaMods", "TsunaMix");
+        public static ColorPalette Strife = new ColorPalette(MenuColors.Strife, "Strife", "Strife98");
+
     }
 }

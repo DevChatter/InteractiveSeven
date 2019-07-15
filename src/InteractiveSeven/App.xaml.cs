@@ -1,21 +1,22 @@
 ﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
+using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Services;
+using InteractiveSeven.Startup;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
+using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
@@ -27,6 +28,8 @@ namespace InteractiveSeven
     /// </summary>
     public partial class App : Application
     {
+        private WorkloadCoordinator _workloadCoordinator;
+
         private static void InitializeSettings()
         {
             new SettingsStore().EnsureExists();
@@ -46,28 +49,22 @@ namespace InteractiveSeven
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var mainWindow = serviceProvider.GetService<MainWindow>();
+            var dataLoader = serviceProvider.GetService<DataLoader>();
+            dataLoader.LoadPreviousData();
 
-            LoadPreviousData(mainWindow.ViewModel, serviceProvider);
+            _workloadCoordinator = serviceProvider.GetService<WorkloadCoordinator>();
+
+            var mainWindow = serviceProvider.GetService<MainWindow>();
 
             mainWindow.Show();
         }
 
-        private void LoadPreviousData(MainWindowViewModel viewModel, IServiceProvider provider)
-        {
-            var dataStore = provider.GetService<IDataStore>();
-
-            List<CharacterNameBid> characterNameBids = dataStore.LoadData();
-
-            if (characterNameBids != null && characterNameBids.Any())
-            {
-                viewModel.NameBiddingViewModel.Load(characterNameBids);
-            }
-        }
 
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient(typeof(IList<>), typeof(List<>));
+
+            services.AddSingleton<WorkloadCoordinator>();
 
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<NameBiddingViewModel>();
@@ -97,6 +94,9 @@ namespace InteractiveSeven
             services.RegisterNonBattleCommand<AccessoryCommand>();
             services.RegisterNonBattleCommand<PauperCommand>();
 
+            services.RegisterTwitchCommand<PaletteCommand>();
+            services.RegisterTwitchCommand<RainbowCommand>();
+            services.RegisterTwitchCommand<MakoCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
@@ -110,9 +110,14 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
-            services.AddSingleton<IDataStore, FileDataStore>();
+
+            services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
+
+            services.AddSingleton<DataLoader>();
+
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<GilBank>();
+            services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<MainWindow>();
 

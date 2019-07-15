@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Model;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -12,6 +12,7 @@ namespace InteractiveSeven.Core.Settings
         private bool _allowModOverride = true;
         private bool _keepPreviousEquipment = true;
         private bool _enablePauperCommand = true;
+        private int _pauperCommandCost = 20000;
 
         public EquipmentSettings()
         {
@@ -56,6 +57,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _enablePauperCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int PauperCommandCost // TODO: Add to settings screen
+        {
+            get => _pauperCommandCost;
+            set
+            {
+                _pauperCommandCost = value;
                 OnPropertyChanged();
             }
         }

@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IMateriaAccessor _materiaAccessor;
 
         public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor)
-            : base(x => new[] { "materia" }, x => x.MateriaSettings.Enabled)
+            : base(x => x.MateriaCommandWords, x => x.MateriaSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _materiaAccessor = materiaAccessor;

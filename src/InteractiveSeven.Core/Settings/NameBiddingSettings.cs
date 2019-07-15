@@ -3,7 +3,7 @@
     public class NameBiddingSettings : ObservableSettingsBase
     {
         private bool _enabled = true;
-        private int _defaultStartBits = 100;
+        private int _defaultStartBits = 99;
         private bool _allowModeration = true;
         private bool _allowModBits = true;
         private bool _namingCloudEnabled = true;

@@ -1,12 +1,11 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Memory;
-using InteractiveSeven.Core.Model;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -20,11 +19,12 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
         private readonly EquipmentData<T> _equipmentData;
+        private readonly PaymentProcessor _paymentProcessor;
 
         protected EquipmentCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             GilBank gilBank, ITwitchClient twitchClient, EquipmentData<T> equipmentData,
-            Func<CommandSettings, string[]> commandWordsSelector)
+            Func<CommandSettings, string[]> commandWordsSelector, PaymentProcessor paymentProcessor)
             : base(commandWordsSelector, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
@@ -33,6 +33,7 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
             _twitchClient = twitchClient;
             _equipmentData = equipmentData;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
@@ -57,17 +58,12 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
 
-            int withdrawn = 0;
-            if (!CanOverrideBitRestriction(commandData.User))
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
+
+            if (!gilTransaction.Paid)
             {
-                int balance;
-                (balance, withdrawn) = _gilBank.Withdraw(commandData.User, equippableSettings.Cost, true);
-                if (withdrawn < equippableSettings.Cost)
-                {
-                    _twitchClient.SendMessage(commandData.Channel,
-                        $"Insufficient gil. You only have {balance} gil and needed {equippableSettings.Cost}");
-                    return;
-                }
+                return;
             }
 
             ushort existingEquipmentId = _equipmentAccessor.GetCharacterEquipment(charName, AddressSelector());
@@ -75,9 +71,9 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {equippableSettings.Name} equipped.");
-                if (withdrawn > 0) // return the gil, since we did nothing
+                if (gilTransaction.AmountPaid > 0) // return the gil, since we did nothing
                 {
-                    _gilBank.Deposit(commandData.User, withdrawn);
+                    _gilBank.Deposit(commandData.User, gilTransaction.AmountPaid);
                 }
                 return;
             }
@@ -112,9 +108,5 @@ namespace InteractiveSeven.Twitch.Commands
             }
             throw new NotImplementedException();
         }
-
-        private bool CanOverrideBitRestriction(in ChatUser user)
-            => (Settings.EquipmentSettings.AllowModOverride && user.IsMod)
-               || user.IsMe || user.IsBroadcaster;
     }
 }

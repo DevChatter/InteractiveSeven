@@ -13,14 +13,19 @@ namespace InteractiveSeven.Core.Settings
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
         private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
-        private string[] _nameBidsCommandWords = { "NameBids" };
+        private string[] _nameBidsCommandWords = { "NameBids", "NameBid" };
         private string[] _refreshCommandWords = { "Refresh" };
         private string[] _helpCommandWords = { "Help" };
+        private string[] _paletteCommandWords = { "Palette", "Pallete", "Pallette", "Palete" };
+        private string[] _rainbowCommandWords = { "Rainbow", "RainbowMode" };
+        private string[] _makoCommandWords = { "Mako", "MakoMode" };
 
         private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
         private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
         private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
         private string[] _pauperCommandWords = { "Pauper", "poor" };
+        private string[] _materiaCommandWords = { "Materia", "Mats", "Material", "AddMateria" };
+        private string[] _itemCommandWords = { "Item", "Items", "AddItem" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
@@ -55,6 +60,12 @@ namespace InteractiveSeven.Core.Settings
                     () => RefreshCommandWords),
                 (nameof(HelpCommandWords),
                     () => HelpCommandWords),
+                (nameof(PaletteCommandWords),
+                    () => PaletteCommandWords),
+                (nameof(RainbowCommandWords),
+                    () => RainbowCommandWords),
+                (nameof(MakoCommandWords),
+                    () => MakoCommandWords),
 
                 (nameof(WeaponCommandWords),
                     () => WeaponCommandWords),
@@ -64,6 +75,10 @@ namespace InteractiveSeven.Core.Settings
                     () => AccessoryCommandWords),
                 (nameof(PauperCommandWords),
                     () => PauperCommandWords),
+                (nameof(MateriaCommandWords),
+                    () => MateriaCommandWords),
+                (nameof(ItemCommandWords),
+                    () => ItemCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -88,6 +103,7 @@ namespace InteractiveSeven.Core.Settings
 
         private string[] RemoveAllDuplicates(IEnumerable<string> strings, [CallerMemberName] string propertyName = null)
         {
+            // TODO: Fix the Casing Issue. This needs to be case-insensitive
             foreach (Func<string[]> wordSet in AllWordSets.Where(x => x.Name != propertyName).Select(x => x.Words))
             {
                 strings = strings.Except(wordSet());
@@ -176,6 +192,36 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
+        public string[] PaletteCommandWords // TODO: Add to Settings View
+        {
+            get => _paletteCommandWords;
+            set
+            {
+                _paletteCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] RainbowCommandWords // TODO: Add to Settings View
+        {
+            get => _rainbowCommandWords;
+            set
+            {
+                _rainbowCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] MakoCommandWords // TODO: Add to Settings View
+        {
+            get => _makoCommandWords;
+            set
+            {
+                _makoCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
         public string[] WeaponCommandWords
         {
             get => _weaponCommandWords;
@@ -212,6 +258,26 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _pauperCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] MateriaCommandWords // TODO: Add to Settings Screen
+        {
+            get => _materiaCommandWords;
+            set
+            {
+                _materiaCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] ItemCommandWords // TODO: Add to Settings Screen
+        {
+            get => _itemCommandWords;
+            set
+            {
+                _itemCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }

@@ -13,7 +13,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
 
         public ItemCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor)
-            : base(x => new[] { "item" }, x => x.ItemSettings.Enabled)
+            : base(x => x.ItemCommandWords, x => x.ItemSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _inventoryAccessor = inventoryAccessor;
@@ -26,11 +26,16 @@ namespace InteractiveSeven.Twitch.Commands
             string itemIdText = commandData.Arguments.FirstOrDefault();
             if (itemIdText != null && ushort.TryParse(itemIdText, out ushort itemId) && itemId < 319)
             {
-                _inventoryAccessor.AddItem(itemId, 1, true);
-                Items item = Items.All.SingleOrDefault(x => x.Id == itemId);
-                string itemName = item == null ? "Unknown Item" : item.Name;
+                Items item = Items.All.SingleOrDefault(x => x.ItemId == itemId); // TODO: Make this lookup based on settings, not on the item.
+
+                if (item == null)
+                {
+                    return;
+                }
+
+                _inventoryAccessor.AddItem(item.ItemId, 1, true);
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Item {itemName} Added");
+                    $"Item {item.Name} Added");
             }
         }
 
