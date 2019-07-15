@@ -17,9 +17,13 @@ using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
+using System.Diagnostics;
 
 namespace InteractiveSeven
 {
@@ -54,11 +58,13 @@ namespace InteractiveSeven
 
             _workloadCoordinator = serviceProvider.GetService<WorkloadCoordinator>();
 
+
+            Task.Run(() => CreateWebHostBuilder().Build().Run());
+
             var mainWindow = serviceProvider.GetService<MainWindow>();
 
             mainWindow.Show();
         }
-
 
         private void ConfigureServices(IServiceCollection services)
         {
@@ -125,6 +131,12 @@ namespace InteractiveSeven
             {
                 config.AddSerilog();
             });
+
+            services.AddMvcCore();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder() =>
+            WebHost.CreateDefaultBuilder()
+                .UseStartup<WebStartup>();
     }
 }
