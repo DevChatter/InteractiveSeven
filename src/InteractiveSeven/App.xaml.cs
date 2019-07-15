@@ -14,16 +14,16 @@ using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
 using InteractiveSeven.Twitch.Payments;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
-using System.Diagnostics;
 
 namespace InteractiveSeven
 {
@@ -33,6 +33,8 @@ namespace InteractiveSeven
     public partial class App : Application
     {
         private WorkloadCoordinator _workloadCoordinator;
+
+        private IHost _host;
 
         private static void InitializeSettings()
         {
@@ -48,22 +50,21 @@ namespace InteractiveSeven
                 .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
+            _host = Host.CreateDefaultBuilder(e.Args)
+                .ConfigureWebHostDefaults(webHostBuilder
+                    => webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>())
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .ConfigureServices(ConfigureServices)
+                .Build();
 
-            var serviceProvider = serviceCollection.BuildServiceProvider();
+            _host.Start();
 
-            var dataLoader = serviceProvider.GetService<DataLoader>();
+            var dataLoader = _host.Services.GetService<DataLoader>();
             dataLoader.LoadPreviousData();
 
-            _workloadCoordinator = serviceProvider.GetService<WorkloadCoordinator>();
+            _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
-
-            Task.Run(() => CreateWebHostBuilder().Build().Run());
-
-            var mainWindow = serviceProvider.GetService<MainWindow>();
-
-            mainWindow.Show();
+            _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -135,8 +136,9 @@ namespace InteractiveSeven
             services.AddMvcCore();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder() =>
-            WebHost.CreateDefaultBuilder()
-                .UseStartup<WebStartup>();
+        private void App_OnExit(object sender, ExitEventArgs e)
+        {
+            _host.Dispose();
+        }
     }
 }
