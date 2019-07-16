@@ -3,7 +3,7 @@ using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Emitters
 {
-    public interface IMenuHubEmitter // TODO: Move to correct folder/namespace
+    public interface IMenuHubEmitter
     {
         Task ShowNewColors(MenuColors menuColors);
     }
