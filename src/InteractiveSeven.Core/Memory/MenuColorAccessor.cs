@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Drawing;

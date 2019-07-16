@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Web.Hubs;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
