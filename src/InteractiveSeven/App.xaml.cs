@@ -14,7 +14,6 @@ using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
 using InteractiveSeven.Twitch.Payments;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -51,9 +50,10 @@ namespace InteractiveSeven
                 .CreateLogger();
 
             _host = Host.CreateDefaultBuilder(e.Args)
-                .ConfigureWebHostDefaults(webHostBuilder
-                    => webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>())
-                .UseContentRoot(Directory.GetCurrentDirectory())
+                .ConfigureWebHostDefaults(webHostBuilder =>
+                {
+                    webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>();
+                })
                 .ConfigureServices(ConfigureServices)
                 .Build();
 
