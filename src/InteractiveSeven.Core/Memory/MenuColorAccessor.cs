@@ -9,10 +9,12 @@ namespace InteractiveSeven.Core.Memory
     public class MenuColorAccessor : IMenuColorAccessor
     {
         private readonly IMemoryAccessor _memoryAccessor;
+        private readonly IMenuHubEmitter _menuHubEmitter;
 
-        public MenuColorAccessor(IMemoryAccessor memoryAccessor)
+        public MenuColorAccessor(IMemoryAccessor memoryAccessor, IMenuHubEmitter menuHubEmitter)
         {
             _memoryAccessor = memoryAccessor;
+            _menuHubEmitter = menuHubEmitter;
         }
 
         public MenuColors GetMenuColors(string processName)
@@ -44,13 +46,19 @@ namespace InteractiveSeven.Core.Memory
                 MenuColors[] colorSteps = GetColorSteps(startColor, menuColors);
                 foreach (var menuColor in colorSteps)
                 {
-                    _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColor.GetDisplayBytes());
+                    UpdateDisplayColors(processName, menuColor);
                     Thread.Sleep(100);
                 }
             }
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
+            UpdateDisplayColors(processName, menuColors);
 
             _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
+        }
+
+        private void UpdateDisplayColors(string processName, MenuColors menuColors)
+        {
+            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
+            _menuHubEmitter.ShowNewColors(menuColors);
         }
 
         private MenuColors[] GetColorSteps(MenuColors startColor, MenuColors endingColor)

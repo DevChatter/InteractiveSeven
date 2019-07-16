@@ -7,6 +7,22 @@
 <html>
 <head>
     <title>Status Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.js"></script>
+    <script language="javascript">
+        var connection = new signalR.HubConnectionBuilder().withUrl("/MenuHub").build();
+
+        connection.on("ColorChanged", function (tl, tr, bl, br) {
+            console.log(tl);
+            console.log(tr);
+            console.log(bl);
+            console.log(br);
+        });
+
+        connection.start().then(function(){
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
 </head>
 <body>
 <div>

@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
+using InteractiveSeven.Web.Hubs;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -76,6 +77,8 @@ namespace InteractiveSeven
             services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+
+            services.AddSingleton<IMenuHubEmitter, MenuHubEmitter>();
 
             services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
