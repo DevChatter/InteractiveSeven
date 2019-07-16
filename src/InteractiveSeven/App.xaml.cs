@@ -19,7 +19,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
