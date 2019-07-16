@@ -59,7 +59,8 @@ namespace InteractiveSeven.Core.Memory
         private void UpdateDisplayColors(string processName, MenuColors menuColors)
         {
             _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
-            _menuHubEmitter.ShowNewColors(menuColors);
+            // TODO: Add logger for exceptions
+            _menuHubEmitter.ShowNewColors(menuColors).RunInBackgroundSafely();
         }
 
         private MenuColors[] GetColorSteps(MenuColors startColor, MenuColors endingColor)
