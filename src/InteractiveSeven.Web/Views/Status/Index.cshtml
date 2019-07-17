@@ -12,18 +12,153 @@
         var connection = new signalR.HubConnectionBuilder().withUrl("/MenuHub").build();
 
         connection.on("ColorChanged", function (tl, tr, bl, br) {
-            // TODO: Update color objects from here.
+            document.querySelectorAll(".ff7 .tl").forEach(e => e.style.background =
+                'linear-gradient(to top left, rgba(0,0,176, 0) 50%, #' + tl.name + ')');
+            document.querySelectorAll(".ff7 .tr").forEach(e => e.style.background =
+                'radial-gradient(farthest-side at top right, #' + tr.name + ', rgba(0, 0, 80, 0))');
+            document.querySelectorAll(".ff7 .bl").forEach(e => e.style.background =
+                'radial-gradient(farthest-side at bottom left, #' + bl.name + ', rgba(0, 0, 128, 0))');
+            document.querySelectorAll(".ff7 .br").forEach(e => e.style.background =
+                'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, #' + br.name + ')');
         });
 
-        connection.start().then(function(){
+        connection.start().then(function () {
         }).catch(function (err) {
             return console.error(err.toString());
         });
     </script>
+    <style>
+        body {
+            background: #000;
+            margin: 2.5%;
+            padding: 0;
+        }
+
+        .ff7 {
+            position: relative;
+            width: 460px;
+            float: left;
+            background: #333;
+        }
+
+            .ff7 > .border {
+                border: solid 2px #424542;
+                box-shadow: 2px 2px #e7dfe7, -2px -2px #e7dfe7, 2px -2px #e7dfe7, -2px 2px #e7dfe7, 0 -4px #9c9a9c, -4px 0 #7b757b, 0 4px #424542;
+            }
+
+            .ff7 > .layer {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-border-radius: 7px;
+                -moz-border-radius: 7px;
+                border-radius: 7px;
+            }
+
+            .ff7 .tl {
+                background: linear-gradient(to top left, rgba(0,0,176, 0) 50%, rgba(0,0,176, 1));
+            }
+
+            .ff7 .tr {
+                background: radial-gradient(farthest-side at top right, rgba(0, 0, 80, 1), rgba(0, 0, 80, 0));
+            }
+
+            .ff7 .bl {
+                background: radial-gradient(farthest-side at bottom left, rgba(0, 0, 128, 1), rgba(0, 0, 128, 0));
+            }
+
+            .ff7 .br {
+                background: linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, rgba(0, 0, 32, 1));
+            }
+
+            .ff7 .text {
+                position: relative;
+                padding: 5px 10px;
+                width: auto;
+            }
+
+                .ff7 .text * {
+                    color: #eff1ff;
+                    text-shadow: 2px 2px #212421, 1px 1px #212021;
+                    font-family: Verdana, sans-serif;
+                    font-size: 20px;
+                    font-weight: normal;
+                    margin: 5px 0;
+                }
+
+
+        .base {
+            float: left;
+            clear: both;
+            width: 100%;
+        }
+
+        .gil, .time {
+            float: right;
+            text-align: right;
+        }
+
+        .time {
+            clear: both;
+        }
+
+        .location {
+            float: left;
+        }
+
+
+        .fixed {
+            display: inline-block;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 60px;
+        }
+
+        .ff7 .text .character.dead * {
+            color: #ab0000;
+        }
+
+        .ff7 {
+            clear: both;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .status span {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-<div>
-    This is the Status Page.
+<div id="app">
+    <div class="ff7">
+        <div class="layer tl"></div>
+        <div class="layer bl"></div>
+        <div class="layer tr"></div>
+        <div class="layer br"></div>
+        <div class="layer border"></div>
+        <div class="text">
+        </div>
+    </div>
+    <div class="ff7" style="top: 5px;">
+        <div class="layer tl"></div>
+        <div class="layer bl"></div>
+        <div class="layer tr"></div>
+        <div class="layer br"></div>
+        <div class="layer border"></div>
+        <div class="text">
+            <div class="base">
+                <span class="location">Somewhere Over the Rainbow</span>
+                <span class="gil">1337 Gil</span>
+                <span class="time">12:47</span>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
