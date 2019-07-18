@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Emitters;
+﻿using System.Drawing;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace InteractiveSeven.Web.Hubs
         public Task ShowNewColors(MenuColors menuColors)
         {
             return _menuHubContext.Clients.All.ColorChanged(
-                menuColors.TopLeft,
-                menuColors.TopRight,
-                menuColors.BotLeft,
-                menuColors.BotRight
+                ColorTranslator.ToHtml(menuColors.TopLeft),
+                ColorTranslator.ToHtml(menuColors.TopRight),
+                ColorTranslator.ToHtml(menuColors.BotLeft),
+                ColorTranslator.ToHtml(menuColors.BotRight)
             );
         }
     }

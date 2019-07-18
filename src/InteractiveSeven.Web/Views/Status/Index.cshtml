@@ -8,157 +8,289 @@
 <head>
     <title>Status Page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.js"></script>
-    <script language="javascript">
-        var connection = new signalR.HubConnectionBuilder().withUrl("/MenuHub").build();
-
-        connection.on("ColorChanged", function (tl, tr, bl, br) {
-            document.querySelectorAll(".ff7 .tl").forEach(e => e.style.background =
-                'linear-gradient(to top left, rgba(0,0,176, 0) 50%, #' + tl.name + ')');
-            document.querySelectorAll(".ff7 .tr").forEach(e => e.style.background =
-                'radial-gradient(farthest-side at top right, #' + tr.name + ', rgba(0, 0, 80, 0))');
-            document.querySelectorAll(".ff7 .bl").forEach(e => e.style.background =
-                'radial-gradient(farthest-side at bottom left, #' + bl.name + ', rgba(0, 0, 128, 0))');
-            document.querySelectorAll(".ff7 .br").forEach(e => e.style.background =
-                'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, #' + br.name + ')');
-        });
-
-        connection.start().then(function () {
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
-    </script>
-    <style>
-        body {
-            background: #000;
-            margin: 2.5%;
-            padding: 0;
-        }
-
-        .ff7 {
-            position: relative;
-            width: 460px;
-            float: left;
-            background: #333;
-        }
-
-            .ff7 > .border {
-                border: solid 2px #424542;
-                box-shadow: 2px 2px #e7dfe7, -2px -2px #e7dfe7, 2px -2px #e7dfe7, -2px 2px #e7dfe7, 0 -4px #9c9a9c, -4px 0 #7b757b, 0 4px #424542;
-            }
-
-            .ff7 > .layer {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                -webkit-border-radius: 7px;
-                -moz-border-radius: 7px;
-                border-radius: 7px;
-            }
-
-            .ff7 .tl {
-                background: linear-gradient(to top left, rgba(0,0,176, 0) 50%, rgba(0,0,176, 1));
-            }
-
-            .ff7 .tr {
-                background: radial-gradient(farthest-side at top right, rgba(0, 0, 80, 1), rgba(0, 0, 80, 0));
-            }
-
-            .ff7 .bl {
-                background: radial-gradient(farthest-side at bottom left, rgba(0, 0, 128, 1), rgba(0, 0, 128, 0));
-            }
-
-            .ff7 .br {
-                background: linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, rgba(0, 0, 32, 1));
-            }
-
-            .ff7 .text {
-                position: relative;
-                padding: 5px 10px;
-                width: auto;
-            }
-
-                .ff7 .text * {
-                    color: #eff1ff;
-                    text-shadow: 2px 2px #212421, 1px 1px #212021;
-                    font-family: Verdana, sans-serif;
-                    font-size: 20px;
-                    font-weight: normal;
-                    margin: 5px 0;
-                }
-
-
-        .base {
-            float: left;
-            clear: both;
-            width: 100%;
-        }
-
-        .gil, .time {
-            float: right;
-            text-align: right;
-        }
-
-        .time {
-            clear: both;
-        }
-
-        .location {
-            float: left;
-        }
-
-
-        .fixed {
-            display: inline-block;
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 60px;
-        }
-
-        .ff7 .text .character.dead * {
-            color: #ab0000;
-        }
-
-        .ff7 {
-            clear: both;
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-
-        .status span {
-            display: none;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <link rel="stylesheet" href="/css/site.css">
 </head>
 
 <body>
     <div id="app">
         <div class="ff7">
-            <div class="layer tl"></div>
-            <div class="layer bl"></div>
-            <div class="layer tr"></div>
-            <div class="layer br"></div>
+            <div class="layer tl" :style="topLeftStyle" ></div>
+            <div class="layer bl" :style="botLeftStyle" ></div>
+            <div class="layer tr" :style="topRightStyle"></div>
+            <div class="layer br" :style="botRightStyle"></div>
             <div class="layer border"></div>
             <div class="text">
+                <app-character v-for="char in party" v-bind:key="char.character" v-bind:data="char" v-bind:slide="window.charSlide"></app-character>
             </div>
         </div>
         <div class="ff7" style="top: 5px;">
-            <div class="layer tl"></div>
-            <div class="layer bl"></div>
-            <div class="layer tr"></div>
-            <div class="layer br"></div>
+            <div class="layer tl" :style="topLeftStyle" ></div>
+            <div class="layer bl" :style="botLeftStyle" ></div>
+            <div class="layer tr" :style="topRightStyle"></div>
+            <div class="layer br" :style="botRightStyle"></div>
             <div class="layer border"></div>
             <div class="text">
                 <div class="base">
-                    <span class="location">Somewhere Over the Rainbow</span>
-                    <span class="gil">1337 Gil</span>
-                    <span class="time">12:47</span>
+                    <span class="location">{{window.location}}</span>
+                    <span class="gil">{{window.gil}} Gil</span>
+                    <span class="time">{{window.time}}</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const baseWeapon = {
+            name: 'Buster Sword',
+            type: 'sword',
+            growth: 1,
+            slots: [
+                {
+                    type: 'linked',
+                    materia: 'magic'
+                },
+                {
+                    type: 'linked',
+                    materia: 'none'
+                }
+            ]
+        };
+        const baseArmor = {
+            name: 'Silver Armlet',
+            growth: 1,
+            slots: [
+                {
+                    type: 'linked',
+                    materia: 'magic'
+                },
+                {
+                    type: 'linked',
+                    materia: 'support'
+                },
+                {
+                    type: 'single',
+                    materia: 'summon'
+                },
+                {
+                    type: 'single',
+                    materia: 'command'
+                },
+            ]
+        };
+        const baseStats = {
+            level: 15,
+            currentHp: 500,
+            maxHp: 750,
+            currentMp: 70,
+            maxMp: 75,
+            status: []
+        };
+        const baseCharacter = {
+            name: 'Cloud',
+            character: 'young-cloud',
+            weapon: baseWeapon,
+            armor: baseArmor,
+            accessory: 'Tough Ring',
+            stats: baseStats,
+            row: 'back',
+            statusIndex: 0
+        };
+        Vue.component('app-materia', {
+            props: ['type'],
+            template: `
+            <img v-if="type !== 'none'" v-bind:src="'/images/materia-' + type + '.png'">
+            `
+        })
+        Vue.component('app-character',
+            {
+                props: ['data', 'slide'],
+                template: `<div class="character">
+    <div v-if="!!data">
+        <div v-bind:class="data.row + 'row portrait'">
+            <img v-bind:src="'/images/character-' + data.character + '.png'" />
+        </div>
+        <div class="stats">
+            <span v-bind:class="'name ' + (data.stats.currentHp == 0? 'dead ' : '') + (data.stats.currentHp == 7777? 'rainbow ' : '')">{{data.name}}</span>
+            <span class="aqua">LV </span><span class="level">{{data.stats.level}}</span> <span class="status"></span>
+            <span class="status" v-if="data.stats.status.length > 0"> {{data.stats.status[data.statusIndex]}}</span><br />
+            <span class="aqua">HP </span><span v-bind:class="'current-hp ' + (data.stats.currentHp > 0 && data.stats.currentHp < data.stats.maxHp / 4? 'hp-low' : '')">{{data.stats.currentHp}}</span> / <span class="max-hp">{{data.stats.maxHp}}</span><br />
+            <span class="aqua">MP </span><span class="current-mp">{{data.stats.currentMp}}</span> / <span class="max-mp">{{data.stats.maxMp}}</span><br />
+            <div class="slide active-slide" v-if="slide === 'materia'">
+                <ul v-bind:class="'wpn slots ' + (data.weapon.growth === 0? 'no-growth' : '')">
+                    <li v-for="slot in data.weapon.slots" v-bind:class="slot.type"><app-materia v-bind:type="slot.materia"></app-materia></li>
+                </ul>
+                <ul v-bind:class="'arm slots ' + (data.armor.growth === 0? 'no-growth' : '')">
+                    <li v-for="slot in data.armor.slots" v-bind:class="slot.type"><app-materia v-bind:type="slot.materia"></app-materia></li>
+                </ul>
+            </div>
+            <div class="slide acive-slide" v-if="slide === 'equip'">
+                <span class="aqua fixed">Wpn. </span>
+                <span class="weapon">
+                    <img v-bind:src="'/images/weapon-' + data.weapon.type + '.png'">
+                    {{data.weapon.name}}
+                </span><br />
+                <span class="aqua fixed">Arm. </span>
+                <span class="armlet">
+                        <img src="/images/armlet.png">
+                    {{data.armor.name}}
+                </span><br />
+                <span class="aqua fixed">Acc. </span>
+                <span class="accessory"><img src="/images/accessory.png" v-if="!!data.accessory"> {{data.accessory}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+`
+            });
+        const slides = ['equip', 'materia'];
+        let slideIndex = 0;
+        let app = new Vue({
+            el: '#app',
+            data: {
+                party: [
+                    {...baseCharacter, name: 'Barret', character: 'barret'},
+                    {...baseCharacter, name: 'Vincent', character: 'vincent'},
+                    baseCharacter,
+                ],
+                window: {
+                    time: '10:54:23',
+                    gil: 1700,
+                    location: 'Fort Condor',
+                    charSlide: 'equip'
+                },
+                colors: {
+                    topLeft: '#007300',
+                    topRight: '#004B00',
+                    bottomLeft: '#004F00',
+                    bottomRight: '#001600'
+                }
+            },
+            computed: {
+                topLeftStyle: function() {
+                    return ({
+                        background: 'linear-gradient(to top left, rgba(0,0,176, 0) 50%, ' + this.colors.topLeft + ')'
+                    });
+                },
+                topRightStyle: function() {
+                    return ({
+                        background: 'radial-gradient(farthest-side at top right, ' + this.colors.topRight + ', rgba(0, 0, 80, 0))'
+                    });
+                },
+                botLeftStyle: function() {
+                    return ({
+                        background: 'radial-gradient(farthest-side at bottom left, ' + this.colors.bottomLeft + ', rgba(0, 0, 128, 0))'
+                    });
+                },
+                botRightStyle: function() {
+                    return ({
+                        background: 'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, ' + this.colors.bottomRight + ')'
+                    });
+                }
+            },
+            mounted: function() {
+                var connection = new signalR.HubConnectionBuilder().withUrl("/MenuHub").build();
+
+                connection.on("ColorChanged", this.onColorChanged);
+
+                connection.start().then(function () {
+                }).catch(function (err) {
+                    return console.error(err.toString());
+                });
+            },
+            methods: {
+                onColorChanged: function(tl, tr, bl, br) {
+                    this.colors.topLeft = tl;
+                    this.colors.topRight = tr;
+                    this.colors.bottomLeft = bl;
+                    this.colors.bottomRight = br;
+                }
+            }
+        });
+        var rotateSlide = function() {
+            if(++slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+            app.window.charSlide = slides[slideIndex];
+            setTimeout(rotateSlide, 3000);
+        }
+        var updateCheck = function () {
+            axios
+                .get('/api/Status')
+                .then(d => {
+                    app.window.time = d.data.timeActive;
+                    app.window.gil = d.data.gil;
+                    app.window.location = d.data.location;
+                    const chars = [];
+                    for (let c = 0; c < d.data.party.length; ++c) {
+                        const character = d.data.party[c];
+                        if (!!character) {
+                            const char = {
+                                name: character.name,
+                                character: character.face,
+                                weapon: {
+                                    name: character.weapon.name,
+                                    type: character.weapon.weaponType.toLowerCase(),
+                                    growth: character.weapon.growth,
+                                    slots: []
+                                },
+                                armor: {
+                                    name: character.armlet.name,
+                                    growth: character.armlet.growth,
+                                    slots: []
+                                },
+                                accessory: !! character.accessory? character.accessory.name : '',
+                                stats: {
+                                    currentHp: character.currentHp,
+                                    maxHp: character.maxHp,
+                                    currentMp: character.currentMp,
+                                    maxMp: character.maxMp,
+                                    level: character.level,
+                                    status: character.statusEffects,
+                                },
+                                row: character.backRow ? 'back' : 'front',
+                                statusIndex: app.party[c].statusIndex < character.statusEffects.length? app.party[c].statusIndex : 0
+                            };
+                            for (let slot = 0;
+                                slot < character.weapon.linkedSlots + character.weapon.singleSlots;
+                                ++slot) {
+                                char.weapon.slots.push({
+                                    type: slot < character.weapon.linkedSlots ? 'linked' : 'single',
+                                    materia: character.weaponMateria[slot].typeName.toLowerCase()
+                                });
+                            }
+                            for (let slot = 0;
+                                slot < character.armlet.linkedSlots + character.armlet.singleSlots;
+                                ++slot) {
+                                char.armor.slots.push({
+                                    type: slot < character.armlet.linkedSlots ? 'linked' : 'single',
+                                    materia: character.armletMateria[slot].typeName.toLowerCase()
+                                });
+                            }
+                            chars.push(char);
+                        } else {
+                            chars.push(false);
+                        }
+                    }
+                    app.party = chars;
+                });
+            setTimeout(updateCheck, 300);
+        }
+        cycleStatus = function() {
+            for (let i = 0; i < 3; ++i) {
+                let index = app.party[i].statusIndex +1;
+                if (index >= app.party[i].stats.status.length) {
+                    index = 0;
+                }
+                app.party[i].statusIndex = index;
+            }
+            setTimeout(cycleStatus, 1000);
+        }
+        cycleStatus();
+        //updateCheck(); // TODO: Receive pushes instead
+        rotateSlide();
+    </script>
+
 </body>
 </html>

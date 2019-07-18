@@ -54,6 +54,7 @@ namespace InteractiveSeven
                 .ConfigureWebHostDefaults(webHostBuilder =>
                 {
                     webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>();
+                    //webHostBuilder.UseContentRoot()
                 })
                 .ConfigureServices(ConfigureServices)
                 .Build();

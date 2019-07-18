@@ -10,6 +10,6 @@ namespace InteractiveSeven.Web.Hubs
 
     public interface IMenuNotification
     {
-        Task ColorChanged(Color topLeft, Color topRight, Color botLeft, Color botRight);
+        Task ColorChanged(string topLeft, string topRight, string botLeft, string botRight);
     }
 }

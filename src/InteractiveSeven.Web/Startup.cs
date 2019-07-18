@@ -39,6 +39,8 @@ namespace InteractiveSeven.Web
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
