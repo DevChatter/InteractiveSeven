@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using InteractiveSeven.Core.ViewModels;
+﻿using InteractiveSeven.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace InteractiveSeven.Web.Controllers.Api
 {

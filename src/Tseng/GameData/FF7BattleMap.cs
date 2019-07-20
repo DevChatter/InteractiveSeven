@@ -1,5 +1,5 @@
-﻿using System;
-using InteractiveSeven.Core.Tseng.Models;
+﻿using InteractiveSeven.Core.Battle;
+using System;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -47,7 +47,7 @@ namespace Tseng.GameData
                     CurrentMp = BitConverter.ToInt16(_map, offset + BattleMapActorOffsets.CurrentMp),
                     MaxMp = BitConverter.ToInt16(_map, offset + BattleMapActorOffsets.MaxMp),
                     Level = _map[BattleMapActorOffsets.Level],
-                    Status = (StatusEffect)BitConverter.ToUInt32(_map, offset + BattleMapActorOffsets.Status),
+                    Status = (StatusEffects)BitConverter.ToUInt32(_map, offset + BattleMapActorOffsets.Status),
                     IsBackRow = (_map[offset + BattleMapActorOffsets.Row] & 0x40) == 0x40
                 };
                 acts[i] = a;

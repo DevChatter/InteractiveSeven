@@ -1,4 +1,7 @@
-﻿using Shojy.FF7.Elena;
+﻿using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Tseng.Models;
+using InteractiveSeven.Core.ViewModels;
+using Shojy.FF7.Elena;
 using Shojy.FF7.Elena.Equipment;
 using System;
 using System.Collections.Generic;
@@ -10,8 +13,6 @@ using System.Timers;
 using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
-using InteractiveSeven.Core.Tseng.Models;
-using InteractiveSeven.Core.ViewModels;
 using Accessory = InteractiveSeven.Core.Tseng.Models.Accessory;
 using Character = Tseng.GameData.Character;
 using Timer = System.Timers.Timer;
@@ -101,7 +102,7 @@ namespace Tseng
                     chr.ArmletMateria[m] = MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].ArmorMateria[m]);
                 }
 
-                var effect = (StatusEffect)chars[index].Flags;
+                var effect = (StatusEffects)chars[index].Flags;
 
                 if (battleMap.IsActiveBattle)
                 {

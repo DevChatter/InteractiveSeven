@@ -80,7 +80,7 @@
 
         public const int UltimateWeaponHp = 0xBFF;
 
-        public const int BattlePointsForCurrentRun = 0xC14; 
+        public const int BattlePointsForCurrentRun = 0xC14;
         public const int BattleSquareBattlesWon = 0xC18;
         public const int GP = 0xCEE;
         public const int BattlePoints = 0xCF4;

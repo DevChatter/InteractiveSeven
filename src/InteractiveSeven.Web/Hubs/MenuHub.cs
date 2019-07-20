@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Drawing;
 using System.Threading.Tasks;
 
 namespace InteractiveSeven.Web.Hubs

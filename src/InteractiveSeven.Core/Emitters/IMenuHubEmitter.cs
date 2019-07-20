@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
+using System.Threading.Tasks;
 
 namespace InteractiveSeven.Core.Emitters
 {
