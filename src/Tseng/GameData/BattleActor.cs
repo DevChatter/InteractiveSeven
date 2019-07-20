@@ -1,5 +1,4 @@
 ﻿using InteractiveSeven.Core.Tseng.Models;
-using Tseng.Models;
 
 namespace Tseng.GameData
 {

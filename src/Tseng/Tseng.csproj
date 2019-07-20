@@ -12,4 +12,8 @@
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>
