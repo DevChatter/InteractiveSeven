@@ -16,20 +16,20 @@
 <body>
     <div id="app">
         <div class="ff7">
-            <div class="layer tl" :style="topLeftStyle" ></div>
-            <div class="layer bl" :style="botLeftStyle" ></div>
-            <div class="layer tr" :style="topRightStyle"></div>
-            <div class="layer br" :style="botRightStyle"></div>
+            <div class="layer" :style="topLeftStyle" ></div>
+            <div class="layer" :style="botLeftStyle" ></div>
+            <div class="layer" :style="topRightStyle"></div>
+            <div class="layer" :style="botRightStyle"></div>
             <div class="layer border"></div>
             <div class="text">
                 <app-character v-for="char in party" v-bind:key="char.character" v-bind:data="char" v-bind:slide="window.charSlide"></app-character>
             </div>
         </div>
         <div class="ff7" style="top: 5px;">
-            <div class="layer tl" :style="topLeftStyle" ></div>
-            <div class="layer bl" :style="botLeftStyle" ></div>
-            <div class="layer tr" :style="topRightStyle"></div>
-            <div class="layer br" :style="botRightStyle"></div>
+            <div class="layer" :style="topLeftStyle" ></div>
+            <div class="layer" :style="botLeftStyle" ></div>
+            <div class="layer" :style="topRightStyle"></div>
+            <div class="layer" :style="botRightStyle"></div>
             <div class="layer border"></div>
             <div class="text">
                 <div class="base">
