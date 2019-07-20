@@ -12,4 +12,8 @@
     <PackageReference Include="TwitchLib" Version="3.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tseng\" />
+  </ItemGroup>
+
 </Project>

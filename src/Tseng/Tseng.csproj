@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shojy.FF7.Elena" Version="0.1.1-dev" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
+  </ItemGroup>
+
+</Project>

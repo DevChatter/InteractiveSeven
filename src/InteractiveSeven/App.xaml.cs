@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Windows;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Web.Hubs;
+using Tseng;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -35,6 +36,7 @@ namespace InteractiveSeven
         private WorkloadCoordinator _workloadCoordinator;
 
         private IHost _host;
+        private TsengProgram _tsengProgram;
 
         private static void InitializeSettings()
         {
@@ -66,6 +68,9 @@ namespace InteractiveSeven
 
             _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
+            _tsengProgram = _host.Services.GetService<TsengProgram>();
+            _tsengProgram.Start();
+
             _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
@@ -79,6 +84,8 @@ namespace InteractiveSeven
             services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+
+            services.AddSingleton<PartyStatusViewModel>();
 
             services.AddSingleton<IMenuHubEmitter, MenuHubEmitter>();
 
@@ -121,6 +128,7 @@ namespace InteractiveSeven
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
+            services.AddSingleton<TsengProgram>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
 

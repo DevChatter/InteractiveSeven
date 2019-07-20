@@ -217,7 +217,7 @@
         }
         var updateCheck = function () {
             axios
-                .get('/api/Status')
+                .get('/api/Party')
                 .then(d => {
                     app.window.time = d.data.timeActive;
                     app.window.gil = d.data.gil;
@@ -288,7 +288,7 @@
             setTimeout(cycleStatus, 1000);
         }
         cycleStatus();
-        //updateCheck(); // TODO: Receive pushes instead
+        updateCheck(); // TODO: Receive pushes instead
         rotateSlide();
     </script>
 
