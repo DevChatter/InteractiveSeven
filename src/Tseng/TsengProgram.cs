@@ -31,12 +31,11 @@ namespace Tseng
 
         #region Public Properties
 
-        public static List<Accessory> AccessoryDatabase { get; set; } = new List<Accessory>();
-        public static List<Armlet> ArmletDatabase { get; set; } = new List<Armlet>();
-        public static FF7BattleMap BattleMap { get; set; }
-        public static List<Materia> MateriaDatabase { get; set; } = new List<Materia>();
-        public static PartyStatusViewModel PartyStatus { get; set; }
-        public static List<Weapon> WeaponDatabase { get; set; } = new List<Weapon>();
+        public List<Accessory> AccessoryDatabase { get; set; } = new List<Accessory>();
+        public List<Armlet> ArmletDatabase { get; set; } = new List<Armlet>();
+        public FF7BattleMap BattleMap { get; set; }
+        public List<Materia> MateriaDatabase { get; set; } = new List<Materia>();
+        public List<Weapon> WeaponDatabase { get; set; } = new List<Weapon>();
 
         #endregion Public Properties
 
@@ -182,7 +181,7 @@ namespace Tseng
 
         #region Private Methods
 
-        private static void LoadDataFromKernel()
+        private void LoadDataFromKernel()
         {
             if (FF7?.MainModule == null)
             {
