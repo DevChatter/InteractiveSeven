@@ -13,6 +13,7 @@ using System.Timers;
 using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
+using Tseng.Runonce;
 using Accessory = InteractiveSeven.Core.Tseng.Models.Accessory;
 using Character = Tseng.GameData.Character;
 using Timer = System.Timers.Timer;
@@ -171,6 +172,16 @@ namespace Tseng
             LocateGameProcess();
 
             LoadDataFromKernel();
+
+            var missingAssets = AssetExtractor.IsAssetExtractionRequired();
+
+            if (missingAssets.Any())
+            {
+                var ff7Exe = FF7.MainModule?.FileName;
+                var ff7Folder = Path.GetDirectoryName(ff7Exe);
+                AssetExtractor.ExtractAssets(ff7Folder, missingAssets);
+            }
+
             StartMonitoringGame();
             //StartServer(args);
 
