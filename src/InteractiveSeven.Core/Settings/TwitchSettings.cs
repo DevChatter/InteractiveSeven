@@ -23,7 +23,7 @@ namespace InteractiveSeven.Core.Settings
             get => _accessToken;
             set
             {
-                if (!value.All(x => x == '●'))
+                if (value != null && !value.All(x => x == '●'))
                 {
                     _accessToken = value;
                 }
