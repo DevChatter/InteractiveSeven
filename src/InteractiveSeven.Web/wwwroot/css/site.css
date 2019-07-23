@@ -115,9 +115,13 @@
 }
 
     .slots li img {
+        
         width: 18px;
         height: 18px;
+        float: left;
         margin: 2px 5px !important;
+        position: absolute;
+        z-index: 25;
     }
 
 .slots.no-growth li {
@@ -130,6 +134,11 @@
 
 .slots li.linked:nth-child(even) {
     background-image: url('/images/slot-normal.png');
+}
+.slots li.linked:nth-child(even):before {
+    background-image: url('/images/slot-link.png');
+    width: 14px;
+    height: 24px
 }
 
 .slots.no-growth li.linked:nth-child(odd) {
@@ -227,4 +236,18 @@
     100% {
         color: orange;
     }
+}
+
+.slots li.linked:nth-child(even)::before {
+    background: url('/images/slot-link.png');
+    width: 14px;
+    height: 24px;
+    content: ' ';
+    display: inline-block;
+    margin-left: -7px;
+    margin-top: -1px;
+}
+
+.slots li.linked:nth-child(even) img {
+    margin-left: -1px !important;
 }
