@@ -111,7 +111,7 @@
     list-style: none;
     float: left;
     position: relative;
-    background-image: url('images/slots-single-normal.png');
+    background-image: url('/images/slot-normal.png');
 }
 
     .slots li img {
@@ -121,23 +121,23 @@
     }
 
 .slots.no-growth li {
-    background-image: url('images/slots-single-nothing.png');
+    background-image: url('/images/slot-nothing.png');
 }
 
 .slots li.linked:nth-child(odd) {
-    background-image: url('images/slots-linked-normal-left.png');
+    background-image: url('/images/slot-normal.png');
 }
 
 .slots li.linked:nth-child(even) {
-    background-image: url('images/slots-linked-normal-right.png');
+    background-image: url('/images/slot-normal.png');
 }
 
 .slots.no-growth li.linked:nth-child(odd) {
-    background-image: url('images/slots-linked-nothing-left.png');
+    background-image: url('/images/slot-nothing.png');
 }
 
 .slots.no-growth li.linked:nth-child(even) {
-    background-image: url('images/slots-linked-nothing-right.png');
+    background-image: url('/images/slot-nothing.png');
 }
 
 .weapon, .armlet, .accessory {

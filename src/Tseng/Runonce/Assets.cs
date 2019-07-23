@@ -291,6 +291,39 @@
             LocationXRatio = 6 / 8m,
             LocationYRatio = 1 / 8m,
         };
+        public static readonly AssetMap SlotNormal = new AssetMap
+        {
+            LgpArchiveFile = MenuLgp,
+            ExtractedFile = "slot-normal.png",
+            FileWithinLgp = "btl_win_b_h.tex",
+            ColorPalette = 1,
+            CropXRatio = 24 / 256m,
+            CropYRatio = 24 / 256m,
+            LocationXRatio = 0,
+            LocationYRatio = 95 / 256m,
+        };
+        public static readonly AssetMap SlotNothing = new AssetMap
+        {
+            LgpArchiveFile = MenuLgp,
+            ExtractedFile = "slot-nothing.png",
+            FileWithinLgp = "btl_win_a_h.tex",
+            ColorPalette = 1,
+            CropXRatio = 24 / 256m,
+            CropYRatio = 24 / 256m,
+            LocationXRatio = 7 / 8m,
+            LocationYRatio = 63 / 256m,
+        };
+        public static readonly AssetMap SlotLink = new AssetMap
+        {
+            LgpArchiveFile = MenuLgp,
+            ExtractedFile = "slot-link.png",
+            FileWithinLgp = "btl_win_a_h.tex",
+            ColorPalette = 1,
+            CropXRatio = 14 / 256m,
+            CropYRatio = 24 / 256m,
+            LocationXRatio = 227 / 256m,
+            LocationYRatio = 95 / 256m,
+        };
 
         public static readonly AssetMap WeaponSword = new AssetMap
         {

@@ -44,8 +44,11 @@ namespace Tseng.Runonce
             Assets.MateriaSupport,
             Assets.MateriaSummon,
             Assets.MateriaCommand,
-            Assets.MateriaIndependent
+            Assets.MateriaIndependent,
 
+            Assets.SlotNormal,
+            Assets.SlotNothing,
+            Assets.SlotLink,
             //"slot-normal.png",
             //"slot-nothing.png",
             //"slot-link.png"
