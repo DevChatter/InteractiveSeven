@@ -1,4 +1,4 @@
-﻿namespace Tseng.Runonce
+﻿namespace Tseng.RunOnce
 {
     public class AssetMap
     {

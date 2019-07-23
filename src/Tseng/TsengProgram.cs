@@ -13,7 +13,7 @@ using System.Timers;
 using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
-using Tseng.Runonce;
+using Tseng.RunOnce;
 using Accessory = InteractiveSeven.Core.Tseng.Models.Accessory;
 using Character = Tseng.GameData.Character;
 using Timer = System.Timers.Timer;
