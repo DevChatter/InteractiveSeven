@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Tseng.Models;
@@ -26,14 +27,17 @@ namespace Tseng
     public class TsengProgram
     {
         private readonly PartyStatusViewModel _partyStatusViewModel;
+        private readonly ProcessConnector _processConnector;
         private readonly GameDatabase _gameDatabase;
         private readonly ILogger<TsengProgram> _logger;
 
         public TsengProgram(PartyStatusViewModel partyStatusViewModel,
+            ProcessConnector processConnector,
             GameDatabase gameDatabase,
             ILogger<TsengProgram> logger)
         {
             _partyStatusViewModel = partyStatusViewModel;
+            _processConnector = processConnector;
             _gameDatabase = gameDatabase;
             _logger = logger;
         }
@@ -41,11 +45,10 @@ namespace Tseng
         #region Private Properties
 
         private FF7BattleMap BattleMap { get; set; }
-        private static Process FF7 { get; set; }
-        private static NativeMemoryReader MemoryReader { get; set; }
-        private static string ProcessName => ApplicationSettings.Instance.ProcessName;
-        private static FF7SaveMap SaveMap { get; set; }
-        private static Timer Timer { get; set; }
+        private Process FF7 => _processConnector.FF7Process;
+        private NativeMemoryReader MemoryReader { get; set; }
+        private FF7SaveMap SaveMap { get; set; }
+        private Timer Timer { get; set; }
 
         #endregion Private Properties
 
@@ -343,11 +346,9 @@ namespace Tseng
                     Timer.Enabled = false;
                 }
 
-                FF7 = null;
                 while (FF7 is null)
                 {
-                    GetRunningFF7Process();
-
+                    // Attempt to connect is automatic when checked.
                     Thread.Sleep(2000);
                 }
 
@@ -357,22 +358,6 @@ namespace Tseng
                 {
                     Timer.Enabled = true;
                 }
-            }
-        }
-
-        private void GetRunningFF7Process()
-        {
-            try
-            {
-                FF7 ??= (!string.IsNullOrWhiteSpace(ProcessName)
-                            ? Process.GetProcessesByName(ProcessName).FirstOrDefault()
-                            : FF7)
-                        ?? Process.GetProcessesByName("ff7_en").FirstOrDefault()
-                        ?? Process.GetProcessesByName("ff7").FirstOrDefault();
-            }
-            catch
-            {
-                // TODO: Log here
             }
         }
 

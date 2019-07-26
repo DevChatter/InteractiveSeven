@@ -80,6 +80,9 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<I7Command>();
 
             services.AddSingleton<IChatBot, ChatBot>();
+
+            services.AddSingleton<GameDatabase>();
+            services.AddSingleton<ProcessConnector>();
             services.AddSingleton<TsengProgram>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
