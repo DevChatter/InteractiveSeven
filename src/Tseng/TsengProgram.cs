@@ -10,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
@@ -24,10 +26,12 @@ namespace Tseng
     public class TsengProgram
     {
         private readonly PartyStatusViewModel _partyStatusViewModel;
+        private readonly ILogger<TsengProgram> _logger;
 
-        public TsengProgram(PartyStatusViewModel partyStatusViewModel)
+        public TsengProgram(PartyStatusViewModel partyStatusViewModel, ILogger<TsengProgram> logger)
         {
             _partyStatusViewModel = partyStatusViewModel;
+            _logger = logger;
         }
 
         #region Public Properties
@@ -44,7 +48,7 @@ namespace Tseng
 
         private static Process FF7 { get; set; }
         private static NativeMemoryReader MemoryReader { get; set; }
-        private static string ProcessName { get; set; }
+        private static string ProcessName => ApplicationSettings.Instance.ProcessName;
         private static FF7SaveMap SaveMap { get; set; }
         private static Timer Timer { get; set; }
 
@@ -169,7 +173,7 @@ namespace Tseng
 
         public void Start()
         {
-            LocateGameProcess();
+            SearchForProcess();
 
             LoadDataFromKernel();
 
@@ -183,9 +187,6 @@ namespace Tseng
             }
 
             StartMonitoringGame();
-            //StartServer(args);
-
-            Console.ReadLine();
         }
 
         #endregion Public Methods
@@ -328,41 +329,9 @@ namespace Tseng
             }
         }
 
-        private void LocateGameProcess()
+        private void SearchForProcess()
         {
-            var firstRun = true;
-            while (FF7 is null)
-            {
-                if (!firstRun)
-                {
-                    Console.WriteLine("Could not locate FF7. Is the game running?");
-                    Console.WriteLine(
-                        "Press enter key to try again, or input process name if different to normal (Eg. ff7_en):");
-
-                    ProcessName = Console.ReadLine()?.Trim();
-
-                    if (!string.IsNullOrWhiteSpace(ProcessName))
-                    {
-                        FF7 = Process.GetProcessesByName(ProcessName).FirstOrDefault();
-                    }
-
-                    if (FF7 is null)
-                    {
-                        SearchForProcess(ProcessName);
-                    }
-                }
-
-                if (FF7 is null) FF7 = Process.GetProcessesByName("ff7_en").FirstOrDefault();
-                if (FF7 is null) FF7 = Process.GetProcessesByName("ff7").FirstOrDefault();
-                firstRun = false;
-            }
-
-            Console.WriteLine($"Located FF7 process {FF7.ProcessName}");
-        }
-
-        private void SearchForProcess(string processName)
-        {
-            Console.WriteLine("Searching...");
+            _logger.LogInformation("Searching for FF7 Process...");
             if (Timer is null)
             {
                 Timer = new Timer(300);
@@ -372,7 +341,7 @@ namespace Tseng
                 Timer_Elapsed(null, null);
                 Timer.Start();
             }
-            lock (Timer)
+            lock (Timer) // TODO: Find out why we are locking here?
             {
                 if (null != Timer)
                 {
@@ -382,26 +351,33 @@ namespace Tseng
                 FF7 = null;
                 while (FF7 is null)
                 {
-                    try
-                    {
-                        if (FF7 is null) FF7 = Process.GetProcessesByName("ff7_en").FirstOrDefault();
-                        if (FF7 is null) FF7 = Process.GetProcessesByName("ff7").FirstOrDefault();
-                        if (FF7 is null && !string.IsNullOrWhiteSpace(processName))
-                            FF7 = Process.GetProcessesByName(processName).FirstOrDefault();
-                    }
-                    catch (Exception e)
-                    {
-                    }
+                    GetRunningFF7Process();
 
-                    Thread.Sleep(250);
+                    Thread.Sleep(2000);
                 }
 
                 MemoryReader = new NativeMemoryReader(FF7);
-                Console.WriteLine("Found FF7");
+                _logger.LogInformation($"Located FF7 process {FF7.ProcessName}");
                 if (null != Timer)
                 {
                     Timer.Enabled = true;
                 }
+            }
+        }
+
+        private void GetRunningFF7Process()
+        {
+            try
+            {
+                FF7 ??= (!string.IsNullOrWhiteSpace(ProcessName)
+                            ? Process.GetProcessesByName(ProcessName).FirstOrDefault()
+                            : FF7)
+                        ?? Process.GetProcessesByName("ff7_en").FirstOrDefault()
+                        ?? Process.GetProcessesByName("ff7").FirstOrDefault();
+            }
+            catch
+            {
+                // TODO: Log here
             }
         }
 
@@ -439,7 +415,8 @@ namespace Tseng
             }
             catch (Exception ex)
             {
-                SearchForProcess(ProcessName);
+                _logger.LogError(ex, "Error Updating Tseng Info");
+                SearchForProcess();
             }
         }
 
