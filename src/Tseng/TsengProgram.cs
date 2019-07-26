@@ -1,17 +1,17 @@
 ﻿using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Tseng.Models;
 using InteractiveSeven.Core.ViewModels;
+using Microsoft.Extensions.Logging;
 using Shojy.FF7.Elena;
 using Shojy.FF7.Elena.Equipment;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
-using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
 using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
@@ -26,26 +26,21 @@ namespace Tseng
     public class TsengProgram
     {
         private readonly PartyStatusViewModel _partyStatusViewModel;
+        private readonly GameDatabase _gameDatabase;
         private readonly ILogger<TsengProgram> _logger;
 
-        public TsengProgram(PartyStatusViewModel partyStatusViewModel, ILogger<TsengProgram> logger)
+        public TsengProgram(PartyStatusViewModel partyStatusViewModel,
+            GameDatabase gameDatabase,
+            ILogger<TsengProgram> logger)
         {
             _partyStatusViewModel = partyStatusViewModel;
+            _gameDatabase = gameDatabase;
             _logger = logger;
         }
 
-        #region Public Properties
-
-        public List<Accessory> AccessoryDatabase { get; set; } = new List<Accessory>();
-        public List<Armlet> ArmletDatabase { get; set; } = new List<Armlet>();
-        public FF7BattleMap BattleMap { get; set; }
-        public List<Materia> MateriaDatabase { get; set; } = new List<Materia>();
-        public List<Weapon> WeaponDatabase { get; set; } = new List<Weapon>();
-
-        #endregion Public Properties
-
         #region Private Properties
 
+        private FF7BattleMap BattleMap { get; set; }
         private static Process FF7 { get; set; }
         private static NativeMemoryReader MemoryReader { get; set; }
         private static string ProcessName => ApplicationSettings.Instance.ProcessName;
@@ -88,9 +83,9 @@ namespace Tseng
                     CurrentMp = chars[index].CurrentMp,
                     Name = chars[index].Name,
                     Level = chars[index].Level,
-                    Weapon = WeaponDatabase.FirstOrDefault(w => w.Id == chars[index].Weapon),
-                    Armlet = ArmletDatabase.FirstOrDefault(a => a.Id == chars[index].Armor),
-                    Accessory = AccessoryDatabase.FirstOrDefault(a => a.Id == chars[index].Accessory),
+                    Weapon = _gameDatabase.WeaponDatabase.FirstOrDefault(w => w.Id == chars[index].Weapon),
+                    Armlet = _gameDatabase.ArmletDatabase.FirstOrDefault(a => a.Id == chars[index].Armor),
+                    Accessory = _gameDatabase.AccessoryDatabase.FirstOrDefault(a => a.Id == chars[index].Accessory),
                     WeaponMateria = new Materia[8],
                     ArmletMateria = new Materia[8],
                     Face = GetFaceForCharacter(chars[index]),
@@ -99,11 +94,11 @@ namespace Tseng
 
                 for (var m = 0; m < chars[index].WeaponMateria.Length; ++m)
                 {
-                    chr.WeaponMateria[m] = MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].WeaponMateria[m]);
+                    chr.WeaponMateria[m] = _gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].WeaponMateria[m]);
                 }
                 for (var m = 0; m < chars[index].ArmorMateria.Length; ++m)
                 {
-                    chr.ArmletMateria[m] = MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].ArmorMateria[m]);
+                    chr.ArmletMateria[m] = _gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].ArmorMateria[m]);
                 }
 
                 var effect = (StatusEffects)chars[index].Flags;
@@ -236,10 +231,10 @@ namespace Tseng
                         m.Type = MateriaType.None;
                         break;
                 }
-                MateriaDatabase.Add(m);
+                _gameDatabase.MateriaDatabase.Add(m);
             }
 
-            MateriaDatabase.Add(new Materia { Id = 255, Name = "Empty Slot", Type = MateriaType.None });
+            _gameDatabase.MateriaDatabase.Add(new Materia { Id = 255, Name = "Empty Slot", Type = MateriaType.None });
 
             foreach (var wpn in elena.WeaponData.Weapons)
             {
@@ -298,12 +293,12 @@ namespace Tseng
                 {
                     w.Type = WeaponType.Other;
                 }
-                WeaponDatabase.Add(w);
+                _gameDatabase.WeaponDatabase.Add(w);
             }
 
             foreach (var arm in elena.ArmorData.Armors)
             {
-                ArmletDatabase.Add(new Armlet
+                _gameDatabase.ArmletDatabase.Add(new Armlet
                 {
                     Id = arm.Index,
                     Name = arm.Name,
@@ -321,7 +316,7 @@ namespace Tseng
 
             foreach (var acc in elena.AccessoryData.Accessories)
             {
-                AccessoryDatabase.Add(new Accessory
+                _gameDatabase.AccessoryDatabase.Add(new Accessory
                 {
                     Id = acc.Index,
                     Name = acc.Name
