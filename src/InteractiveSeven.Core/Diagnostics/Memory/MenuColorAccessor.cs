@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using System;
@@ -25,10 +26,10 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             byte[] topRightBuffer = new byte[3];
             byte[] botRightBuffer = new byte[3];
 
-            _memoryAccessor.ReadMem(processName, MemLoc.MenuTopLeft.Address, topLeftBuffer);
-            _memoryAccessor.ReadMem(processName, MemLoc.MenuBotLeft.Address, botLeftBuffer);
-            _memoryAccessor.ReadMem(processName, MemLoc.MenuTopRight.Address, topRightBuffer);
-            _memoryAccessor.ReadMem(processName, MemLoc.MenuBotRight.Address, botRightBuffer);
+            _memoryAccessor.ReadMem(processName, Addresses.MenuTopLeft.Address, topLeftBuffer);
+            _memoryAccessor.ReadMem(processName, Addresses.MenuBotLeft.Address, botLeftBuffer);
+            _memoryAccessor.ReadMem(processName, Addresses.MenuTopRight.Address, topRightBuffer);
+            _memoryAccessor.ReadMem(processName, Addresses.MenuBotRight.Address, botRightBuffer);
 
             return new MenuColors
             {
@@ -53,12 +54,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             }
             UpdateDisplayColors(processName, menuColors);
 
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAllSave.Address, menuColors.GetSaveBytes());
+            _memoryAccessor.WriteMem(processName, Addresses.MenuColorAllSave.Address, menuColors.GetSaveBytes());
         }
 
         private void UpdateDisplayColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, MemLoc.MenuColorAll.Address, menuColors.GetDisplayBytes());
+            _memoryAccessor.WriteMem(processName, Addresses.MenuColorAll.Address, menuColors.GetDisplayBytes());
             // TODO: Add logger for exceptions
             _menuHubEmitter.ShowNewColors(menuColors).RunInBackgroundSafely();
         }

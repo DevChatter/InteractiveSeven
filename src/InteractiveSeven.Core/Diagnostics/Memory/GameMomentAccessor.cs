@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
 using System;
@@ -45,8 +46,8 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
                         if (DateTime.UtcNow >= _nextMomentCheckAllowed)
                         {
                             _nextMomentCheckAllowed = DateTime.UtcNow.AddSeconds(2);
-                            byte[] bytes = new byte[MemLoc.GameMoment.NumBytes];
-                            _memoryAccessor.ReadMem(ProcessName, MemLoc.GameMoment.Address, bytes);
+                            byte[] bytes = new byte[Addresses.GameMoment.NumBytes];
+                            _memoryAccessor.ReadMem(ProcessName, Addresses.GameMoment.Address, bytes);
                             _lastCheckedMoment = (ushort)((bytes[1] << 8) + bytes[0]);
                         }
                     }

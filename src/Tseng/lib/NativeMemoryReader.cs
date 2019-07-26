@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -100,6 +101,21 @@ namespace Tseng.lib
             }
             else
                 throw new ApplicationException("A handle to the process has already been obtained, " + "close the existing handle by calling the Close method before calling Open again");
+        }
+
+        /// <summary>
+        /// Reads the specified number of bytes from an address in the process's memory.
+        /// All memory in the specified range must be available or the method will fail.
+        /// Returns Nothing if the method fails for any reason
+        /// </summary>
+        /// <param name="memoryLocation">The address in the process's virtual memory to start reading from and the number of bytes to read</param>
+        public byte[] ReadMemory(MemLoc memoryLocation)
+        {
+            if (TargetProcessHandle == IntPtr.Zero)
+                this.Open();
+            var bytes = new byte[memoryLocation.NumBytes + 1];
+            var result = ReadProcessMemory(TargetProcessHandle, memoryLocation.Address, bytes, System.Convert.ToUInt32(memoryLocation.NumBytes), 0);
+            return result ? bytes : null;
         }
 
         /// <summary>

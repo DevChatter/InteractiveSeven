@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.FinalFantasy;
+using InteractiveSeven.Core.Settings;
 using System;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
@@ -15,7 +16,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 
         public void SetGil(int gil)
         {
-            _memoryAccessor.WriteMem(Settings.ProcessName, MemLoc.Gil.Address, BitConverter.GetBytes(gil));
+            _memoryAccessor.WriteMem(Settings.ProcessName, Addresses.Gil.Address, BitConverter.GetBytes(gil));
         }
     }
 }

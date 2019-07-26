@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
-using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -237,10 +237,10 @@ namespace Tseng
         {
             try
             {
-                var saveMapByteData = MemoryReader.ReadMemory(new IntPtr(Addresses.SaveMapStart), 4342);
-                var isBattle = MemoryReader.ReadMemory(new IntPtr(Addresses.ActiveBattleState), 1).First();
-                var battleMapByteData = MemoryReader.ReadMemory(new IntPtr(Addresses.BattleMapStart), 0x750);
-                var colors = MemoryReader.ReadMemory(new IntPtr(Addresses.WindowColorBlockStart), 16);
+                var saveMapByteData = MemoryReader.ReadMemory(Addresses.SaveMapStart);
+                var isBattle = MemoryReader.ReadMemory(Addresses.ActiveBattleState).First();
+                var battleMapByteData = MemoryReader.ReadMemory(Addresses.BattleMapStart);
+                var colors = MemoryReader.ReadMemory(Addresses.MenuColorAll);
 
                 SaveMap = new FF7SaveMap(saveMapByteData);
                 BattleMap = new FF7BattleMap(battleMapByteData, isBattle);
