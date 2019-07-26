@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class CharMemLoc
     {

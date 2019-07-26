@@ -1,6 +1,6 @@
 ﻿using InteractiveSeven.Core.Data;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public interface INameAccessor
     {

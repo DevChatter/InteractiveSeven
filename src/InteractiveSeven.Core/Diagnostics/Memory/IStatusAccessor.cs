@@ -1,6 +1,6 @@
 ﻿using InteractiveSeven.Core.Battle;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public interface IStatusAccessor
     {

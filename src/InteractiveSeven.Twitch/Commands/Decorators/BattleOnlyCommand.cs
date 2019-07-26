@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;

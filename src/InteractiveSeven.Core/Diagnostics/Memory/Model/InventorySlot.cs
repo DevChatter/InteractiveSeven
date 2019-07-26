@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core.Memory.Model
+﻿namespace InteractiveSeven.Core.Diagnostics.Memory.Model
 {
     public class InventorySlot
     {

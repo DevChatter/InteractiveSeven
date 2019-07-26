@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class NameAccessor : INameAccessor
     {

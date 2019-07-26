@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Settings;
 using System;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class GilAccessor : IGilAccessor
     {

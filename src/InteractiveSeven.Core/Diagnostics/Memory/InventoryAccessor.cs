@@ -1,9 +1,9 @@
-﻿using InteractiveSeven.Core.Memory.Model;
+﻿using InteractiveSeven.Core.Diagnostics.Memory.Model;
 using InteractiveSeven.Core.Settings;
 using System;
 using System.Linq;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class InventoryAccessor : IInventoryAccessor
     {

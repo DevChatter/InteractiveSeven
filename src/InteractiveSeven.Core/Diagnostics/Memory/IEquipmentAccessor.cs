@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Data;
 using System;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public interface IEquipmentAccessor
     {

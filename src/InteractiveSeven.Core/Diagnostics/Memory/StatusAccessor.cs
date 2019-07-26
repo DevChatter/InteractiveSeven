@@ -3,7 +3,7 @@ using InteractiveSeven.Core.Settings;
 using System;
 using System.Threading;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class StatusAccessor : IStatusAccessor
     {

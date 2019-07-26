@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.Threading;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class MenuColorAccessor : IMenuColorAccessor
     {

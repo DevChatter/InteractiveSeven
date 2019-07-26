@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public static class BattleMemoryLocations
     {

@@ -1,6 +1,6 @@
 ﻿using InteractiveSeven.Core.Models;
 
-namespace InteractiveSeven.Core.Memory
+namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public interface IMenuColorAccessor
     {

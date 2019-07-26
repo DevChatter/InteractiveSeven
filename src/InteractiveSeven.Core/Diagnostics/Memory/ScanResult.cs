@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core.Memory
+﻿namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class ScanResult
     {
