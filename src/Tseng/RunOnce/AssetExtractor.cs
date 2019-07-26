@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Shojy.FF7.Elena;
+using Shojy.FF7.Elena.Converters;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using Shojy.FF7.Elena;
-using Shojy.FF7.Elena.Converters;
 
 namespace Tseng.RunOnce
 {
@@ -116,12 +114,12 @@ namespace Tseng.RunOnce
             // Crop and save
             using var fileWriter = new StreamWriter(Path.Combine(AssetBaseLocation, asset.ExtractedFile));
 
-            var croppedWidth = (int) (bmp.Width * asset.CropXRatio);
-            var croppedHeight = (int) (bmp.Height * asset.CropYRatio);
+            var croppedWidth = (int)(bmp.Width * asset.CropXRatio);
+            var croppedHeight = (int)(bmp.Height * asset.CropYRatio);
 
             var crop = new Rectangle(
-                (int) (bmp.Width * asset.LocationXRatio),
-                (int) (bmp.Height * asset.LocationYRatio),
+                (int)(bmp.Width * asset.LocationXRatio),
+                (int)(bmp.Height * asset.LocationYRatio),
                 croppedWidth,
                 croppedHeight);
             var croppedBmp = new Bitmap(croppedWidth, croppedHeight);

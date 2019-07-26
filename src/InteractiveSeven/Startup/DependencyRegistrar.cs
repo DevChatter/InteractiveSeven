@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Memory;

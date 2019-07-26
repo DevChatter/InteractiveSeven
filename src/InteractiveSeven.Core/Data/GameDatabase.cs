@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using InteractiveSeven.Core.Tseng.Models;
+﻿using InteractiveSeven.Core.Tseng.Models;
+using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Data
 {

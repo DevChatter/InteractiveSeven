@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace InteractiveSeven.Core
+namespace InteractiveSeven.Core.Diagnostics
 {
     public class ProcessConnector
     {

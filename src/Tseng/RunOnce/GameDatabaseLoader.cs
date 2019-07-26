@@ -1,5 +1,5 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Tseng.Models;
 using Shojy.FF7.Elena;
 using Shojy.FF7.Elena.Equipment;

@@ -1,12 +1,9 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
-using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Tseng.Models;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
-using Shojy.FF7.Elena;
-using Shojy.FF7.Elena.Equipment;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -17,10 +14,8 @@ using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
-using Accessory = InteractiveSeven.Core.Tseng.Models.Accessory;
 using Character = Tseng.GameData.Character;
 using Timer = System.Timers.Timer;
-using Weapon = InteractiveSeven.Core.Tseng.Models.Weapon;
 
 namespace Tseng
 {
