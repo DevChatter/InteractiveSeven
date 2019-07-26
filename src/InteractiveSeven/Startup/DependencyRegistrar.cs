@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
 using Tseng;
+using Tseng.RunOnce;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -81,6 +82,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<IChatBot, ChatBot>();
 
+            services.AddSingleton<IGameDatabaseLoader, GameDatabaseLoader>();
             services.AddSingleton<GameDatabase>();
             services.AddSingleton<ProcessConnector>();
             services.AddSingleton<TsengProgram>();
