@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
-using InteractiveSeven.Core.Tseng.Models;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
 using System;
@@ -57,7 +57,7 @@ namespace Tseng
 
             _partyStatusViewModel.Gil = map.LiveGil;
             _partyStatusViewModel.Location = map.LiveMapName;
-            _partyStatusViewModel.Party = new InteractiveSeven.Core.Tseng.Models.Character[3];
+            _partyStatusViewModel.Party = new InteractiveSeven.Core.FinalFantasy.Models.Character[3];
             _partyStatusViewModel.ActiveBattle = battleMap.IsActiveBattle;
             _partyStatusViewModel.ColorTopLeft = map.WindowColorTopLeft;
             _partyStatusViewModel.ColorBottomLeft = map.WindowColorBottomLeft;
@@ -73,7 +73,7 @@ namespace Tseng
                 // Skip empty party
                 if (chars[index].Id == 0xFF) continue;
 
-                var chr = new InteractiveSeven.Core.Tseng.Models.Character()
+                var chr = new InteractiveSeven.Core.FinalFantasy.Models.Character()
                 {
                     MaxHp = chars[index].MaxHp,
                     MaxMp = chars[index].MaxMp,

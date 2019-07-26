@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Tseng.Models;
+﻿using InteractiveSeven.Core.FinalFantasy.Models;
 
 namespace InteractiveSeven.Core.ViewModels
 {

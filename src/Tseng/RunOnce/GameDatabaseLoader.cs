@@ -1,14 +1,14 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
-using InteractiveSeven.Core.Tseng.Models;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using Shojy.FF7.Elena;
 using Shojy.FF7.Elena.Equipment;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Accessory = InteractiveSeven.Core.Tseng.Models.Accessory;
-using Weapon = InteractiveSeven.Core.Tseng.Models.Weapon;
+using Accessory = InteractiveSeven.Core.FinalFantasy.Models.Accessory;
+using Weapon = InteractiveSeven.Core.FinalFantasy.Models.Weapon;
 
 namespace Tseng.RunOnce
 {

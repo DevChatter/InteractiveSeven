@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Tseng.Models;
+﻿using InteractiveSeven.Core.FinalFantasy.Models;
 using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Data

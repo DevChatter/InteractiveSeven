@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core.Tseng.Models
+﻿namespace InteractiveSeven.Core.FinalFantasy.Models
 {
     public enum WeaponType
     {
