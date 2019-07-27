@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 
-namespace InteractiveSeven.Core
+namespace InteractiveSeven.Core.Settings
 {
     public class ThreadedObservableCollection<T> : ObservableCollection<T>
     {
