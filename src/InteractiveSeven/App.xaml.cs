@@ -38,7 +38,7 @@ namespace InteractiveSeven
                 .ConfigureWebHostDefaults(webHostBuilder =>
                 {
                     webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>();
-                    //webHostBuilder.UseContentRoot()
+                    webHostBuilder.UseUrls("http://localhost:7777");
                 })
                 .ConfigureServices(DependencyRegistrar.ConfigureServices)
                 .Build();
