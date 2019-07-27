@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
