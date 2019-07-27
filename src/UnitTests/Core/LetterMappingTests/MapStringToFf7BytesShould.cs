@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using InteractiveSeven.Core;
+using InteractiveSeven.Core.FinalFantasy;
 using Xunit;
 
 namespace UnitTests.Core.LetterMappingTests

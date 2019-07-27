@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;

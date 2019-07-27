@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
 using System.Collections.Generic;
 using System.Linq;
 

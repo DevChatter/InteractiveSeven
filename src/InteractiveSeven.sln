@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven", "InteractiveSeven\InteractiveSeven.csproj", "{A666950C-E4FB-46C3-8FB6-71F2C5805540}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Web", "InteractiveSeven.Web\InteractiveSeven.Web.csproj", "{75E11106-A7C9-46B5-84AC-CC757385FCA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tseng", "Tseng\Tseng.csproj", "{BB773192-5869-4FCE-8C7A-343AD797CFF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A666950C-E4FB-46C3-8FB6-71F2C5805540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

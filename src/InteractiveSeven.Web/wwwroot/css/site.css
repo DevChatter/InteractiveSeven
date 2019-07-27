@@ -1,0 +1,253 @@
+﻿body {
+    background: #000;
+    margin: 2.5%;
+    padding: 0;
+}
+
+.ff7 {
+    position: relative;
+    width: 460px;
+    float: left;
+    background: #333;
+}
+
+    .ff7 > .border {
+        border: solid 2px #424542;
+        box-shadow: 2px 2px #e7dfe7, -2px -2px #e7dfe7, 2px -2px #e7dfe7, -2px 2px #e7dfe7, 0 -4px #9c9a9c, -4px 0 #7b757b, 0 4px #424542;
+    }
+
+    .ff7 > .layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+    }
+
+    .ff7 .text {
+        position: relative;
+        padding: 5px 10px;
+        width: auto;
+    }
+
+        .ff7 .text * {
+            color: #eff1ff;
+            text-shadow: 2px 2px #212421, 1px 1px #212021;
+            font-family: Verdana, sans-serif;
+            font-size: 20px;
+            font-weight: normal;
+            margin: 5px 0;
+        }
+
+.character {
+    float: left;
+    clear: both;
+    height: 175px;
+    padding-left: 20px;
+    width: 150%;
+}
+
+.portrait {
+    width: 150px;
+    float: left;
+}
+
+    .portrait img {
+        width: 115px;
+    }
+
+    .portrait.backrow img {
+        float: right;
+    }
+
+.stats {
+    float: left;
+    padding-left: 15px;
+}
+
+.aqua {
+    color: #2ce8df !important;
+}
+
+:not(.dead) .status {
+    color: #c71585 !important;
+}
+
+.hp-low .current-hp, .mp-low:not(.dead) .current-mp {
+    color: #ffa500;
+}
+
+
+.slots {
+    top: -2px;
+    display: block;
+    padding: 2px;
+    list-style: none;
+    position: relative;
+    background: rgba(45, 45, 45, 0.4);
+    border-right: 1px rgba(180, 180, 180, 0.3) solid;
+    border-bottom: 1px rgba(180, 180, 180, 0.3) solid;
+    float: left;
+    clear: both;
+    width: 224px;
+    height: 22px;
+}
+
+.arm {
+    top: -8px;
+}
+
+.slots li {
+    display: inline-block;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 28px;
+    height: 22px;
+    background-size: 28px 22px;
+    background-color: transparent;
+    list-style: none;
+    float: left;
+    position: relative;
+    background-image: url('/images/slot-normal.png');
+}
+
+    .slots li img {
+        
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin: 2px 5px !important;
+        position: absolute;
+        z-index: 25;
+    }
+
+.slots.no-growth li {
+    background-image: url('/images/slot-nothing.png');
+}
+
+.slots li.linked:nth-child(odd) {
+    background-image: url('/images/slot-normal.png');
+}
+
+.slots li.linked:nth-child(even) {
+    background-image: url('/images/slot-normal.png');
+}
+.slots li.linked:nth-child(even):before {
+    background-image: url('/images/slot-link.png');
+    width: 14px;
+    height: 24px
+}
+
+.slots.no-growth li.linked:nth-child(odd) {
+    background-image: url('/images/slot-nothing.png');
+}
+
+.slots.no-growth li.linked:nth-child(even) {
+    background-image: url('/images/slot-nothing.png');
+}
+
+.weapon, .armlet, .accessory {
+    line-height: 26px;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+    .weapon img, .armlet img, .accessory img {
+        height: 24px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+.base {
+    float: left;
+    clear: both;
+    width: 100%;
+}
+
+.gil, .time {
+    float: right;
+    text-align: right;
+}
+
+.time {
+    clear: both;
+}
+
+.location {
+    float: left;
+}
+
+
+.fixed {
+    display: inline-block;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 60px;
+}
+
+.ff7 .text .character.dead * {
+    color: #ab0000;
+}
+
+.ff7 {
+    clear: both;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.status span {
+    display: none;
+}
+
+.rainbow {
+    animation: rainbow .5s infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        color: orange;
+    }
+
+    10% {
+        color: purple;
+    }
+
+    20% {
+        color: red;
+    }
+
+    40% {
+        color: yellow;
+    }
+
+    60% {
+        color: green;
+    }
+
+    80% {
+        color: blue;
+    }
+
+    100% {
+        color: orange;
+    }
+}
+
+.slots li.linked:nth-child(even)::before {
+    background: url('/images/slot-link.png');
+    width: 14px;
+    height: 24px;
+    content: ' ';
+    display: inline-block;
+    margin-left: -7px;
+    margin-top: -1px;
+}
+
+.slots li.linked:nth-child(even) img {
+    margin-left: -1px !important;
+}

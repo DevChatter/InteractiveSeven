@@ -22,7 +22,7 @@ namespace InteractiveSeven.Core.Settings
                 new StatusEffectSettings("Fury", StatusEffects.Fury, true, 100, "fury", "hyper"),
                 new StatusEffectSettings("Haste", StatusEffects.Haste, true, 200, "haste", "hasted"),
                 new StatusEffectSettings("MBarrier", StatusEffects.MBarrier, true, 200, "mbarrier"),
-                new StatusEffectSettings("Paralyze", StatusEffects.Paralyze, false, 1000, "paralyze"),
+                new StatusEffectSettings("Paralyze", StatusEffects.Paralyzed, false, 1000, "paralyze", "paralyzed"),
                 new StatusEffectSettings("Peerless", StatusEffects.Peerless, false, 500, "peerless"),
                 new StatusEffectSettings("Petrify", StatusEffects.Petrify, false, 1000, "petrify"),
                 new StatusEffectSettings("Poison", StatusEffects.Poison, true, 100, "psn", "poison"),

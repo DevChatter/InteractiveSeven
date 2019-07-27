@@ -1,5 +1,5 @@
-﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Events;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;

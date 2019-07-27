@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Memory;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;

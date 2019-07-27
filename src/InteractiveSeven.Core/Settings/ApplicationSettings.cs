@@ -75,6 +75,7 @@ namespace InteractiveSeven.Core.Settings
         public EquipmentSettings EquipmentSettings { get; set; } = new EquipmentSettings();
         public ItemSettings ItemSettings { get; set; } = new ItemSettings();
         public MateriaSettings MateriaSettings { get; set; } = new MateriaSettings();
+        public TsengSettings TsengSettings { get; set; } = new TsengSettings();
 
         public static void LoadFromJson(string json)
         {
