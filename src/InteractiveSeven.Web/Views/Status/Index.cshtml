@@ -190,9 +190,10 @@
                 }
             },
             mounted: function() {
-                var connection = new signalR.HubConnectionBuilder().withUrl("/MenuHub").build();
+                var connection = new signalR.HubConnectionBuilder().withUrl("/StatusHub").build();
 
                 connection.on("ColorChanged", this.onColorChanged);
+                connection.on("PartyStatusChanged", this.onPartyStatusChanged);
 
                 connection.start().then(function () {
                 }).catch(function (err) {
@@ -205,26 +206,14 @@
                     this.colors.topRight = tr;
                     this.colors.bottomLeft = bl;
                     this.colors.bottomRight = br;
-                }
-            }
-        });
-        var rotateSlide = function() {
-            if(++slideIndex >= slides.length) {
-                slideIndex = 0;
-            }
-            app.window.charSlide = slides[slideIndex];
-            setTimeout(rotateSlide, 3000);
-        }
-        var updateCheck = function () {
-            axios
-                .get('/api/Party')
-                .then(d => {
-                    app.window.time = d.data.timeActive;
-                    app.window.gil = d.data.gil;
-                    app.window.location = d.data.location;
+                },
+                onPartyStatusChanged: function(d) {
+                    this.window.time = d.timeActive;
+                    this.window.gil = d.gil;
+                    this.window.location = d.location;
                     const chars = [];
-                    for (let c = 0; c < d.data.party.length; ++c) {
-                        const character = d.data.party[c];
+                    for (let c = 0; c < d.party.length; ++c) {
+                        const character = d.party[c];
                         if (!!character) {
                             const char = {
                                 name: character.name,
@@ -250,7 +239,7 @@
                                     status: character.statusEffects,
                                 },
                                 row: character.backRow ? 'back' : 'front',
-                                statusIndex: app.party[c].statusIndex < character.statusEffects.length? app.party[c].statusIndex : 0
+                                statusIndex: this.party[c].statusIndex < character.statusEffects.length? this.party[c].statusIndex : 0
                             };
                             for (let slot = 0;
                                 slot < character.weapon.linkedSlots + character.weapon.singleSlots;
@@ -273,9 +262,16 @@
                             chars.push(false);
                         }
                     }
-                    app.party = chars;
-                });
-            setTimeout(updateCheck, 300);
+                    this.party = chars;
+                },
+            }
+        });
+        var rotateSlide = function() {
+            if(++slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+            app.window.charSlide = slides[slideIndex];
+            setTimeout(rotateSlide, 3000);
         }
         cycleStatus = function() {
             for (let i = 0; i < 3; ++i) {
@@ -288,7 +284,6 @@
             setTimeout(cycleStatus, 1000);
         }
         cycleStatus();
-        updateCheck(); // TODO: Receive pushes instead
         rotateSlide();
     </script>
 

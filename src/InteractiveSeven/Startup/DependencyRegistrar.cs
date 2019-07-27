@@ -41,7 +41,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<PartyStatusViewModel>();
 
-            services.AddTransient<IMenuHubEmitter, MenuHubEmitter>();
+            services.AddTransient<IStatusHubEmitter, StatusHubEmitter>();
 
             services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();

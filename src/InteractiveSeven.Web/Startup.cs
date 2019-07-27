@@ -46,7 +46,7 @@ namespace InteractiveSeven.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<MenuHub>("/MenuHub");
+                endpoints.MapHub<StatusHub>("/StatusHub");
             });
         }
     }

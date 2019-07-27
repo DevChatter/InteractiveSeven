@@ -11,12 +11,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
     public class MenuColorAccessor : IMenuColorAccessor
     {
         private readonly IMemoryAccessor _memoryAccessor;
-        private readonly IMenuHubEmitter _menuHubEmitter;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
-        public MenuColorAccessor(IMemoryAccessor memoryAccessor, IMenuHubEmitter menuHubEmitter)
+        public MenuColorAccessor(IMemoryAccessor memoryAccessor, IStatusHubEmitter statusHubEmitter)
         {
             _memoryAccessor = memoryAccessor;
-            _menuHubEmitter = menuHubEmitter;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public MenuColors GetMenuColors(string processName)
@@ -61,7 +61,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
         {
             _memoryAccessor.WriteMem(processName, Addresses.MenuColorAll.Address, menuColors.GetDisplayBytes());
             // TODO: Add logger for exceptions
-            _menuHubEmitter.ShowNewColors(menuColors).RunInBackgroundSafely();
+            _statusHubEmitter.ShowNewColors(menuColors).RunInBackgroundSafely();
         }
 
         private MenuColors[] GetColorSteps(MenuColors startColor, MenuColors endingColor)

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using InteractiveSeven.Core.Emitters;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -25,16 +26,19 @@ namespace Tseng
         private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly ProcessConnector _processConnector;
         private readonly GameDatabase _gameDatabase;
+        private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<TsengProgram> _logger;
 
         public TsengProgram(PartyStatusViewModel partyStatusViewModel,
             ProcessConnector processConnector,
             GameDatabase gameDatabase,
+            IStatusHubEmitter statusHubEmitter,
             ILogger<TsengProgram> logger)
         {
             _partyStatusViewModel = partyStatusViewModel;
             _processConnector = processConnector;
             _gameDatabase = gameDatabase;
+            _statusHubEmitter = statusHubEmitter;
             _logger = logger;
         }
 
@@ -119,6 +123,8 @@ namespace Tseng
                 chr.StatusEffects = effs.ToArray();
                 _partyStatusViewModel.Party[index] = chr;
             }
+
+            _statusHubEmitter.ShowNewPartyStatus(_partyStatusViewModel);
         }
 
         public static string GetFaceForCharacter(CharacterRecord chr)
