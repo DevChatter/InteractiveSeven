@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using InteractiveSeven.Core.Settings;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -44,6 +45,7 @@ namespace Tseng
         private NativeMemoryReader MemoryReader { get; set; }
         private FF7SaveMap SaveMap { get; set; }
         private Timer Timer { get; set; }
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         #endregion Private Properties
 
@@ -51,9 +53,7 @@ namespace Tseng
 
         public void UpdateStatusFromMap(FF7SaveMap map, FF7BattleMap battleMap)
         {
-            var time = map.LiveTotalSeconds; // TODO: Use a TimeSpan here?
-
-            var t = $"{(time / 3600):00}:{((time % 3600) / 60):00}:{(time % 60):00}";
+            var t = TimeSpan.FromSeconds(map.LiveTotalSeconds).ToString("hh\\:mm\\:ss");
 
             _partyStatusViewModel.Gil = map.LiveGil;
             _partyStatusViewModel.Location = map.LiveMapName;
@@ -192,10 +192,10 @@ namespace Tseng
             if (Timer is null)
             {
                 Timer = new Timer(300);
-                Timer.Elapsed += Timer_Elapsed;
+                Timer.Elapsed += ReadAllGameData;
                 Timer.AutoReset = true;
 
-                Timer_Elapsed(null, null);
+                ReadAllGameData(null, null);
                 Timer.Start();
             }
             lock (Timer) // TODO: Find out why we are locking here?
@@ -224,16 +224,17 @@ namespace Tseng
         {
             if (Timer is null)
             {
-                Timer = new Timer(500);
-                Timer.Elapsed += Timer_Elapsed;
+                Timer = new Timer(Settings.TsengSettings.MemoryReadIntervalInMs);
+                Timer.Elapsed += ReadAllGameData;
                 Timer.AutoReset = true;
 
-                Timer_Elapsed(null, null);
+                // TODO: Confirm if this needs to run or if start starts it.
+                ReadAllGameData(null, null);
                 Timer.Start();
             }
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void ReadAllGameData(object sender, ElapsedEventArgs e)
         {
             try
             {
