@@ -10,6 +10,7 @@ namespace InteractiveSeven.Core.Workloads
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ILogger<WorkloadCoordinator> _logger;
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public RainbowWorkload(IMenuColorAccessor menuColorAccessor,
             ILogger<WorkloadCoordinator> logger)
@@ -22,7 +23,7 @@ namespace InteractiveSeven.Core.Workloads
         {
             try
             {
-                for (int i = 0; i < 100; i++) // TODO: Configurable Time
+                for (int i = 0; i < Settings.MenuSettings.RainbowModeIterations; i++)
                 {
                     _menuColorAccessor.SetMenuColors(ApplicationSettings.Instance.ProcessName,
                         MenuColors.RandomPalette());
