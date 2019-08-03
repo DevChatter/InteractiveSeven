@@ -183,7 +183,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="General Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -231,7 +230,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Twitch Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -268,7 +266,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Menu Color Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -331,7 +328,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Name Bidding Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -418,7 +414,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Command Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <Grid Margin="5,5,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -566,7 +561,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Equipment Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
 
                                     <!--<ItemsControl IsEnabled="{Binding Enabled}"
                                               DockPanel.Dock="Bottom" Margin="5,5,0,5"
@@ -625,7 +619,6 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <DockPanel>
-                                    <TextBlock Text="Status Effect Settings" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
                                     <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
                                                   DockPanel.Dock="Bottom" Margin="5,5,0,5"
                                                   ItemsSource="{Binding AllStatusEffects}">
