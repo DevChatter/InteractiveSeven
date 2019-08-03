@@ -343,7 +343,7 @@
                         <TabItem DataContext="{Binding NameBiddingSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Menu Color" />
+                                    <TextBlock Text="Name Bidding" />
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
