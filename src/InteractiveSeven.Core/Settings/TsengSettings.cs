@@ -13,5 +13,16 @@
             }
         }
 
+        private int _portNumber = 7777;
+        public int PortNumber
+        {
+            get => _portNumber;
+            set
+            {
+                _portNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }

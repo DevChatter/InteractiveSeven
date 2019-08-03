@@ -229,31 +229,29 @@
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
-                                <DockPanel>
-                                    <Grid Margin="5,5,0,5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                <Grid Margin="5,5,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                                        <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                            Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
+                                    <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                            PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
+                                    <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                            Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
-                                    </Grid>
-                                </DockPanel>
+                                    <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
+                                    <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+                                </Grid>
                             </ScrollViewer>
                         </TabItem>
 
@@ -705,6 +703,33 @@
                                     </ItemsControl>
 
                                 </DockPanel>
+                            </ScrollViewer>
+                        </TabItem>
+
+
+                        <TabItem DataContext="{Binding TsengSettings}">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Tseng" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <ScrollViewer>
+                                <Grid Margin="5,5,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <wpfTool:IntegerUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
+                                                           Increment="10" Maximum="65535"
+                                                           Value="{Binding Path=PortNumber, Mode=TwoWay}" />
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Port Number" FontSize="12" Margin="5,0,0,0" />
+                                </Grid>
                             </ScrollViewer>
                         </TabItem>
 
