@@ -11,6 +11,7 @@
         private int _rainbowModeIterations = 30;
         private bool _enableMakoCommand = true;
         private int _makoModeCost = 500;
+        private int _makoModeIterations = 30;
         private bool _enablePaletteCommand = true;
         private bool _allowModsToCreatePalettes = true;
 
@@ -91,12 +92,22 @@
             }
         }
 
-        public int MakoModeCost // TODO: Add to Settings Screen
+        public int MakoModeCost
         {
             get => _makoModeCost;
             set
             {
                 _makoModeCost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MakoModeIterations
+        {
+            get => _makoModeIterations;
+            set
+            {
+                _makoModeIterations = value;
                 OnPropertyChanged();
             }
         }
