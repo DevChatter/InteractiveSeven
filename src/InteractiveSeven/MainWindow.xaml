@@ -17,7 +17,7 @@
             </StackPanel>
             <Grid>
                 <Label Content="Interactive Seven" 
-                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
+                       VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" />
             </Grid>
         </DockPanel>
         <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
@@ -630,14 +630,56 @@
                         <TextBlock Text="About" />
                     </StackPanel>
                 </TabItem.Header>
-                <StackPanel>
-                    <Label Content="About Interactive Seven" FontWeight="Bold" FontSize="16" />
-                    <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
-                        Interactive Seven is an application created by Brendan Enrick (@DevChatter) for use by Twitch 
-                        Streamers playing Final Fantasy 7. It is intended to help the streamers have more interaction with
-                        chat as well as allow them to earn some bits through command actions and bidding features.
-                    </TextBlock>
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel>
+                        <Label Content="About Interactive Seven" FontWeight="Bold" FontSize="18" />
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                            Interactive Seven is intended to help the streamers have more interaction with
+                            chat as well as allow them to earn some bits through command actions and bidding features.
+                        </TextBlock>
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
+                            In addition, it includes the Tseng Party Status Overlay, which allows the streamer to display
+                            the current Status of their party in the game directly in their stream at all times.
+                        </TextBlock>
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
+                            In July 2019, Brendan and Joshua learned about each other's project and decided it made sense to
+                            collaborate on a combined project, since both applications do similar work. This version of
+                            Interactive Seven includes the Tseng Overlay.
+                        </TextBlock>
+                        <Label Content="History of Interactive Seven" FontWeight="Bold" FontSize="16" />
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                            The original Interactive Seven was created by Brendan Enrick as a way to give Twitch
+                            chat control over streamers' instances of Final Fantasy 7 while they stream the game.
+                        </TextBlock>
+                        <Label Content="History of Tseng Status Overlay" FontWeight="Bold" FontSize="16" />
+                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                            The original Tseng Status Overlay was created by Joshua Moon, and
+                            allows streamers playing Final Fantasy 7 to show the party status while playing.
+                        </TextBlock>
+                        <Label Content="Primary Contributors" FontWeight="Bold" FontSize="14" />
+                        <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Border BorderBrush="Navy" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                <StackPanel>
+                                    <Label Content="Brendan Enrick" FontWeight="Bold" FontSize="12" />
+                                    <StackPanel Margin="20 0 0 0">
+                                        <TextBlock Text="Twitter: @Brendoneus" />
+                                        <TextBlock Text="Twitch: @DevChatter" />
+                                        <TextBlock Text="GitHub: @benrick" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <Border BorderBrush="Navy" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                <StackPanel>
+                                    <Label Content="Joshua Moon" FontWeight="Bold" FontSize="12" />
+                                    <StackPanel Margin="20 0 0 0">
+                                        <TextBlock Text="Twitch: @MrShojy" />
+                                        <TextBlock Text="GitHub: @shojy" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </DockPanel>
