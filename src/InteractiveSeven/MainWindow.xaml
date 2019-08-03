@@ -728,7 +728,12 @@
                                     <wpfTool:IntegerUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
                                                            Increment="10" Maximum="65535"
                                                            Value="{Binding Path=PortNumber, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Port Number" FontSize="12" Margin="5,0,0,0" />
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Port Number *requires restart to take effect" FontSize="12" Margin="5,0,0,0" />
+
+                                    <wpfTool:IntegerUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="100"
+                                                           Increment="10" Maximum="600000"
+                                                           Value="{Binding Path=MemoryReadIntervalInMs, Mode=TwoWay}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Content="Basic Memory Read Interval in MS" FontSize="12" Margin="5,0,0,0" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>
