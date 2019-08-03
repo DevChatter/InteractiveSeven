@@ -192,7 +192,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] PaletteCommandWords // TODO: Add to Settings View
+        public string[] PaletteCommandWords
         {
             get => _paletteCommandWords;
             set
@@ -202,7 +202,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] RainbowCommandWords // TODO: Add to Settings View
+        public string[] RainbowCommandWords
         {
             get => _rainbowCommandWords;
             set
@@ -212,7 +212,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] MakoCommandWords // TODO: Add to Settings View
+        public string[] MakoCommandWords
         {
             get => _makoCommandWords;
             set
@@ -262,7 +262,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] MateriaCommandWords // TODO: Add to Settings Screen
+        public string[] MateriaCommandWords
         {
             get => _materiaCommandWords;
             set
@@ -272,7 +272,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] ItemCommandWords // TODO: Add to Settings Screen
+        public string[] ItemCommandWords
         {
             get => _itemCommandWords;
             set
