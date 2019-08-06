@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
@@ -12,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
-using InteractiveSeven.Core.Emitters;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -198,10 +198,9 @@ namespace Tseng
             if (Timer is null)
             {
                 Timer = new Timer(300);
-                Timer.Elapsed += ReadAllGameData;
+                Timer.Elapsed += Timer_Elapsed;
                 Timer.AutoReset = true;
 
-                ReadAllGameData(null, null);
                 Timer.Start();
             }
             lock (Timer) // TODO: Find out why we are locking here?
@@ -231,16 +230,20 @@ namespace Tseng
             if (Timer is null)
             {
                 Timer = new Timer(Settings.TsengSettings.MemoryReadIntervalInMs);
-                Timer.Elapsed += ReadAllGameData;
+                Timer.Elapsed += Timer_Elapsed;
                 Timer.AutoReset = true;
 
                 // TODO: Confirm if this needs to run or if start starts it.
-                ReadAllGameData(null, null);
                 Timer.Start();
             }
         }
 
-        private void ReadAllGameData(object sender, ElapsedEventArgs e)
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            ReadAllGameData();
+        }
+
+        private void ReadAllGameData()
         {
             try
             {
