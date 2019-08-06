@@ -12,6 +12,7 @@ namespace InteractiveSeven.Core.Workloads
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ILogger<WorkloadCoordinator> _logger;
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public MakoColorsWorkload(IMenuColorAccessor menuColorAccessor,
             ILogger<WorkloadCoordinator> logger)
@@ -56,7 +57,7 @@ namespace InteractiveSeven.Core.Workloads
         {
             try
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Settings.MenuSettings.MakoModeIterations / MakoColors.Count + 1; i++)
                 {
                     foreach (MenuColors menuColors in MakoColors)
                     {

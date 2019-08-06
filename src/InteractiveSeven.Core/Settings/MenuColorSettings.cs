@@ -8,8 +8,10 @@
         private bool _transitionColors = true;
         private bool _enableRainbowCommand = true;
         private int _rainbowModeCost = 1000;
+        private int _rainbowModeIterations = 30;
         private bool _enableMakoCommand = true;
         private int _makoModeCost = 500;
+        private int _makoModeIterations = 30;
         private bool _enablePaletteCommand = true;
         private bool _allowModsToCreatePalettes = true;
 
@@ -60,7 +62,7 @@
             }
         }
 
-        public int RainbowModeCost // TODO: Add to Settings Screen
+        public int RainbowModeCost
         {
             get => _rainbowModeCost;
             set
@@ -69,6 +71,17 @@
                 OnPropertyChanged();
             }
         }
+
+        public int RainbowModeIterations
+        {
+            get => _rainbowModeIterations;
+            set
+            {
+                _rainbowModeIterations = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool EnableMakoCommand
         {
             get => _enableMakoCommand;
@@ -79,12 +92,22 @@
             }
         }
 
-        public int MakoModeCost // TODO: Add to Settings Screen
+        public int MakoModeCost
         {
             get => _makoModeCost;
             set
             {
                 _makoModeCost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MakoModeIterations
+        {
+            get => _makoModeIterations;
+            set
+            {
+                _makoModeIterations = value;
                 OnPropertyChanged();
             }
         }
