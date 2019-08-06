@@ -1,11 +1,15 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.AspNetCore;
 using Tseng;
 
 namespace InteractiveSeven
@@ -17,7 +21,7 @@ namespace InteractiveSeven
     {
         private WorkloadCoordinator _workloadCoordinator;
 
-        private IHost _host;
+        private IWebHost _host;
         private TsengProgram _tsengProgram;
 
         private static void InitializeSettings()
@@ -34,12 +38,10 @@ namespace InteractiveSeven
                 .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            _host = Host.CreateDefaultBuilder(e.Args)
-                .ConfigureWebHostDefaults(webHostBuilder =>
-                {
-                    webHostBuilder.UseStartup<InteractiveSeven.Web.Startup>();
-                    webHostBuilder.UseUrls("http://localhost:7777");
-                })
+            var uri = new UriBuilder("http", "localhost", ApplicationSettings.Instance.TsengSettings.PortNumber).Uri;
+            _host = WebHost.CreateDefaultBuilder(e.Args)
+                .UseStartup<InteractiveSeven.Web.Startup>()
+                .UseUrls(uri.AbsoluteUri)
                 .ConfigureServices(DependencyRegistrar.ConfigureServices)
                 .Build();
 
@@ -51,13 +53,19 @@ namespace InteractiveSeven
             _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
             _tsengProgram = _host.Services.GetService<TsengProgram>();
-            _tsengProgram.Start();
+
+            Task.Run(() => _tsengProgram.Start()).RunInBackgroundSafely(false, LogError);
 
             _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
-        private void App_OnExit(object sender, ExitEventArgs e)
+        private void LogError(Exception obj)
         {
+        }
+
+        private async void App_OnExit(object sender, ExitEventArgs e)
+        {
+            await _host.StopAsync();
             _host.Dispose();
         }
     }
