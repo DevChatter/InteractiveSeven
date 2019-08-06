@@ -2,14 +2,14 @@
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.AspNetCore;
 using Tseng;
 
 namespace InteractiveSeven
@@ -23,6 +23,7 @@ namespace InteractiveSeven
 
         private IWebHost _host;
         private TsengProgram _tsengProgram;
+        private ILogger<App> _logger;
 
         private static void InitializeSettings()
         {
@@ -47,6 +48,8 @@ namespace InteractiveSeven
 
             _host.Start();
 
+            _logger = _host.Services.GetService<ILogger<App>>();
+
             var dataLoader = _host.Services.GetService<DataLoader>();
             dataLoader.LoadPreviousData();
 
@@ -54,13 +57,14 @@ namespace InteractiveSeven
 
             _tsengProgram = _host.Services.GetService<TsengProgram>();
 
-            Task.Run(() => _tsengProgram.Start()).RunInBackgroundSafely(false, LogError);
+            Task.Run(() => _tsengProgram.Start()).RunInBackgroundSafely(false, LogTsengError);
 
             _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
-        private void LogError(Exception obj)
+        private void LogTsengError(Exception ex)
         {
+            _logger.LogError(ex, "Error in Tseng Status Overlay.");
         }
 
         private async void App_OnExit(object sender, ExitEventArgs e)
