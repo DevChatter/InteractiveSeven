@@ -60,7 +60,7 @@ namespace Tseng
 
             _partyStatusViewModel.Gil = map.LiveGil;
             _partyStatusViewModel.Location = map.LiveMapName;
-            _partyStatusViewModel.Party = new InteractiveSeven.Core.FinalFantasy.Models.Character[3];
+            _partyStatusViewModel.Party = new Character[3];
             _partyStatusViewModel.ActiveBattle = battleMap.IsActiveBattle;
             _partyStatusViewModel.ColorTopLeft = map.WindowColorTopLeft;
             _partyStatusViewModel.ColorBottomLeft = map.WindowColorBottomLeft;
