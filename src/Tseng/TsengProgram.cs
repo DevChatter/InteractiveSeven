@@ -16,7 +16,6 @@ using System.Timers;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
-using Character = Tseng.GameData.Character;
 using Timer = System.Timers.Timer;
 
 namespace Tseng
@@ -77,7 +76,7 @@ namespace Tseng
                 // Skip empty party
                 if (chars[index].Id == 0xFF) continue;
 
-                var chr = new InteractiveSeven.Core.FinalFantasy.Models.Character()
+                var chr = new Character
                 {
                     MaxHp = chars[index].MaxHp,
                     MaxMp = chars[index].MaxMp,

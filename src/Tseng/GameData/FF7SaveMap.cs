@@ -77,17 +77,17 @@ namespace Tseng.GameData
             get
             {
                 var resultArray = new CharacterRecord[3];
-                if (FillChar((Character)_map[SaveMapOffsets.PartyMember1], ref resultArray[0], _map) == false)
+                if (FillChar(_map[SaveMapOffsets.PartyMember1], ref resultArray[0], _map) == false)
                 {
                     resultArray[0] = new CharacterRecord { Id = 0xFF };
                 }
 
-                if (FillChar((Character)_map[SaveMapOffsets.PartyMember2], ref resultArray[1], _map) == false)
+                if (FillChar(_map[SaveMapOffsets.PartyMember2], ref resultArray[1], _map) == false)
                 {
                     resultArray[1] = new CharacterRecord { Id = 0xFF };
                 }
 
-                if (FillChar((Character)_map[SaveMapOffsets.PartyMember3], ref resultArray[2], _map) == false)
+                if (FillChar(_map[SaveMapOffsets.PartyMember3], ref resultArray[2], _map) == false)
                 {
                     resultArray[2] = new CharacterRecord { Id = 0xFF };
                 }
@@ -119,19 +119,19 @@ namespace Tseng.GameData
             get
             {
                 var resultArray = new CharacterRecord[3];
-                if (FillChar((Character)_map[0x5], ref resultArray[0], _map) == false)
+                if (FillChar(_map[0x5], ref resultArray[0], _map) == false)
                 {
                     return null;
                 }
 
-                if (FillChar((Character)_map[0x6], ref resultArray[1], _map) == false)
+                if (FillChar(_map[0x6], ref resultArray[1], _map) == false)
                 {
                     resultArray[1] = default;
                     resultArray[2] = default;
                     return resultArray;
                 }
 
-                if (FillChar((Character)_map[0x7], ref resultArray[2], _map) == false)
+                if (FillChar(_map[0x7], ref resultArray[2], _map) == false)
                 {
                     resultArray[2] = default;
                     return resultArray;
@@ -195,9 +195,9 @@ namespace Tseng.GameData
 
         #region Private Methods
 
-        private static bool FillChar(Character character, ref CharacterRecord characterRecord, byte[] map)
+        private static bool FillChar(int charId, ref CharacterRecord characterRecord, byte[] map)
         {
-            CharNames charName = CharNames.GetById((int)character);
+            CharNames charName = CharNames.GetById(charId);
 
             var offset = charName.SaveMapRecordOffset;
 
