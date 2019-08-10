@@ -90,10 +90,9 @@ namespace Tseng
                     Accessory = _gameDatabase.AccessoryDatabase.FirstOrDefault(a => a.Id == chars[index].Accessory),
                     WeaponMateria = new Materia[8],
                     ArmletMateria = new Materia[8],
-                    Face = GetFaceForCharacter(chars[index]),
+                    Face = chars[index].DefaultName.SanitizedDefaultName,
                     BackRow = !chars[index].AtFront,
                 };
-
                 for (var m = 0; m < chars[index].WeaponMateria.Length; ++m)
                 {
                     chr.WeaponMateria[m] = _gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].WeaponMateria[m]);
@@ -125,49 +124,6 @@ namespace Tseng
             }
 
             _statusHubEmitter.ShowNewPartyStatus(_partyStatusViewModel);
-        }
-
-        public static string GetFaceForCharacter(CharacterRecord chr)
-        {
-            // TODO: Abstract magic string names behind variable set that's also used for image extraction
-            switch (chr.Character)
-            {
-                case Character.Cloud:
-                    return "cloud";
-
-                case Character.Barret:
-                    return "barret";
-
-                case Character.Tifa:
-                    return "tifa";
-
-                case Character.Aeris:
-                    return "aeris";
-
-                case Character.RedXIII:
-                    return "red-xiii";
-
-                case Character.Yuffie:
-                    return "yuffie";
-
-                case Character.CaitSith:
-                    return "cait-sith";
-
-                case Character.Vincent:
-                    return "vincent";
-
-                case Character.Cid:
-                    return "cid";
-
-                case Character.YoungCloud:
-                    return "young-cloud";
-
-                case Character.Sephiroth:
-                    return "sephiroth";
-
-                default:
-                    return "";
-            }
         }
 
         public void Start()

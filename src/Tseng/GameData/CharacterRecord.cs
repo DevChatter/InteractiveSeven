@@ -1,4 +1,6 @@
-﻿namespace Tseng.GameData
+﻿using InteractiveSeven.Core.Data;
+
+namespace Tseng.GameData
 {
     public struct CharacterRecord
     {
@@ -10,7 +12,7 @@
         public bool AtFront { get; set; }
         public short BaseHp { get; set; }
         public short BaseMp { get; set; }
-        public Character Character { get; set; }
+        public CharNames DefaultName { get; set; }
         public short CurrentHp { get; set; }
         public short CurrentMp { get; set; }
         public byte DexBonus { get; set; }

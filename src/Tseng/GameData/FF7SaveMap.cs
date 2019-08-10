@@ -1,5 +1,7 @@
 ﻿using Shojy.FF7.Elena.Extensions;
 using System;
+using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.FinalFantasy;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -195,7 +197,9 @@ namespace Tseng.GameData
 
         private static bool FillChar(Character character, ref CharacterRecord characterRecord, byte[] map)
         {
-            var offset = GetCharacterOffset(character);
+            CharNames charName = CharNames.GetById((int)character);
+
+            var offset = charName.SaveMapRecordOffset;
 
             if (offset == -1)
             {
@@ -203,7 +207,7 @@ namespace Tseng.GameData
                 return false;
             }
 
-            characterRecord.Character = character;
+            characterRecord.DefaultName = charName;
 
             var characterNameBytes = new byte[12];
             Array.Copy(map, offset + SaveMapCharacterOffsets.Name, characterNameBytes, 0, 12);
@@ -264,50 +268,6 @@ namespace Tseng.GameData
 
             characterRecord.ExpToLevel = BitConverter.ToInt32(map, offset + SaveMapCharacterOffsets.ExpToNextLevel);
             return true;
-        }
-
-        private static short GetCharacterOffset(Character character)
-        {
-            switch (character)
-            {
-                case Character.Cloud:
-                    return SaveMapOffsets.CloudRecord;
-
-                case Character.Barret:
-                    return SaveMapOffsets.BarretRecord;
-
-                case Character.Tifa:
-                    return SaveMapOffsets.TifaRecord;
-
-                case Character.Aeris:
-                    return SaveMapOffsets.AerisRecord;
-
-                case Character.RedXIII:
-                    return SaveMapOffsets.RedXIIIRecord;
-
-                case Character.Yuffie:
-                    return SaveMapOffsets.YuffieRecord;
-
-                case Character.CaitSith:
-                    return SaveMapOffsets.CaitSithRecord;
-
-                case Character.Vincent:
-                    return SaveMapOffsets.VincentRecord;
-
-                case Character.Cid:
-                    return SaveMapOffsets.CidRecord;
-
-                case Character.YoungCloud:
-                    return SaveMapOffsets.YoungCloudRecord;
-
-                case Character.Sephiroth:
-                    return SaveMapOffsets.SephirothRecord;
-
-                case Character.Chocobo:
-                case Character.None:
-                default:
-                    return -1;
-            }
         }
 
         #endregion Private Methods
