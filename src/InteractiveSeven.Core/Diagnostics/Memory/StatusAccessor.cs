@@ -20,12 +20,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
         {
             int status = GetTrueStatus(actor);
 
-            status += (int)statusEffect;
+            status |= (int)statusEffect;
 
             const int manipStatus = 0b_00000000_1000000_00000000_00000000;
-            if ((status & manipStatus) == manipStatus‬‬) // If have manip
+            if ((status & manipStatus) == manipStatus) // If have manip
             {
-                status -= manipStatus; // remove manip
+                status ^= manipStatus; // remove manip
             }
 
             for (int attemptCount = 0; attemptCount < 26; attemptCount++)
