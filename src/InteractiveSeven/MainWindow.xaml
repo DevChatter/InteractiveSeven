@@ -158,6 +158,30 @@
                 </ScrollViewer>
             </TabItem>
 
+            <TabItem DataContext="{Binding StreamOverlayViewModel}">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf26c;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
+                        <TextBlock Text="Stream Overlay" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer Background="#FFE5E5E5">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" Content="Tseng Stream Overlay" Margin="10 10 10 10"
+                               FontSize="16" FontWeight="Bold" />
+                        <StackPanel>
+                            <TextBlock Text="Copy these URLs and put them in OBS as Browser Source items to display on your stream."
+                                       Margin="3 0 0 20" />
+                            <Label>Full Tseng Status Overlay:</Label>
+                            <TextBox IsReadOnly="True" Text="{Binding StatusOverlayUrl}" />
+                            <Label>Empty Menu:</Label>
+                            <TextBox IsReadOnly="True" Text="{Binding MenuOverlayUrl}" />
+                        </StackPanel>
+                    </DockPanel>
+                </ScrollViewer>
+            </TabItem>
+
             <TabItem DataContext="{Binding SettingsViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
