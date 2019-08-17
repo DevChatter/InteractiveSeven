@@ -32,8 +32,9 @@
                     topRight: '#004B00',
                     bottomLeft: '#004F00',
                     bottomRight: '#001600'
-                }
-            },
+                },
+                maxRetryInterval: 30000,
+        },
             computed: {
                 topLeftStyle: function() {
                     return ({
@@ -60,13 +61,25 @@
                 var connection = new signalR.HubConnectionBuilder().withUrl("/StatusHub").build();
 
                 connection.on("ColorChanged", this.onColorChanged);
-
-                connection.start().then(function () {
-                }).catch(function (err) {
-                    return console.error(err.toString());
+                connection.onclose(() => {
+                    setTimeout(() => this.startHubConn(connection), 2000);
                 });
+
+                this.startHubConn(connection);
             },
             methods: {
+                startHubConn: function(connection, retryInterval = 2000) {
+                    console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
+                    connection.start().then(() => {
+                        },
+                        err => {
+                            console.error(err.toString());
+                            let i = Math.min(retryInterval * 1.5, this.maxRetryInterval);
+                            console.log(`[${new Date()}] Retry connection to ${connection.hubName} in ${i} ms.`);
+                            setTimeout(() => this.startHubConn(connection, i), i);
+                        });
+
+                },
                 onColorChanged: function(tl, tr, bl, br) {
                     this.colors.topLeft = tl;
                     this.colors.topRight = tr;
