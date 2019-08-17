@@ -1,9 +1,7 @@
-﻿using System;
-using InteractiveSeven.Core.Annotations;
-using Microsoft.Extensions.Logging;
+﻿using InteractiveSeven.Core.Settings;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -40,7 +38,6 @@ namespace InteractiveSeven.Core.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
