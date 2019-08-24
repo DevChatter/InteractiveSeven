@@ -6,10 +6,23 @@
 
 .ff7 {
     position: relative;
-    width: 460px;
     float: left;
     background: #333;
 }
+
+    .ff7.menu {
+        position: absolute;
+        height: auto;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 10px;
+    }
+
+    .ff7.tseng {
+        width: 460px;
+    }
 
     .ff7 > .border {
         border: solid 2px #424542;

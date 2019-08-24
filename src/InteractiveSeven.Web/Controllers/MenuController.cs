@@ -2,6 +2,7 @@
 
 namespace InteractiveSeven.Web.Controllers
 {
+    [Route("[controller]")]
     public class MenuController : Controller
     {
         // GET

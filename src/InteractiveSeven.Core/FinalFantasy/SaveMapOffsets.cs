@@ -1,4 +1,4 @@
-﻿namespace Tseng.Constants
+﻿namespace InteractiveSeven.Core.FinalFantasy
 {
     public static class SaveMapOffsets
     {
@@ -126,5 +126,6 @@
         public const int GameDisc = 0xEA4;
         public const int CurrentMapName = 0xF0C;
 
+        public const int Invalid = -1;
     }
 }

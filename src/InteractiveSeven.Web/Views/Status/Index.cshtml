@@ -15,7 +15,7 @@
 
 <body>
     <div id="app">
-        <div class="ff7">
+        <div class="ff7 tseng">
             <div class="layer" :style="topLeftStyle" ></div>
             <div class="layer" :style="botLeftStyle" ></div>
             <div class="layer" :style="topRightStyle"></div>
@@ -25,7 +25,7 @@
                 <app-character v-for="char in party" v-bind:key="char.character" v-bind:data="char" v-bind:slide="window.charSlide"></app-character>
             </div>
         </div>
-        <div class="ff7" style="top: 5px;">
+        <div class="ff7 tseng" style="top: 5px;">
             <div class="layer" :style="topLeftStyle" ></div>
             <div class="layer" :style="botLeftStyle" ></div>
             <div class="layer" :style="topRightStyle"></div>
@@ -165,7 +165,8 @@
                     topRight: '#004B00',
                     bottomLeft: '#004F00',
                     bottomRight: '#001600'
-                }
+                },
+                maxRetryInterval: 30000,
             },
             computed: {
                 topLeftStyle: function() {
@@ -194,13 +195,25 @@
 
                 connection.on("ColorChanged", this.onColorChanged);
                 connection.on("PartyStatusChanged", this.onPartyStatusChanged);
-
-                connection.start().then(function () {
-                }).catch(function (err) {
-                    return console.error(err.toString());
+                connection.onclose(() => {
+                    setTimeout(() => this.startHubConn(connection), 2000);
                 });
+
+                this.startHubConn(connection);
             },
             methods: {
+                startHubConn: function(connection, retryInterval = 2000) {
+                    console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
+                    connection.start().then(() => {
+                        },
+                        err => {
+                            console.error(err.toString());
+                            let i = Math.min(retryInterval * 1.5, this.maxRetryInterval);
+                            console.log(`[${new Date()}] Retry connection to ${connection.hubName} in ${i} ms.`);
+                            setTimeout(() => this.startHubConn(connection, i), i);
+                        });
+
+                },
                 onColorChanged: function(tl, tr, bl, br) {
                     this.colors.topLeft = tl;
                     this.colors.topRight = tr;

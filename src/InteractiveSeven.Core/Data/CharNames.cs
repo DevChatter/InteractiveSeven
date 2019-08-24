@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.FinalFantasy;
 
 namespace InteractiveSeven.Core.Data
 {
@@ -10,17 +11,21 @@ namespace InteractiveSeven.Core.Data
         private readonly Func<CommandSettings, IList<string>> _wordsSelector;
         public int Id { get; }
         public string DefaultName { get; }
+        public int SaveMapRecordOffset { get; }
+        public string SanitizedDefaultName => DefaultName.ToLower().Replace(' ', '-');
         public IList<string> Words => _wordsSelector(ApplicationSettings.Instance.CommandSettings);
 
         public GameMoments AllowNamingAfter { get; }
 
         private CharNames(int id, string defaultName, Func<CommandSettings, IList<string>> wordsSelector,
+            int saveMapRecordOffset,
             GameMoments allowNamingAfter = GameMoments.AfterBarretNamed)
         {
             _wordsSelector = wordsSelector;
             AllowNamingAfter = allowNamingAfter;
             Id = id;
             DefaultName = defaultName;
+            SaveMapRecordOffset = saveMapRecordOffset;
             All.Add(this);
         }
 
@@ -40,14 +45,20 @@ namespace InteractiveSeven.Core.Data
             return (charName != null, charName);
         }
 
-        public static CharNames Cloud = new CharNames(1, "Cloud", x => x.CloudCommandWords);
-        public static CharNames Tifa = new CharNames(2, "Tifa", x => x.TifaCommandWords);
-        public static CharNames Barret = new CharNames(3, "Barret", x => x.BarretCommandWords);
-        public static CharNames Aeris = new CharNames(4, "Aeris", x => x.AerisCommandWords);
-        public static CharNames Red = new CharNames(5, "Red XIII", x => x.RedCommandWords);
-        public static CharNames CaitSith = new CharNames(6, "Cait Sith", x => x.CaitCommandWords, GameMoments.AfterKalmFlashback);
-        public static CharNames Vincent = new CharNames(7, "Vincent", x => x.VincentCommandWords, GameMoments.AfterKalmFlashback);
-        public static CharNames Yuffie = new CharNames(8, "Yuffie", x => x.YuffieCommandWords);
-        public static CharNames Cid = new CharNames(9, "Cid", x => x.CidCommandWords);
+        public static CharNames Cloud = new CharNames(0x0, "Cloud", x => x.CloudCommandWords, SaveMapOffsets.CloudRecord);
+        public static CharNames Barret = new CharNames(0x1, "Barret", x => x.BarretCommandWords, SaveMapOffsets.BarretRecord);
+        public static CharNames Tifa = new CharNames(0x2, "Tifa", x => x.TifaCommandWords, SaveMapOffsets.TifaRecord);
+        public static CharNames Aeris = new CharNames(0x3, "Aeris", x => x.AerisCommandWords, SaveMapOffsets.AerisRecord);
+        public static CharNames Red = new CharNames(0x4, "Red XIII", x => x.RedCommandWords, SaveMapOffsets.RedXIIIRecord);
+        public static CharNames Yuffie = new CharNames(0x5, "Yuffie", x => x.YuffieCommandWords, SaveMapOffsets.YuffieRecord);
+        public static CharNames CaitSith = new CharNames(0x6, "Cait Sith", x => x.CaitCommandWords, SaveMapOffsets.CaitSithRecord, GameMoments.AfterKalmFlashback);
+        public static CharNames Vincent = new CharNames(0x7, "Vincent", x => x.VincentCommandWords, SaveMapOffsets.VincentRecord, GameMoments.AfterKalmFlashback);
+        public static CharNames Cid = new CharNames(0x8, "Cid", x => x.CidCommandWords, SaveMapOffsets.CidRecord);
+
+        // TODO: Exclude these from most stuff we do. They're non-standard.
+        public static CharNames YoungCloud = new CharNames(0x9, "Young Cloud", x => new List<string>(), SaveMapOffsets.YoungCloudRecord);
+        public static CharNames Sephiroth = new CharNames(0xA, "Sephiroth", x => new List<string>(), SaveMapOffsets.SephirothRecord);
+        public static CharNames Chocobo = new CharNames(0xB, "Chocobo", x => new List<string>(), SaveMapOffsets.Invalid);
+        public static CharNames None = new CharNames(0xFF, "", x => new List<string>(), SaveMapOffsets.Invalid);
     }
 }

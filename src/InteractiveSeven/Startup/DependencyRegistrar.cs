@@ -36,6 +36,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<NameBiddingViewModel>();
+            services.AddSingleton<StreamOverlayViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
 
