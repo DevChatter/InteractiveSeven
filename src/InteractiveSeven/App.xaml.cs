@@ -46,19 +46,24 @@ namespace InteractiveSeven
                 .ConfigureServices(DependencyRegistrar.ConfigureServices)
                 .Build();
 
-            _host.Start();
-
             _logger = _host.Services.GetService<ILogger<App>>();
 
+            _logger.LogInformation("Starting Web Host...");
+
+            _host.Start();
+
             var dataLoader = _host.Services.GetService<DataLoader>();
+            _logger.LogInformation("Starting Elena DataLoader...");
             dataLoader.LoadPreviousData();
 
             _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
             _tsengProgram = _host.Services.GetService<TsengProgram>();
 
+            _logger.LogInformation("Starting Tseng Background Monitoring...");
             Task.Run(() => _tsengProgram.Start()).RunInBackgroundSafely(false, LogTsengError);
 
+            _logger.LogInformation("Showing App Main Window...");
             _host.Services.GetRequiredService<MainWindow>().Show();
         }
 
