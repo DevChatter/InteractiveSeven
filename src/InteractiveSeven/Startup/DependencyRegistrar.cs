@@ -41,6 +41,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<StreamOverlayViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<TwitchAuthViewModel>();
 
             services.AddSingleton<PartyStatusViewModel>();
 

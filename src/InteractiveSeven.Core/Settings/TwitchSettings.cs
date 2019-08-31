@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.ViewModels;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -7,6 +9,22 @@ namespace InteractiveSeven.Core.Settings
         private string _accessToken;
         private string _username;
         private string _channel;
+
+        public TwitchSettings()
+        {
+            DomainEvents.Register<AccessTokenReceived>(ReceivedAccessToken);
+        }
+
+        private void ReceivedAccessToken(AccessTokenReceived e)
+        {
+            if (e.State == TwitchAuthViewModel.State
+                && e.TokenType == "bearer")
+            {
+                _accessToken = $"oauth:{e.AccessToken}";
+
+                // TODO: Message box asking if they want to save?
+            }
+        }
 
         public string Username
         {

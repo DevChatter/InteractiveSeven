@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using InteractiveSeven.Core.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using InteractiveSeven.Core.Events;
 
 namespace InteractiveSeven
 {
@@ -17,9 +12,26 @@ namespace InteractiveSeven
     /// </summary>
     public partial class TwitchAuthWindow : Window
     {
-        public TwitchAuthWindow()
+        public TwitchAuthWindow(TwitchAuthViewModel viewModel)
         {
             InitializeComponent();
+
+            ViewModel = viewModel;
+            WebBrowser.Source = new Uri(viewModel.AuthRequestUrl);
+            WebBrowser.SourceUpdated += WebBrowser_SourceUpdated;
+            DomainEvents.Register<AccessTokenReceived>(ReceivedAccessToken);
         }
+
+        private void ReceivedAccessToken(AccessTokenReceived e)
+        {
+            Close();
+        }
+
+        private void WebBrowser_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            // do something here
+        }
+
+        public TwitchAuthViewModel ViewModel { get; }
     }
 }
