@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
+        xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
     <DockPanel>
@@ -262,6 +263,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
                                     <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
@@ -275,6 +277,11 @@
                                     <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
                                     <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                         Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+
+                                    <Label Grid.Row="3" Grid.Column="0" Content="Refresh Bot Access Token" FontSize="12" Margin="5,10,0,0" />
+                                    <Button Grid.Row="3" Grid.Column="1" Content="Login to Twitch" Width="300"
+                                            Command="{Binding Path=DataContext.OpenTwitchAuthWindow, RelativeSource={RelativeSource AncestorType={x:Type interactiveSeven:MainWindow}}}"
+                                            Margin="2" VerticalAlignment="Center" Padding="4" HorizontalAlignment="Left" />
                                 </Grid>
                             </ScrollViewer>
                         </TabItem>

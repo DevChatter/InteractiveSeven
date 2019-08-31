@@ -188,7 +188,6 @@ namespace Tseng
                 Timer.Elapsed += Timer_Elapsed;
                 Timer.AutoReset = true;
 
-                // TODO: Confirm if this needs to run or if start starts it.
                 Timer.Start();
             }
         }
