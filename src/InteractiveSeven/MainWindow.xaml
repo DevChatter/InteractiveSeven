@@ -272,13 +272,14 @@
                                         <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                         Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                                  Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkPasswordBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                         PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
-                                        <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
-                                        <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                        Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
                                     </Grid>
                                     <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="5,40,0,0">
                                         <Label DockPanel.Dock="Top" 
