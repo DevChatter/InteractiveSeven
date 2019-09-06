@@ -101,7 +101,6 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
-            services.AddTransient<TwitchAuthWindow>();
             services.AddSingleton<MainWindow>();
 
             services.AddLogging(config =>
