@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Battle;
 using System.Linq;
 
 namespace InteractiveSeven.Core.Settings
@@ -10,7 +11,7 @@ namespace InteractiveSeven.Core.Settings
 
         public BattleSettings()
         {
-            AllStatusEffects = new[]
+            AllStatusEffects = new List<StatusEffectSettings>
             {
                 new StatusEffectSettings("Barrier", StatusEffects.Barrier, true, 200, "barrier"),
                 new StatusEffectSettings("Berserk", StatusEffects.Berserk, true, 200, "berserk"),
@@ -58,7 +59,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public StatusEffectSettings[] AllStatusEffects { get; set; }
+        public List<StatusEffectSettings> AllStatusEffects { get; set; }
 
         public StatusEffectSettings ByWord(string word)
         {

@@ -23,6 +23,7 @@ namespace InteractiveSeven.Core.Settings
         {
             string json = File.ReadAllText(SETTINGS_FILE_NAME);
             ApplicationSettings.LoadFromJson(json);
+            ApplicationSettings.Instance.CleanUpCollections();
         }
 
         public void SaveSettings()

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace InteractiveSeven.Core.Settings
 {
-    public class StatusEffectSettings : ObservableSettingsBase
+    public class StatusEffectSettings : ObservableSettingsBase, INamedSetting
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public StatusEffects Effect { get; set; }

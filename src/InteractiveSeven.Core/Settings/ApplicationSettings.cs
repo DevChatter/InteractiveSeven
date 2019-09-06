@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -90,5 +91,39 @@ namespace InteractiveSeven.Core.Settings
                 // gulp
             }
         }
+
+        /// <summary>
+        /// Temporary solution to the duplicate load in collections issue.
+        /// </summary>
+        public void CleanUpCollections()
+        {
+            RemoveDuplicates(BattleSettings.AllStatusEffects);
+            RemoveDuplicates(EquipmentSettings.AllAccessories);
+            RemoveDuplicates(EquipmentSettings.AllArmlets);
+            RemoveDuplicates(EquipmentSettings.AllWeapons);
+        }
+
+        /// <summary>
+        /// Keep the later item, since that should be the one from their local store.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        private void RemoveDuplicates<T>(List<T> collection)
+            where T : INamedSetting
+        {
+            HashSet<string> names = new HashSet<string>();
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (names.Contains(collection[i].Name))
+                {
+                    collection.RemoveAt(i);
+                }
+                else
+                {
+                    names.Add(collection[i].Name);
+                }
+            }
+        }
+
     }
 }
