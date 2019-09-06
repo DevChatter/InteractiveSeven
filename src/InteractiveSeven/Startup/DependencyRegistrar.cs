@@ -19,6 +19,8 @@ using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
+using InteractiveSeven.Commands;
+using InteractiveSeven.Core.MvvmCommands;
 using Tseng;
 using Tseng.RunOnce;
 using TwitchLib.Client;
@@ -39,6 +41,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<StreamOverlayViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<TwitchAuthViewModel>();
 
             services.AddSingleton<PartyStatusViewModel>();
 
@@ -97,6 +100,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GilBank>();
             services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
+            services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
             services.AddSingleton<MainWindow>();
 
             services.AddLogging(config =>

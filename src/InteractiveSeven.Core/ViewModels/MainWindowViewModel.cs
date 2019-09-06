@@ -10,7 +10,10 @@ namespace InteractiveSeven.Core.ViewModels
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel,
             StreamOverlayViewModel streamOverlayViewModel,
             NameBiddingViewModel nameBiddingViewModel,
-            SettingsViewModel settingsViewModel, IChatBot chatBot, IDataStore<CharacterNameBid> dataStore)
+            SettingsViewModel settingsViewModel,
+            IShowTwitchAuthCommand showTwitchAuthCommand,
+            IChatBot chatBot,
+            IDataStore<CharacterNameBid> dataStore)
         {
             MenuColorViewModel = menuColorViewModel;
             NameBiddingViewModel = nameBiddingViewModel;
@@ -19,10 +22,12 @@ namespace InteractiveSeven.Core.ViewModels
             ChatBot = chatBot;
             ConnectBotCommand = new SimpleCommand(x => ChatBot.Connect());
             DisconnectBotCommand = new SimpleCommand(x => ChatBot.Disconnect());
+            OpenTwitchAuthWindow = showTwitchAuthCommand;
         }
 
         public ICommand ConnectBotCommand { get; }
         public ICommand DisconnectBotCommand { get; }
+        public ICommand OpenTwitchAuthWindow { get; }
 
         public MenuColorViewModel MenuColorViewModel { get; }
         public NameBiddingViewModel NameBiddingViewModel { get; }

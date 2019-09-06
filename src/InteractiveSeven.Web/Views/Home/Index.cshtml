@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Home Page</title>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        if(window.location.hash) {
+            let fragments = window.location.hash
+                .substring(1)
+                .split('&')
+                .map(x => x.split('=')[1]);
+
+            let data = {
+                accessToken: fragments[0],
+                scope: fragments[1],
+                state: fragments[2],
+                tokenType: fragments[3]
+            };
+
+            axios.post('/api/AuthToken', data)
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

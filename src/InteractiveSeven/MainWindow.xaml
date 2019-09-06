@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
+        xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
     <DockPanel>
@@ -253,29 +254,48 @@
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                <DockPanel>
+                                    <Grid DockPanel.Dock="Top" Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                    <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
-                                    <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                         Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
-                                    <Label Grid.Row="1" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
-                                    <wpfTool:WatermarkPasswordBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        <Label Grid.Row="1" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                                  Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkPasswordBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
                                         PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
-                                    <Label Grid.Row="2" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
-                                    <wpfTool:WatermarkTextBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                        Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
-                                </Grid>
+                                    </Grid>
+                                    <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="5,40,0,0">
+                                        <Label DockPanel.Dock="Top" 
+                                               Content="Refresh Bot Access Token"
+                                               FontSize="14" FontWeight="Bold" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Login to Twitch" Width="200"
+                                                    Command="{Binding Path=DataContext.OpenTwitchAuthWindow, RelativeSource={RelativeSource AncestorType={x:Type interactiveSeven:MainWindow}}}"
+                                                    Margin="2" VerticalAlignment="Center" Padding="4" HorizontalAlignment="Left" />
+
+                                            <Label Visibility="{Binding UpdatedFromTwitch, Converter={StaticResource BoolToHiddenConverter}}"
+                                                   Content="Updated OAuth from Twitch. Be sure to save changes!"
+                                                   FontSize="12" FontWeight="Bold" Foreground="DarkRed" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </DockPanel>
                             </ScrollViewer>
                         </TabItem>
 
