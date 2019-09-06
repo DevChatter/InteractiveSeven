@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.ViewModels;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -9,6 +10,7 @@ namespace InteractiveSeven.Core.Settings
         private string _accessToken;
         private string _username;
         private string _channel;
+        private bool _updatedFromTwitch;
 
         public TwitchSettings()
         {
@@ -21,6 +23,8 @@ namespace InteractiveSeven.Core.Settings
                 && e.TokenType == "bearer")
             {
                 _accessToken = $"oauth:{e.AccessToken}";
+
+                UpdatedFromTwitch = true;
 
                 // TODO: Message box asking if they want to save?
             }
@@ -54,6 +58,17 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _channel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
+        public bool UpdatedFromTwitch
+        {
+            get => _updatedFromTwitch;
+            set
+            {
+                _updatedFromTwitch = value;
                 OnPropertyChanged();
             }
         }
