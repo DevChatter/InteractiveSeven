@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
-    public class EquippableSettings : ObservableSettingsBase
+    public class EquippableSettings : ObservableSettingsBase, INamedSetting
     {
         private Equipment _item;
         [JsonIgnore]
