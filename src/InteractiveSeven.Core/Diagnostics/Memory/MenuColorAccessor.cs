@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -12,11 +13,14 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
     {
         private readonly IMemoryAccessor _memoryAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly ILogger<MenuColorAccessor> _logger;
 
-        public MenuColorAccessor(IMemoryAccessor memoryAccessor, IStatusHubEmitter statusHubEmitter)
+        public MenuColorAccessor(IMemoryAccessor memoryAccessor,
+            IStatusHubEmitter statusHubEmitter, ILogger<MenuColorAccessor> logger)
         {
             _memoryAccessor = memoryAccessor;
             _statusHubEmitter = statusHubEmitter;
+            _logger = logger;
         }
 
         public MenuColors GetMenuColors(string processName)
@@ -59,9 +63,13 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 
         private void UpdateDisplayColors(string processName, MenuColors menuColors)
         {
-            _memoryAccessor.WriteMem(processName, Addresses.MenuColorAll.Address, menuColors.GetDisplayBytes());
-            // TODO: Add logger for exceptions
-            _statusHubEmitter.ShowNewColors(menuColors).RunInBackgroundSafely();
+            _memoryAccessor.WriteMem(
+                processName,
+                Addresses.MenuColorAll.Address,
+                menuColors.GetDisplayBytes());
+            _statusHubEmitter.ShowNewColors(menuColors)
+                .RunInBackgroundSafely(true,
+                    ex => _logger.LogError(ex, "Error Showing New Colors"));
         }
 
         private MenuColors[] GetColorSteps(MenuColors startColor, MenuColors endingColor)
