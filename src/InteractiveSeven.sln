@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven", "Interac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Web", "InteractiveSeven.Web\InteractiveSeven.Web.csproj", "{75E11106-A7C9-46B5-84AC-CC757385FCA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tseng", "Tseng\Tseng.csproj", "{BB773192-5869-4FCE-8C7A-343AD797CFF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tseng", "Tseng\Tseng.csproj", "{BB773192-5869-4FCE-8C7A-343AD797CFF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive.Core.FinalFantasy8", "Interactive.Core.FinalFantasy8\Interactive.Core.FinalFantasy8.csproj", "{E311F48D-5FFB-4294-8997-3414EDCC710D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive.Core", "Interactive.Core\Interactive.Core.csproj", "{F515D8BB-A763-4487-AB55-AD93D4B71A60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E311F48D-5FFB-4294-8997-3414EDCC710D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E311F48D-5FFB-4294-8997-3414EDCC710D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E311F48D-5FFB-4294-8997-3414EDCC710D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E311F48D-5FFB-4294-8997-3414EDCC710D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F515D8BB-A763-4487-AB55-AD93D4B71A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F515D8BB-A763-4487-AB55-AD93D4B71A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F515D8BB-A763-4487-AB55-AD93D4B71A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F515D8BB-A763-4487-AB55-AD93D4B71A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
