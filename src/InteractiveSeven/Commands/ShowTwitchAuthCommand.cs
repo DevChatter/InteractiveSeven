@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.MvvmCommands;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using System;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace InteractiveSeven.Commands
 
         public void Execute(object parameter)
         {
+            ApplicationSettings.Instance.TwitchSettings.UpdatedFromTwitch = false;
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = _twitchAuthViewModel.AuthRequestUrl,

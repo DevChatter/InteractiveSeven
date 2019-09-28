@@ -25,8 +25,6 @@ namespace InteractiveSeven.Core.Settings
                 _accessToken = $"oauth:{e.AccessToken}";
 
                 UpdatedFromTwitch = true;
-
-                // TODO: Message box asking if they want to save?
             }
         }
 

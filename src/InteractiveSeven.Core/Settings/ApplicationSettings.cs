@@ -82,7 +82,6 @@ namespace InteractiveSeven.Core.Settings
         {
             try
             {
-                // TODO: Fix the Array Populating bug....
                 JsonConvert.PopulateObject(json, Instance);
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -101,12 +102,14 @@ namespace InteractiveSeven.Core.Settings
             };
         }
 
-        private string[] RemoveAllDuplicates(IEnumerable<string> strings, [CallerMemberName] string propertyName = null)
+        private string[] RemoveAllDuplicates(IEnumerable<string> strings,
+            [CallerMemberName] string propertyName = null)
         {
-            // TODO: Fix the Casing Issue. This needs to be case-insensitive
-            foreach (Func<string[]> wordSet in AllWordSets.Where(x => x.Name != propertyName).Select(x => x.Words))
+            IEnumerable<Func<string[]>> otherWordSets = AllWordSets
+                .Where(x => x.Name != propertyName).Select(x => x.Words);
+            foreach (Func<string[]> wordSet in otherWordSets)
             {
-                strings = strings.Except(wordSet());
+                strings = strings.Except(wordSet(), StringComparer.OrdinalIgnoreCase);
             }
 
             return strings.ToArray();

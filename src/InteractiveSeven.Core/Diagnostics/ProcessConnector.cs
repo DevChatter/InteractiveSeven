@@ -1,4 +1,6 @@
 ﻿using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 using System.Linq;
 
@@ -6,9 +8,16 @@ namespace InteractiveSeven.Core.Diagnostics
 {
     public class ProcessConnector
     {
+        private readonly ILogger<ProcessConnector> _logger;
+        private readonly object _padlock = new object();
+
+        public ProcessConnector(ILogger<ProcessConnector> logger)
+        {
+            _logger = logger;
+        }
+
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-        private readonly object _padlock = new object();
 
         private Process _ff7Process;
         public Process FF7Process
@@ -21,18 +30,15 @@ namespace InteractiveSeven.Core.Diagnostics
                     {
                         lock (_padlock)
                         {
-                            if (_ff7Process is null)
-                            {
-                                _ff7Process ??= GetProcess();
-                            }
+                            _ff7Process ??= GetProcess();
                         }
                     }
 
                     return _ff7Process;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // TODO: Log here
+                    _logger.LogError(ex, "Error connecting to FF7 Process");
                 }
 
                 return null;
