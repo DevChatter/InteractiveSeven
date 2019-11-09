@@ -64,8 +64,8 @@ namespace InteractiveSeven.Core.Models
         public static MenuColors Tsuna = new MenuColors
         {
             TopLeft = Color.FromName("black"),
-            TopRight = Color.FromName("gray"),
-            BotLeft = Color.FromName("gray"),
+            TopRight = Color.FromName("teal"),
+            BotLeft = Color.FromName("teal"),
             BotRight = Color.FromName("black"),
         };
 
