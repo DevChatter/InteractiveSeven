@@ -87,9 +87,21 @@ namespace InteractiveSeven.Twitch.Commands
                     _inventoryAccessor.AddItem(removedEquip.ItemId, 1, true);
                 }
             }
-            _materiaAccessor.RemoveWeaponMateria(charName);
+            RemoveMateria(charName);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {equippableSettings.Name}.");
+        }
+
+        private void RemoveMateria(CharNames charName)
+        {
+            if (typeof(T) == typeof(Weapon))
+            {
+                _materiaAccessor.RemoveWeaponMateria(charName);
+            }
+            else if (typeof(T) == typeof(Armlet))
+            {
+                _materiaAccessor.RemoveArmletMateria(charName);
+            }
         }
 
         private static Func<CharMemLoc, IntPtr> AddressSelector()
