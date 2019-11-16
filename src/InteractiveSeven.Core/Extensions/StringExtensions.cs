@@ -14,5 +14,7 @@ namespace InteractiveSeven.Core
             int.TryParse(text, out int result);
             return result;
         }
+
+        public static string NoAt(this string text) => text.TrimStart('@');
     }
 }
