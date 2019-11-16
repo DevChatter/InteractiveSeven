@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
@@ -11,7 +12,9 @@ namespace InteractiveSeven.Twitch.Commands
     public class StatusEffectCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
+        private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IStatusAccessor _statusAccessor;
+        private readonly GameDatabase _gameDatabase;
         private readonly PaymentProcessor _paymentProcessor;
 
         private static string[] AllWords(CommandSettings settings)
@@ -20,12 +23,15 @@ namespace InteractiveSeven.Twitch.Commands
                 .ToArray();
 
 
-        public StatusEffectCommand(ITwitchClient twitchClient,
-            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
+        public StatusEffectCommand(ITwitchClient twitchClient, IEquipmentAccessor equipmentAccessor,
+            IStatusAccessor statusAccessor, GameDatabase gameDatabase,
+            PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
+            _equipmentAccessor = equipmentAccessor;
             _statusAccessor = statusAccessor;
+            _gameDatabase = gameDatabase;
             _paymentProcessor = paymentProcessor;
         }
 

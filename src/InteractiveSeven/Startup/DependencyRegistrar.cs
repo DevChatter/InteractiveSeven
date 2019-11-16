@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core.MvvmCommands;
 using Tseng;
+using Tseng.GameData;
 using Tseng.RunOnce;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
@@ -89,6 +90,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<IGameDatabaseLoader, GameDatabaseLoader>();
             services.AddSingleton<GameDatabase>();
+            services.AddSingleton<FF7BattleMap>();
             services.AddSingleton<ProcessConnector>();
             services.AddSingleton<TsengProgram>();
 
