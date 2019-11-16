@@ -1,7 +1,7 @@
-﻿using Shojy.FF7.Elena.Extensions;
-using System;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.FinalFantasy;
+using Shojy.FF7.Elena.Extensions;
+using System;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -195,7 +195,7 @@ namespace Tseng.GameData
 
         #region Private Methods
 
-        private static bool FillChar(int charId, ref CharacterRecord characterRecord, byte[] map)
+        private static bool FillChar(byte charId, ref CharacterRecord characterRecord, byte[] map)
         {
             CharNames charName = CharNames.GetById(charId);
 
@@ -213,6 +213,7 @@ namespace Tseng.GameData
             Array.Copy(map, offset + SaveMapCharacterOffsets.Name, characterNameBytes, 0, 12);
             characterRecord.Name = characterNameBytes.ToFFString();
 
+            characterRecord.Id = charId;
             characterRecord.Level = map[offset + SaveMapCharacterOffsets.Level];
             characterRecord.Strength = map[offset + SaveMapCharacterOffsets.Strength];
             characterRecord.Vitality = map[offset + SaveMapCharacterOffsets.Vitality];

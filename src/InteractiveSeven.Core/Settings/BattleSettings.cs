@@ -18,7 +18,7 @@ namespace InteractiveSeven.Core.Settings
                 new StatusEffectSettings("Confusion", StatusEffects.Confusion, false, 200, "conf", "confusion"),
                 new StatusEffectSettings("Darkness", StatusEffects.Darkness, true, 100, "darkness"),
                 new StatusEffectSettings("DeathSentence", StatusEffects.DeathSentence, true, 200, "deathsentence"),
-                new StatusEffectSettings("Dual", StatusEffects.Dual, false, 1000, "dual"),
+                //new StatusEffectSettings("Dual", StatusEffects.Dual, false, 1000, "dual"),
                 new StatusEffectSettings("Frog", StatusEffects.Frog, true, 200, "frog", "toad"),
                 new StatusEffectSettings("Fury", StatusEffects.Fury, true, 100, "fury", "hyper"),
                 new StatusEffectSettings("Haste", StatusEffects.Haste, true, 200, "haste", "hasted"),

@@ -15,7 +15,7 @@ namespace InteractiveSeven.Core.Payments
 
         private readonly object _padlock = new object();
 
-        public bool HasAccount(string username) => _knownUsers.Contains(username.ToLower());
+        public bool HasAccount(string username) => _knownUsers.Contains(username.ToLower().NoAt());
 
         public int Deposit(in ChatUser user, int bits)
         {

@@ -6,7 +6,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
     {
         void AddMateria(byte materiaId, uint experience = 0);
         void RemoveAllMateria();
-        void RemoveWeaponMateria(CharNames charNames);
-        void RemoveArmletMateria(CharNames charNames);
+        void RemoveWeaponMateria(CharNames charNames, int keep = 0);
+        void RemoveArmletMateria(CharNames charNames, int keep = 0);
     }
 }

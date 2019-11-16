@@ -10,6 +10,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
     <PackageReference Include="TwitchLib" Version="3.0.1" />
+    <PackageReference Include="Shojy.FF7.Elena" Version="0.2-dev" />
   </ItemGroup>
 
 </Project>

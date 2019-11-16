@@ -33,12 +33,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             bool IsEmpty(byte[] bytes) => bytes.All(b => b == byte.MaxValue);
         }
 
-        public void RemoveWeaponMateria(CharNames charNames)
+        public void RemoveWeaponMateria(CharNames charNames, int keep = 0)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charNames);
             byte[] emptyRow = { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
 
-            for (int i = 0; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
+            for (int i = ItemSize * keep; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
             {
                 IntPtr address = IntPtr.Add(charMemLoc.WeaponMateria.Address, i);
                 var bytes = new byte[ItemSize];
@@ -49,12 +49,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             }
         }
 
-        public void RemoveArmletMateria(CharNames charNames)
+        public void RemoveArmletMateria(CharNames charNames, int keep = 0)
         {
             CharMemLoc charMemLoc = CharMemLoc.ByName(charNames);
             byte[] emptyRow = { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
 
-            for (int i = 0; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
+            for (int i = ItemSize * keep; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
             {
                 IntPtr address = IntPtr.Add(charMemLoc.ArmorMateria.Address, i);
                 var bytes = new byte[ItemSize];

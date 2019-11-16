@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using InteractiveSeven.Core.Battle;
 using Accessory = InteractiveSeven.Core.FinalFantasy.Models.Accessory;
 using Weapon = InteractiveSeven.Core.FinalFantasy.Models.Weapon;
 
@@ -159,7 +160,8 @@ namespace Tseng.RunOnce
                 accessories.Add(new Accessory
                 {
                     Id = acc.Index,
-                    Name = acc.Name
+                    Name = acc.Name,
+                    StatusDefense = (StatusEffects)acc.StatusDefense,
                 });
             }
 

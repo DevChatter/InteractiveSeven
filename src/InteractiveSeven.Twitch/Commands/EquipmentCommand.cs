@@ -16,6 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IMateriaAccessor _materiaAccessor;
+        private readonly GameDatabase _gameDatabase;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
         private readonly EquipmentData<T> _equipmentData;
@@ -23,6 +24,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         protected EquipmentCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
+            GameDatabase gameDatabase,
             GilBank gilBank, ITwitchClient twitchClient, EquipmentData<T> equipmentData,
             Func<CommandSettings, string[]> commandWordsSelector, PaymentProcessor paymentProcessor)
             : base(commandWordsSelector, x => x.EquipmentSettings.Enabled)
@@ -30,6 +32,7 @@ namespace InteractiveSeven.Twitch.Commands
             _equipmentAccessor = equipmentAccessor;
             _inventoryAccessor = inventoryAccessor;
             _materiaAccessor = materiaAccessor;
+            _gameDatabase = gameDatabase;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
             _equipmentData = equipmentData;
@@ -87,9 +90,32 @@ namespace InteractiveSeven.Twitch.Commands
                     _inventoryAccessor.AddItem(removedEquip.ItemId, 1, true);
                 }
             }
-            _materiaAccessor.RemoveWeaponMateria(charName);
+            RemoveMateria(charName, equippableSettings.Item.EquipmentId);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Equipped {charName.DefaultName} with a {equippableSettings.Name}.");
+        }
+
+        private void RemoveMateria(CharNames charName, int equipmentId)
+        {
+            int keep = 0;
+            if (typeof(T) == typeof(Weapon))
+            {
+                var weaponData = _gameDatabase.WeaponDatabase?.SingleOrDefault(x => x.Id == equipmentId);
+                if (weaponData != null)
+                {
+                    keep = weaponData.LinkedSlots + weaponData.SingleSlots;
+                }
+                _materiaAccessor.RemoveWeaponMateria(charName, keep);
+            }
+            else if (typeof(T) == typeof(Armlet))
+            {
+                var armletData = _gameDatabase.ArmletDatabase?.SingleOrDefault(x => x.Id == equipmentId);
+                if (armletData != null)
+                {
+                    keep = armletData.LinkedSlots + armletData.SingleSlots;
+                }
+                _materiaAccessor.RemoveArmletMateria(charName, keep);
+            }
         }
 
         private static Func<CharMemLoc, IntPtr> AddressSelector()
