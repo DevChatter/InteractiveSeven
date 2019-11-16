@@ -57,6 +57,8 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IGilAccessor, GilAccessor>();
             services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
             services.AddSingleton<IMateriaAccessor, MateriaAccessor>();
+            services.AddSingleton<IBattleInfoAccessor, BattleInfoAccessor>();
+            services.AddSingleton<IGameInfoAccessor, GameInfoAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
