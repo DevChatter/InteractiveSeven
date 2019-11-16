@@ -15,8 +15,24 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            _twitchClient.SendMessage(commandData.Channel,
-                $"[MenuColors costs {Settings.MenuSettings.BitCost}] [Default Names Started At {Settings.NameBiddingSettings.DefaultStartBits}]");
+            string message = "";
+
+            if (Settings.MenuSettings.Enabled)
+            {
+                message += $"[Change Menu: {Settings.MenuSettings.BitCost}] ";
+            }
+
+            if (Settings.MenuSettings.EnableMakoCommand)
+            {
+                message += $"[Mako Mode: {Settings.MenuSettings.MakoModeCost}] ";
+            }
+
+            if (Settings.MenuSettings.EnableRainbowCommand)
+            {
+                message += $"[Rainbow Mode: {Settings.MenuSettings.RainbowModeCost}] ";
+            }
+
+            _twitchClient.SendMessage(commandData.Channel, message);
         }
     }
 }
