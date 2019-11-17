@@ -23,7 +23,8 @@ namespace InteractiveSeven.Twitch.Commands
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
-            EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData,
+            EquipmentData<Weapon> weaponData,
+            EquipmentData<Armlet> armletData,
             PaymentProcessor paymentProcessor)
             : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
