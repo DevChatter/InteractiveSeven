@@ -39,10 +39,9 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
-
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, Settings.EquipmentSettings.PauperCommandCost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, Settings.EquipmentSettings.PauperCommandCost,
+                Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
