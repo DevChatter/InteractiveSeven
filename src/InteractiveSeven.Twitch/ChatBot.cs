@@ -58,6 +58,12 @@ namespace InteractiveSeven.Twitch
 
         public void Connect()
         {
+            if (string.IsNullOrWhiteSpace(Settings.Username)
+                || string.IsNullOrWhiteSpace(Settings.AccessToken)
+                || string.IsNullOrWhiteSpace(Settings.Channel))
+            {
+                return;
+            }
             ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
             _client.Initialize(credentials, Settings.Channel);
             _client.Connect();
@@ -71,9 +77,16 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                ?.Execute(CommandData.FromChatCommand(e.Command));
-            _intervalMessaging.MessageReceived();
+            try
+            {
+                _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+                    ?.Execute(CommandData.FromChatCommand(e.Command));
+                _intervalMessaging.MessageReceived();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Command Error");
+            }
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
