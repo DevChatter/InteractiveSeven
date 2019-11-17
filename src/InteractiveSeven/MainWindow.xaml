@@ -159,6 +159,21 @@
                 </ScrollViewer>
             </TabItem>
 
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 10 0" VerticalAlignment="Center" />
+                        <TextBlock Text="Gil Balances" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer Background="#FFE5E5E5">
+                    <DockPanel>
+                        <Label Content="Coming soon. For now, edit the 'i7-Account-data.json' file." />
+                    </DockPanel>
+                </ScrollViewer>
+            </TabItem>
+
             <TabItem DataContext="{Binding StreamOverlayViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
