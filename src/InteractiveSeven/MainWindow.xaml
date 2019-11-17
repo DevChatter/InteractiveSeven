@@ -17,8 +17,8 @@
                         Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
-                <Label Content="Interactive Seven" 
-                       VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" />
+                <Label Content="Interactive Seven" VerticalAlignment="Center"
+                       HorizontalAlignment="Left" FontSize="20" />
             </Grid>
         </DockPanel>
         <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
@@ -28,7 +28,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
                        VerticalAlignment="Center" TextAlignment="Center"
-                       Text="Built by Brendan Enrick (@Brendoneus/@DevChatter)" />
+                       Text="Built by @Brendoneus and the @DevChatter Team" />
             <Button Grid.Column="1" Margin="2 5 5 5">
                 <Hyperlink x:Name="PatreonLink" RequestNavigate="PatreonLink_RequestNavigate"
                            NavigateUri="https://www.patreon.com/DevChatter">
@@ -120,7 +120,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
                                        Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Name Bidding" />
+                        <TextBlock Text="Naming" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
@@ -162,14 +162,14 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
+                        <TextBlock Text="&#xf3d1;" FontFamily="{StaticResource FontAwesome}"
                                        Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Gil Balances" />
+                        <TextBlock Text="Gil" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
                     <DockPanel>
-                        <Label Content="Coming soon. For now, edit the 'i7-Account-data.json' file." />
+                        <Label DockPanel.Dock="Top" Content="Coming soon. For now, edit the 'i7-Account-data.json' file." />
                     </DockPanel>
                 </ScrollViewer>
             </TabItem>
