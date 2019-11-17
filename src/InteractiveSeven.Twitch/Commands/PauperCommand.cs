@@ -66,7 +66,9 @@ namespace InteractiveSeven.Twitch.Commands
             _gilAccessor.SetGil(2);
 
             _twitchClient.SendMessage(commandData.Channel,
-                "All Weapons and Armor set to Default. All Items, Accessories, Materia, and Gil have been removed. Good luck.");
+                "All Weapons and Armor set to Default. " +
+                "All Items, Accessories, Materia, and Gil have been removed. " +
+                "Good luck.");
         }
     }
 }

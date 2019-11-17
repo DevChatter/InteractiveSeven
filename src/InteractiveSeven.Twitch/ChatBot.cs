@@ -1,16 +1,16 @@
-﻿using System;
-using InteractiveSeven.Core;
+﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -64,9 +64,17 @@ namespace InteractiveSeven.Twitch
             {
                 return;
             }
-            ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
-            _client.Initialize(credentials, Settings.Channel);
-            _client.Connect();
+
+            try
+            {
+                ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
+                _client.Initialize(credentials, Settings.Channel);
+                _client.Connect();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error Connecting to Twitch");
+            }
         }
 
         public void Disconnect()

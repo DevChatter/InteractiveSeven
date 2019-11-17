@@ -59,7 +59,6 @@ namespace InteractiveSeven.Core.Data
         public static CharNames Vincent = new CharNames(0x7, "Vincent", x => x.VincentCommandWords, SaveMapOffsets.VincentRecord, GameMoments.AfterKalmFlashback);
         public static CharNames Cid = new CharNames(0x8, "Cid", x => x.CidCommandWords, SaveMapOffsets.CidRecord);
 
-        // TODO: Exclude these from most stuff we do. They're non-standard.
         public static CharNames YoungCloud = new CharNames(0x9, "Young Cloud", x => new List<string>(), SaveMapOffsets.YoungCloudRecord, included: false);
         public static CharNames Sephiroth = new CharNames(0xA, "Sephiroth", x => new List<string>(), SaveMapOffsets.SephirothRecord, included: false);
         public static CharNames Chocobo = new CharNames(0xB, "Chocobo", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
