@@ -7,9 +7,9 @@
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
-        Title="Interactive Seven" Height="600" Width="600" MinWidth="600" MinHeight="600">
+        Title="Interactive Seven" Height="650" Width="600" MinWidth="600" MinHeight="650">
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Height="50" Background="#CCC">
+        <DockPanel DockPanel.Dock="Top" Height="40" Background="#CCC">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
                            Margin="2" VerticalAlignment="Center" Padding="4" />
@@ -49,32 +49,6 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Orientation="Vertical">
-                        <GroupBox DataContext="{Binding MenuColorViewModel}"
-                                      Header="Menu Color - Preview" MaxHeight="123">
-                            <StackPanel Orientation="Horizontal" MaxHeight="100">
-                                <Image Width="200" Height="100"
-                                           Source="{Binding PreviewImage, Mode=OneWay, Converter={StaticResource MenuColorsToImageSourceConverter}}" />
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding Changes, Mode=OneWay}"
-                                                      MinWidth="300">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Vertical" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Vertical" Margin="4">
-                                                    <TextBlock Text="{Binding Path=Changer, Mode=OneWay}" />
-                                                    <TextBlock Text="{Binding Path=Change, Mode=OneWay}" Margin="10,0,0,0" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-
-                                </ScrollViewer>
-                            </StackPanel>
-                        </GroupBox>
                         <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names">
                             <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
