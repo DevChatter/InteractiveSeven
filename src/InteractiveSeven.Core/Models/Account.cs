@@ -1,4 +1,6 @@
-﻿namespace InteractiveSeven.Core.Models
+﻿using System;
+
+namespace InteractiveSeven.Core.Models
 {
     public class Account
     {
@@ -9,6 +11,6 @@
 
         public int Balance { get; set; }
         public string Username { get; set; }
-        public bool ReceivedSubBonus { get; set; }
+        public DateTime LastSubBonus { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
@@ -22,6 +24,7 @@ namespace InteractiveSeven.Twitch
         private readonly IList<ITwitchCommand> _commands;
         private readonly IIntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
+        private readonly ILogger<ChatBot> _logger;
         private bool _isConnected;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
@@ -37,12 +40,13 @@ namespace InteractiveSeven.Twitch
         }
 
         public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
-            IIntervalMessagingService intervalMessaging, GilBank gilBank)
+            IIntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
         {
             _client = twitchClient;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
             _gilBank = gilBank;
+            _logger = logger;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -93,14 +97,21 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            int bits = e.ChatMessage.Bits;
-            if (bits > 0)
+            try
             {
-                _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+                int bits = e.ChatMessage.Bits;
+                if (bits > 0)
+                {
+                    _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+                }
+                else
+                {
+                    _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+                }
             }
-            else
+            catch (Exception exception)
             {
-                _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+                _logger.LogError(exception, "Error updating account balances.");
             }
         }
 

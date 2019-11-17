@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Model;
@@ -8,7 +9,9 @@ using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using Moq;
 using System.Linq;
+using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Interfaces;
+using UnitTests.Core.GilBankTests;
 using Xunit;
 
 namespace UnitTests.Twitch.Commands
@@ -74,7 +77,7 @@ namespace UnitTests.Twitch.Commands
             var eqAccessor = new Mock<IEquipmentAccessor>();
             var itemAccessor = new Mock<IInventoryAccessor>();
             var chat = new Mock<ITwitchClient>();
-            var gilBank = new GilBank();
+            var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
             var chatUser = new ChatUser { Username = "Fred" };
             gilBank.Deposit(chatUser, gil);
             var commandData = new CommandData
