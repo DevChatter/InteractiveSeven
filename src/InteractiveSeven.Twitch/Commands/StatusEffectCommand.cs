@@ -1,12 +1,11 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Linq;
-using System.Security.AccessControl;
-using InteractiveSeven.Core.FinalFantasy.Models;
 using Tseng.GameData;
 using TwitchLib.Client.Interfaces;
 
@@ -45,8 +44,8 @@ namespace InteractiveSeven.Twitch.Commands
         public override void Execute(in CommandData commandData)
         {
             var statusSettings = Settings.BattleSettings.ByWord(commandData.CommandText);
-            var actor = Allies.ByWord(commandData.Arguments.FirstOrDefault());
-            if (statusSettings == null || actor == null)
+            List<Allies> targets = Allies.ByWord(commandData.Arguments.FirstOrDefault());
+            if (statusSettings == null || !targets.Any())
             {
                 _twitchClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !psn top");
                 return;
@@ -58,39 +57,69 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            FF7BattleMap ff7BattleMap = _battleInfoAccessor.GetBattleMap();
-
             FF7SaveMap gameInfo = _gameInfoAccessor.GetGameInfoMap();
 
-            CharacterRecord characterRecord = gameInfo.LiveParty[actor.Index];
-            if (characterRecord.Id == 255)
+            var existingTargets = targets.Where(x => gameInfo.LiveParty[x.Index].Id != 255).ToList();
+
+            var (validTargets, invalidTargets) = CheckTargetValidity(
+                existingTargets,
+                gameInfo.LiveParty,
+                statusSettings.Effect);
+
+            if (CouldNotAfford(validTargets.Count, statusSettings, commandData))
             {
-                // No character here.
                 return;
             }
 
-            var accessory = _gameDatabase.AccessoryDatabase
-                .SingleOrDefault(x => x.Id == characterRecord.Accessory);
-
-            if (accessory != null && accessory.ProtectsFrom(statusSettings.Effect))
+            foreach (Allies invalidTarget in invalidTargets)
             {
-                string message = $"Can't apply {statusSettings.Name} to {actor.Words.First()}.";
+                string message = $"Can't apply {statusSettings.Name} to {invalidTarget.Words.First()}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
-                return;
             }
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, statusSettings.Cost, Settings.BattleSettings.AllowModOverride);
-
-            if (!gilTransaction.Paid)
+            foreach (Allies target in validTargets)
             {
-                return;
+                _statusAccessor.SetActorStatus(target, statusSettings.Effect);
+
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Applied {commandData.CommandText} to {target.Words.First()}.");
+            }
+        }
+
+        private bool CouldNotAfford(in int targetCount,
+            StatusEffectSettings statusSettings,
+            CommandData commandData)
+        {
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, statusSettings.Cost * targetCount, Settings.BattleSettings.AllowModOverride);
+
+            return !gilTransaction.Paid;
+        }
+
+        private (List<Allies> valid, List<Allies> invalid)
+            CheckTargetValidity(List<Allies> targets, CharacterRecord[] charRecords, StatusEffects effect)
+        {
+            var valid = new List<Allies>();
+            var invalid = new List<Allies>();
+
+            foreach (Allies target in targets)
+            {
+                CharacterRecord characterRecord = charRecords[target.Index];
+
+                var accessory = _gameDatabase.AccessoryDatabase
+                    .SingleOrDefault(x => x.Id == characterRecord.Accessory);
+
+                if (accessory != null && accessory.ProtectsFrom(effect))
+                {
+                    invalid.Add(target);
+                }
+                else
+                {
+                    valid.Add(target);
+                }
             }
 
-            _statusAccessor.SetActorStatus(actor, statusSettings.Effect);
-
-            _twitchClient.SendMessage(commandData.Channel,
-                $"Applied {commandData.CommandText} to {actor.Words.First()}.");
+            return (valid, invalid);
         }
     }
 }
