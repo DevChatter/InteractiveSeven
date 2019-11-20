@@ -29,10 +29,12 @@ namespace InteractiveSeven.Core.Data
             SaveMapRecordOffset = saveMapRecordOffset;
             if (included)
             {
-                All.Add(this);
+                Core.Add(this);
             }
+            All.Add(this);
         }
 
+        public static readonly List<CharNames> Core = new List<CharNames>();
         public static readonly List<CharNames> All = new List<CharNames>();
 
         public static CharNames GetById(int id) => All.SingleOrDefault(x => x.Id == id);

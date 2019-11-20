@@ -49,7 +49,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            foreach (var charName in CharNames.All)
+            foreach (var charName in CharNames.Core)
             {
                 _materiaAccessor.RemoveWeaponMateria(charName);
                 _materiaAccessor.RemoveArmletMateria(charName);
