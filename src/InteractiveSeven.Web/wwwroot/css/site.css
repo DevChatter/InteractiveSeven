@@ -25,7 +25,7 @@
     }
 
     .ff7 > .border {
-        border: solid 2px #424542;
+        border: solid 1px #424542;
         box-shadow: 2px 2px #e7dfe7, -2px -2px #e7dfe7, 2px -2px #e7dfe7, -2px 2px #e7dfe7, 0 -4px #9c9a9c, -4px 0 #7b757b, 0 4px #424542;
     }
 
