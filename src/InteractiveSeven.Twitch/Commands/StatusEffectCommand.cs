@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
+using System.Collections.Generic;
 using System.Linq;
 using Tseng.GameData;
 using TwitchLib.Client.Interfaces;
@@ -14,8 +14,6 @@ namespace InteractiveSeven.Twitch.Commands
     public class StatusEffectCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
-        private readonly IEquipmentAccessor _equipmentAccessor;
-        private readonly IBattleInfoAccessor _battleInfoAccessor;
         private readonly IGameInfoAccessor _gameInfoAccessor;
         private readonly IStatusAccessor _statusAccessor;
         private readonly GameDatabase _gameDatabase;
@@ -26,15 +24,11 @@ namespace InteractiveSeven.Twitch.Commands
                 .SelectMany(effect => effect.Words)
                 .ToArray();
 
-        public StatusEffectCommand(ITwitchClient twitchClient, IEquipmentAccessor equipmentAccessor,
-            IBattleInfoAccessor battleInfoAccessor, IGameInfoAccessor gameInfoAccessor,
-            IStatusAccessor statusAccessor, GameDatabase gameDatabase,
-            PaymentProcessor paymentProcessor)
+        public StatusEffectCommand(ITwitchClient twitchClient, IGameInfoAccessor gameInfoAccessor,
+            IStatusAccessor statusAccessor, GameDatabase gameDatabase, PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
-            _equipmentAccessor = equipmentAccessor;
-            _battleInfoAccessor = battleInfoAccessor;
             _gameInfoAccessor = gameInfoAccessor;
             _statusAccessor = statusAccessor;
             _gameDatabase = gameDatabase;
