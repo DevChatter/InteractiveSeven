@@ -33,7 +33,7 @@
                     bottomLeft: '#004F00',
                     bottomRight: '#001600'
                 },
-                maxRetryInterval: 30000,
+                maxRetryInterval: 30000
         },
             computed: {
                 topLeftStyle: function() {
@@ -69,7 +69,7 @@
             },
             methods: {
                 startHubConn: function(connection, retryInterval = 2000) {
-                    console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
+                    //console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
                     connection.start().then(() => {
                         },
                         err => {
