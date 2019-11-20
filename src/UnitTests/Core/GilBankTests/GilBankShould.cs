@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
+using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTests.Core.GilBankTests
@@ -8,6 +10,12 @@ namespace UnitTests.Core.GilBankTests
     public class GilBankShould
     {
         private readonly ChatUser _user = new ChatUser("any", "123456");
+        private readonly GilBank _bank;
+
+        public GilBankShould()
+        {
+            _bank = new GilBank(new TestMemoryDataStore(new List<Account>()));
+        }
 
         [Theory]
         [InlineData(-1)]
@@ -15,10 +23,8 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(-100)]
         public void IgnoreNegativeDeposits(int bits)
         {
-            var bank = new GilBank();
-
-            int balance = bank.Deposit(_user, 100);
-            int result = bank.Deposit(_user, bits);
+            int balance = _bank.Deposit(_user, 100);
+            int result = _bank.Deposit(_user, bits);
 
             result.Should().Be(balance);
         }
@@ -29,10 +35,8 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(-100)]
         public void IgnoreNegativeWithdraws(int bits)
         {
-            var bank = new GilBank();
-
-            int balance = bank.Deposit(_user, 100);
-            (int result, int withdrawn) = bank.Withdraw(_user, bits);
+            int balance = _bank.Deposit(_user, 100);
+            (int result, int withdrawn) = _bank.Withdraw(_user, bits);
 
             result.Should().Be(balance);
             withdrawn.Should().Be(0);
@@ -44,9 +48,7 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100)]
         public void ReturnBalanceAfterOneDeposit(int bits)
         {
-            var bank = new GilBank();
-
-            int balance = bank.Deposit(_user, bits);
+            int balance = _bank.Deposit(_user, bits);
 
             balance.Should().Be(bits);
         }
@@ -57,10 +59,8 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100, 150, 250)]
         public void AddToBalanceWithEachDeposit(int first, int second, int expected)
         {
-            var bank = new GilBank();
-
-            bank.Deposit(_user, first);
-            int balance = bank.Deposit(_user, second);
+            _bank.Deposit(_user, first);
+            int balance = _bank.Deposit(_user, second);
 
             balance.Should().Be(expected);
         }
@@ -72,10 +72,8 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100, 25, 25, 75)]
         public void ReturnBalanceAndWithdrawnAfterWithdrawal(int start, int withdraw, int expectWithdrawn, int expectBal)
         {
-            var bank = new GilBank();
-
-            bank.Deposit(_user, start);
-            (int balance, int withdrawn) = bank.Withdraw(_user, withdraw);
+            _bank.Deposit(_user, start);
+            (int balance, int withdrawn) = _bank.Withdraw(_user, withdraw);
 
             balance.Should().Be(expectBal);
             withdrawn.Should().Be(expectWithdrawn);
@@ -87,10 +85,8 @@ namespace UnitTests.Core.GilBankTests
         [InlineData(100, 200)]
         public void ReturnBalanceAndZeroForRequireFullWithdraw(int start, int withdraw)
         {
-            var bank = new GilBank();
-
-            bank.Deposit(_user, start);
-            (int balance, int withdrawn) = bank.Withdraw(_user, withdraw, true);
+            _bank.Deposit(_user, start);
+            (int balance, int withdrawn) = _bank.Withdraw(_user, withdraw, true);
 
             balance.Should().Be(start);
             withdrawn.Should().Be(0);

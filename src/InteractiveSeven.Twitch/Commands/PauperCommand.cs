@@ -23,7 +23,8 @@ namespace InteractiveSeven.Twitch.Commands
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
             ITwitchClient twitchClient,
-            EquipmentData<Weapon> weaponData, EquipmentData<Armlet> armletData,
+            EquipmentData<Weapon> weaponData,
+            EquipmentData<Armlet> armletData,
             PaymentProcessor paymentProcessor)
             : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
@@ -39,10 +40,9 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            if (!commandData.User.IsMe && !commandData.User.IsBroadcaster) return;
-
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, Settings.EquipmentSettings.PauperCommandCost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, Settings.EquipmentSettings.PauperCommandCost,
+                Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
@@ -66,7 +66,9 @@ namespace InteractiveSeven.Twitch.Commands
             _gilAccessor.SetGil(2);
 
             _twitchClient.SendMessage(commandData.Channel,
-                "All Weapons and Armor set to Default. All Items, Accessories, Materia, and Gil have been removed. Good luck.");
+                "All Weapons and Armor set to Default. " +
+                "All Items, Accessories, Materia, and Gil have been removed. " +
+                "Good luck.");
         }
     }
 }

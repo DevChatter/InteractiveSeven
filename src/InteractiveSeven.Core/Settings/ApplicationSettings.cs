@@ -78,7 +78,7 @@ namespace InteractiveSeven.Core.Settings
         public MateriaSettings MateriaSettings { get; set; } = new MateriaSettings();
         public TsengSettings TsengSettings { get; set; } = new TsengSettings();
 
-        public static void LoadFromJson(string json)
+        public static void LoadFromJson(string json, Action<Exception> errorLogging = null)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace InteractiveSeven.Core.Settings
             catch (Exception ex)
             {
                 Instance = new ApplicationSettings();
-                // gulp
+                errorLogging?.Invoke(ex);
             }
         }
 

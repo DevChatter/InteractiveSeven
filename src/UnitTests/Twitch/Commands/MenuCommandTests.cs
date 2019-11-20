@@ -12,6 +12,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using TwitchLib.Client.Interfaces;
+using UnitTests.Core.GilBankTests;
 using Xunit;
 
 namespace UnitTests.Twitch.Commands
@@ -146,7 +147,7 @@ namespace UnitTests.Twitch.Commands
         {
             var twitchClient = new Mock<ITwitchClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
-            var gilBank = new GilBank();
+            var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
             var chatUser = new ChatUser { IsMod = isMod, Username = Guid.NewGuid().ToString() };
             gilBank.Deposit(chatUser, bits);
             var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank, twitchClient.Object));

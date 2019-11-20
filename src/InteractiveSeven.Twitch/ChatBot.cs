@@ -5,6 +5,8 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Model;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace InteractiveSeven.Twitch
         private readonly IList<ITwitchCommand> _commands;
         private readonly IIntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
+        private readonly ILogger<ChatBot> _logger;
         private bool _isConnected;
 
         private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
@@ -37,12 +40,13 @@ namespace InteractiveSeven.Twitch
         }
 
         public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
-            IIntervalMessagingService intervalMessaging, GilBank gilBank)
+            IIntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
         {
             _client = twitchClient;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
             _gilBank = gilBank;
+            _logger = logger;
 
             _client.OnLog += Client_OnLog;
             _client.OnJoinedChannel += Client_OnJoinedChannel;
@@ -54,9 +58,23 @@ namespace InteractiveSeven.Twitch
 
         public void Connect()
         {
-            ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
-            _client.Initialize(credentials, Settings.Channel);
-            _client.Connect();
+            if (string.IsNullOrWhiteSpace(Settings.Username)
+                || string.IsNullOrWhiteSpace(Settings.AccessToken)
+                || string.IsNullOrWhiteSpace(Settings.Channel))
+            {
+                return;
+            }
+
+            try
+            {
+                ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
+                _client.Initialize(credentials, Settings.Channel);
+                _client.Connect();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error Connecting to Twitch");
+            }
         }
 
         public void Disconnect()
@@ -67,9 +85,16 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                ?.Execute(CommandData.FromChatCommand(e.Command));
-            _intervalMessaging.MessageReceived();
+            try
+            {
+                _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
+                    ?.Execute(CommandData.FromChatCommand(e.Command));
+                _intervalMessaging.MessageReceived();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Command Error");
+            }
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
@@ -93,14 +118,21 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            int bits = e.ChatMessage.Bits;
-            if (bits > 0)
+            try
             {
-                _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+                int bits = e.ChatMessage.Bits;
+                if (bits > 0)
+                {
+                    _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+                }
+                else
+                {
+                    _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+                }
             }
-            else
+            catch (Exception exception)
             {
-                _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+                _logger.LogError(exception, "Error updating account balances.");
             }
         }
 

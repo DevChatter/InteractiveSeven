@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Model;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using System;
@@ -9,9 +10,17 @@ namespace InteractiveSeven.Core.Payments
 {
     public class GilBank
     {
+        private readonly IDataStore<Account> _accountStore;
+
+        public GilBank(IDataStore<Account> accountStore)
+        {
+            _accountStore = accountStore;
+            Accounts = accountStore.LoadData() ?? new List<Account>();
+        }
+
         private readonly HashSet<string> _knownUsers = new HashSet<string>();
         private ApplicationSettings Settings => ApplicationSettings.Instance;
-        private List<Account> Accounts { get; } = new List<Account>();
+        private List<Account> Accounts { get; }
 
         private readonly object _padlock = new object();
 
@@ -39,14 +48,19 @@ namespace InteractiveSeven.Core.Payments
                 }
                 int withdrawn = Math.Min(account.Balance, bits);
                 account.Balance -= withdrawn;
+                _accountStore.SaveData(Accounts);
                 return (account.Balance, withdrawn);
             }
         }
 
         public int CheckBalance(in ChatUser user)
         {
-            var account = AccessAccount(user);
-            return account.Balance;
+            lock (_padlock)
+            {
+                var account = AccessAccount(user);
+                _accountStore.SaveData(Accounts);
+                return account.Balance;
+            }
         }
 
         private Account AccessAccount(in ChatUser user)
@@ -59,13 +73,20 @@ namespace InteractiveSeven.Core.Payments
                 Accounts.Add(account);
             }
 
-            if (user.IsSubscriber && !account.ReceivedSubBonus && Settings.GiveSubscriberBonusBits)
+            if (ShouldGiveSubBonus(user, account))
             {
                 account.Balance += Settings.SubscriberBonusBits;
-                account.ReceivedSubBonus = true;
+                account.LastSubBonus = DateTime.UtcNow;
             }
 
             return account;
+        }
+
+        private bool ShouldGiveSubBonus(ChatUser user, Account account)
+        {
+            return user.IsSubscriber
+                   && Settings.GiveSubscriberBonusBits
+                   && account.LastSubBonus.AddDays(1) < DateTime.UtcNow;
         }
 
         public void EnsureAccountExists(in ChatUser user)
@@ -76,6 +97,7 @@ namespace InteractiveSeven.Core.Payments
                 lock (_padlock)
                 {
                     AccessAccount(user);
+                    _accountStore.SaveData(Accounts);
                 }
             }
         }

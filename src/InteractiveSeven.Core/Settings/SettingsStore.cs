@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace InteractiveSeven.Core.Settings
@@ -7,11 +8,11 @@ namespace InteractiveSeven.Core.Settings
     {
         const string SETTINGS_FILE_NAME = "i7.json";
 
-        public void EnsureExists()
+        public void EnsureExists(Action<Exception> errorLogging = null)
         {
             if (File.Exists(SETTINGS_FILE_NAME))
             {
-                LoadSettings();
+                LoadSettings(errorLogging);
             }
             else
             {
@@ -19,10 +20,10 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public void LoadSettings()
+        public void LoadSettings(Action<Exception> errorLogging = null)
         {
             string json = File.ReadAllText(SETTINGS_FILE_NAME);
-            ApplicationSettings.LoadFromJson(json);
+            ApplicationSettings.LoadFromJson(json, errorLogging);
             ApplicationSettings.Instance.CleanUpCollections();
         }
 

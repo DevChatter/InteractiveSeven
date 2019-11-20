@@ -19,14 +19,18 @@ namespace InteractiveSeven.Core.Data
 
         private CharNames(int id, string defaultName, Func<CommandSettings, IList<string>> wordsSelector,
             int saveMapRecordOffset,
-            GameMoments allowNamingAfter = GameMoments.AfterBarretNamed)
+            GameMoments allowNamingAfter = GameMoments.AfterBarretNamed,
+            bool included = true)
         {
             _wordsSelector = wordsSelector;
             AllowNamingAfter = allowNamingAfter;
             Id = id;
             DefaultName = defaultName;
             SaveMapRecordOffset = saveMapRecordOffset;
-            All.Add(this);
+            if (included)
+            {
+                All.Add(this);
+            }
         }
 
         public static readonly List<CharNames> All = new List<CharNames>();
@@ -55,10 +59,9 @@ namespace InteractiveSeven.Core.Data
         public static CharNames Vincent = new CharNames(0x7, "Vincent", x => x.VincentCommandWords, SaveMapOffsets.VincentRecord, GameMoments.AfterKalmFlashback);
         public static CharNames Cid = new CharNames(0x8, "Cid", x => x.CidCommandWords, SaveMapOffsets.CidRecord);
 
-        // TODO: Exclude these from most stuff we do. They're non-standard.
-        public static CharNames YoungCloud = new CharNames(0x9, "Young Cloud", x => new List<string>(), SaveMapOffsets.YoungCloudRecord);
-        public static CharNames Sephiroth = new CharNames(0xA, "Sephiroth", x => new List<string>(), SaveMapOffsets.SephirothRecord);
-        public static CharNames Chocobo = new CharNames(0xB, "Chocobo", x => new List<string>(), SaveMapOffsets.Invalid);
-        public static CharNames None = new CharNames(0xFF, "", x => new List<string>(), SaveMapOffsets.Invalid);
+        public static CharNames YoungCloud = new CharNames(0x9, "Young Cloud", x => new List<string>(), SaveMapOffsets.YoungCloudRecord, included: false);
+        public static CharNames Sephiroth = new CharNames(0xA, "Sephiroth", x => new List<string>(), SaveMapOffsets.SephirothRecord, included: false);
+        public static CharNames Chocobo = new CharNames(0xB, "Chocobo", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
+        public static CharNames None = new CharNames(0xFF, "", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
     }
 }
