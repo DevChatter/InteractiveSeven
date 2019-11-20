@@ -52,7 +52,7 @@ namespace InteractiveSeven.Core.ViewModels
                 }
             });
 
-            foreach (CharNames charName in CharNames.All)
+            foreach (CharNames charName in CharNames.Core)
             {
                 CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
             }
@@ -63,7 +63,7 @@ namespace InteractiveSeven.Core.ViewModels
         public void Load(List<CharacterNameBid> nameBids)
         {
             CharacterNameBiddings.Clear();
-            foreach (CharNames charName in CharNames.All)
+            foreach (CharNames charName in CharNames.Core)
             {
                 var nameBidding = new CharacterNameBidding(charName, _charNameBiddingLogger, false);
 
@@ -86,7 +86,7 @@ namespace InteractiveSeven.Core.ViewModels
         public void Reset()
         {
             CharacterNameBiddings.Clear();
-            foreach (CharNames charName in CharNames.All)
+            foreach (CharNames charName in CharNames.Core)
             {
                 CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
             }
