@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.FinalFantasy;
+using Tseng.Constants;
 
 namespace InteractiveSeven.Core.Data
 {
@@ -64,6 +65,6 @@ namespace InteractiveSeven.Core.Data
         public static CharNames YoungCloud = new CharNames(0x9, "Young Cloud", x => new List<string>(), SaveMapOffsets.YoungCloudRecord, included: false);
         public static CharNames Sephiroth = new CharNames(0xA, "Sephiroth", x => new List<string>(), SaveMapOffsets.SephirothRecord, included: false);
         public static CharNames Chocobo = new CharNames(0xB, "Chocobo", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
-        public static CharNames None = new CharNames(0xFF, "", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
+        public static CharNames None = new CharNames(FF7Const.Empty, "", x => new List<string>(), SaveMapOffsets.Invalid, included: false);
     }
 }

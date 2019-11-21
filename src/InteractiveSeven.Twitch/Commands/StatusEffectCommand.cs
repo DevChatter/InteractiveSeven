@@ -7,6 +7,7 @@ using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Collections.Generic;
 using System.Linq;
+using Tseng.Constants;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -92,7 +93,7 @@ namespace InteractiveSeven.Twitch.Commands
             var safeFrom = new List<Allies>();
             var hasEffect = new List<Allies>();
 
-            foreach (Allies target in targets.Where(x => _partyStatus.Party[x.Index].Id != 255))
+            foreach (Allies target in targets.Where(x => _partyStatus.Party[x.Index].Id != FF7Const.Empty))
             {
                 Character characterRecord = charRecords[target.Index];
 

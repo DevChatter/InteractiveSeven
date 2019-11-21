@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -74,7 +75,7 @@ namespace Tseng
             for (var index = 0; index < chars.Length; ++index)
             {
                 // Skip empty party
-                if (chars[index].Id == 0xFF) continue;
+                if (chars[index].Id == FF7Const.Empty) continue;
 
                 var chr = new Character
                 {
