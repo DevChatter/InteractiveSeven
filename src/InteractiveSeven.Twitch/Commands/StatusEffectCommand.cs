@@ -1,12 +1,12 @@
 ﻿using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Collections.Generic;
 using System.Linq;
-using Tseng.GameData;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -14,9 +14,8 @@ namespace InteractiveSeven.Twitch.Commands
     public class StatusEffectCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
-        private readonly IGameInfoAccessor _gameInfoAccessor;
+        private readonly PartyStatusViewModel _partyStatus;
         private readonly IStatusAccessor _statusAccessor;
-        private readonly GameDatabase _gameDatabase;
         private readonly PaymentProcessor _paymentProcessor;
 
         private static string[] AllWords(CommandSettings settings)
@@ -24,14 +23,13 @@ namespace InteractiveSeven.Twitch.Commands
                 .SelectMany(effect => effect.Words)
                 .ToArray();
 
-        public StatusEffectCommand(ITwitchClient twitchClient, IGameInfoAccessor gameInfoAccessor,
-            IStatusAccessor statusAccessor, GameDatabase gameDatabase, PaymentProcessor paymentProcessor)
+        public StatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
-            _gameInfoAccessor = gameInfoAccessor;
+            _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
-            _gameDatabase = gameDatabase;
             _paymentProcessor = paymentProcessor;
         }
 
@@ -51,13 +49,11 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            FF7SaveMap gameInfo = _gameInfoAccessor.GetGameInfoMap();
-
-            var existingTargets = targets.Where(x => gameInfo.LiveParty[x.Index].Id != 255).ToList();
+            var existingTargets = targets.Where(x => _partyStatus.Party[x.Index].Id != 255);
 
             var (validTargets, invalidTargets) = CheckTargetValidity(
                 existingTargets,
-                gameInfo.LiveParty,
+                _partyStatus.Party,
                 statusSettings.Effect);
 
             if (CouldNotAfford(validTargets.Count, statusSettings, commandData))
@@ -80,8 +76,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool CouldNotAfford(in int targetCount,
-            StatusEffectSettings statusSettings,
+        private bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings, 
             CommandData commandData)
         {
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
@@ -90,20 +85,17 @@ namespace InteractiveSeven.Twitch.Commands
             return !gilTransaction.Paid;
         }
 
-        private (List<Allies> valid, List<Allies> invalid)
-            CheckTargetValidity(List<Allies> targets, CharacterRecord[] charRecords, StatusEffects effect)
+        private (List<Allies> valid, List<Allies> invalid) CheckTargetValidity(
+            IEnumerable<Allies> targets, Character[] charRecords, StatusEffects effect)
         {
             var valid = new List<Allies>();
             var invalid = new List<Allies>();
 
             foreach (Allies target in targets)
             {
-                CharacterRecord characterRecord = charRecords[target.Index];
+                Character characterRecord = charRecords[target.Index];
 
-                var accessory = _gameDatabase.AccessoryDatabase
-                    .SingleOrDefault(x => x.Id == characterRecord.Accessory);
-
-                if (accessory != null && accessory.ProtectsFrom(effect))
+                if (characterRecord.Accessory?.ProtectsFrom(effect) ?? false)
                 {
                     invalid.Add(target);
                 }

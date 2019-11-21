@@ -2,6 +2,7 @@
 {
     public class Character
     {
+        public byte Id { get; set; }
         public string Name { get; set; }
         public string Face { get; set; }
         public int MaxHp { get; set; }

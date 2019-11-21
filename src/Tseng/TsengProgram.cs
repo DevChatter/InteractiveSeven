@@ -78,6 +78,7 @@ namespace Tseng
 
                 var chr = new Character
                 {
+                    Id = chars[index].Id,
                     MaxHp = chars[index].MaxHp,
                     MaxMp = chars[index].MaxMp,
                     CurrentHp = chars[index].CurrentHp,
