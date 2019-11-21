@@ -120,6 +120,7 @@ namespace Tseng
                     .ToList();
                 effs.RemoveAll(x => new[] { "None", "Death" }.Contains(x));
                 chr.StatusEffects = effs.ToArray();
+                chr.StatusEffectsValue = effect;
                 _partyStatusViewModel.Party[index] = chr;
             }
 
