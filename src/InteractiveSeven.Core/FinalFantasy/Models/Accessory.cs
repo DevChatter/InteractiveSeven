@@ -4,7 +4,7 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
 {
     public class Accessory
     {
-        public int Id { get; set; }
+        public ushort Id { get; set; }
         public string Name { get; set; }
         public StatusEffects StatusDefense { get; set; }
 

@@ -2,7 +2,7 @@
 {
     public class Armlet
     {
-        public int Id { get; set; }
+        public ushort Id { get; set; }
         public string Name { get; set; }
         public int LinkedSlots { get; set; }
         public int SingleSlots { get; set; }
