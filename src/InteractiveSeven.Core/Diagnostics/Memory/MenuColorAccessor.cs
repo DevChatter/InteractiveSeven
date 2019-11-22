@@ -11,6 +11,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public class MenuColorAccessor : IMenuColorAccessor
     {
+        private MenuColors _currentColor = MenuColors.Classic;
         private readonly IMemoryAccessor _memoryAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<MenuColorAccessor> _logger;
@@ -30,18 +31,21 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             byte[] topRightBuffer = new byte[3];
             byte[] botRightBuffer = new byte[3];
 
-            _memoryAccessor.ReadMem(processName, Addresses.MenuTopLeft.Address, topLeftBuffer);
-            _memoryAccessor.ReadMem(processName, Addresses.MenuBotLeft.Address, botLeftBuffer);
-            _memoryAccessor.ReadMem(processName, Addresses.MenuTopRight.Address, topRightBuffer);
-            _memoryAccessor.ReadMem(processName, Addresses.MenuBotRight.Address, botRightBuffer);
-
-            return new MenuColors
+            if (_memoryAccessor.ReadMem(processName, Addresses.MenuTopLeft.Address, topLeftBuffer)
+                && _memoryAccessor.ReadMem(processName, Addresses.MenuBotLeft.Address, botLeftBuffer)
+                && _memoryAccessor.ReadMem(processName, Addresses.MenuTopRight.Address, topRightBuffer)
+                && _memoryAccessor.ReadMem(processName, Addresses.MenuBotRight.Address, botRightBuffer))
             {
-                TopLeft = topLeftBuffer.ToColor(),
-                BotLeft = botLeftBuffer.ToColor(),
-                TopRight = topRightBuffer.ToColor(),
-                BotRight = botRightBuffer.ToColor(),
-            };
+                return new MenuColors
+                {
+                    TopLeft = topLeftBuffer.ToColor(),
+                    BotLeft = botLeftBuffer.ToColor(),
+                    TopRight = topRightBuffer.ToColor(),
+                    BotRight = botRightBuffer.ToColor(),
+                };
+            }
+
+            return _currentColor;
         }
 
         public void SetMenuColors(string processName, MenuColors menuColors)
@@ -59,6 +63,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             UpdateDisplayColors(processName, menuColors);
 
             _memoryAccessor.WriteMem(processName, Addresses.MenuColorAllSave.Address, menuColors.GetSaveBytes());
+            _currentColor = menuColors;
         }
 
         private void UpdateDisplayColors(string processName, MenuColors menuColors)
