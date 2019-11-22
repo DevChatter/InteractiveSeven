@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
+using Tseng.Constants;
 using Accessory = InteractiveSeven.Core.FinalFantasy.Models.Accessory;
 using Weapon = InteractiveSeven.Core.FinalFantasy.Models.Weapon;
 
@@ -75,7 +76,7 @@ namespace Tseng.RunOnce
                 materias.Add(m);
             }
 
-            materias.Add(new Materia { Id = 255, Name = "Empty Slot", Type = MateriaType.None });
+            materias.Add(new Materia { Id = FF7Const.Empty, Name = "Empty Slot", Type = MateriaType.None });
 
             foreach (var wpn in elena.WeaponData.Weapons)
             {
