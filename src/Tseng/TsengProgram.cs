@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -74,10 +75,11 @@ namespace Tseng
             for (var index = 0; index < chars.Length; ++index)
             {
                 // Skip empty party
-                if (chars[index].Id == 0xFF) continue;
+                if (chars[index].Id == FF7Const.Empty) continue;
 
                 var chr = new Character
                 {
+                    Id = chars[index].Id,
                     MaxHp = chars[index].MaxHp,
                     MaxMp = chars[index].MaxMp,
                     CurrentHp = chars[index].CurrentHp,
@@ -119,6 +121,7 @@ namespace Tseng
                     .ToList();
                 effs.RemoveAll(x => new[] { "None", "Death" }.Contains(x));
                 chr.StatusEffects = effs.ToArray();
+                chr.StatusEffectsValue = effect;
                 _partyStatusViewModel.Party[index] = chr;
             }
 

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using Shojy.FF7.Elena;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using InteractiveSeven.Core.Battle;
+using Tseng.Constants;
 using Accessory = InteractiveSeven.Core.FinalFantasy.Models.Accessory;
 using Weapon = InteractiveSeven.Core.FinalFantasy.Models.Weapon;
 
@@ -75,14 +76,14 @@ namespace Tseng.RunOnce
                 materias.Add(m);
             }
 
-            materias.Add(new Materia { Id = 255, Name = "Empty Slot", Type = MateriaType.None });
+            materias.Add(new Materia { Id = FF7Const.Empty, Name = "Empty Slot", Type = MateriaType.None });
 
             foreach (var wpn in elena.WeaponData.Weapons)
             {
                 var w = new Weapon
                 {
                     Name = wpn.Name,
-                    Id = wpn.Index,
+                    Id = (ushort)wpn.Index,
                     Growth = (int)wpn.GrowthRate,
                     LinkedSlots = wpn.MateriaSlots.Count(slot =>
                         slot == MateriaSlot.EmptyLeftLinkedSlot
@@ -141,7 +142,7 @@ namespace Tseng.RunOnce
             {
                 armlets.Add(new Armlet
                 {
-                    Id = arm.Index,
+                    Id = (ushort)arm.Index,
                     Name = arm.Name,
                     Growth = (int)arm.GrowthRate,
                     LinkedSlots = arm.MateriaSlots.Count(slot =>
@@ -159,7 +160,7 @@ namespace Tseng.RunOnce
             {
                 accessories.Add(new Accessory
                 {
-                    Id = acc.Index,
+                    Id = (ushort)acc.Index,
                     Name = acc.Name,
                     StatusDefense = (StatusEffects)acc.StatusDefense,
                 });

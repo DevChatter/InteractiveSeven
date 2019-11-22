@@ -31,23 +31,26 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
         private static extern Int32 CloseHandle(IntPtr hProcess);
 
 
-        public void ReadMem(string processName, IntPtr address, byte[] buffer)
+        public bool ReadMem(string processName, IntPtr address, byte[] buffer)
         {
             try
             {
                 Process process = Process.GetProcessesByName(processName).FirstOrDefault();
-                if (process == null) return;
+                if (process == null) return false;
 
                 IntPtr processHandle = OpenProcess(PROCESS_WM_READ, false, process.Id);
 
                 ReadProcessMemory(processHandle, address, buffer, buffer.Length, out int _);
 
                 CloseHandle(processHandle);
+                return true;
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Failed to Read Game Memory");
             }
+
+            return false;
         }
 
         public ScanResult ScanMem(string processName, IntPtr startAddr,

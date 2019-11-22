@@ -1,12 +1,13 @@
 ﻿using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Collections.Generic;
 using System.Linq;
-using Tseng.GameData;
+using Tseng.Constants;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -14,9 +15,8 @@ namespace InteractiveSeven.Twitch.Commands
     public class StatusEffectCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
-        private readonly IGameInfoAccessor _gameInfoAccessor;
+        private readonly PartyStatusViewModel _partyStatus;
         private readonly IStatusAccessor _statusAccessor;
-        private readonly GameDatabase _gameDatabase;
         private readonly PaymentProcessor _paymentProcessor;
 
         private static string[] AllWords(CommandSettings settings)
@@ -24,22 +24,21 @@ namespace InteractiveSeven.Twitch.Commands
                 .SelectMany(effect => effect.Words)
                 .ToArray();
 
-        public StatusEffectCommand(ITwitchClient twitchClient, IGameInfoAccessor gameInfoAccessor,
-            IStatusAccessor statusAccessor, GameDatabase gameDatabase, PaymentProcessor paymentProcessor)
+        public StatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
-            _gameInfoAccessor = gameInfoAccessor;
+            _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
-            _gameDatabase = gameDatabase;
             _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
         {
             var statusSettings = Settings.BattleSettings.ByWord(commandData.CommandText);
-            List<Allies> targets = Allies.ByWord(commandData.Arguments.FirstOrDefault());
-            if (statusSettings == null || !targets.Any())
+            List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
+            if (statusSettings == null || !targeted.Any())
             {
                 _twitchClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !psn top");
                 return;
@@ -51,37 +50,34 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            FF7SaveMap gameInfo = _gameInfoAccessor.GetGameInfoMap();
+            var targets = CheckTargetValidity(targeted, _partyStatus.Party, statusSettings.Effect);
 
-            var existingTargets = targets.Where(x => gameInfo.LiveParty[x.Index].Id != 255).ToList();
-
-            var (validTargets, invalidTargets) = CheckTargetValidity(
-                existingTargets,
-                gameInfo.LiveParty,
-                statusSettings.Effect);
-
-            if (CouldNotAfford(validTargets.Count, statusSettings, commandData))
+            if (CouldNotAfford(targets.valid.Count, statusSettings, commandData))
             {
                 return;
             }
 
-            foreach (Allies invalidTarget in invalidTargets)
+            foreach (Allies invalidTarget in targets.safeFrom)
             {
                 string message = $"Can't apply {statusSettings.Name} to {invalidTarget.Words.First()}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
-            foreach (Allies target in validTargets)
+            foreach (Allies invalidTarget in targets.hasEffect)
+            {
+                string message = $"{statusSettings.Name} already affects {invalidTarget.Words.First()}.";
+                _twitchClient.SendMessage(commandData.Channel, message);
+            }
+
+            foreach (Allies target in targets.valid)
             {
                 _statusAccessor.SetActorStatus(target, statusSettings.Effect);
-
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Applied {commandData.CommandText} to {target.Words.First()}.");
             }
         }
 
-        private bool CouldNotAfford(in int targetCount,
-            StatusEffectSettings statusSettings,
+        private bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings, 
             CommandData commandData)
         {
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
@@ -90,22 +86,24 @@ namespace InteractiveSeven.Twitch.Commands
             return !gilTransaction.Paid;
         }
 
-        private (List<Allies> valid, List<Allies> invalid)
-            CheckTargetValidity(List<Allies> targets, CharacterRecord[] charRecords, StatusEffects effect)
+        private (List<Allies> valid, List<Allies> safeFrom, List<Allies> hasEffect) CheckTargetValidity(
+            IEnumerable<Allies> targets, Character[] charRecords, StatusEffects effect)
         {
             var valid = new List<Allies>();
-            var invalid = new List<Allies>();
+            var safeFrom = new List<Allies>();
+            var hasEffect = new List<Allies>();
 
-            foreach (Allies target in targets)
+            foreach (Allies target in targets.Where(x => _partyStatus.Party[x.Index].Id != FF7Const.Empty))
             {
-                CharacterRecord characterRecord = charRecords[target.Index];
+                Character characterRecord = charRecords[target.Index];
 
-                var accessory = _gameDatabase.AccessoryDatabase
-                    .SingleOrDefault(x => x.Id == characterRecord.Accessory);
-
-                if (accessory != null && accessory.ProtectsFrom(effect))
+                if (characterRecord.Accessory?.ProtectsFrom(effect) ?? false)
                 {
-                    invalid.Add(target);
+                    safeFrom.Add(target);
+                }
+                else if ((characterRecord.StatusEffectsValue & effect) > 0)
+                {
+                    hasEffect.Add(target);
                 }
                 else
                 {
@@ -113,7 +111,7 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
 
-            return (valid, invalid);
+            return (valid, safeFrom, hasEffect);
         }
     }
 }

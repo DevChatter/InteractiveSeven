@@ -1,7 +1,10 @@
-﻿namespace InteractiveSeven.Core.FinalFantasy.Models
+﻿using InteractiveSeven.Core.Battle;
+
+namespace InteractiveSeven.Core.FinalFantasy.Models
 {
     public class Character
     {
+        public byte Id { get; set; }
         public string Name { get; set; }
         public string Face { get; set; }
         public int MaxHp { get; set; }
@@ -17,5 +20,6 @@
         public bool BackRow { get; set; }
         public string Status { get; set; } = "";
         public string[] StatusEffects { get; set; } = new string[0];
+        public StatusEffects StatusEffectsValue { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tseng.Constants;
 
 namespace InteractiveSeven.Core.FinalFantasy
 {
@@ -200,7 +201,7 @@ namespace InteractiveSeven.Core.FinalFantasy
                     break;
                 }
             }
-            return new string(chars.TakeWhile(x => x != (char)255).ToArray());
+            return new string(chars.TakeWhile(x => x != (char)FF7Const.Empty).ToArray());
         }
 
         public static byte[] MapStringToFf7Bytes(this string text)
@@ -216,7 +217,7 @@ namespace InteractiveSeven.Core.FinalFantasy
             }
             for (int i = charCount; i < ByteCount; i++)
             {
-                bytes[i] = 255;
+                bytes[i] = FF7Const.Empty;
             }
             return bytes;
         }

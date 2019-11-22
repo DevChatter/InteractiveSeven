@@ -79,17 +79,17 @@ namespace Tseng.GameData
                 var resultArray = new CharacterRecord[3];
                 if (FillChar(_map[SaveMapOffsets.PartyMember1], ref resultArray[0], _map) == false)
                 {
-                    resultArray[0] = new CharacterRecord { Id = 0xFF };
+                    resultArray[0] = new CharacterRecord { Id = FF7Const.Empty };
                 }
 
                 if (FillChar(_map[SaveMapOffsets.PartyMember2], ref resultArray[1], _map) == false)
                 {
-                    resultArray[1] = new CharacterRecord { Id = 0xFF };
+                    resultArray[1] = new CharacterRecord { Id = FF7Const.Empty };
                 }
 
                 if (FillChar(_map[SaveMapOffsets.PartyMember3], ref resultArray[2], _map) == false)
                 {
-                    resultArray[2] = new CharacterRecord { Id = 0xFF };
+                    resultArray[2] = new CharacterRecord { Id = FF7Const.Empty };
                 }
 
                 return resultArray;
@@ -176,7 +176,7 @@ namespace Tseng.GameData
             var consistencyCheck = true;
             try
             {
-                if (map[0x4FB] != 0xFF)
+                if (map[0x4FB] != FF7Const.Empty)
                     consistencyCheck = false;
                 if (map[0xB98] != 0x0)
                     consistencyCheck = false;
@@ -233,7 +233,7 @@ namespace Tseng.GameData
             characterRecord.Armor = map[offset + SaveMapCharacterOffsets.EquipedArmor];
             characterRecord.Accessory = map[offset + SaveMapCharacterOffsets.EquipedAccessory];
             characterRecord.Flags = map[offset + SaveMapCharacterOffsets.StatusFlags];
-            characterRecord.AtFront = map[offset + SaveMapCharacterOffsets.Row] == 0xFF;
+            characterRecord.AtFront = map[offset + SaveMapCharacterOffsets.Row] == FF7Const.Empty;
             characterRecord.LevelProgress = map[offset + 0x21];
             characterRecord.LimitMask = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.LimitBreaks);
             characterRecord.Kills = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.NumberOfKills);
