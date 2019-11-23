@@ -745,7 +745,7 @@
                                             </StackPanel>
                                         </TabItem.Header>
                                         <ScrollViewer>
-                                            <Label Content="Placeholder" />
+                                            <Label Content="Mod Only - settings and non-mod use coming soon." />
                                         </ScrollViewer>
                                     </TabItem>
                                 </TabControl>
