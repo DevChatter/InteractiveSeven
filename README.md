@@ -14,6 +14,12 @@ Thanks for your interest in helping Interactive Seven improve! Here are some way
 - Make [Feature Suggestions](https://github.com/DevChatter/InteractiveSeven/issues)
 - Fork this repository and send a Pull Request
 
+## Using Interactive Seven
+
+Start up the I7 Program and navigate to the settings tab. Once there, you'll want to choose the Twitch Settings tab. Add your Twitch credentials. Once added, be sure to Save Settings.
+
+Now you can connect to Twitch. Once connected, you can use any commands that are enabled in the settings. Be sure to check the [I7 User Guide](docs/UserGuide.md) for some basic command instructions.
+
 ## Contributors
 
 - Brendan Enrick ([DevChatter](https://www.Twitch.tv/DevChatter)) - Started Interactive Seven (FF7 Interaction)
