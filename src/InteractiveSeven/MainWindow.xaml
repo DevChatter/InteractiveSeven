@@ -641,53 +641,115 @@
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
-                                <DockPanel>
 
-                                    <!--<ItemsControl IsEnabled="{Binding Enabled}"
-                                              DockPanel.Dock="Bottom" Margin="5,5,0,5"
-                                              ItemsSource="{Binding AllWeapons}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <lc:EquippableSettingsUc DataContext="{Binding}" Margin="2" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>-->
+                                <TabControl>
+                                    <TabItem>
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="General" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <Grid Margin="5,5,0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
 
+                                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                                <Label Grid.Row="0" Grid.Column="1" Content="Enable Equipment Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <Grid Margin="5,5,0,5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                                <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                                <Label Grid.Row="1" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
 
-                                        <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                        <Label Grid.Row="0" Grid.Column="1" Content="Enable Equipment Commands" FontSize="12" Margin="5,0,0,0"/>
+                                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
+                                                <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
 
-                                        <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
-                                        <Label Grid.Row="1" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
+                                                <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
+                                                <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </TabItem>
 
-                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
-                                        <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
+                                    <TabItem DataContext="{Binding AllWeapons}">
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Weapons" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
+                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
+                                                    <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+                                    </TabItem>
 
-                                        <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                              IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
-                                        <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
-                                    </Grid>
-                                </DockPanel>
+                                    <TabItem DataContext="{Binding AllArmlets}">
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Armlets" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
+                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
+                                                    <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+                                    </TabItem>
+
+                                    <TabItem DataContext="{Binding AllAccessories}">
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Accessories" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
+                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
+                                                    <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+                                    </TabItem>
+
+                                    <TabItem>
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Items" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <Label Content="Mod Only - settings and non-mod use coming soon." />
+                                        </ScrollViewer>
+                                    </TabItem>
+                                </TabControl>
+
                             </ScrollViewer>
                         </TabItem>
 

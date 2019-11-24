@@ -5,9 +5,9 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logowork_X8u_icon.ico</ApplicationIcon>
-    <AssemblyVersion>0.7.0.0</AssemblyVersion>
-    <FileVersion>0.7.0.0</FileVersion>
-    <Version>0.7.0</Version>
+    <AssemblyVersion>0.7.1.0</AssemblyVersion>
+    <FileVersion>0.7.1.0</FileVersion>
+    <Version>0.7.1</Version>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
@@ -17,6 +17,11 @@
     <None Remove="Assets\BecomePatron.png" />
     <None Remove="Assets\FontAwesome5_Free-Solid-900.otf" />
     <None Remove="Controls\EquippableSettingsUc.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TrimmerRootAssembly Include="System.Text.Json" />
+    <TrimmerRootAssembly Include="System.Xml.Linq" />
   </ItemGroup>
 
   <ItemGroup>
