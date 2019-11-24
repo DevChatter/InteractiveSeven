@@ -28,13 +28,16 @@ namespace Tseng
         private readonly GameDatabase _gameDatabase;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<TsengProgram> _logger;
+        private readonly NativeMemoryReader _memoryReader;
 
         public TsengProgram(PartyStatusViewModel partyStatusViewModel,
             ProcessConnector processConnector,
             GameDatabase gameDatabase,
+            NativeMemoryReader memoryReader,
             IStatusHubEmitter statusHubEmitter,
             ILogger<TsengProgram> logger)
         {
+            _memoryReader = memoryReader;
             _partyStatusViewModel = partyStatusViewModel;
             _processConnector = processConnector;
             _gameDatabase = gameDatabase;
@@ -46,7 +49,6 @@ namespace Tseng
 
         private FF7BattleMap BattleMap { get; set; }
         private Process FF7 => _processConnector.FF7Process;
-        private NativeMemoryReader MemoryReader { get; set; }
         private FF7SaveMap SaveMap { get; set; }
         private Timer Timer { get; set; }
         private ApplicationSettings Settings => ApplicationSettings.Instance;
@@ -142,8 +144,6 @@ namespace Tseng
                 var ff7Folder = Path.GetDirectoryName(ff7Exe);
                 AssetExtractor.ExtractAssets(ff7Folder, missingAssets);
             }
-
-            StartMonitoringGame();
         }
 
         #endregion Public Methods
@@ -153,17 +153,9 @@ namespace Tseng
         private void SearchForProcess()
         {
             _logger.LogInformation("Searching for FF7 Process...");
-            if (Timer is null)
+            if (Timer is null || FF7 is null || FF7.HasExited)
             {
-                Timer = new Timer(300);
-                Timer.Elapsed += Timer_Elapsed;
-                Timer.AutoReset = true;
-
-                Timer.Start();
-            }
-            lock (Timer) // TODO: Find out why we are locking here?
-            {
-                if (null != Timer)
+                if (Timer != null)
                 {
                     Timer.Enabled = false;
                 }
@@ -174,13 +166,13 @@ namespace Tseng
                     Thread.Sleep(2000);
                 }
 
-                MemoryReader = new NativeMemoryReader(FF7);
                 _logger.LogInformation($"Located FF7 process {FF7.ProcessName}");
-                if (null != Timer)
+                if (Timer != null)
                 {
                     Timer.Enabled = true;
                 }
             }
+            StartMonitoringGame();
         }
 
         private void StartMonitoringGame()
@@ -204,25 +196,37 @@ namespace Tseng
         {
             try
             {
-                var saveMapByteData = MemoryReader.ReadMemory(Addresses.SaveMapStart);
-                var isBattle = MemoryReader.ReadMemory(Addresses.ActiveBattleState).First();
-                var battleMapByteData = MemoryReader.ReadMemory(Addresses.BattleMapStart);
-                var colors = MemoryReader.ReadMemory(Addresses.MenuColorAll);
+                if (FF7?.HasExited ?? true)
+                {
+                    return;
+                }
+
+                var saveMapByteData = _memoryReader.ReadMemory(Addresses.SaveMapStart);
+                byte isBattle = _memoryReader.ReadMemory(Addresses.ActiveBattleState)?.First() ?? 0;
+                var battleMapByteData = _memoryReader.ReadMemory(Addresses.BattleMapStart);
+                var colors = _memoryReader.ReadMemory(Addresses.MenuColorAll);
+
+                if (saveMapByteData is null)
+                {
+                    return;
+                }
 
                 SaveMap = new FF7SaveMap(saveMapByteData);
                 BattleMap = new FF7BattleMap(battleMapByteData, isBattle);
 
-                SaveMap.WindowColorTopLeft = $"{colors[0x2]:X2}{colors[0x1]:X2}{colors[0x0]:X2}";
-                SaveMap.WindowColorBottomLeft = $"{colors[0x6]:X2}{colors[0x5]:X2}{colors[0x4]:X2}";
-                SaveMap.WindowColorTopRight = $"{colors[0xA]:X2}{colors[0x9]:X2}{colors[0x8]:X2}";
-                SaveMap.WindowColorBottomRight = $"{colors[0xE]:X2}{colors[0xD]:X2}{colors[0xC]:X2}";
+                if (colors != null)
+                {
+                    SaveMap.WindowColorTopLeft = $"{colors[0x2]:X2}{colors[0x1]:X2}{colors[0x0]:X2}";
+                    SaveMap.WindowColorBottomLeft = $"{colors[0x6]:X2}{colors[0x5]:X2}{colors[0x4]:X2}";
+                    SaveMap.WindowColorTopRight = $"{colors[0xA]:X2}{colors[0x9]:X2}{colors[0x8]:X2}";
+                    SaveMap.WindowColorBottomRight = $"{colors[0xE]:X2}{colors[0xD]:X2}{colors[0xC]:X2}";
+                }
 
                 UpdateStatusFromMap(SaveMap, BattleMap);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Updating Tseng Info");
-                SearchForProcess();
             }
         }
 

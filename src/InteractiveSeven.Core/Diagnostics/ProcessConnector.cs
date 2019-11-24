@@ -18,7 +18,6 @@ namespace InteractiveSeven.Core.Diagnostics
 
         private string ProcessName => ApplicationSettings.Instance.ProcessName;
 
-
         private Process _ff7Process;
         public Process FF7Process
         {
@@ -26,11 +25,14 @@ namespace InteractiveSeven.Core.Diagnostics
             {
                 try
                 {
-                    if (_ff7Process is null)
+                    if (_ff7Process is null || _ff7Process.HasExited)
                     {
                         lock (_padlock)
                         {
-                            _ff7Process ??= GetProcess();
+                            if (_ff7Process is null || _ff7Process.HasExited)
+                            {
+                                _ff7Process = GetProcess();
+                            }
                         }
                     }
 

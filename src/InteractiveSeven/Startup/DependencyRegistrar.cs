@@ -23,6 +23,7 @@ using InteractiveSeven.Commands;
 using InteractiveSeven.Core.MvvmCommands;
 using Tseng;
 using Tseng.GameData;
+using Tseng.lib;
 using Tseng.RunOnce;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
@@ -52,6 +53,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<NativeMemoryReader>();
             services.AddSingleton<IGameMomentAccessor, GameMomentAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<IGilAccessor, GilAccessor>();
