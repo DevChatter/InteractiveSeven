@@ -1,9 +1,7 @@
-﻿using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
-using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -13,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
-using Tseng.Constants;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -59,74 +56,7 @@ namespace Tseng
 
         public void UpdateStatusFromMap(FF7SaveMap map, FF7BattleMap battleMap)
         {
-            var t = TimeSpan.FromSeconds(map.LiveTotalSeconds).ToString("hh\\:mm\\:ss");
-
-            _partyStatusViewModel.Gil = map.LiveGil;
-            _partyStatusViewModel.Location = map.LiveMapName;
-            _partyStatusViewModel.Party = new Character[3];
-            _partyStatusViewModel.ActiveBattle = battleMap.IsActiveBattle;
-            _partyStatusViewModel.ColorTopLeft = map.WindowColorTopLeft;
-            _partyStatusViewModel.ColorBottomLeft = map.WindowColorBottomLeft;
-            _partyStatusViewModel.ColorBottomRight = map.WindowColorBottomRight;
-            _partyStatusViewModel.ColorTopRight = map.WindowColorTopRight;
-            _partyStatusViewModel.TimeActive = t;
-            var party = battleMap.Party;
-
-            var chars = map.LiveParty;
-
-            for (var index = 0; index < chars.Length; ++index)
-            {
-                // Skip empty party
-                if (chars[index].Id == FF7Const.Empty) continue;
-
-                var chr = new Character
-                {
-                    Id = chars[index].Id,
-                    MaxHp = chars[index].MaxHp,
-                    MaxMp = chars[index].MaxMp,
-                    CurrentHp = chars[index].CurrentHp,
-                    CurrentMp = chars[index].CurrentMp,
-                    Name = chars[index].Name,
-                    Level = chars[index].Level,
-                    Weapon = _gameDatabase.WeaponDatabase.FirstOrDefault(w => w.Id == chars[index].Weapon),
-                    Armlet = _gameDatabase.ArmletDatabase.FirstOrDefault(a => a.Id == chars[index].Armor),
-                    Accessory = _gameDatabase.AccessoryDatabase.FirstOrDefault(a => a.Id == chars[index].Accessory),
-                    WeaponMateria = new Materia[8],
-                    ArmletMateria = new Materia[8],
-                    Face = chars[index].DefaultName.SanitizedDefaultName,
-                    BackRow = !chars[index].AtFront,
-                };
-                for (var m = 0; m < chars[index].WeaponMateria.Length; ++m)
-                {
-                    chr.WeaponMateria[m] = _gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].WeaponMateria[m]);
-                }
-                for (var m = 0; m < chars[index].ArmorMateria.Length; ++m)
-                {
-                    chr.ArmletMateria[m] = _gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == chars[index].ArmorMateria[m]);
-                }
-
-                var effect = (StatusEffects)chars[index].Flags;
-
-                if (battleMap.IsActiveBattle)
-                {
-                    chr.CurrentHp = party[index].CurrentHp;
-                    chr.MaxHp = party[index].MaxHp;
-                    chr.CurrentMp = party[index].CurrentMp;
-                    chr.MaxMp = party[index].MaxMp;
-                    chr.Level = party[index].Level;
-                    effect = party[index].Status;
-                    chr.BackRow = party[index].IsBackRow;
-                }
-
-                var effs = effect.ToString()
-                    .Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
-                    .ToList();
-                effs.RemoveAll(x => new[] { "None", "Death" }.Contains(x));
-                chr.StatusEffects = effs.ToArray();
-                chr.StatusEffectsValue = effect;
-                _partyStatusViewModel.Party[index] = chr;
-            }
-
+            _partyStatusViewModel.UpdateStatusFromMap(map, battleMap, _gameDatabase);
             _statusHubEmitter.ShowNewPartyStatus(_partyStatusViewModel);
         }
 
