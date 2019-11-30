@@ -42,17 +42,11 @@ namespace Tseng
             _logger = logger;
         }
 
-        #region Private Properties
-
         private FF7BattleMap BattleMap { get; set; }
         private Process FF7 => _processConnector.FF7Process;
         private FF7SaveMap SaveMap { get; set; }
         private Timer Timer { get; set; }
         private ApplicationSettings Settings => ApplicationSettings.Instance;
-
-        #endregion Private Properties
-
-        #region Public Methods
 
         public void UpdateStatusFromMap(FF7SaveMap map, FF7BattleMap battleMap)
         {
@@ -75,10 +69,6 @@ namespace Tseng
                 AssetExtractor.ExtractAssets(ff7Folder, missingAssets);
             }
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private void SearchForProcess()
         {
@@ -151,7 +141,5 @@ namespace Tseng
                 _logger.LogError(ex, "Error Updating Tseng Info");
             }
         }
-
-        #endregion Private Methods
     }
 }
