@@ -21,21 +21,21 @@ using Timer = System.Timers.Timer;
 
 namespace Tseng
 {
-    public class TsengProgram
+    public class TsengMonitor
     {
         private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly ProcessConnector _processConnector;
         private readonly GameDatabase _gameDatabase;
         private readonly IStatusHubEmitter _statusHubEmitter;
-        private readonly ILogger<TsengProgram> _logger;
+        private readonly ILogger<TsengMonitor> _logger;
         private readonly NativeMemoryReader _memoryReader;
 
-        public TsengProgram(PartyStatusViewModel partyStatusViewModel,
+        public TsengMonitor(PartyStatusViewModel partyStatusViewModel,
             ProcessConnector processConnector,
             GameDatabase gameDatabase,
             NativeMemoryReader memoryReader,
             IStatusHubEmitter statusHubEmitter,
-            ILogger<TsengProgram> logger)
+            ILogger<TsengMonitor> logger)
         {
             _memoryReader = memoryReader;
             _partyStatusViewModel = partyStatusViewModel;
@@ -152,7 +152,7 @@ namespace Tseng
 
         private void SearchForProcess()
         {
-            _logger.LogInformation("Searching for FF7 Process...");
+            _logger.LogInformation("Checking for FF7 Process...");
             if (Timer is null || FF7 is null || FF7.HasExited)
             {
                 if (Timer != null)

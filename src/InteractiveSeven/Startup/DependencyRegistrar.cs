@@ -96,7 +96,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GameDatabase>();
             services.AddSingleton<FF7BattleMap>();
             services.AddSingleton<ProcessConnector>();
-            services.AddSingleton<TsengProgram>();
+            services.AddSingleton<TsengMonitor>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
 
