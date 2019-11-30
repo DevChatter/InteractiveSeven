@@ -141,16 +141,8 @@ namespace Tseng
                     return;
                 }
 
-                SaveMap = new FF7SaveMap(saveMapByteData);
+                SaveMap = new FF7SaveMap(saveMapByteData, colors);
                 BattleMap = new FF7BattleMap(battleMapByteData, isBattle);
-
-                if (colors != null)
-                {
-                    SaveMap.WindowColorTopLeft = $"{colors[0x2]:X2}{colors[0x1]:X2}{colors[0x0]:X2}";
-                    SaveMap.WindowColorBottomLeft = $"{colors[0x6]:X2}{colors[0x5]:X2}{colors[0x4]:X2}";
-                    SaveMap.WindowColorTopRight = $"{colors[0xA]:X2}{colors[0x9]:X2}{colors[0x8]:X2}";
-                    SaveMap.WindowColorBottomRight = $"{colors[0xE]:X2}{colors[0xD]:X2}{colors[0xC]:X2}";
-                }
 
                 UpdateStatusFromMap(SaveMap, BattleMap);
             }
