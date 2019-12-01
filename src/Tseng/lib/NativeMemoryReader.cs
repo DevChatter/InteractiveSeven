@@ -1,5 +1,8 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using InteractiveSeven.Core.Diagnostics;
+using InteractiveSeven.Core.Diagnostics.Memory;
+using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -7,57 +10,32 @@ namespace Tseng.lib
 {
     public class NativeMemoryReader : IDisposable
     {
-        #region Private Fields
-
-        private const uint ProcessQueryInformation = 1024;
-
-        private const uint ProcessVmRead = 16;
-
+        private readonly ProcessConnector _processConnector;
+        private readonly ILogger<NativeMemoryReader> _logger;
+        private const int ProcessAllAccess = 0x1F0FFF;
         private bool _disposedValue;
 
-        #endregion Private Fields
-
-        #region Public Constructors
-
-        /// <summary>
-        /// Creates a new instance of the NativeMemoryReader class and attempts to get a handle to the
-        /// process that is to be read by calls to the ReadMemory method.
-        /// If a handle cannot be obtained then an exception is thrown
-        /// </summary>
-        /// <param name="processToRead">The process that memory will be read from</param>
-        public NativeMemoryReader(Process processToRead)
+        public NativeMemoryReader(ProcessConnector processConnector, ILogger<NativeMemoryReader> logger)
         {
-            TargetProcess = processToRead ?? throw new ArgumentNullException(nameof(processToRead));
-            this.Open();
+            _processConnector = processConnector;
+            _logger = logger;
         }
-
-        #endregion Public Constructors
-
-        #region Private Destructors
 
         ~NativeMemoryReader()
         {
             Dispose(false);
         }
 
-        #endregion Private Destructors
-
-        #region Public Properties
-
         /// <summary>
         /// The process that memory will be read from when ReadMemory is called
         /// </summary>
-        public Process TargetProcess { get; } = null;
+        public Process TargetProcess { get; private set; } = null;
 
         /// <summary>
         /// The handle to the process that was retrieved during the constructor or the last
         /// successful call to the Open method
         /// </summary>
         public IntPtr TargetProcessHandle { get; private set; } = IntPtr.Zero;
-
-        #endregion Public Properties
-
-        #region Public Methods
 
         /// <summary>
         /// Closes a handle that was previously obtained by the constructor or a call to the Open method
@@ -68,7 +46,7 @@ namespace Tseng.lib
             {
                 var result = CloseHandle(TargetProcessHandle);
                 if (!result)
-                    throw new ApplicationException("Unable to close process handle. The last error reported was: " + new System.ComponentModel.Win32Exception().Message);
+                    throw new ApplicationException("Unable to close process handle. The last error reported was: " + new Win32Exception().Message);
                 TargetProcessHandle = IntPtr.Zero;
             }
         }
@@ -83,27 +61,6 @@ namespace Tseng.lib
         }
 
         /// <summary>
-        /// Gets a handle to the process specified in the TargetProcess property.
-        /// A handle is automatically obtained by the constructor of this class but if the Close
-        /// method has been called to close a previously obtained handle then another handle can
-        /// be obtained by calling this method. If a handle has previously been obtained and Close has
-        /// not been called yet then an exception will be thrown.
-        /// </summary>
-        public void Open()
-        {
-            if (TargetProcess == null)
-                throw new ApplicationException("Process not found");
-            if (TargetProcessHandle == IntPtr.Zero)
-            {
-                TargetProcessHandle = OpenProcess(ProcessVmRead | ProcessQueryInformation, true, System.Convert.ToUInt32(TargetProcess.Id));
-                if (TargetProcessHandle == IntPtr.Zero)
-                    throw new ApplicationException("Unable to open process for memory reading. The last error reported was: " + new System.ComponentModel.Win32Exception().Message);
-            }
-            else
-                throw new ApplicationException("A handle to the process has already been obtained, " + "close the existing handle by calling the Close method before calling Open again");
-        }
-
-        /// <summary>
         /// Reads the specified number of bytes from an address in the process's memory.
         /// All memory in the specified range must be available or the method will fail.
         /// Returns Nothing if the method fails for any reason
@@ -111,55 +68,52 @@ namespace Tseng.lib
         /// <param name="memoryLocation">The address in the process's virtual memory to start reading from and the number of bytes to read</param>
         public byte[] ReadMemory(MemLoc memoryLocation)
         {
-            if (TargetProcessHandle == IntPtr.Zero)
-                this.Open();
-            var bytes = new byte[memoryLocation.NumBytes + 1];
-            var result = ReadProcessMemory(TargetProcessHandle, memoryLocation.Address, bytes, System.Convert.ToUInt32(memoryLocation.NumBytes), 0);
-            return result ? bytes : null;
+            if (ConfirmProcessConnection())
+            {
+                var bytes = new byte[memoryLocation.NumBytes + 1];
+                var result = ReadProcessMemory(TargetProcessHandle, memoryLocation.Address, bytes, Convert.ToUInt32(memoryLocation.NumBytes), 0);
+                return result ? bytes : null;
+            }
+
+            return null; // TODO: what to do when not connecting?
         }
 
-        /// <summary>
-        /// Reads the specified number of bytes from an address in the process's memory.
-        /// All memory in the specified range must be available or the method will fail.
-        /// Returns Nothing if the method fails for any reason
-        /// </summary>
-        /// <param name="memoryAddress">The address in the process's virtual memory to start reading from</param>
-        /// <param name="count">The number of bytes to read</param>
-        public byte[] ReadMemory(IntPtr memoryAddress, int count)
+        private bool ConfirmProcessConnection()
         {
-            if (TargetProcessHandle == IntPtr.Zero)
-                this.Open();
-            var bytes = new byte[count + 1];
-            var result = ReadProcessMemory(TargetProcessHandle, memoryAddress, bytes, System.Convert.ToUInt32(count), 0);
-            return result ? bytes : null;
+            try
+            {
+                if (TargetProcess == null || TargetProcess.HasExited || TargetProcessHandle == IntPtr.Zero)
+                {
+                    TargetProcess = _processConnector.FF7Process;
+                    TargetProcessHandle = OpenProcess(ProcessAllAccess, true, Convert.ToUInt32(TargetProcess.Id));
+                    if (TargetProcessHandle == IntPtr.Zero)
+                        throw new ApplicationException("Unable to open process. The last error reported was: " + new Win32Exception().Message);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error connecting to FF7 Process.");
+                return false;
+            }
         }
-
-        #endregion Public Methods
-
-        #region Protected Methods
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._disposedValue)
+            if (!_disposedValue && TargetProcessHandle != IntPtr.Zero)
             {
-                if (TargetProcessHandle != IntPtr.Zero)
+                try
                 {
-                    try
-                    {
-                        CloseHandle(TargetProcessHandle);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Error closing handle - " + ex.Message);
-                    }
+                    CloseHandle(TargetProcessHandle);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error closing process handle.");
                 }
             }
-            this._disposedValue = true;
+            _disposedValue = true;
         }
-
-        #endregion Protected Methods
-
-        #region Private Methods
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("kernel32.dll", EntryPoint = "CloseHandle", SetLastError = true)]
@@ -171,7 +125,5 @@ namespace Tseng.lib
         [DllImport("kernel32.dll", EntryPoint = "ReadProcessMemory", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool ReadProcessMemory([In] IntPtr hProcess, [In] IntPtr lpBaseAddress, [Out] byte[] lpBuffer, uint nSize, [Out] uint lpNumberOfBytesRead);
-
-        #endregion Private Methods
     }
 }

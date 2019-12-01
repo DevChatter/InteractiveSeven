@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.FinalFantasy;
 using Shojy.FF7.Elena.Extensions;
 using System;
+using InteractiveSeven.Core.Models;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -12,11 +13,13 @@ namespace Tseng.GameData
 
         private readonly byte[] _map;
 
+        private readonly byte[] _colors = MenuColors.Classic.GetDisplayBytes();
+
         #endregion Private Fields
 
         #region Public Constructors
 
-        public FF7SaveMap(byte[] map)
+        public FF7SaveMap(byte[] map, byte[] colors)
         {
             // Not much else to do here. Checking validity of the response won't be useful in a constructor since
             // we can't get "out" of it, though the caller of our constructor can check .IsValid
@@ -24,6 +27,7 @@ namespace Tseng.GameData
 
             IsValid = valid;
             _map = !valid ? null : map;
+            _colors = colors ?? _colors;
         }
 
         #endregion Public Constructors
@@ -156,10 +160,10 @@ namespace Tseng.GameData
             }
         }
 
-        public string WindowColorBottomLeft { get; set; }
-        public string WindowColorBottomRight { get; set; }
-        public string WindowColorTopLeft { get; set; }
-        public string WindowColorTopRight { get; set; }
+        public string WindowColorBottomLeft => $"{_colors[0x2]:X2}{_colors[0x1]:X2}{_colors[0x0]:X2}";
+        public string WindowColorBottomRight => $"{_colors[0x6]:X2}{_colors[0x5]:X2}{_colors[0x4]:X2}";
+        public string WindowColorTopLeft => $"{_colors[0xA]:X2}{_colors[0x9]:X2}{_colors[0x8]:X2}";
+        public string WindowColorTopRight => $"{_colors[0xE]:X2}{_colors[0xD]:X2}{_colors[0xC]:X2}";
 
         #endregion Public Properties
 

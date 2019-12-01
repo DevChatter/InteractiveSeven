@@ -23,6 +23,7 @@ using InteractiveSeven.Commands;
 using InteractiveSeven.Core.MvvmCommands;
 using Tseng;
 using Tseng.GameData;
+using Tseng.lib;
 using Tseng.RunOnce;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
@@ -52,13 +53,13 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<NativeMemoryReader>();
             services.AddSingleton<IGameMomentAccessor, GameMomentAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<IGilAccessor, GilAccessor>();
             services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
             services.AddSingleton<IMateriaAccessor, MateriaAccessor>();
             services.AddSingleton<IBattleInfoAccessor, BattleInfoAccessor>();
-            services.AddSingleton<IGameInfoAccessor, GameInfoAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
@@ -94,7 +95,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GameDatabase>();
             services.AddSingleton<FF7BattleMap>();
             services.AddSingleton<ProcessConnector>();
-            services.AddSingleton<TsengProgram>();
+            services.AddSingleton<TsengMonitor>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
 

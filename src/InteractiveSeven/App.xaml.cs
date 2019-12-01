@@ -24,7 +24,7 @@ namespace InteractiveSeven
         private WorkloadCoordinator _workloadCoordinator;
 
         private IWebHost _host;
-        private TsengProgram _tsengProgram;
+        private TsengMonitor _tsengMonitor;
         private ILogger<App> _logger;
 
         private static void InitializeSettings(ILogger logger)
@@ -63,10 +63,10 @@ namespace InteractiveSeven
 
                 _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
-                _tsengProgram = _host.Services.GetService<TsengProgram>();
+                _tsengMonitor = _host.Services.GetService<TsengMonitor>();
 
                 _logger.LogInformation("Starting Tseng Background Monitoring...");
-                Task.Run(() => _tsengProgram.Start()).RunInBackgroundSafely(false, LogTsengError);
+                Task.Run(() => _tsengMonitor.Start()).RunInBackgroundSafely(false, LogTsengError);
 
                 _logger.LogInformation("Showing App Main Window...");
                 _host.Services.GetRequiredService<MainWindow>().Show();
