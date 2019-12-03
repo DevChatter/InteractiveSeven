@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core.Battle;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveSeven.Core.Settings
@@ -7,6 +7,8 @@ namespace InteractiveSeven.Core.Settings
     public class BattleSettings : ObservableSettingsBase
     {
         private bool _allowStatusEffects = false;
+        private bool _allowEsunaCommand = true;
+        private int _esunaCost = 500;
         private bool _allowModOverride = true;
 
         public BattleSettings()
@@ -45,6 +47,26 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _allowStatusEffects = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AllowEsunaCommand
+        {
+            get => _allowEsunaCommand;
+            set
+            {
+                _allowEsunaCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int EsunaCost
+        {
+            get => _esunaCost;
+            set
+            {
+                _esunaCost = value;
                 OnPropertyChanged();
             }
         }

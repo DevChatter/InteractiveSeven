@@ -22,6 +22,29 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 
             status |= (int)statusEffect;
 
+            ApplyFullStatus(actor, status);
+        }
+
+        public void ClearNegativeStatuses(Allies actor)
+        {
+            StatusEffects negativeEffects = StatusEffects.Sleep | StatusEffects.Poison | StatusEffects.Sadness |
+                                            StatusEffects.Fury | StatusEffects.Confusion | StatusEffects.Silence |
+                                            StatusEffects.Frog | StatusEffects.Small | StatusEffects.Petrify |
+                                            StatusEffects.Berserk | StatusEffects.Paralyzed | StatusEffects.Darkness;
+            RemoveActorStatus(actor, negativeEffects);
+        }
+
+        public void RemoveActorStatus(Allies actor, StatusEffects statusEffect)
+        {
+            int status = GetTrueStatus(actor);
+
+            status &= (int)~statusEffect;
+
+            ApplyFullStatus(actor, status);
+        }
+
+        private void ApplyFullStatus(Allies actor, int status)
+        {
             const int manipStatus = 0b_00000000_1000000_00000000_00000000;
             if ((status & manipStatus) == manipStatus) // If have manip
             {
@@ -43,6 +66,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
                         break;
                     }
                 }
+
                 Thread.Sleep(100);
             }
         }

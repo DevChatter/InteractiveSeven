@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,6 +8,7 @@ namespace InteractiveSeven.Core.Settings
 {
     public class CommandSettings : ObservableSettingsBase
     {
+        private string[] _esunaCommandWords = { "Esuna", "Remedy" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
@@ -45,6 +45,8 @@ namespace InteractiveSeven.Core.Settings
         {
             AllWordSets = new List<(string, Func<string[]>)>
             {
+                (nameof(EsunaCommandWords),
+                    () => EsunaCommandWords),
                 (nameof(CostsCommandWords),
                     () => CostsCommandWords),
                 (nameof(BalanceCommandWords),
@@ -113,6 +115,16 @@ namespace InteractiveSeven.Core.Settings
             }
 
             return strings.ToArray();
+        }
+
+        public string[] EsunaCommandWords
+        {
+            get => _esunaCommandWords;
+            set
+            {
+                _esunaCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
         }
 
         public string[] CostsCommandWords

@@ -77,7 +77,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
         }
 
-        private bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings, 
+        protected bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings, 
             CommandData commandData)
         {
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
@@ -86,7 +86,7 @@ namespace InteractiveSeven.Twitch.Commands
             return !gilTransaction.Paid;
         }
 
-        private (List<Allies> valid, List<Allies> safeFrom, List<Allies> hasEffect) CheckTargetValidity(
+        protected (List<Allies> valid, List<Allies> safeFrom, List<Allies> hasEffect) CheckTargetValidity(
             IEnumerable<Allies> targets, Character[] charRecords, StatusEffects effect)
         {
             var valid = new List<Allies>();
