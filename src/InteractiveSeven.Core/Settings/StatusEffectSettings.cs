@@ -59,7 +59,7 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private int _cureCost = 100;
-        public int CureCost
+        public int CureCost // TODO: Add to the Settings View
         {
             get => _cureCost;
             set

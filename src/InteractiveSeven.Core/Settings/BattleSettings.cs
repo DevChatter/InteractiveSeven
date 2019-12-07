@@ -51,7 +51,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool AllowEsunaCommand
+        public bool AllowEsunaCommand  // TODO: Add to the Settings View
         {
             get => _allowEsunaCommand;
             set
@@ -61,7 +61,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public int EsunaCost
+        public int EsunaCost  // TODO: Add to the Settings View
         {
             get => _esunaCost;
             set
