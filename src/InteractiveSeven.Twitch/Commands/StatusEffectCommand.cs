@@ -92,7 +92,11 @@ namespace InteractiveSeven.Twitch.Commands
                 {
                     safeFrom.Add(target);
                 }
-                else if ((characterRecord.StatusEffectsValue & effect) > 0)
+                else if (IsInPyramid(characterRecord))
+                {
+                    safeFrom.Add(target);
+                }
+                else if (characterRecord.HasStatus(effect))
                 {
                     hasEffect.Add(target);
                 }
@@ -103,6 +107,11 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             return (valid, safeFrom, hasEffect);
+        }
+
+        private static bool IsInPyramid(Character characterRecord)
+        {
+            return characterRecord.HasStatus(StatusEffects.Imprisoned);
         }
     }
 }

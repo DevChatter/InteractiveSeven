@@ -55,5 +55,7 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
 
             return character;
         }
+
+        public bool HasStatus(StatusEffects status) => (StatusEffectsValue & status) > 0;
     }
 }
