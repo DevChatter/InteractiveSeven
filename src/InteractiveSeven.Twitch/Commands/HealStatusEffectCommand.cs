@@ -70,7 +70,7 @@ namespace InteractiveSeven.Twitch.Commands
             CommandData commandData)
         {
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, statusSettings.Cost * targetCount, Settings.BattleSettings.AllowModOverride);
+                commandData, statusSettings.CureCost * targetCount, Settings.BattleSettings.AllowModOverride);
 
             return !gilTransaction.Paid;
         }

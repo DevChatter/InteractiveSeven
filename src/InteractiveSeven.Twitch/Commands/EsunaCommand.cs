@@ -49,7 +49,6 @@ namespace InteractiveSeven.Twitch.Commands
                 _twitchClient.SendMessage(commandData.Channel,
                     $"Removed Negative Effects from {target.Words.First()}.");
             }
-
         }
 
         protected bool CouldNotAfford(in int targetCount, CommandData commandData)

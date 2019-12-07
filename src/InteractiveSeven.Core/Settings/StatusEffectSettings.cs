@@ -15,13 +15,14 @@ namespace InteractiveSeven.Core.Settings
         {
         }
 
-        public StatusEffectSettings(string name, StatusEffects effect, bool enabled, int cost, params string[] words)
+        public StatusEffectSettings(string name, StatusEffects effect, bool enabled, int cost, int cureCost, params string[] words)
         {
             Name = name;
             Effect = effect;
             _words = words ?? new string[0];
             _enabled = enabled;
             _cost = cost;
+            _cureCost = cureCost;
         }
 
         private string[] _words;
@@ -53,6 +54,17 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _cost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _cureCost = 100;
+        public int CureCost
+        {
+            get => _cureCost;
+            set
+            {
+                _cureCost = value;
                 OnPropertyChanged();
             }
         }
