@@ -9,6 +9,7 @@ namespace InteractiveSeven.Core.Settings
     public class CommandSettings : ObservableSettingsBase
     {
         private string[] _esunaCommandWords = { "Esuna", "Remedy" };
+        private string[] _healCommandWords = { "Heal", "Cure" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
@@ -47,6 +48,8 @@ namespace InteractiveSeven.Core.Settings
             {
                 (nameof(EsunaCommandWords),
                     () => EsunaCommandWords),
+                (nameof(HealCommandWords),
+                    () => HealCommandWords),
                 (nameof(CostsCommandWords),
                     () => CostsCommandWords),
                 (nameof(BalanceCommandWords),
@@ -123,6 +126,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _esunaCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] HealCommandWords
+        {
+            get => _healCommandWords;
+            set
+            {
+                _healCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
