@@ -186,6 +186,7 @@
                         <Button Content="Load Settings" Command="{Binding Path=LoadSettingsCommand}"
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                     </StackPanel>
+
                     <TabControl DataContext="{Binding Settings}">
 
 
@@ -770,15 +771,25 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
                                         <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
+                                            IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
                                         <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
 
                                         <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
+                                            IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
                                         <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsChecked="{Binding Path=AllowEsunaCommand, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
+                                        <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Esuna Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <wpfTool:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                            IsEnabled="{Binding AllowEsunaCommand}" Value="{Binding Path=EsunaCost, Mode=TwoWay}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Esuna Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
                                     </Grid>
 
