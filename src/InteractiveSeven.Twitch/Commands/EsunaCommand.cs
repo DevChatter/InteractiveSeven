@@ -19,7 +19,8 @@ namespace InteractiveSeven.Twitch.Commands
 
         public EsunaCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
-            : base(x => x.EsunaCommandWords, x => x.BattleSettings.AllowEsunaCommand)
+            : base(x => x.EsunaCommandWords,
+                x => x.BattleSettings.AllowEsunaCommand && x.BattleSettings.AllowStatusEffects)
         {
             _twitchClient = twitchClient;
             _partyStatus = partyStatus;
