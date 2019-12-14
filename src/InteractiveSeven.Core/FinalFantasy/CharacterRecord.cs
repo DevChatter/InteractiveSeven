@@ -43,7 +43,6 @@ namespace Tseng.GameData
         public byte Magic { get; set; }
 
         public short MaxHp { get; set; }
-
         public short MaxMp { get; set; }
         public string Name { get; set; }
 
