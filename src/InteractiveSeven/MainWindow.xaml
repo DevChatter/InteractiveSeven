@@ -186,6 +186,7 @@
                         <Button Content="Load Settings" Command="{Binding Path=LoadSettingsCommand}"
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                     </StackPanel>
+
                     <TabControl DataContext="{Binding Settings}">
 
 
@@ -497,6 +498,8 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
@@ -627,6 +630,16 @@
                                         <Label Grid.Row="25" Grid.Column="0" Content="Items Command Words" FontSize="12" Margin="5,10,0,0" />
                                         <wpfTool:WatermarkTextBox Grid.Row="25" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                             Text="{Binding Path=ItemCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                        <Label Grid.Row="26" Grid.Column="0" Content="Esuna Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="26" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                            Text="{Binding Path=EsunaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                        <Label Grid.Row="27" Grid.Column="0" Content="Cure Effect Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                            Text="{Binding Path=HealCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                             Watermark="Add words separated by commas" Margin="5,10,10,0" />
                                     </Grid>
                                 </DockPanel>
@@ -770,32 +783,61 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
                                         <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
+                                            IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
                                         <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
 
                                         <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
+                                            IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
                                         <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsChecked="{Binding Path=AllowEsunaCommand, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
+                                        <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Esuna Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <wpfTool:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                            IsEnabled="{Binding AllowEsunaCommand}" Value="{Binding Path=EsunaCost, Mode=TwoWay}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Esuna Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
                                     </Grid>
 
-                                    <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
-                                                  Margin="5,5,0,5"
-                                                  ItemsSource="{Binding AllStatusEffects}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <lc:StatusEffectSettings DataContext="{Binding}" Margin="2" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                                    <DataGrid ItemsSource="{Binding AllStatusEffects}"
+                                              CanUserAddRows="False" CanUserSortColumns="False"
+                                              AutoGenerateColumns="False" CanUserReorderColumns="False"
+                                              IsEnabled="{Binding AllowStatusEffects}">
+                                        <DataGrid.Columns>
+                                            <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Path=Enabled, Mode=TwoWay}" />
+                                            <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                            <DataGridTemplateColumn Width="Auto" Header="Cost">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <wpfTool:IntegerUpDown VerticalContentAlignment="Center" 
+                                                                               HorizontalAlignment="Right" 
+                                                                               Value="{Binding Path=Cost, Mode=TwoWay}"
+                                                                               Width="60" Minimum="0" Increment="10"
+                                                                               FormatString="N0" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="Auto" Header="Cure Cost">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <wpfTool:IntegerUpDown VerticalContentAlignment="Center" 
+                                                                               HorizontalAlignment="Right" 
+                                                                               Value="{Binding Path=CureCost, Mode=TwoWay}"
+                                                                               Width="60" Minimum="0" Increment="10"
+                                                                               FormatString="N0" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Width="*" Header="Command Words"
+                                                                Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
 
                                 </DockPanel>
                             </ScrollViewer>

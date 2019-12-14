@@ -68,6 +68,8 @@ namespace InteractiveSeven.Startup
             services.RegisterEquipmentData();
 
             services.RegisterBattleCommand<StatusEffectCommand>();
+            services.RegisterBattleCommand<EsunaCommand>();
+            services.RegisterBattleCommand<HealStatusEffectCommand>();
 
             services.RegisterNonBattleCommand<WeaponCommand>();
             services.RegisterNonBattleCommand<ArmletCommand>();
