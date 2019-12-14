@@ -120,7 +120,7 @@ namespace InteractiveSeven.Core.Settings
             return strings.ToArray();
         }
 
-        public string[] EsunaCommandWords // TODO: Add to the Settings View
+        public string[] EsunaCommandWords
         {
             get => _esunaCommandWords;
             set
@@ -130,7 +130,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] HealCommandWords // TODO: Add to the Settings View
+        public string[] HealCommandWords
         {
             get => _healCommandWords;
             set
