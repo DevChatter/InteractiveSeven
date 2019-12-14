@@ -1,7 +1,5 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core.FinalFantasy.MemModels;
 using System;
-using System.Linq;
-using InteractiveSeven.Core.FinalFantasy.MemModels;
 using Tseng.Constants;
 
 namespace Tseng.GameData
