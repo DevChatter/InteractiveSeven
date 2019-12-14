@@ -26,7 +26,7 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private string[] _words;
-        public string[] Words
+        public string[] Words // TODO: Remove Duplicates protection.
         {
             get => _words;
             set
@@ -59,7 +59,7 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private int _cureCost = 100;
-        public int CureCost // TODO: Add to the Settings View
+        public int CureCost
         {
             get => _cureCost;
             set

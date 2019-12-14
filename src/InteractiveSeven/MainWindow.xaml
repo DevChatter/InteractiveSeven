@@ -793,20 +793,39 @@
 
                                     </Grid>
 
-                                    <ItemsControl IsEnabled="{Binding AllowStatusEffects}"
-                                                  Margin="5,5,0,5"
-                                                  ItemsSource="{Binding AllStatusEffects}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <lc:StatusEffectSettings DataContext="{Binding}" Margin="2" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                                    <DataGrid ItemsSource="{Binding AllStatusEffects}"
+                                              CanUserAddRows="False" CanUserSortColumns="False"
+                                              AutoGenerateColumns="False" CanUserReorderColumns="False"
+                                              IsEnabled="{Binding AllowStatusEffects}">
+                                        <DataGrid.Columns>
+                                            <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Path=Enabled, Mode=TwoWay}" />
+                                            <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                            <DataGridTemplateColumn Width="Auto" Header="Cost">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <wpfTool:IntegerUpDown VerticalContentAlignment="Center" 
+                                                                               HorizontalAlignment="Right" 
+                                                                               Value="{Binding Path=Cost, Mode=TwoWay}"
+                                                                               Width="60" Minimum="0" Increment="10"
+                                                                               FormatString="N0" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="Auto" Header="Cure Cost">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <wpfTool:IntegerUpDown VerticalContentAlignment="Center" 
+                                                                               HorizontalAlignment="Right" 
+                                                                               Value="{Binding Path=CureCost, Mode=TwoWay}"
+                                                                               Width="60" Minimum="0" Increment="10"
+                                                                               FormatString="N0" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Width="*" Header="Command Words"
+                                                                Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
 
                                 </DockPanel>
                             </ScrollViewer>
