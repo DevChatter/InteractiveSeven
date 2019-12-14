@@ -1,4 +1,7 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Battle;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -26,14 +29,25 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private string[] _words;
-        public string[] Words // TODO: Remove Duplicates protection.
+        public string[] Words
         {
             get => _words;
             set
             {
-                _words = value;
+                _words = RemoveDuplicates(value);
                 OnPropertyChanged();
             }
+        }
+
+        private string[] RemoveDuplicates(string[] value)
+        {
+            var allStatusEffects = ApplicationSettings.Instance.BattleSettings.AllStatusEffects;
+
+            var otherEffectWords = allStatusEffects
+                .Where(x => x.Name != Name)
+                .SelectMany(x => x.Words);
+
+            return value.Except(otherEffectWords, StringComparer.OrdinalIgnoreCase).ToArray();
         }
 
         private bool _enabled = true;
