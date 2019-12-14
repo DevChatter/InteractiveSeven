@@ -10,10 +10,10 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
         public byte Id { get; set; }
         public string Name { get; set; }
         public string Face { get; set; }
-        public int MaxHp { get; set; }
-        public int CurrentHp { get; set; }
-        public int MaxMp { get; set; }
-        public int CurrentMp { get; set; }
+        public uint MaxHp { get; set; }
+        public uint CurrentHp { get; set; }
+        public ushort MaxMp { get; set; }
+        public ushort CurrentMp { get; set; }
         public int Level { get; set; }
         public Weapon Weapon { get; set; }
         public Armlet Armlet { get; set; }
@@ -30,10 +30,10 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
             var character = new Character
             {
                 Id = record.Id,
-                MaxHp = record.MaxHp,
-                MaxMp = record.MaxMp,
-                CurrentHp = record.CurrentHp,
-                CurrentMp = record.CurrentMp,
+                MaxHp = (uint)record.MaxHp, // TODO: Fix Types
+                MaxMp = (ushort)record.MaxMp, // TODO: Fix Types
+                CurrentHp = (uint)record.CurrentHp, // TODO: Fix Types
+                CurrentMp = (ushort)record.CurrentMp, // TODO: Fix Types
                 Name = record.Name,
                 Level = record.Level,
                 Weapon = gameDatabase.WeaponDatabase.FirstOrDefault(w => w.Id == record.Weapon),

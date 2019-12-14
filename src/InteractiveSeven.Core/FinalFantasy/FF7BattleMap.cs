@@ -1,5 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using System;
+using System.Linq;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -40,16 +42,9 @@ namespace Tseng.GameData
             for (var i = 0; i < count; ++i)
             {
                 var offset = start + i * BattleMapActorOffsets.ActorLength;
-                var a = new BattleActor
-                {
-                    CurrentHp = BitConverter.ToInt32(_map, offset + BattleMapActorOffsets.CurrentHp),
-                    MaxHp = BitConverter.ToInt32(_map, offset + BattleMapActorOffsets.MaxHp),
-                    CurrentMp = BitConverter.ToInt16(_map, offset + BattleMapActorOffsets.CurrentMp),
-                    MaxMp = BitConverter.ToInt16(_map, offset + BattleMapActorOffsets.MaxMp),
-                    Level = _map[BattleMapActorOffsets.Level],
-                    Status = (StatusEffects)BitConverter.ToUInt32(_map, offset + BattleMapActorOffsets.Status),
-                    IsBackRow = (_map[offset + BattleMapActorOffsets.Row] & 0x40) == 0x40
-                };
+                var a = new Span<byte>(_map, offset, BattleMapActorOffsets.ActorLength)
+                    .ToArray()
+                    .ToType<BattleActor>();
                 acts[i] = a;
             }
 
