@@ -61,7 +61,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public int PauperCommandCost // TODO: Add to settings screen
+        public int PauperCommandCost
         {
             get => _pauperCommandCost;
             set

@@ -31,7 +31,7 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private bool _enabled = true;
-        public bool Enabled // TODO: Add to Settings Screen
+        public bool Enabled
         {
             get => _enabled;
             set
@@ -42,7 +42,7 @@ namespace InteractiveSeven.Core.Settings
         }
 
         private int _cost;
-        public int Cost // TODO: Add to Settings Screen
+        public int Cost
         {
             get => _cost;
             set
