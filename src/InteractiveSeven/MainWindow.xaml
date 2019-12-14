@@ -673,6 +673,7 @@
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
 
                                                 <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -690,6 +691,11 @@
                                                 <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                     IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
                                                 <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
+
+                                                <wpfTool:IntegerUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Increment="100" FormatString="N0"
+                                                                       IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
+                                                <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
+
                                             </Grid>
                                         </ScrollViewer>
                                     </TabItem>
