@@ -767,6 +767,17 @@
                                             <Label Content="Mod Only - settings and non-mod use coming soon." />
                                         </ScrollViewer>
                                     </TabItem>
+
+                                    <TabItem>
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Materia" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <Label Content="Mod Only - settings and non-mod use coming soon." />
+                                        </ScrollViewer>
+                                    </TabItem>
                                 </TabControl>
 
                             </ScrollViewer>
