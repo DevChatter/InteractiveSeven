@@ -96,6 +96,10 @@ namespace InteractiveSeven.Twitch.Commands
                 {
                     safeFrom.Add(target);
                 }
+                else if (characterRecord.CurrentHp == 0)
+                {
+                    safeFrom.Add(target);
+                }
                 else if (characterRecord.HasStatus(effect))
                 {
                     hasEffect.Add(target);
