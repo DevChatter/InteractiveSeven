@@ -8,6 +8,7 @@ namespace InteractiveSeven.Twitch.Payments
     {
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
+        private bool _unlocked;
 
         public PaymentProcessor(GilBank gilBank, ITwitchClient twitchClient)
         {
@@ -17,6 +18,8 @@ namespace InteractiveSeven.Twitch.Payments
 
         public GilTransaction ProcessPayment(CommandData commandData, int amount, bool canModsOverride)
         {
+            if (_unlocked && commandData.User.IsDevChatter) return new GilTransaction(true, 0);
+
             int gilSpent = 0;
             bool requiresBits = !commandData.User.IsBroadcaster
                                 && !commandData.User.IsMe
@@ -34,5 +37,8 @@ namespace InteractiveSeven.Twitch.Payments
 
             return new GilTransaction(true, gilSpent);
         }
+
+        public void Lock() => _unlocked = false;
+        public void Unlock() => _unlocked = true;
     }
 }
