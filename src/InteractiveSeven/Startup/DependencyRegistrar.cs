@@ -67,6 +67,9 @@ namespace InteractiveSeven.Startup
 
             services.RegisterEquipmentData();
 
+            services.RegisterTwitchCommand<LockCommand>();
+            services.RegisterTwitchCommand<UnlockCommand>();
+
             services.RegisterBattleCommand<StatusEffectCommand>();
             services.RegisterBattleCommand<EsunaCommand>();
             services.RegisterBattleCommand<HealStatusEffectCommand>();

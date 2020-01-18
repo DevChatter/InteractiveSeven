@@ -38,7 +38,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             CharMemLoc charMemLoc = CharMemLoc.ByName(charNames);
             byte[] emptyRow = { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue };
 
-            for (int i = ItemSize * keep; i < charMemLoc.ArmorMateria.NumBytes; i += ItemSize)
+            for (int i = ItemSize * keep; i < charMemLoc.WeaponMateria.NumBytes; i += ItemSize)
             {
                 IntPtr address = IntPtr.Add(charMemLoc.WeaponMateria.Address, i);
                 var bytes = new byte[ItemSize];

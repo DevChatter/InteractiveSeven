@@ -26,6 +26,7 @@ namespace InteractiveSeven.Core.Model
         public string UserId { get; set; }
         public bool IsBroadcaster { get; set; }
         public bool IsMe { get; set; }
+        public bool IsDevChatter => UserId == "188854137" || UserId == "57245338";
         public bool IsMod { get; set; }
         public bool IsSubscriber { get; set; }
     }

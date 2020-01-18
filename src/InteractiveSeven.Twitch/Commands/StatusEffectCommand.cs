@@ -84,7 +84,7 @@ namespace InteractiveSeven.Twitch.Commands
             var safeFrom = new List<Allies>();
             var hasEffect = new List<Allies>();
 
-            foreach (Allies target in targets.Where(x => _partyStatus.Party[x.Index].Id != FF7Const.Empty))
+            foreach (Allies target in targets.Where(x => _partyStatus.Party[x.Index]?.Id != FF7Const.Empty))
             {
                 Character characterRecord = charRecords[target.Index];
 
@@ -93,6 +93,10 @@ namespace InteractiveSeven.Twitch.Commands
                     safeFrom.Add(target);
                 }
                 else if (IsInPyramid(characterRecord))
+                {
+                    safeFrom.Add(target);
+                }
+                else if (characterRecord.CurrentHp == 0)
                 {
                     safeFrom.Add(target);
                 }

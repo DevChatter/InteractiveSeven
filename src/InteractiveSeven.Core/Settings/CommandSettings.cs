@@ -46,6 +46,8 @@ namespace InteractiveSeven.Core.Settings
         {
             AllWordSets = new List<(string, Func<string[]>)>
             {
+                ("BrendanLock", () => new [] {"BrendanLock"}),
+                ("BrendanUnlock", () => new [] {"BrendanUnlock"}),
                 (nameof(EsunaCommandWords),
                     () => EsunaCommandWords),
                 (nameof(HealCommandWords),
