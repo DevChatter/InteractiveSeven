@@ -77,6 +77,7 @@ namespace InteractiveSeven.Core.Settings
         public ItemSettings ItemSettings { get; set; } = new ItemSettings();
         public MateriaSettings MateriaSettings { get; set; } = new MateriaSettings();
         public TsengSettings TsengSettings { get; set; } = new TsengSettings();
+        public PlayerGilSettings PlayerGilSettings { get; set; } = new PlayerGilSettings();
 
         public static void LoadFromJson(string json, Action<Exception> errorLogging = null)
         {

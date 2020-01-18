@@ -8,6 +8,8 @@ namespace InteractiveSeven.Core.Settings
 {
     public class CommandSettings : ObservableSettingsBase
     {
+        private string[] _givePlayerGilCommandWords = { "FindGil", "GivePlayerGil" };
+        private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
         private string[] _esunaCommandWords = { "Esuna", "Remedy" };
         private string[] _healCommandWords = { "Heal", "Cure" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
@@ -48,6 +50,12 @@ namespace InteractiveSeven.Core.Settings
             {
                 ("BrendanLock", () => new [] {"BrendanLock"}),
                 ("BrendanUnlock", () => new [] {"BrendanUnlock"}),
+
+                (nameof(GiveGilCommandWords),
+                    () => GiveGilCommandWords),
+                (nameof(RemovePlayerGilCommandWords),
+                    () => RemovePlayerGilCommandWords),
+
                 (nameof(EsunaCommandWords),
                     () => EsunaCommandWords),
                 (nameof(HealCommandWords),
@@ -120,6 +128,26 @@ namespace InteractiveSeven.Core.Settings
             }
 
             return strings.ToArray();
+        }
+
+        public string[] GivePlayerGilCommandWords
+        {
+            get => _givePlayerGilCommandWords;
+            set
+            {
+                _givePlayerGilCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] RemovePlayerGilCommandWords
+        {
+            get => _removePlayerGilCommandWords;
+            set
+            {
+                _removePlayerGilCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
         }
 
         public string[] EsunaCommandWords

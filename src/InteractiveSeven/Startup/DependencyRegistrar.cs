@@ -79,6 +79,9 @@ namespace InteractiveSeven.Startup
             services.RegisterNonBattleCommand<AccessoryCommand>();
             services.RegisterNonBattleCommand<PauperCommand>();
 
+            services.RegisterTwitchCommand<RemovePlayerGilCommand>();
+            services.RegisterTwitchCommand<GivePlayerGilCommand>();
+
             services.RegisterTwitchCommand<PaletteCommand>();
             services.RegisterTwitchCommand<RainbowCommand>();
             services.RegisterTwitchCommand<MakoCommand>();
