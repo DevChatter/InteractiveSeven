@@ -45,7 +45,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             CurMp = new MemLoc(IntPtr.Add(baseAddress, 47), 2);
             MaxMp = new MemLoc(IntPtr.Add(baseAddress, 49), 2);
             WeaponMateria = new MemLoc(IntPtr.Add(baseAddress, 63), 32);
-            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 71), 32);
+            ArmorMateria = new MemLoc(IntPtr.Add(baseAddress, 95), 32);
         }
 
         public static CharMemLoc ByName(CharNames charName)
