@@ -31,13 +31,15 @@ namespace InteractiveSeven.Twitch.Commands
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (statusSettings == null || !targeted.Any())
             {
-                _twitchClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !psn top");
+                _twitchClient.SendMessage(commandData.Channel,
+                    "Be sure to name a valid status and actor. Example: !psn top");
                 return;
             }
 
             if (!statusSettings.Enabled)
             {
-                _twitchClient.SendMessage(commandData.Channel, $"The {statusSettings.Name} status effect is disabled.");
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"The {statusSettings.Name} status effect is disabled.");
                 return;
             }
 
