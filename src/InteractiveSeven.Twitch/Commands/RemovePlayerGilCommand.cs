@@ -2,7 +2,6 @@
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
-using System;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
