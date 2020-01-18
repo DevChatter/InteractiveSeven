@@ -130,7 +130,7 @@ namespace InteractiveSeven.Core.Settings
             return strings.ToArray();
         }
 
-        public string[] GivePlayerGilCommandWords
+        public string[] GivePlayerGilCommandWords // TODO: Add to Settings Screen
         {
             get => _givePlayerGilCommandWords;
             set
@@ -140,7 +140,7 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public string[] RemovePlayerGilCommandWords
+        public string[] RemovePlayerGilCommandWords // TODO: Add to Settings Screen
         {
             get => _removePlayerGilCommandWords;
             set
