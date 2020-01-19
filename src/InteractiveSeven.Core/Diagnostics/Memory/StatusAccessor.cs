@@ -18,6 +18,17 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 
         public void SetActorStatus(Allies actor, StatusEffects statusEffect)
         {
+            if (statusEffect.HasBlockingOpposite()
+                && RemoveActorStatus(actor, statusEffect.GetOpposite()))
+            {
+                return;
+            }
+
+            if (statusEffect.HasOpposite())
+            {
+                RemoveActorStatus(actor, statusEffect.GetOpposite());
+            }
+
             int status = GetTrueStatus(actor);
 
             status |= (int)statusEffect;
@@ -34,13 +45,20 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             RemoveActorStatus(actor, negativeEffects);
         }
 
-        public void RemoveActorStatus(Allies actor, StatusEffects statusEffect)
+        public bool RemoveActorStatus(Allies actor, StatusEffects statusEffect)
         {
             int status = GetTrueStatus(actor);
+
+            if ((status & (int)statusEffect) == 0) // they don't have the status
+            {
+                return false;
+            }
 
             status &= (int)~statusEffect;
 
             ApplyFullStatus(actor, status);
+
+            return true;
         }
 
         private void ApplyFullStatus(Allies actor, int status)

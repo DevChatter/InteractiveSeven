@@ -500,6 +500,8 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
@@ -641,6 +643,16 @@
                                         <wpfTool:WatermarkTextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                             Text="{Binding Path=HealCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                             Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                        <Label Grid.Row="28" Grid.Column="0" Content="Give Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="28" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                            Text="{Binding Path=GivePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                        <Label Grid.Row="29" Grid.Column="0" Content="Remove Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                        <wpfTool:WatermarkTextBox Grid.Row="29" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                            Text="{Binding Path=RemovePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
                                     </Grid>
                                 </DockPanel>
                             </ScrollViewer>
@@ -650,7 +662,7 @@
                         <TabItem DataContext="{Binding EquipmentSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Equipment" />
+                                    <TextBlock Text="Wealth" />
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
@@ -754,6 +766,49 @@
                                                     <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
+                                        </ScrollViewer>
+                                    </TabItem>
+
+                                    <TabItem DataContext="{Binding PlayerGilSettings}">
+                                        <TabItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Gil" />
+                                            </StackPanel>
+                                        </TabItem.Header>
+                                        <ScrollViewer>
+                                            <Grid Margin="5,5,0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsChecked="{Binding Path=GiveGilEnabled, Mode=TwoWay}" />
+                                                <Label Grid.Row="0" Grid.Column="1" Content="Enable Give Player Gil Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                                <wpfTool:IntegerUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                                    IsEnabled="{Binding GiveGilEnabled}" Value="{Binding Path=GiveMultiplier, Mode=TwoWay}" />
+                                                <Label Grid.Row="1" Grid.Column="1" Content="Gil Given Per Bit" FontSize="12" Margin="5,0,0,0" />
+
+                                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsChecked="{Binding Path=RemoveGilEnabled, Mode=TwoWay}" />
+                                                <Label Grid.Row="2" Grid.Column="1" Content="Enable Remove Player Gil Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                                <wpfTool:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                                    IsEnabled="{Binding RemoveGilEnabled}" Value="{Binding Path=RemoveMultiplier, Mode=TwoWay}" />
+                                                <Label Grid.Row="3" Grid.Column="1" Content="Gil Removed Per Bit" FontSize="12" Margin="5,0,0,0" />
+
+                                                <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                    IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                                <Label Grid.Row="4" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
+                                            </Grid>
                                         </ScrollViewer>
                                     </TabItem>
 
