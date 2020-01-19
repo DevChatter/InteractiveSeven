@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         public RemovePlayerGilCommand(PaymentProcessor paymentProcessor, ITwitchClient twitchClient,
             IGilAccessor gilAccessor)
             : base(x => x.RemovePlayerGilCommandWords,
-                x => x.PlayerGilSettings.RemoveGilEnabled)
+                x => x.EquipmentSettings.PlayerGilSettings.RemoveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
             _twitchClient = twitchClient;
@@ -34,7 +34,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            uint gilToRemove = (uint)(amount * Settings.PlayerGilSettings.RemoveMultiplier);
+            uint gilToRemove = (uint)(amount * Settings.EquipmentSettings.PlayerGilSettings.RemoveMultiplier);
             uint currentGil = _gilAccessor.GetGil();
             if (gilToRemove > currentGil)
             {
@@ -46,7 +46,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
                 commandData, amount,
-                Settings.PlayerGilSettings.AllowModOverride);
+                Settings.EquipmentSettings.PlayerGilSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {

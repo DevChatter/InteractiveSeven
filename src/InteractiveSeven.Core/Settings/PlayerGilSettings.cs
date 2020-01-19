@@ -8,7 +8,7 @@
         private bool _giveGilEnabled = false;
         private bool _removeGilEnabled = false;
 
-        public bool GiveGilEnabled // TODO: Add to Settings Screen
+        public bool GiveGilEnabled
         {
             get => _giveGilEnabled;
             set
@@ -17,7 +17,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool RemoveGilEnabled // TODO: Add to Settings Screen
+        public bool RemoveGilEnabled
         {
             get => _removeGilEnabled;
             set
@@ -26,7 +26,7 @@
                 OnPropertyChanged();
             }
         }
-        public int GiveMultiplier // TODO: Add to Settings Screen
+        public int GiveMultiplier
         {
             get => _giveMultiplier;
             set
@@ -35,7 +35,7 @@
                 OnPropertyChanged();
             }
         }
-        public int RemoveMultiplier // TODO: Add to Settings Screen
+        public int RemoveMultiplier
         {
             get => _removeMultiplier;
             set
@@ -44,7 +44,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool AllowModOverride // TODO: Add to Settings Screen
+        public bool AllowModOverride
         {
             get => _allowModOverride;
             set

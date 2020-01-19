@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.Commands
         public GivePlayerGilCommand(PaymentProcessor paymentProcessor, ITwitchClient twitchClient,
             IGilAccessor gilAccessor)
             : base(x => x.GivePlayerGilCommandWords,
-                x => x.PlayerGilSettings.GiveGilEnabled)
+                x => x.EquipmentSettings.PlayerGilSettings.GiveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
             _twitchClient = twitchClient;
@@ -36,7 +36,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
                 commandData, amount,
-                Settings.PlayerGilSettings.AllowModOverride);
+                Settings.EquipmentSettings.PlayerGilSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
@@ -45,7 +45,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            var gilToAdd = (uint)(amount * Settings.PlayerGilSettings.GiveMultiplier);
+            var gilToAdd = (uint)(amount * Settings.EquipmentSettings.PlayerGilSettings.GiveMultiplier);
             _gilAccessor.AddGil(gilToAdd);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Added {gilToAdd} gil for player.");
