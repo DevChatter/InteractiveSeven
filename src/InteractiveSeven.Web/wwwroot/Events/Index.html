@@ -1,12 +1,8 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
-    <title>Status Page</title>
+    <title>Events Page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
     <link rel="stylesheet" href="/css/site.css">
@@ -20,6 +16,9 @@
             <div class="layer" :style="topRightStyle"></div>
             <div class="layer" :style="botRightStyle"></div>
             <div class="layer border"></div>
+            <div class="text">
+                <app-character v-for="char in party" v-bind:key="char.character" v-bind:data="char" v-bind:slide="window.charSlide"></app-character>
+            </div>
         </div>
     </div>
 
@@ -34,30 +33,30 @@
                     bottomRight: '#001600'
                 },
                 maxRetryInterval: 30000
-        },
+            },
             computed: {
-                topLeftStyle: function() {
+                topLeftStyle: function () {
                     return ({
                         background: 'linear-gradient(to top left, rgba(0,0,176, 0) 50%, ' + this.colors.topLeft + ')'
                     });
                 },
-                topRightStyle: function() {
+                topRightStyle: function () {
                     return ({
                         background: 'radial-gradient(farthest-side at top right, ' + this.colors.topRight + ', rgba(0, 0, 80, 0))'
                     });
                 },
-                botLeftStyle: function() {
+                botLeftStyle: function () {
                     return ({
                         background: 'radial-gradient(farthest-side at bottom left, ' + this.colors.bottomLeft + ', rgba(0, 0, 128, 0))'
                     });
                 },
-                botRightStyle: function() {
+                botRightStyle: function () {
                     return ({
                         background: 'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, ' + this.colors.bottomRight + ')'
                     });
                 }
             },
-            mounted: function() {
+            mounted: function () {
                 var connection = new signalR.HubConnectionBuilder().withUrl("/StatusHub").build();
 
                 connection.on("ColorChanged", this.onColorChanged);
@@ -68,10 +67,10 @@
                 this.startHubConn(connection);
             },
             methods: {
-                startHubConn: function(connection, retryInterval = 2000) {
+                startHubConn: function (connection, retryInterval = 2000) {
                     //console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
                     connection.start().then(() => {
-                        },
+                    },
                         err => {
                             console.error(err.toString());
                             let i = Math.min(retryInterval * 1.5, this.maxRetryInterval);
@@ -80,7 +79,7 @@
                         });
 
                 },
-                onColorChanged: function(tl, tr, bl, br) {
+                onColorChanged: function (tl, tr, bl, br) {
                     this.colors.topLeft = tl;
                     this.colors.topRight = tr;
                     this.colors.bottomLeft = bl;
