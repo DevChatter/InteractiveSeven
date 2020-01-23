@@ -31,5 +31,9 @@ namespace InteractiveSeven.Web.Hubs
             );
         }
 
+        public Task ShowEvent(string eventText)
+        {
+            return _statusHubContext.Clients.All.ShowEvent(eventText);
+        }
     }
 }
