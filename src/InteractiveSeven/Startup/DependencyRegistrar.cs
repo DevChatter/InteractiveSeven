@@ -78,9 +78,8 @@ namespace InteractiveSeven.Startup
             services.RegisterNonBattleCommand<ArmletCommand>();
             services.RegisterNonBattleCommand<AccessoryCommand>();
             services.RegisterNonBattleCommand<PauperCommand>();
-
-            services.RegisterTwitchCommand<RemovePlayerGilCommand>();
-            services.RegisterTwitchCommand<GivePlayerGilCommand>();
+            services.RegisterNonBattleCommand<RemovePlayerGilCommand>();
+            services.RegisterNonBattleCommand<GivePlayerGilCommand>();
 
             services.RegisterTwitchCommand<PaletteCommand>();
             services.RegisterTwitchCommand<RainbowCommand>();
