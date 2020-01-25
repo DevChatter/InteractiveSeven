@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Commands;
@@ -20,11 +21,13 @@ namespace UnitTests.Twitch.Commands
     {
         private readonly Mock<IGameDatabaseLoader> _loader;
         private readonly Mock<IMateriaAccessor> _materiaAccess;
+        private readonly Mock<IStatusHubEmitter> _statusHubEmitter;
 
         public WeaponCommandShould()
         {
             _loader = new Mock<IGameDatabaseLoader>();
             _materiaAccess = new Mock<IMateriaAccessor>();
+            _statusHubEmitter = new Mock<IStatusHubEmitter>();
         }
 
         [Fact(Skip = "skip")]
@@ -32,7 +35,8 @@ namespace UnitTests.Twitch.Commands
         {
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, _materiaAccess.Object,
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object,
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 
@@ -45,7 +49,8 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInvalidCommandArgs()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, "cloud");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, _materiaAccess.Object,
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object,
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 
@@ -59,7 +64,8 @@ namespace UnitTests.Twitch.Commands
         public void ReportError_GivenInsufficientGil()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
-            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object, _materiaAccess.Object,
+            var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object,
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 

@@ -3,94 +3,120 @@
 <html>
 <head>
     <title>Events Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js" integrity="sha256-xzc5zu2WQtJgvCwRGTXiHny3T+KQZa6tQF24RVDRlL0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" integrity="sha256-p+PhKJEDqN9f5n04H+wNtGonV2pTXGmB4Zr7PZ3lJ/w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/site.css">
 </head>
 
 <body>
-    <div id="app">
-        <div class="ff7 menu">
+<div id="app">
+
+    <div id="noty-template" style="display: none">
+        <div class="ff7 notification">
             <div class="layer" :style="topLeftStyle"></div>
             <div class="layer" :style="botLeftStyle"></div>
             <div class="layer" :style="topRightStyle"></div>
             <div class="layer" :style="botRightStyle"></div>
             <div class="layer border"></div>
             <div class="text">
-                <app-character v-for="char in party" v-bind:key="char.character" v-bind:data="char" v-bind:slide="window.charSlide"></app-character>
+                <span>[ReplaceThis]</span>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        let app = new Vue({
-            el: '#app',
-            data: {
-                colors: {
-                    topLeft: '#007300',
-                    topRight: '#004B00',
-                    bottomLeft: '#004F00',
-                    bottomRight: '#001600'
-                },
-                maxRetryInterval: 30000
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            colors: {
+                topLeft: '#007300',
+                topRight: '#004B00',
+                bottomLeft: '#004F00',
+                bottomRight: '#001600'
             },
-            computed: {
-                topLeftStyle: function () {
-                    return ({
-                        background: 'linear-gradient(to top left, rgba(0,0,176, 0) 50%, ' + this.colors.topLeft + ')'
-                    });
-                },
-                topRightStyle: function () {
-                    return ({
-                        background: 'radial-gradient(farthest-side at top right, ' + this.colors.topRight + ', rgba(0, 0, 80, 0))'
-                    });
-                },
-                botLeftStyle: function () {
-                    return ({
-                        background: 'radial-gradient(farthest-side at bottom left, ' + this.colors.bottomLeft + ', rgba(0, 0, 128, 0))'
-                    });
-                },
-                botRightStyle: function () {
-                    return ({
-                        background: 'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, ' + this.colors.bottomRight + ')'
-                    });
-                }
-            },
-            mounted: function () {
-                var statusConn = new signalR.HubConnectionBuilder().withUrl("/StatusHub").build();
-
-                statusConn.on("ColorChanged", this.onColorChanged);
-                statusConn.on("ShowEvent", this.onShowEvent);
-                statusConn.onclose(() => {
-                    setTimeout(() => this.startHubConn(statusConn), 2000);
+            maxRetryInterval: 30000
+        },
+        computed: {
+            topLeftStyle: function() {
+                return ({
+                    background: 'linear-gradient(to top left, rgba(0,0,176, 0) 50%, ' + this.colors.topLeft + ')'
                 });
-
-                this.startHubConn(statusConn);
             },
-            methods: {
-                startHubConn: function (connection, retryInterval = 2000) {
-                    //console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
-                    connection.start().then(() => {
-                    },
-                        err => {
-                            console.error(err.toString());
-                            let i = Math.min(retryInterval * 1.5, this.maxRetryInterval);
-                            console.log(`[${new Date()}] Retry connection to ${connection.hubName} in ${i} ms.`);
-                            setTimeout(() => this.startHubConn(connection, i), i);
-                        });
-
-                },
-                onColorChanged: function (tl, tr, bl, br) {
-                    this.colors.topLeft = tl;
-                    this.colors.topRight = tr;
-                    this.colors.bottomLeft = bl;
-                    this.colors.bottomRight = br;
-                },
-                onShowEvent: function (eventText) {
-
-                }
+            topRightStyle: function() {
+                return ({
+                    background: 'radial-gradient(farthest-side at top right, ' +
+                        this.colors.topRight +
+                        ', rgba(0, 0, 80, 0))'
+                });
+            },
+            botLeftStyle: function() {
+                return ({
+                    background: 'radial-gradient(farthest-side at bottom left, ' +
+                        this.colors.bottomLeft +
+                        ', rgba(0, 0, 128, 0))'
+                });
+            },
+            botRightStyle: function() {
+                return ({
+                    background: 'linear-gradient(to bottom right, rgba(0, 0, 32, 0) 50%, ' +
+                        this.colors.bottomRight +
+                        ')'
+                });
             }
-        });
-    </script>
+        },
+        mounted: function() {
+            var statusConn = new signalR.HubConnectionBuilder().withUrl("/StatusHub").build();
+
+            statusConn.on("ColorChanged", this.onColorChanged);
+            statusConn.on("ShowEvent", this.onShowEvent);
+            statusConn.onclose(() => {
+                setTimeout(() => this.startHubConn(statusConn), 2000);
+            });
+
+            this.startHubConn(statusConn);
+        },
+        methods: {
+            startHubConn: function(connection, retryInterval = 2000) {
+                //console.log(`[${new Date()}] Connecting to ${connection.hubName}`);
+                connection.start().then(() => {
+                    },
+                    err => {
+                        console.error(err.toString());
+                        let i = Math.min(retryInterval * 1.5, this.maxRetryInterval);
+                        console.log(`[${new Date()}] Retry connection to ${connection.hubName} in ${i} ms.`);
+                        setTimeout(() => this.startHubConn(connection, i), i);
+                    });
+
+            },
+            onColorChanged: function(tl, tr, bl, br) {
+                this.colors.topLeft = tl;
+                this.colors.topRight = tr;
+                this.colors.bottomLeft = bl;
+                this.colors.bottomRight = br;
+            },
+            onShowEvent: function(eventText) {
+                new Noty({
+                    text: eventText,
+                    timeout: 5000,
+                    container: '#app',
+                    progressBar: false,
+                    callbacks: {
+                        onTemplate: function() {
+                            let text = this.options.text;
+                            this.barDom.innerHTML = document
+                                .getElementById('noty-template')
+                                .innerHTML
+                                .replace('[ReplaceThis]', text);
+                        }
+                    }
+                }).show();
+            }
+        }
+    });
+</script>
 </body>
 </html>

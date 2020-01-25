@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
@@ -16,6 +17,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IMateriaAccessor _materiaAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly GameDatabase _gameDatabase;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
@@ -24,7 +26,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         protected EquipmentCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
-            GameDatabase gameDatabase,
+            IStatusHubEmitter statusHubEmitter, GameDatabase gameDatabase,
             GilBank gilBank, ITwitchClient twitchClient, EquipmentData<T> equipmentData,
             Func<CommandSettings, string[]> commandWordsSelector, PaymentProcessor paymentProcessor)
             : base(commandWordsSelector, x => x.EquipmentSettings.Enabled)
@@ -32,6 +34,7 @@ namespace InteractiveSeven.Twitch.Commands
             _equipmentAccessor = equipmentAccessor;
             _inventoryAccessor = inventoryAccessor;
             _materiaAccessor = materiaAccessor;
+            _statusHubEmitter = statusHubEmitter;
             _gameDatabase = gameDatabase;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
@@ -91,8 +94,9 @@ namespace InteractiveSeven.Twitch.Commands
                 }
             }
             RemoveMateria(charName, equippableSettings.Item.EquipmentId);
-            _twitchClient.SendMessage(commandData.Channel,
-                $"Equipped {charName.DefaultName} with a {equippableSettings.Name}.");
+            string message = $"Equipped {charName.DefaultName} with {equippableSettings.Name}.";
+            _twitchClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
         }
 
         private void RemoveMateria(CharNames charName, int equipmentId)
