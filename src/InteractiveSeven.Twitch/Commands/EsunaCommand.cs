@@ -1,5 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
@@ -16,9 +18,11 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PartyStatusViewModel _partyStatus;
         private readonly IStatusAccessor _statusAccessor;
         private readonly PaymentProcessor _paymentProcessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
         public EsunaCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
-            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
+            IStatusHubEmitter statusHubEmitter)
             : base(x => x.EsunaCommandWords,
                 x => x.BattleSettings.AllowEsunaCommand && x.BattleSettings.AllowStatusEffects)
         {
@@ -26,6 +30,7 @@ namespace InteractiveSeven.Twitch.Commands
             _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
             _paymentProcessor = paymentProcessor;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public override void Execute(in CommandData commandData)
@@ -46,9 +51,11 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (Allies target in validTargets)
             {
+                Character character = GetTargetedCharacter(target);
                 _statusAccessor.ClearNegativeStatuses(target);
-                _twitchClient.SendMessage(commandData.Channel,
-                    $"Removed Negative Effects from {target.Words.First()}.");
+                string message = $"Removed Negative Effects from {character.Name}.";
+                _twitchClient.SendMessage(commandData.Channel, message);
+                _statusHubEmitter.ShowEvent(message);
             }
         }
 
@@ -63,7 +70,12 @@ namespace InteractiveSeven.Twitch.Commands
 
         protected List<Allies> CheckTargetValidity(IEnumerable<Allies> targets)
         {
-            return targets.Where(x => _partyStatus.Party[x.Index].Id != FF7Const.Empty).ToList();
+            return targets.Where(x => GetTargetedCharacter(x).Id != FF7Const.Empty).ToList();
+        }
+
+        private Character GetTargetedCharacter(Allies ally)
+        {
+            return _partyStatus.Party[ally.Index];
         }
     }
 }

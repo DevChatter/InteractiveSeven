@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Linq;
@@ -12,15 +13,17 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PaymentProcessor _paymentProcessor;
         private readonly ITwitchClient _twitchClient;
         private readonly IGilAccessor _gilAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
         public GivePlayerGilCommand(PaymentProcessor paymentProcessor, ITwitchClient twitchClient,
-            IGilAccessor gilAccessor)
+            IGilAccessor gilAccessor, IStatusHubEmitter statusHubEmitter)
             : base(x => x.GivePlayerGilCommandWords,
                 x => x.EquipmentSettings.PlayerGilSettings.GiveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
             _twitchClient = twitchClient;
             _gilAccessor = gilAccessor;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public override void Execute(in CommandData commandData)
@@ -47,8 +50,9 @@ namespace InteractiveSeven.Twitch.Commands
 
             var gilToAdd = (uint)(amount * Settings.EquipmentSettings.PlayerGilSettings.GiveMultiplier);
             _gilAccessor.AddGil(gilToAdd);
-            _twitchClient.SendMessage(commandData.Channel,
-                $"Added {gilToAdd} gil for player.");
+            string message = $"Added {gilToAdd} gil for player.";
+            _twitchClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
         }
     }
 }

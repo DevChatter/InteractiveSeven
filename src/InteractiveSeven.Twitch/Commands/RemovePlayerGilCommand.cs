@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System.Linq;
@@ -12,15 +13,17 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PaymentProcessor _paymentProcessor;
         private readonly ITwitchClient _twitchClient;
         private readonly IGilAccessor _gilAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
         public RemovePlayerGilCommand(PaymentProcessor paymentProcessor, ITwitchClient twitchClient,
-            IGilAccessor gilAccessor)
+            IGilAccessor gilAccessor, IStatusHubEmitter statusHubEmitter)
             : base(x => x.RemovePlayerGilCommandWords,
                 x => x.EquipmentSettings.PlayerGilSettings.RemoveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
             _twitchClient = twitchClient;
             _gilAccessor = gilAccessor;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public override void Execute(in CommandData commandData)
@@ -56,8 +59,9 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             _gilAccessor.RemoveGil(gilToRemove);
-            _twitchClient.SendMessage(commandData.Channel,
-                $"Removed {gilToRemove} gil from player.");
+            string message = $"Removed {gilToRemove} gil from player.";
+            _twitchClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
         }
     }
 }

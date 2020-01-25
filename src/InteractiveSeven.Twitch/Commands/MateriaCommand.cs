@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
@@ -11,12 +12,15 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
         private readonly IMateriaAccessor _materiaAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
-        public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor)
+        public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor,
+            IStatusHubEmitter statusHubEmitter)
             : base(x => x.MateriaCommandWords, x => x.MateriaSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _materiaAccessor = materiaAccessor;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public override void Execute(in CommandData commandData)
@@ -29,8 +33,10 @@ namespace InteractiveSeven.Twitch.Commands
                 _materiaAccessor.AddMateria(materiaId);
                 Materia materia = Materia.All.SingleOrDefault(x => x.Value == materiaId);
                 string materiaName = materia == null ? "Unknown Materia" : materia.Name;
+                string message = $"Materia {materiaName} Added";
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Materia {materiaName} Added");
+                    message);
+                _statusHubEmitter.ShowEvent(message);
             }
         }
         private bool IsAllowedToUseCommand(in ChatUser user)
