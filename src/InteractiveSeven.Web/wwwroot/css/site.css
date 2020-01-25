@@ -13,9 +13,6 @@
     .ff7.notification {
         color: white;
         margin: 3px 0px 4px 3px;
-        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: black;
     }
 
     .ff7.menu {
@@ -279,4 +276,3 @@
     background-color: transparent;
     border-bottom: 0px;
 }
-
