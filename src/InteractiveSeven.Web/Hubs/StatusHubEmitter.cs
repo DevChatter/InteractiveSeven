@@ -31,9 +31,9 @@ namespace InteractiveSeven.Web.Hubs
             );
         }
 
-        public Task ShowEvent(string eventText)
+        public Task ShowEvent(string eventText, string soundFile = null)
         {
-            return _statusHubContext.Clients.All.ShowEvent(eventText);
+            return _statusHubContext.Clients.All.ShowEvent(eventText, soundFile);
         }
     }
 }

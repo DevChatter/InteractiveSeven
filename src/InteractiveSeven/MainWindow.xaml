@@ -167,6 +167,8 @@
                             <TextBox IsReadOnly="True" Text="{Binding StatusOverlayUrl}" />
                             <Label>Empty Menu:</Label>
                             <TextBox IsReadOnly="True" Text="{Binding MenuOverlayUrl}" />
+                            <Label>Event View:</Label>
+                            <TextBox IsReadOnly="True" Text="{Binding EventOverlayUrl}" />
                         </StackPanel>
                     </DockPanel>
                 </ScrollViewer>

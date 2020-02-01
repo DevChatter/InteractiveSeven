@@ -27,6 +27,6 @@ namespace InteractiveSeven.Web.Hubs
     {
         Task PartyStatusChanged(PartyStatusViewModel partyStatus);
         Task ColorChanged(string topLeft, string topRight, string botLeft, string botRight);
-        Task ShowEvent(string eventText);
+        Task ShowEvent(string eventText, string soundFile);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
@@ -17,6 +18,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly EquipmentData<Weapon> _weaponData;
         private readonly EquipmentData<Armlet> _armletData;
         private readonly PaymentProcessor _paymentProcessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
 
         public PauperCommand(IEquipmentAccessor equipmentAccessor,
             IMateriaAccessor materiaAccessor,
@@ -25,7 +27,8 @@ namespace InteractiveSeven.Twitch.Commands
             ITwitchClient twitchClient,
             EquipmentData<Weapon> weaponData,
             EquipmentData<Armlet> armletData,
-            PaymentProcessor paymentProcessor)
+            PaymentProcessor paymentProcessor,
+            IStatusHubEmitter statusHubEmitter)
             : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
             _equipmentAccessor = equipmentAccessor;
@@ -36,6 +39,7 @@ namespace InteractiveSeven.Twitch.Commands
             _weaponData = weaponData;
             _armletData = armletData;
             _paymentProcessor = paymentProcessor;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         public override void Execute(in CommandData commandData)
@@ -69,6 +73,7 @@ namespace InteractiveSeven.Twitch.Commands
                 "All Weapons and Armor set to Default. " +
                 "All Items, Accessories, Materia, and Gil have been removed. " +
                 "Good luck.");
+            _statusHubEmitter.ShowEvent("You've been Paupered!", "ff7-gameover.mp3");
         }
     }
 }

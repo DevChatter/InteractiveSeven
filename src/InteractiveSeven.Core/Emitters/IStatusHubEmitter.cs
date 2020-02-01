@@ -8,6 +8,6 @@ namespace InteractiveSeven.Core.Emitters
     {
         Task ShowNewPartyStatus(PartyStatusViewModel partyStatus);
         Task ShowNewColors(MenuColors menuColors);
-        Task ShowEvent(string eventText);
+        Task ShowEvent(string eventText, string soundFile = null);
     }
 }

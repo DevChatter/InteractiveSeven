@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
   </ItemGroup>
