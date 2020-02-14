@@ -73,7 +73,8 @@ namespace InteractiveSeven.Twitch.Commands
                 "All Weapons and Armor set to Default. " +
                 "All Items, Accessories, Materia, and Gil have been removed. " +
                 "Good luck.");
-            _statusHubEmitter.ShowEvent("You've been Paupered!", "ff7-gameover.mp3");
+            _statusHubEmitter.ShowEvent("You've been Paupered!", $"by {commandData.User.Username}",
+                "ff7-gameover.mp3");
         }
     }
 }

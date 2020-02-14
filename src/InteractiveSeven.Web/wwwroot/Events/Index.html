@@ -22,7 +22,7 @@
                 <div class="layer" :style="botRightStyle"></div>
                 <div class="layer border"></div>
                 <div class="text">
-                    <span>[ReplaceThis]</span>
+                    <span>[ReplaceText]</span>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                     this.colors.bottomLeft = bl;
                     this.colors.bottomRight = br;
                 },
-                onShowEvent: function (eventText, soundFile) {
+                onShowEvent: function (eventText, subText, soundFile) {
                     let options = {
                         text: eventText,
                         timeout: 5000,
@@ -110,7 +110,7 @@
                                 this.barDom.innerHTML = document
                                     .getElementById('noty-template')
                                     .innerHTML
-                                    .replace('[ReplaceThis]', text);
+                                    .replace('[ReplaceText]', text);
                             }
                         }
                     };

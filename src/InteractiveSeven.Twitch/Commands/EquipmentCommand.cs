@@ -96,7 +96,7 @@ namespace InteractiveSeven.Twitch.Commands
             RemoveMateria(charName, equippableSettings.Item.EquipmentId);
             string message = $"Equipped {charName.DefaultName} with {equippableSettings.Name}.";
             _twitchClient.SendMessage(commandData.Channel, message);
-            _statusHubEmitter.ShowEvent(message);
+            _statusHubEmitter.ShowEvent(message, commandData.User.Username);
         }
 
         private void RemoveMateria(CharNames charName, int equipmentId)
