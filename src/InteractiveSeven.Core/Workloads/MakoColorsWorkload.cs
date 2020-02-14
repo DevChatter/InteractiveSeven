@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
@@ -11,14 +12,17 @@ namespace InteractiveSeven.Core.Workloads
     public class MakoColorsWorkload : IWorkload
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<WorkloadCoordinator> _logger;
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public MakoColorsWorkload(IMenuColorAccessor menuColorAccessor,
+            IStatusHubEmitter statusHubEmitter,
             ILogger<WorkloadCoordinator> logger)
         {
             _menuColorAccessor = menuColorAccessor;
             _logger = logger;
+            _statusHubEmitter = statusHubEmitter;
         }
 
         private static readonly List<MenuColors> MakoColors = new List<MenuColors>
@@ -57,6 +61,8 @@ namespace InteractiveSeven.Core.Workloads
         {
             try
             {
+                _statusHubEmitter.ShowEvent("Mako Mode Started");
+
                 for (int i = 0; i < Settings.MenuSettings.MakoModeIterations / MakoColors.Count + 1; i++)
                 {
                     foreach (MenuColors menuColors in MakoColors)
@@ -65,6 +71,8 @@ namespace InteractiveSeven.Core.Workloads
                             menuColors);
                     }
                 }
+
+                _statusHubEmitter.ShowEvent("Mako Mode Ended");
             }
             catch (Exception e)
             {

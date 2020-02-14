@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Events;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,6 +11,7 @@ namespace InteractiveSeven.Core.Workloads
     public class WorkloadCoordinator
     {
         private readonly IMenuColorAccessor _menuColorAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<WorkloadCoordinator> _logger;
         private readonly ConcurrentQueue<IWorkload> _workloads = new ConcurrentQueue<IWorkload>();
         private bool _isRunning = false;
@@ -28,14 +30,14 @@ namespace InteractiveSeven.Core.Workloads
 
         private void HandleMakoModeStarted(MakoModeStarted obj)
         {
-            var workload = new MakoColorsWorkload(_menuColorAccessor, _logger);
+            var workload = new MakoColorsWorkload(_menuColorAccessor, _statusHubEmitter, _logger);
 
             AddAndStart(workload);
         }
 
         private void HandleRainbowModeStarted(RainbowModeStarted obj)
         {
-            var workload = new RainbowWorkload(_menuColorAccessor, _logger);
+            var workload = new RainbowWorkload(_menuColorAccessor, _statusHubEmitter, _logger);
 
             AddAndStart(workload);
         }
