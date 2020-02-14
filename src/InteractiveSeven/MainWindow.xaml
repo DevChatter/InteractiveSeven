@@ -814,25 +814,51 @@
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem>
+                                    <TabItem DataContext="{Binding ItemSettings}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Items" />
                                             </StackPanel>
                                         </TabItem.Header>
                                         <ScrollViewer>
-                                            <Label Content="Mod Only - settings and non-mod use coming soon." />
+                                            <Grid Margin="5,5,0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                                <Label Grid.Row="0" Grid.Column="1" Content="Enable the Item Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                            </Grid>
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem>
+                                    <TabItem DataContext="{Binding MateriaSettings}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Materia" />
                                             </StackPanel>
                                         </TabItem.Header>
                                         <ScrollViewer>
-                                            <Label Content="Mod Only - settings and non-mod use coming soon." />
+                                            <Grid Margin="5,5,0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                          IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                                <Label Grid.Row="0" Grid.Column="1" Content="Enable the Materia Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                            </Grid>
                                         </ScrollViewer>
                                     </TabItem>
                                 </TabControl>
