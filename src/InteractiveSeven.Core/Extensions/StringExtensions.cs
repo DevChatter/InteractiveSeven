@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace InteractiveSeven.Core
 {
     public static class StringExtensions
     {
+        private static readonly Regex WhiteSpaceRegex = new Regex(@"\s+");
+        public static string NoSpaces(this string text) => WhiteSpaceRegex.Replace(text, "");
+
+        public static bool StartsWithIns(this string a, string b)
+        {
+            return a.StartsWith(b, StringComparison.OrdinalIgnoreCase);
+        }
+
         public static bool EqualsIns(this string a, string b)
         {
             return a.Equals(b, StringComparison.OrdinalIgnoreCase);

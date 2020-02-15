@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -54,15 +55,22 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            var equippableSettings = Settings.EquipmentSettings.GetByValue(equipmentArg, charName, typeof(T));
+            var candidates = Settings.EquipmentSettings.AllByName(equipmentArg, charName, typeof(T));
 
-            if (equippableSettings == null)
+            if (candidates.Count == 0)
             {
-                _twitchClient.SendMessage(commandData.Channel,
-                    "Invalid Request - Specify equipment and character like this: !weapon cloud 15");
+                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
                 return;
             }
 
+            if (candidates.Count() > 1)
+            {
+                string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
+                _twitchClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
+                return;
+            }
+
+            var equippableSettings = candidates.Single();
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
                 commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride);

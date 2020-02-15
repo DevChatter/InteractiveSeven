@@ -9,13 +9,18 @@
         {
         }
 
-        public override bool IsMatchById(ushort id, CharNames charName = null)
+        public override bool IsMatchByCharacter(CharNames charName) => true;
+
+        public override bool IsMatchById(ushort id, CharNames charName)
             => Id == id;
 
-        public override bool IsMatchByItemId(ushort itemId, CharNames charName = null)
+        public override bool IsMatchByItemId(ushort itemId, CharNames charName)
             => ItemId == itemId;
 
-        public override bool IsMatchByEquipId(ushort equipId, CharNames charName = null)
+        public override bool IsMatchByEquipId(ushort equipId, CharNames charName)
             => EquipmentId == equipId;
+
+        public override bool IsMatchByName(string name, CharNames charName)
+            => IsMatchByName(name);
     }
 }
