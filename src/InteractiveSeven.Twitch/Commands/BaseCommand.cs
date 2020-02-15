@@ -28,9 +28,12 @@ namespace InteractiveSeven.Twitch.Commands
         protected string DefaultCommandWord
             => _commandWordsSelector?.Invoke(Settings.CommandSettings)?.FirstOrDefault();
 
+        public virtual GamePlayEffects GamePlayEffects => GamePlayEffects.MajorEffect;
+
         public virtual bool ShouldExecute(string commandWord)
         {
-            return _enableCheck?.Invoke(Settings) == true
+            return (Settings.GamePlayMode & GamePlayEffects) > 0
+                && _enableCheck?.Invoke(Settings) == true
                 && _commandWordsSelector?.Invoke(Settings.CommandSettings)?.Any(word => word.EqualsIns(commandWord)) == true;
         }
 

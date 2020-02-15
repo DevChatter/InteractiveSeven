@@ -24,6 +24,8 @@ namespace InteractiveSeven.Twitch.Commands
             _colorPaletteCollection = colorPaletteCollection;
         }
 
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
+
         public override void Execute(in CommandData commandData)
         {
             string operation = commandData.Arguments.FirstOrDefault();

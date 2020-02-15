@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 
@@ -13,6 +14,8 @@ namespace InteractiveSeven.Twitch.Commands
         {
             _paymentProcessor = paymentProcessor;
         }
+
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
         public override void Execute(in CommandData commandData)
         {

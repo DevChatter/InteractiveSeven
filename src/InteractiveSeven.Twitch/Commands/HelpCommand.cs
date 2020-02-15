@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Twitch.Model;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Twitch.Model;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -13,6 +14,8 @@ namespace InteractiveSeven.Twitch.Commands
         {
             _twitchClient = twitchClient;
         }
+
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
         public override void Execute(in CommandData commandData)
         {

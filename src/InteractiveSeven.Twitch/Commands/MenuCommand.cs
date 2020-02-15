@@ -24,6 +24,8 @@ namespace InteractiveSeven.Twitch.Commands
             _paymentProcessor = paymentProcessor;
         }
 
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
+
         public override void Execute(in CommandData commandData)
         {
             if (commandData.Arguments.Count == 0) return;

@@ -15,6 +15,8 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
         }
 
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
+
         public override void Execute(in CommandData commandData)
         {
             string argument = commandData.Arguments.FirstOrDefault();

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
 
@@ -10,6 +11,8 @@ namespace InteractiveSeven.Twitch.Commands
             : base(x => x.I7CommandWords, x => x.EnableModCommand)
         {
         }
+
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
         public override void Execute(in CommandData commandData)
         {
