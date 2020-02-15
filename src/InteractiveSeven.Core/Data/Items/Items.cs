@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveSeven.Core.Data.Items
@@ -336,5 +337,7 @@ namespace InteractiveSeven.Core.Data.Items
 
         public static Items GetByItemId(int itemId)
             => All.SingleOrDefault(x => x.ItemId == itemId);
+
+        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name);
     }
 }

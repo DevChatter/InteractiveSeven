@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data.Items;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Model;
@@ -27,26 +28,39 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
-            string itemIdText = commandData.Arguments.FirstOrDefault();
-            if (itemIdText != null && ushort.TryParse(itemIdText, out ushort itemId) && itemId < 319)
+            string itemName = commandData.Arguments.FirstOrDefault();
+
+            var candidates = Items.All.Where(x => x.IsMatchByName(itemName)).ToList(); // TODO: Make this lookup based on settings, not on the item.
+
+            if (candidates.Count == 0)
             {
-                Items item = Items.All.SingleOrDefault(x => x.ItemId == itemId); // TODO: Make this lookup based on settings, not on the item.
-
-                if (item == null)
-                {
-                    return;
-                }
-
-                _inventoryAccessor.AddItem(item.ItemId, 1, true);
-                string message = $"Item {item.Name} Added";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                return;
             }
+
+            if (candidates.Count > 15)
+            {
+                _twitchClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                return;
+            }
+
+            if (candidates.Count > 1)
+            {
+                string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
+                _twitchClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                return;
+            }
+
+            Items item = candidates.Single();
+            _inventoryAccessor.AddItem(item.ItemId, 1, true);
+            string message = $"Item {item.Name} Added";
+            _twitchClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
         }
 
         private bool IsAllowedToUseCommand(in ChatUser user)
-            => (Settings.ItemSettings.AllowMod && user.IsMod)
-               || user.IsMe || user.IsBroadcaster;
+                => (Settings.ItemSettings.AllowMod && user.IsMod)
+                   || user.IsMe || user.IsBroadcaster;
 
     }
 }

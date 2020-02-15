@@ -13,17 +13,17 @@
 
         public override bool IsMatchByCharacter(CharNames charName) => CharName == charName;
 
-        public override bool IsMatchById(ushort id, CharNames charName = null)
+        public override bool IsMatchById(ushort id, CharNames charName)
             => Id == id && CharName == charName;
 
-        public override bool IsMatchByItemId(ushort itemId, CharNames charName = null)
+        public override bool IsMatchByItemId(ushort itemId, CharNames charName)
             => ItemId == itemId && CharName == charName;
 
-        public override bool IsMatchByEquipId(ushort equipId, CharNames charName = null)
+        public override bool IsMatchByEquipId(ushort equipId, CharNames charName)
             => EquipmentId == equipId && CharName == charName;
 
-        public override bool IsMatchByName(string name, CharNames charName = null)
-            => Name.NoSpaces().StartsWithIns(name) && CharName == charName;
+        public override bool IsMatchByName(string name, CharNames charName)
+            => IsMatchByName(name) && CharName == charName;
     }
 
     public class CloudWeapon : Weapon

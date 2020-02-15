@@ -11,9 +11,9 @@
         }
 
         public abstract bool IsMatchByCharacter(CharNames charName);
-        public abstract bool IsMatchById(ushort id, CharNames charName = null);
-        public abstract bool IsMatchByItemId(ushort itemId, CharNames charName = null);
-        public abstract bool IsMatchByEquipId(ushort equipId, CharNames charName = null);
-        public abstract bool IsMatchByName(string name, CharNames charName = null);
+        public abstract bool IsMatchById(ushort id, CharNames charName);
+        public abstract bool IsMatchByItemId(ushort itemId, CharNames charName);
+        public abstract bool IsMatchByEquipId(ushort equipId, CharNames charName);
+        public abstract bool IsMatchByName(string name, CharNames charName);
     }
 }
