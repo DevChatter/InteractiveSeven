@@ -12,6 +12,7 @@ namespace InteractiveSeven.Core.ViewModels
             int portNumber = ApplicationSettings.Instance.TsengSettings.PortNumber;
             _statusOverlayUrl = new UriBuilder("http", "localhost", portNumber, "Status").Uri.AbsoluteUri;
             _menuOverlayUrl = new UriBuilder("http", "localhost", portNumber, "Menu").Uri.AbsoluteUri;
+            _eventOverlayUrl = new UriBuilder("http", "localhost", portNumber, "Events").Uri.AbsoluteUri;
         }
 
         private string _statusOverlayUrl;
@@ -32,6 +33,17 @@ namespace InteractiveSeven.Core.ViewModels
             set
             {
                 _menuOverlayUrl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _eventOverlayUrl;
+        public string EventOverlayUrl
+        {
+            get => _eventOverlayUrl;
+            set
+            {
+                _eventOverlayUrl = value;
                 OnPropertyChanged();
             }
         }

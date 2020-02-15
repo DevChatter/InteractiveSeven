@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
@@ -15,8 +16,9 @@ namespace InteractiveSeven.Twitch.Commands
     public class StatusEffectCommand : BaseStatusEffectCommand
     {
         public StatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
-            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
-            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, AllWords)
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
+            IStatusHubEmitter statusHubEmitter)
+            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
         {
         }
 
@@ -52,21 +54,25 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (Allies invalidTarget in targets.safeFrom)
             {
-                string message = $"Can't apply {statusSettings.Name} to {invalidTarget.Words.First()}.";
+                Character character = GetTargetedCharacter(invalidTarget);
+                string message = $"Can't apply {statusSettings.Name} to {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.hasEffect)
             {
-                string message = $"{statusSettings.Name} already affects {invalidTarget.Words.First()}.";
+                Character character = GetTargetedCharacter(invalidTarget);
+                string message = $"{statusSettings.Name} already affects {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
             {
+                Character character = GetTargetedCharacter(target);
                 _statusAccessor.SetActorStatus(target, statusSettings.Effect);
-                _twitchClient.SendMessage(commandData.Channel,
-                    $"Applied {statusSettings.Name} to {target.Words.First()}.");
+                string message = $"Applied {statusSettings.Name} to {character.Name}.";
+                _twitchClient.SendMessage(commandData.Channel, message);
+                _statusHubEmitter.ShowEvent(message);
             }
         }
 

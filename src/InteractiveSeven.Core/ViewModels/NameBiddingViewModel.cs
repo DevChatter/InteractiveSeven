@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
@@ -20,6 +21,7 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly ITwitchClient _twitchClient;
         private readonly IDataStore<CharacterNameBid> _dataStore;
         private readonly IDialogService _dialogService;
+        private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<NameBiddingViewModel> _logger;
         private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
@@ -29,7 +31,9 @@ namespace InteractiveSeven.Core.ViewModels
         public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
 
         public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
-            IDataStore<CharacterNameBid> dataStore, IDialogService dialogService, ILogger<NameBiddingViewModel> logger,
+            IDataStore<CharacterNameBid> dataStore, IDialogService dialogService,
+            IStatusHubEmitter statusHubEmitter,
+            ILogger<NameBiddingViewModel> logger,
             ILogger<CharacterNameBidding> charNameBiddingLogger)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
@@ -41,6 +45,7 @@ namespace InteractiveSeven.Core.ViewModels
             _twitchClient = twitchClient;
             _dataStore = dataStore;
             _dialogService = dialogService;
+            _statusHubEmitter = statusHubEmitter;
             _logger = logger;
             _charNameBiddingLogger = charNameBiddingLogger;
 
@@ -114,8 +119,9 @@ namespace InteractiveSeven.Core.ViewModels
             try
             {
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
-                _twitchClient.SendMessage(TwitchSettings.Channel,
-                    $"I7: {e.CharName.DefaultName}'s name is now {e.NewName}.");
+                string message = $"{e.CharName.DefaultName}'s name is now {e.NewName}.";
+                _twitchClient.SendMessage(TwitchSettings.Channel, message);
+                _statusHubEmitter.ShowEvent(message);
             }
             catch (Exception exception)
             {

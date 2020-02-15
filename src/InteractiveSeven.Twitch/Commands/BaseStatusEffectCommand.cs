@@ -1,4 +1,7 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Payments;
@@ -13,9 +16,10 @@ namespace InteractiveSeven.Twitch.Commands
         protected PartyStatusViewModel _partyStatus;
         protected IStatusAccessor _statusAccessor;
         protected PaymentProcessor _paymentProcessor;
+        protected IStatusHubEmitter _statusHubEmitter;
 
         protected BaseStatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
-            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor, IStatusHubEmitter statusHubEmitter,
             Func<CommandSettings, string[]> commandFunc)
             : base(commandFunc, x => x.BattleSettings.AllowStatusEffects)
         {
@@ -23,6 +27,14 @@ namespace InteractiveSeven.Twitch.Commands
             _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
             _paymentProcessor = paymentProcessor;
+            _statusHubEmitter = statusHubEmitter;
         }
+
+
+        protected Character GetTargetedCharacter(Allies ally)
+        {
+            return _partyStatus.Party[ally.Index];
+        }
+
     }
 }

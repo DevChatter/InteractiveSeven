@@ -5,7 +5,7 @@
         private bool _enabled = true;
         private bool _allowMod = true;
 
-        public bool Enabled // TODO: Add to Settings Screen
+        public bool Enabled
         {
             get => _enabled;
             set

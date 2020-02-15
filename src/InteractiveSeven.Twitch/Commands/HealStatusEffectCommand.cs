@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
@@ -15,8 +16,9 @@ namespace InteractiveSeven.Twitch.Commands
     public class HealStatusEffectCommand : BaseStatusEffectCommand
     {
         public HealStatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
-            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor)
-            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, AllWords)
+            IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
+            IStatusHubEmitter statusHubEmitter)
+            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
         {
         }
 
@@ -48,21 +50,25 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (Allies invalidTarget in targets.safeFrom)
             {
-                string message = $"{invalidTarget.Words.First()} is immune to {statusSettings.Name}.";
+                Character character = GetTargetedCharacter(invalidTarget);
+                string message = $"{character.Name} is immune to {statusSettings.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.unaffected)
             {
-                string message = $"{invalidTarget.Words.First()} is not affected by {statusSettings.Name}.";
+                Character character = GetTargetedCharacter(invalidTarget);
+                string message = $"{character.Name} is not affected by {statusSettings.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
             {
+                Character character = GetTargetedCharacter(target);
                 _statusAccessor.RemoveActorStatus(target, statusSettings.Effect);
-                _twitchClient.SendMessage(commandData.Channel,
-                    $"Removed {statusSettings.Name} from {target.Words.First()}.");
+                string message = $"Removed {statusSettings.Name} from {character.Name}.";
+                _twitchClient.SendMessage(commandData.Channel, message);
+                _statusHubEmitter.ShowEvent(message);
             }
         }
 

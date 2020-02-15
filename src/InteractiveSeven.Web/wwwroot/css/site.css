@@ -10,6 +10,11 @@
     background: #333;
 }
 
+    .ff7.notification {
+        color: white;
+        margin: 3px 0px 4px 3px;
+    }
+
     .ff7.menu {
         position: absolute;
         height: auto;
@@ -128,7 +133,6 @@
 }
 
     .slots li img {
-        
         width: 18px;
         height: 18px;
         float: left;
@@ -148,11 +152,12 @@
 .slots li.linked:nth-child(even) {
     background-image: url('/images/slot-normal.png');
 }
-.slots li.linked:nth-child(even):before {
-    background-image: url('/images/slot-link.png');
-    width: 14px;
-    height: 24px
-}
+
+    .slots li.linked:nth-child(even):before {
+        background-image: url('/images/slot-link.png');
+        width: 14px;
+        height: 24px
+    }
 
 .slots.no-growth li.linked:nth-child(odd) {
     background-image: url('/images/slot-nothing.png');
@@ -263,4 +268,11 @@
 
 .slots li.linked:nth-child(even) img {
     margin-left: -1px !important;
+}
+
+/* Overrides on noty styles */
+.noty_theme__mint.noty_type__alert,
+.noty_theme__mint.noty_type__notification {
+    background-color: transparent;
+    border-bottom: 0px;
 }
