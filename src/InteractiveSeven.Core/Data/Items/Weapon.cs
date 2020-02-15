@@ -11,6 +11,8 @@
             CharName = charName;
         }
 
+        public override bool IsMatchByCharacter(CharNames charName) => CharName == charName;
+
         public override bool IsMatchById(ushort id, CharNames charName = null)
             => Id == id && CharName == charName;
 
@@ -19,6 +21,9 @@
 
         public override bool IsMatchByEquipId(ushort equipId, CharNames charName = null)
             => EquipmentId == equipId && CharName == charName;
+
+        public override bool IsMatchByName(string name, CharNames charName = null)
+            => Name.NoSpaces().StartsWithIns(name) && CharName == charName;
     }
 
     public class CloudWeapon : Weapon

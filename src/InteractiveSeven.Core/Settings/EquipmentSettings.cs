@@ -71,21 +71,21 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public EquippableSettings GetByValue(string value, CharNames charName, Type type)
+        public List<EquippableSettings> AllByName(string name, CharNames charName, Type type)
         {
             if (type == typeof(Weapon))
             {
-                return AllWeapons.FindByValue(value, charName);
+                return AllWeapons.AllByName(name, charName);
             }
             if (type == typeof(Accessory))
             {
-                return AllAccessories.FindByValue(value, charName);
+                return AllAccessories.AllByName(name, charName);
             }
             if (type == typeof(Armlet))
             {
-                return AllArmlets.FindByValue(value, charName);
+                return AllArmlets.AllByName(name, charName);
             }
-            return null;
+            return new List<EquippableSettings>();
         }
 
         public List<EquippableSettings> AllWeapons { get; set; }
