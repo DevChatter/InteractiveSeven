@@ -39,6 +39,8 @@ namespace InteractiveSeven.Twitch.Commands
             _gilBank = gilBank;
         }
 
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.MildEffect;
+
         public override void Execute(in CommandData data)
         {
             if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, NameBidSettings.NamingCloudEnabled))

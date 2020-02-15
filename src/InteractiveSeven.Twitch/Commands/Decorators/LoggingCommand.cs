@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Twitch.Model;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -14,6 +15,8 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
             _internalCommand = internalCommand;
             _logger = logger;
         }
+
+        public virtual GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
 
         public void Execute(in CommandData commandData)
         {

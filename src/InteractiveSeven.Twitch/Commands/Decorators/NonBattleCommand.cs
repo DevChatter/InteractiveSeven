@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
             _twitchClient = twitchClient;
             _memoryAccessor = memoryAccessor;
         }
+
+        public GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
 
         public bool ShouldExecute(string commandWord)
         {

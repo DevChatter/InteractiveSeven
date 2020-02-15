@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Twitch.Commands.Components;
 using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
@@ -15,6 +16,8 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
             _cooldownTracker = new CooldownTracker(1);
         }
+
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
         public override void Execute(in CommandData commandData)
         {

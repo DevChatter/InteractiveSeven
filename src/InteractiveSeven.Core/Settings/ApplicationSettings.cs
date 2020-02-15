@@ -11,6 +11,7 @@ namespace InteractiveSeven.Core.Settings
         private int _subscriberBonusBits = 150;
         private bool _modsGiveBonusBits = true;
         private bool _enableModCommand = true;
+        private bool _allowGameAffectingCommands = true;
 
         public static ApplicationSettings Instance { get; private set; }
         static ApplicationSettings()
@@ -67,6 +68,21 @@ namespace InteractiveSeven.Core.Settings
                 OnPropertyChanged();
             }
         }
+
+        public bool AllowGameAffectingCommands
+        {
+            get => _allowGameAffectingCommands;
+            set
+            {
+                _allowGameAffectingCommands = value;
+                OnPropertyChanged();
+            }
+        }
+
+        [JsonIgnore]
+        public GamePlayEffects GamePlayMode => AllowGameAffectingCommands ?
+            GamePlayEffects.DisplayOnly | GamePlayEffects.MildEffect | GamePlayEffects.MajorEffect
+            : GamePlayEffects.DisplayOnly;
 
         public CommandSettings CommandSettings { get; set; } = new CommandSettings();
         public TwitchSettings TwitchSettings { get; set; } = new TwitchSettings();

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Payments;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
 
@@ -15,6 +16,8 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient = twitchClient;
             _gilBank = gilBank;
         }
+
+        public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
         public override void Execute(in CommandData data)
         {
