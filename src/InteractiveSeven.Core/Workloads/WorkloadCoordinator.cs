@@ -18,10 +18,12 @@ namespace InteractiveSeven.Core.Workloads
         private readonly object _padlock = new object();
 
         public WorkloadCoordinator(IMenuColorAccessor menuColorAccessor,
-            ILogger<WorkloadCoordinator> logger)
+            ILogger<WorkloadCoordinator> logger,
+            IStatusHubEmitter statusHubEmitter)
         {
             _menuColorAccessor = menuColorAccessor;
             _logger = logger;
+            _statusHubEmitter = statusHubEmitter;
 
             DomainEvents.Register<MenuColorChanging>(HandleMenuColorChanging);
             DomainEvents.Register<RainbowModeStarted>(HandleRainbowModeStarted);
