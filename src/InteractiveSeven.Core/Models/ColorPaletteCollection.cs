@@ -19,12 +19,35 @@ namespace InteractiveSeven.Core.Models
             }
         }
 
-        public MenuColors ByName(string name) => All.SingleOrDefault(x => x.Names.Any(n => n.EqualsIns(name)))?.MenuColors;
+        public MenuColors ByName(string name) => PaletteByName(name)?.MenuColors;
+
+        private ColorPalette PaletteByName(string name)
+        {
+            return All.SingleOrDefault(x => x.Names.Any(n => n.EqualsIns(name)));
+        }
+
+        public void RemovePalette(string name)
+        {
+            All.RemoveAll(x => x.Names.Any(n => n.EqualsIns(name)));
+        }
 
         public void AddPalette(ColorPalette colorPalette)
         {
             All.Add(colorPalette);
             ExistingNames.UnionWith(colorPalette.Names);
+        }
+
+        public bool EditPalette(MenuColors menuColors, string paletteName)
+        {
+            ColorPalette palette = PaletteByName(paletteName);
+            if (palette == null)
+            {
+                return false;
+            }
+
+            palette.MenuColors = menuColors;
+
+            return true;
         }
 
         public void Load(List<ColorPalette> colorPalettes)
@@ -55,6 +78,5 @@ namespace InteractiveSeven.Core.Models
         public static ColorPalette Brendan = new ColorPalette(MenuColors.Brendan, "Brendan", "Brendoneus", "DevChatter");
         public static ColorPalette Tsuna = new ColorPalette(MenuColors.Tsuna, "Tsuna", "TsunaMods", "TsunaMix");
         public static ColorPalette Strife = new ColorPalette(MenuColors.Strife, "Strife", "Strife98");
-
     }
 }
