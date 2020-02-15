@@ -43,10 +43,97 @@ namespace InteractiveSeven.Twitch.Commands
                 case "create":
                     CreateNewPalette(commandData);
                     break;
+                case "edit":
+                case "mod":
+                case "change":
+                case "modify":
+                    EditPalette(commandData);
+                    break;
+                case "rm":
+                case "rem":
+                case "remove":
+                case "del":
+                case "delete":
+                    DeletePalette(commandData);
+                    break;
                 default:
                     DisplayHelpText(commandData);
                     break;
             }
+        }
+
+        private void DeletePalette(in CommandData commandData)
+        {
+            if (!AllowedToRunCommand(commandData))
+            {
+                return;
+            }
+
+            if (commandData.Arguments.Count < 2)
+            {
+                DisplayHelpText(commandData);
+                return;
+            }
+
+            string paletteName = commandData.Arguments[1];
+
+            _colorPaletteCollection.RemovePalette(paletteName);
+            _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
+
+            _twitchClient.SendMessage(commandData.Channel, $"Removed the '!menu {paletteName}' color palette.");
+        }
+
+        private void EditPalette(in CommandData commandData)
+        {
+            if (!AllowedToRunCommand(commandData))
+            {
+                return;
+            }
+
+            if (commandData.Arguments.Count < 6)
+            {
+                DisplayHelpText(commandData);
+                return;
+            }
+
+            string paletteName = commandData.Arguments[1];
+            MenuColors menuColors = GetMenuColors(commandData);
+
+            if (menuColors == null)
+            {
+                _twitchClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
+                return;
+            }
+
+            _colorPaletteCollection.EditPalette(menuColors, paletteName);
+            _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
+
+            _twitchClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
+        }
+
+        private static MenuColors GetMenuColors(CommandData commandData)
+        {
+            string topLeftText = commandData.Arguments[2];
+            string topRightText = commandData.Arguments[3];
+            string botLeftText = commandData.Arguments[4];
+            string botRightText = commandData.Arguments[5];
+
+            if (!topLeftText.IsColor()
+                || !topRightText.IsColor()
+                || !botLeftText.IsColor()
+                || !botRightText.IsColor())
+            {
+                return null;
+            }
+
+            var menuColors = new MenuColors
+            {
+                TopLeft = topLeftText.ToColor(),
+                TopRight = topRightText.ToColor(),
+                BotLeft = botLeftText.ToColor(),
+                BotRight = botRightText.ToColor(),
+            };
+            return menuColors;
         }
 
         private void DisplayHelpText(CommandData commandData)
@@ -71,25 +158,14 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             string paletteName = commandData.Arguments[1];
-            string topLeftText = commandData.Arguments[2];
-            string topRightText = commandData.Arguments[3];
-            string botLeftText = commandData.Arguments[4];
-            string botRightText = commandData.Arguments[5];
+            MenuColors menuColors = GetMenuColors(commandData);
 
-            if (!topLeftText.IsColor() || !topRightText.IsColor() || !botLeftText.IsColor() ||
-                !botRightText.IsColor())
+            if (menuColors == null)
             {
                 _twitchClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
                 return;
             }
 
-            var menuColors = new MenuColors
-            {
-                TopLeft = topLeftText.ToColor(),
-                TopRight = topRightText.ToColor(),
-                BotLeft = botLeftText.ToColor(),
-                BotRight = botRightText.ToColor(),
-            };
             var colorPalette = new ColorPalette(menuColors, paletteName);
 
             _colorPaletteCollection.AddPalette(colorPalette);

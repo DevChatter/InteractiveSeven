@@ -3,7 +3,7 @@
 
     public class ColorPalette
     {
-        public MenuColors MenuColors { get; }
+        public MenuColors MenuColors { get; internal set; }
         public string[] Names { get; }
 
         public ColorPalette(MenuColors menuColors, params string[] names)
