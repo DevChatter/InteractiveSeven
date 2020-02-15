@@ -118,8 +118,10 @@ namespace InteractiveSeven.Twitch.Commands
             string botLeftText = commandData.Arguments[4];
             string botRightText = commandData.Arguments[5];
 
-            if (!topLeftText.IsColor() || !topRightText.IsColor()
-                                       || !botLeftText.IsColor() || !botRightText.IsColor())
+            if (!topLeftText.IsColor()
+                || !topRightText.IsColor()
+                || !botLeftText.IsColor()
+                || !botRightText.IsColor())
             {
                 return null;
             }
