@@ -56,6 +56,13 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             var candidates = Settings.EquipmentSettings.AllByName(equipmentArg, charName, typeof(T));
+
+            if (candidates.Count == 0)
+            {
+                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
+                return;
+            }
+
             if (candidates.Count() > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
