@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using Tseng.Constants;
 
@@ -17,6 +18,7 @@ namespace InteractiveSeven.Core.FinalFantasy
         }
 
         public bool IsActiveBattle { get; }
+        public bool IsBattleEnding => Opponents.All(x => x.CurrentHp == 0) || Party.All(x => x.CurrentHp == 0);
         public BattleActor[] Opponents => _opponents ??= GetActors(BattleMapOffsets.EnemyActors, 6);
         public BattleActor[] Party => _party ??= GetActors(BattleMapOffsets.PartyActors, 4);
 

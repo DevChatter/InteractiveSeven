@@ -1,8 +1,6 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Diagnostics.Memory;
-using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
-using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands.Decorators
@@ -11,16 +9,15 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
     {
         private readonly T _internalCommand;
         private readonly ITwitchClient _twitchClient;
-        private readonly IMemoryAccessor _memoryAccessor;
-
-        private ApplicationSettings Settings => ApplicationSettings.Instance;
+        private readonly IBattleInfoAccessor _battleInfoAccessor;
 
         public BattleOnlyCommand(T internalCommand,
-            ITwitchClient twitchClient, IMemoryAccessor memoryAccessor)
+            ITwitchClient twitchClient,
+            IBattleInfoAccessor battleInfoAccessor)
         {
             _internalCommand = internalCommand;
             _twitchClient = twitchClient;
-            _memoryAccessor = memoryAccessor;
+            _battleInfoAccessor = battleInfoAccessor;
         }
 
         public GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
@@ -45,10 +42,8 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
 
         private bool IsBattleActive()
         {
-            MemLoc battleIndicator = BattleMemoryLocations.BattleStartedIndicator;
-            byte[] bytes = new byte[battleIndicator.NumBytes];
-            _memoryAccessor.ReadMem(Settings.ProcessName, battleIndicator.Address, bytes);
-            return bytes.Any(b => b > 0);
+            var ff7BattleMap = _battleInfoAccessor.GetBattleMap();
+            return ff7BattleMap.IsActiveBattle && !ff7BattleMap.IsBattleEnding;
         }
     }
 }
