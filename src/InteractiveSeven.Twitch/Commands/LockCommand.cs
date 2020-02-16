@@ -8,7 +8,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PaymentProcessor _paymentProcessor;
 
         public LockCommand(PaymentProcessor paymentProcessor)
-            : base(new[] { "BrendanLock" }, x => true)
+            : base(new[] { "BrendanLock", "I7Lock" }, x => true)
         {
             _paymentProcessor = paymentProcessor;
         }

@@ -25,11 +25,11 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 message = "Specify cost type to check (color, status).";
             }
-            else if (argument.EqualsIns("color") || argument.EqualsIns("menu"))
+            else if (argument.StartsWithIns("col") || argument.StartsWithIns("menu"))
             {
                 message = GetColorCostMessage();
             }
-            else if (argument.EqualsIns("status") || argument.EqualsIns("statuses"))
+            else if (argument.StartsWithIns("status") || argument.StartsWithIns("eff"))
             {
                 message = GetStatusCostMessage();
             }
@@ -45,7 +45,7 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 foreach (var effect in Settings.BattleSettings.AllStatusEffects.Where(x => x.Enabled))
                 {
-                    message += $"[{effect.Name}: {effect.Cost}] ";
+                    message += $"[{effect.Name}: Add:{effect.Cost}/Cure:{effect.CureCost}] ";
                 }
             }
 
