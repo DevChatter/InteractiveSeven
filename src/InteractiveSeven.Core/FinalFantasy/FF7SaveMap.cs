@@ -9,15 +9,9 @@ namespace Tseng.GameData
 {
     public class FF7SaveMap
     {
-        #region Private Fields
-
         private readonly byte[] _map;
-
         private readonly byte[] _colors = MenuColors.Classic.GetDisplayBytes();
-
-        #endregion Private Fields
-
-        #region Public Constructors
+        private CharacterRecord[] _liveParty;
 
         public FF7SaveMap(byte[] map, byte[] colors)
         {
@@ -29,10 +23,6 @@ namespace Tseng.GameData
             _map = !valid ? null : map;
             _colors = colors ?? _colors;
         }
-
-        #endregion Public Constructors
-
-        #region Public Properties
 
         public short BattlePoints => BitConverter.ToInt16(_map, SaveMapOffsets.BattlePoints);
         public short BattlesFought => BitConverter.ToInt16(_map, SaveMapOffsets.BattlesFought);
@@ -76,28 +66,27 @@ namespace Tseng.GameData
             }
         }
 
-        public CharacterRecord[] LiveParty
+        public CharacterRecord[] LiveParty => _liveParty ??= FillLiveParty();
+
+        private CharacterRecord[] FillLiveParty()
         {
-            get
+            var liveParty = new CharacterRecord[3];
+            if (FillChar(_map[SaveMapOffsets.PartyMember1], ref _liveParty[0], _map) == false)
             {
-                var resultArray = new CharacterRecord[3];
-                if (FillChar(_map[SaveMapOffsets.PartyMember1], ref resultArray[0], _map) == false)
-                {
-                    resultArray[0] = new CharacterRecord { Id = FF7Const.Empty };
-                }
-
-                if (FillChar(_map[SaveMapOffsets.PartyMember2], ref resultArray[1], _map) == false)
-                {
-                    resultArray[1] = new CharacterRecord { Id = FF7Const.Empty };
-                }
-
-                if (FillChar(_map[SaveMapOffsets.PartyMember3], ref resultArray[2], _map) == false)
-                {
-                    resultArray[2] = new CharacterRecord { Id = FF7Const.Empty };
-                }
-
-                return resultArray;
+                liveParty[0] = new CharacterRecord {Id = FF7Const.Empty};
             }
+
+            if (FillChar(_map[SaveMapOffsets.PartyMember2], ref _liveParty[1], _map) == false)
+            {
+                liveParty[1] = new CharacterRecord {Id = FF7Const.Empty};
+            }
+
+            if (FillChar(_map[SaveMapOffsets.PartyMember3], ref _liveParty[2], _map) == false)
+            {
+                liveParty[2] = new CharacterRecord {Id = FF7Const.Empty};
+            }
+
+            return liveParty;
         }
 
         public int LiveTotalSeconds => BitConverter.ToInt32(_map, SaveMapOffsets.NumberOfSecondsPlayed);
@@ -165,15 +154,7 @@ namespace Tseng.GameData
         public string WindowColorTopLeft => $"{_colors[0xA]:X2}{_colors[0x9]:X2}{_colors[0x8]:X2}";
         public string WindowColorTopRight => $"{_colors[0xE]:X2}{_colors[0xD]:X2}{_colors[0xC]:X2}";
 
-        #endregion Public Properties
-
-        #region Private Properties
-
         private bool IsValid { get; }
-
-        #endregion Private Properties
-
-        #region Public Methods
 
         public static bool VerifyMapIntegrity(byte[] map)
         {
@@ -194,10 +175,6 @@ namespace Tseng.GameData
 
             return consistencyCheck;
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private static bool FillChar(byte charId, ref CharacterRecord characterRecord, byte[] map)
         {
@@ -274,7 +251,5 @@ namespace Tseng.GameData
             characterRecord.ExpToLevel = BitConverter.ToInt32(map, offset + SaveMapCharacterOffsets.ExpToNextLevel);
             return true;
         }
-
-        #endregion Private Methods
     }
 }
