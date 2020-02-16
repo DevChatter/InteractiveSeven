@@ -34,7 +34,7 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
                 MaxMp = (ushort)record.MaxMp, // TODO: Fix Types
                 CurrentHp = (uint)record.CurrentHp, // TODO: Fix Types
                 CurrentMp = (ushort)record.CurrentMp, // TODO: Fix Types
-                Name = record.Name,
+                Name = record.RawName,
                 Level = record.Level,
                 Weapon = gameDatabase.WeaponDatabase.FirstOrDefault(w => w.Id == record.Weapon),
                 Armlet = gameDatabase.ArmletDatabase.FirstOrDefault(a => a.Id == record.Armor),

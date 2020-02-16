@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.FinalFantasy;
 using Shojy.FF7.Elena.Extensions;
 using System;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.Models;
 using Tseng.Constants;
 
@@ -70,22 +71,12 @@ namespace Tseng.GameData
 
         private CharacterRecord[] FillLiveParty()
         {
-            var liveParty = new CharacterRecord[3];
-            if (FillChar(_map[SaveMapOffsets.PartyMember1], ref _liveParty[0], _map) == false)
+            var liveParty = new CharacterRecord[3]
             {
-                liveParty[0] = new CharacterRecord {Id = FF7Const.Empty};
-            }
-
-            if (FillChar(_map[SaveMapOffsets.PartyMember2], ref _liveParty[1], _map) == false)
-            {
-                liveParty[1] = new CharacterRecord {Id = FF7Const.Empty};
-            }
-
-            if (FillChar(_map[SaveMapOffsets.PartyMember3], ref _liveParty[2], _map) == false)
-            {
-                liveParty[2] = new CharacterRecord {Id = FF7Const.Empty};
-            }
-
+                CreateCharacterRecord(_map[SaveMapOffsets.PartyMember1], _map),
+                CreateCharacterRecord(_map[SaveMapOffsets.PartyMember2], _map),
+                CreateCharacterRecord(_map[SaveMapOffsets.PartyMember3], _map)
+            };
             return liveParty;
         }
 
@@ -111,23 +102,23 @@ namespace Tseng.GameData
         {
             get
             {
-                var resultArray = new CharacterRecord[3];
-                if (FillChar(_map[0x5], ref resultArray[0], _map) == false)
+                var resultArray = new CharacterRecord[3]
+                {
+                    CreateCharacterRecord(_map[SaveMapOffsets.PartyMember1], _map),
+                    CreateCharacterRecord(_map[SaveMapOffsets.PartyMember2], _map),
+                    CreateCharacterRecord(_map[SaveMapOffsets.PartyMember3], _map)
+                };
+                if (resultArray[0].Id == FF7Const.Empty)
                 {
                     return null;
                 }
-
-                if (FillChar(_map[0x6], ref resultArray[1], _map) == false)
+                if (resultArray[1].Id == FF7Const.Empty)
                 {
                     resultArray[1] = default;
-                    resultArray[2] = default;
-                    return resultArray;
                 }
-
-                if (FillChar(_map[0x7], ref resultArray[2], _map) == false)
+                if (resultArray[2].Id == FF7Const.Empty)
                 {
                     resultArray[2] = default;
-                    return resultArray;
                 }
 
                 return resultArray;
@@ -176,80 +167,21 @@ namespace Tseng.GameData
             return consistencyCheck;
         }
 
-        private static bool FillChar(byte charId, ref CharacterRecord characterRecord, byte[] map)
+        private static CharacterRecord CreateCharacterRecord(byte charId, byte[] map)
         {
-            CharNames charName = CharNames.GetById(charId);
+            var charName = CharNames.GetById(charId);
 
             var offset = charName.SaveMapRecordOffset;
 
             if (offset == -1)
             {
                 // Invalid or empty record
-                return false;
+                return new CharacterRecord { Id = FF7Const.Empty }; ;
             }
 
-            characterRecord.DefaultName = charName;
-
-            var characterNameBytes = new byte[12];
-            Array.Copy(map, offset + SaveMapCharacterOffsets.Name, characterNameBytes, 0, 12);
-            characterRecord.Name = characterNameBytes.ToFFString();
-
-            characterRecord.Id = charId;
-            characterRecord.Level = map[offset + SaveMapCharacterOffsets.Level];
-            characterRecord.Strength = map[offset + SaveMapCharacterOffsets.Strength];
-            characterRecord.Vitality = map[offset + SaveMapCharacterOffsets.Vitality];
-            characterRecord.Magic = map[offset + SaveMapCharacterOffsets.Magic];
-            characterRecord.Spirit = map[offset + SaveMapCharacterOffsets.Spirit];
-            characterRecord.Dexterity = map[offset + SaveMapCharacterOffsets.Dexterity];
-            characterRecord.Luck = map[offset + SaveMapCharacterOffsets.Luck];
-            characterRecord.StrBonus = map[offset + SaveMapCharacterOffsets.StrengthBonus];
-            characterRecord.VitBonus = map[offset + SaveMapCharacterOffsets.VitalityBonus];
-            characterRecord.MagBonus = map[offset + SaveMapCharacterOffsets.MagicBonus];
-            characterRecord.SprBonus = map[offset + SaveMapCharacterOffsets.SpiritBonus];
-            characterRecord.DexBonus = map[offset + SaveMapCharacterOffsets.DexterityBonus];
-            characterRecord.LucBonus = map[offset + SaveMapCharacterOffsets.LuckBonus];
-            characterRecord.LimitLevel = map[offset + SaveMapCharacterOffsets.LimitLevel];
-            characterRecord.LimitBar = map[offset + 0x0F];
-            characterRecord.Weapon = map[offset + SaveMapCharacterOffsets.EquipedWeapon];
-            characterRecord.Armor = map[offset + SaveMapCharacterOffsets.EquipedArmor];
-            characterRecord.Accessory = map[offset + SaveMapCharacterOffsets.EquipedAccessory];
-            characterRecord.Flags = map[offset + SaveMapCharacterOffsets.StatusFlags];
-            characterRecord.AtFront = map[offset + SaveMapCharacterOffsets.Row] == FF7Const.Empty;
-            characterRecord.LevelProgress = map[offset + 0x21];
-            characterRecord.LimitMask = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.LimitBreaks);
-            characterRecord.Kills = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.NumberOfKills);
-            characterRecord.LimitTimes = new short[3];
-            characterRecord.LimitTimes[0] =
-                BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.LimitLevel1Uses);
-            characterRecord.LimitTimes[1] =
-                BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.LimitLevel2Uses);
-            characterRecord.LimitTimes[2] =
-                BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.LimitLevel3Uses);
-            characterRecord.CurrentHp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.CurrentHp);
-            characterRecord.BaseHp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.BaseHp);
-            characterRecord.MaxHp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.MaxHp);
-            characterRecord.CurrentMp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.CurrentMp);
-            characterRecord.BaseMp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.BaseMp);
-            characterRecord.MaxMp = BitConverter.ToInt16(map, offset + SaveMapCharacterOffsets.MaxMp);
-            characterRecord.Experience = BitConverter.ToInt32(map, offset + SaveMapCharacterOffsets.CurrentExp);
-            characterRecord.WeaponMateria = new int[8];
-
-            for (var materiaSlot = 0; materiaSlot <= 7; materiaSlot++)
-            {
-                characterRecord.WeaponMateria[materiaSlot] =
-                    map[offset + SaveMapCharacterOffsets.WeaponMateria1 + (4 * materiaSlot)];
-            }
-
-            characterRecord.ArmorMateria = new int[8];
-
-            for (var materiaSlot = 0; materiaSlot <= 7; materiaSlot++)
-            {
-                characterRecord.ArmorMateria[materiaSlot] =
-                    map[offset + SaveMapCharacterOffsets.ArmorMateria1 + (4 * materiaSlot)];
-            }
-
-            characterRecord.ExpToLevel = BitConverter.ToInt32(map, offset + SaveMapCharacterOffsets.ExpToNextLevel);
-            return true;
+            var record = new Span<byte>(map, offset, 0x80).ToArray().ToType<CharacterRecord>();
+            
+            return record;
         }
     }
 }
