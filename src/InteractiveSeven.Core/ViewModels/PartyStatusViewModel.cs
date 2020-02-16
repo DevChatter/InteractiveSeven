@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using System;
 using System.Linq;

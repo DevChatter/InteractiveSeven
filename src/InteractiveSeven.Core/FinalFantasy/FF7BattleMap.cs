@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.FinalFantasy.MemModels;
-using System;
+﻿using System;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using Tseng.Constants;
 
-namespace Tseng.GameData
+namespace InteractiveSeven.Core.FinalFantasy
 {
     public class FF7BattleMap
     {

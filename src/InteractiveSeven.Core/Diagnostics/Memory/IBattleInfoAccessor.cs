@@ -1,4 +1,4 @@
-﻿using Tseng.GameData;
+﻿using InteractiveSeven.Core.FinalFantasy;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {
