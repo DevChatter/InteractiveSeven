@@ -9,7 +9,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PaymentProcessor _paymentProcessor;
 
         public UnlockCommand(PaymentProcessor paymentProcessor)
-            : base(new[] { "BrendanUnlock" }, x => true)
+            : base(new[] { "BrendanUnlock", "I7Unlock" }, x => true)
         {
             _paymentProcessor = paymentProcessor;
         }
