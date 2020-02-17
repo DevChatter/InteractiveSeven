@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.FinalFantasy;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using System;
 using System.Linq;
@@ -34,24 +35,27 @@ namespace InteractiveSeven.Core.ViewModels
             ColorTopRight = map.WindowColorTopRight;
             TimeActive = TimeSpan.FromSeconds(map.LiveTotalSeconds).ToString("hh\\:mm\\:ss");
 
-            for (var index = 0; index < map.LiveParty.Length; ++index)
+            var characters = map.LiveParty.Select(x => Character.FromCharacterRecord(x, gameDatabase)).ToArray();
+
+            for (var index = 0; index < characters.Length; ++index)
             {
                 // Skip empty party
-                if (map.LiveParty[index].Id == FF7Const.Empty) continue;
+                if (characters[index].Id == FF7Const.Empty) continue;
 
-                var chr = Character.FromCharacterRecord(map.LiveParty[index], gameDatabase);
+                var chr = characters[index];
 
-                var effect = (StatusEffects)map.LiveParty[index].Flags;
+                var effect = characters[index].StatusEffectsValue;
 
                 if (battleMap.IsActiveBattle)
                 {
-                    chr.CurrentHp = battleMap.Party[index].CurrentHp;
-                    chr.MaxHp = battleMap.Party[index].MaxHp;
-                    chr.CurrentMp = battleMap.Party[index].CurrentMp;
-                    chr.MaxMp = battleMap.Party[index].MaxMp;
-                    chr.Level = battleMap.Party[index].Level;
-                    effect = battleMap.Party[index].Status;
-                    chr.BackRow = battleMap.Party[index].IsBackRow;
+                    BattleActor battleActor = battleMap.Party[index];
+                    chr.CurrentHp = battleActor.CurrentHp;
+                    chr.MaxHp = battleActor.MaxHp;
+                    chr.CurrentMp = battleActor.CurrentMp;
+                    chr.MaxMp = battleActor.MaxMp;
+                    chr.Level = battleActor.Level;
+                    effect = battleActor.Status;
+                    chr.BackRow = battleActor.IsBackRow;
                 }
 
                 var effs = effect.ToString().Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();

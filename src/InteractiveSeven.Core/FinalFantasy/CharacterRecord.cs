@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using InteractiveSeven.Core.Data;
+using Shojy.FF7.Elena.Extensions;
 using Tseng.Constants;
 
 namespace Tseng.GameData
@@ -27,7 +28,8 @@ namespace Tseng.GameData
         [FieldOffset(0xE)] public byte LimitLevel;
         [FieldOffset(0xF)] public byte LimitBar;
 
-        [FieldOffset(0x10)] public string RawName;
+        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 12)]
+        [FieldOffset(0x10)] public byte[] RawName;
         [FieldOffset(0x1C)] public byte Weapon;
         [FieldOffset(0x1D)] public byte Armor;
         [FieldOffset(0x1E)] public byte Accessory;
@@ -35,44 +37,45 @@ namespace Tseng.GameData
 
         [FieldOffset(0x20)] public byte Row;
         [FieldOffset(0x21)] public byte LevelProgress;
-        [FieldOffset(0x22)] public short LimitMask;
-        [FieldOffset(0x24)] public short Kills;
-        [FieldOffset(0x26)] public short LimitLevel1Uses;
-        [FieldOffset(0x28)] public short LimitLevel2Uses;
-        [FieldOffset(0x2A)] public short LimitLevel3Uses;
-        [FieldOffset(0x2C)] public short CurrentHp;
-        [FieldOffset(0x2E)] public short BaseHp;
+        [FieldOffset(0x22)] public ushort LimitMask;
+        [FieldOffset(0x24)] public ushort Kills;
+        [FieldOffset(0x26)] public ushort LimitLevel1Uses;
+        [FieldOffset(0x28)] public ushort LimitLevel2Uses;
+        [FieldOffset(0x2A)] public ushort LimitLevel3Uses;
+        [FieldOffset(0x2C)] public ushort CurrentHp;
+        [FieldOffset(0x2E)] public ushort BaseHp;
 
-        [FieldOffset(0x30)] public short CurrentMp;
-        [FieldOffset(0x32)] public short BaseMp;
-        [FieldOffset(0x38)] public short MaxHp;
-        [FieldOffset(0x3A)] public short MaxMp;
+        [FieldOffset(0x30)] public ushort CurrentMp;
+        [FieldOffset(0x32)] public ushort BaseMp;
+        [FieldOffset(0x38)] public ushort MaxHp;
+        [FieldOffset(0x3A)] public ushort MaxMp;
         [FieldOffset(0x3C)] public int Experience;
 
-        [FieldOffset(0x40)] public int WeaponMateria1;
-        [FieldOffset(0x44)] public int WeaponMateria2;
-        [FieldOffset(0x48)] public int WeaponMateria3;
-        [FieldOffset(0x4C)] public int WeaponMateria4;
-        [FieldOffset(0x50)] public int WeaponMateria5;
-        [FieldOffset(0x54)] public int WeaponMateria6;
-        [FieldOffset(0x58)] public int WeaponMateria7;
-        [FieldOffset(0x5C)] public int WeaponMateria8;
+        [FieldOffset(0x40)] public MateriaRecord WeaponMateria1;
+        [FieldOffset(0x44)] public MateriaRecord WeaponMateria2;
+        [FieldOffset(0x48)] public MateriaRecord WeaponMateria3;
+        [FieldOffset(0x4C)] public MateriaRecord WeaponMateria4;
+        [FieldOffset(0x50)] public MateriaRecord WeaponMateria5;
+        [FieldOffset(0x54)] public MateriaRecord WeaponMateria6;
+        [FieldOffset(0x58)] public MateriaRecord WeaponMateria7;
+        [FieldOffset(0x5C)] public MateriaRecord WeaponMateria8;
 
-        [FieldOffset(0x60)] public int ArmorMateria1;
-        [FieldOffset(0x64)] public int ArmorMateria2;
-        [FieldOffset(0x68)] public int ArmorMateria3;
-        [FieldOffset(0x6C)] public int ArmorMateria4;
-        [FieldOffset(0x70)] public int ArmorMateria5;
-        [FieldOffset(0x74)] public int ArmorMateria6;
-        [FieldOffset(0x78)] public int ArmorMateria7;
-        [FieldOffset(0x7C)] public int ArmorMateria8;
+        [FieldOffset(0x60)] public MateriaRecord ArmorMateria1;
+        [FieldOffset(0x64)] public MateriaRecord ArmorMateria2;
+        [FieldOffset(0x68)] public MateriaRecord ArmorMateria3;
+        [FieldOffset(0x6C)] public MateriaRecord ArmorMateria4;
+        [FieldOffset(0x70)] public MateriaRecord ArmorMateria5;
+        [FieldOffset(0x74)] public MateriaRecord ArmorMateria6;
+        [FieldOffset(0x78)] public MateriaRecord ArmorMateria7;
+        [FieldOffset(0x7C)] public MateriaRecord ArmorMateria8;
 
-        [FieldOffset(0x80)] public int ExpToLevel;
+        [FieldOffset(0x80)] public uint ExpToLevel;
 
         public CharNames DefaultName => CharNames.GetById(Id);
         public bool AtFront => Row == FF7Const.Empty;
-        public short[] LimitTimes => new []{ LimitLevel1Uses, LimitLevel2Uses, LimitLevel3Uses };
-        public int[] ArmorMateria => new[]
+        public string Name => RawName.ToFFString();
+        public ushort[] LimitTimes => new[] { LimitLevel1Uses, LimitLevel2Uses, LimitLevel3Uses };
+        public MateriaRecord[] ArmorMateria => new[]
         {
             ArmorMateria1,
             ArmorMateria2,
@@ -83,7 +86,7 @@ namespace Tseng.GameData
             ArmorMateria7,
             ArmorMateria8,
         };
-        public int[] WeaponMateria => new[]
+        public MateriaRecord[] WeaponMateria => new[]
         {
             WeaponMateria1,
             WeaponMateria2,
@@ -95,5 +98,15 @@ namespace Tseng.GameData
             WeaponMateria8,
         };
 
+    }
+
+    [StructLayout(LayoutKind.Explicit, Size = 4)]
+    public struct MateriaRecord
+    {
+        [FieldOffset(0)] public byte Id;
+        [FieldOffset(1)] public byte ApByte1;
+        [FieldOffset(2)] public byte ApByte2;
+        [FieldOffset(3)] public byte ApByte3;
+        public uint Experience => (uint)((ApByte3 << 16) + (ApByte2 << 8) + ApByte1);
     }
 }

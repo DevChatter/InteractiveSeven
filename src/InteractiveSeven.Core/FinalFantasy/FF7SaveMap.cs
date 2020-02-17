@@ -71,7 +71,7 @@ namespace Tseng.GameData
 
         private CharacterRecord[] FillLiveParty()
         {
-            var liveParty = new CharacterRecord[3]
+            var liveParty = new[]
             {
                 CreateCharacterRecord(_map[SaveMapOffsets.PartyMember1], _map),
                 CreateCharacterRecord(_map[SaveMapOffsets.PartyMember2], _map),
@@ -180,7 +180,7 @@ namespace Tseng.GameData
             }
 
             var record = new Span<byte>(map, offset, 0x80).ToArray().ToType<CharacterRecord>();
-            
+
             return record;
         }
     }
