@@ -8,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using InteractiveSeven.Core.Data;
 using Serilog.Extensions.Logging;
 using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -34,6 +36,7 @@ namespace InteractiveSeven
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            
             try
             {
                 Log.Logger = new LoggerConfiguration()
@@ -50,6 +53,11 @@ namespace InteractiveSeven
                     .UseUrls(uri.AbsoluteUri)
                     .ConfigureServices(DependencyRegistrar.ConfigureServices)
                     .Build();
+
+                if (e.Args.Contains("--7h"))
+                {
+                    (this._host.Services.GetService<IModded>() as Modded)?.SetLoadedBy7H(true);
+                }
 
                 _logger = _host.Services.GetService<ILogger<App>>();
 

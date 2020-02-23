@@ -17,10 +17,12 @@ namespace Tseng.RunOnce
     public class GameDatabaseLoader : IGameDatabaseLoader
     {
         private readonly ProcessConnector _processConnector;
+        private readonly IModded _modded;
 
-        public GameDatabaseLoader(ProcessConnector processConnector)
+        public GameDatabaseLoader(ProcessConnector processConnector, IModded modded)
         {
             _processConnector = processConnector;
+            this._modded = modded;
         }
 
         private Process FF7 => _processConnector.FF7Process;
@@ -38,7 +40,24 @@ namespace Tseng.RunOnce
             }
             var ff7Exe = FF7.MainModule?.FileName;
             var ff7Folder = Path.GetDirectoryName(ff7Exe);
-            var kernelLocation = Path.Combine(ff7Folder, "data", "lang-en", "kernel");
+
+            string kernelLocation;
+
+            if (this._modded.IsLoadedBy7H)
+            {
+                kernelLocation = "kernels";
+            }
+            else
+            {
+                // Steam Location
+                kernelLocation = Path.Combine(ff7Folder, "data", "lang-en", "kernel");
+
+                if(!File.Exists(Path.Combine(kernelLocation, "KERNEL.BIN")))
+                {
+                    // Original / GameConverter location
+                    kernelLocation = Path.Combine(ff7Folder, "data", "kernel");
+                }
+            }
 
             var elena = new KernelReader(Path.Combine(kernelLocation, "KERNEL.BIN"));
             elena.MergeKernel2Data(Path.Combine(kernelLocation, "kernel2.bin"));

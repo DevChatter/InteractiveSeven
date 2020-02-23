@@ -44,6 +44,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<TwitchAuthViewModel>();
+            services.AddSingleton<IModded, Modded>();
 
             services.AddSingleton<PartyStatusViewModel>();
 
