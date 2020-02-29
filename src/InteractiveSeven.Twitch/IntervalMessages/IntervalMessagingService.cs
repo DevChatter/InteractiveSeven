@@ -16,7 +16,7 @@ namespace InteractiveSeven.Twitch.IntervalMessages
 
         private TimeSpan ElapsedTime => _clock.UtcNow - _lastMessageTime;
 
-        private TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
+        private TwitchSettings TwitchSettings => TwitchSettings.Instance;
 
         public IntervalMessagingService(ITwitchClient twitchClient, IClock clock)
         {

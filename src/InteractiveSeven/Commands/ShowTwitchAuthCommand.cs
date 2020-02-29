@@ -19,7 +19,7 @@ namespace InteractiveSeven.Commands
 
         public void Execute(object parameter)
         {
-            ApplicationSettings.Instance.TwitchSettings.UpdatedFromTwitch = false;
+            TwitchSettings.Instance.UpdatedFromTwitch = false;
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = _twitchAuthViewModel.AuthRequestUrl,
@@ -28,6 +28,6 @@ namespace InteractiveSeven.Commands
             Process.Start(psi);
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged = (sender, args) => { };
     }
 }

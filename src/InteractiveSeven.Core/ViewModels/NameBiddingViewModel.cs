@@ -28,7 +28,7 @@ namespace InteractiveSeven.Core.ViewModels
         public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; }
             = new ThreadedObservableCollection<CharacterNameBidding>();
 
-        public TwitchSettings TwitchSettings => ApplicationSettings.Instance.TwitchSettings;
+        public TwitchSettings TwitchSettings => TwitchSettings.Instance;
 
         public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
             IDataStore<CharacterNameBid> dataStore, IDialogService dialogService,

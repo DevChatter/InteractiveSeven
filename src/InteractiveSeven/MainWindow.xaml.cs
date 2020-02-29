@@ -38,7 +38,7 @@ namespace InteractiveSeven
             if (sender is WatermarkPasswordBox passwordBox
                 && passwordBox.Password.StartsWith("oauth:", StringComparison.OrdinalIgnoreCase))
             {
-                ViewModel.SettingsViewModel.Settings.TwitchSettings.AccessToken = passwordBox.Password;
+                ViewModel.SettingsViewModel.TwitchSettings.AccessToken = passwordBox.Password;
             }
         }
     }
