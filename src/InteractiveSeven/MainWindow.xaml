@@ -189,10 +189,10 @@
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                     </StackPanel>
 
-                    <TabControl DataContext="{Binding Settings}">
+                    <TabControl DataContext="{Binding}">
 
 
-                        <TabItem DataContext="{Binding}">
+                        <TabItem DataContext="{Binding Settings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="General" />
@@ -297,7 +297,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding MenuSettings}">
+                        <TabItem DataContext="{Binding Settings.MenuSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Menu Color" />
@@ -379,7 +379,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding NameBiddingSettings}">
+                        <TabItem DataContext="{Binding Settings.NameBiddingSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Name Bidding" />
@@ -465,7 +465,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding CommandSettings}">
+                        <TabItem DataContext="{Binding Settings.CommandSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Command" />
@@ -666,7 +666,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding EquipmentSettings}">
+                        <TabItem DataContext="{Binding Settings.EquipmentSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Wealth" />
@@ -872,7 +872,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding BattleSettings}">
+                        <TabItem DataContext="{Binding Settings.BattleSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Status Effects" />
@@ -949,7 +949,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding TsengSettings}">
+                        <TabItem DataContext="{Binding Settings.TsengSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tseng" />
