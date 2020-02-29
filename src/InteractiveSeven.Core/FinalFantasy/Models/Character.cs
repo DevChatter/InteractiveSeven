@@ -30,10 +30,10 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
             var character = new Character
             {
                 Id = record.Id,
-                MaxHp = (uint)record.MaxHp, // TODO: Fix Types
-                MaxMp = (ushort)record.MaxMp, // TODO: Fix Types
-                CurrentHp = (uint)record.CurrentHp, // TODO: Fix Types
-                CurrentMp = (ushort)record.CurrentMp, // TODO: Fix Types
+                MaxHp = record.MaxHp,
+                MaxMp = record.MaxMp,
+                CurrentHp = record.CurrentHp,
+                CurrentMp = record.CurrentMp,
                 Name = record.Name,
                 Level = record.Level,
                 Weapon = gameDatabase.WeaponDatabase.FirstOrDefault(w => w.Id == record.Weapon),
@@ -46,11 +46,11 @@ namespace InteractiveSeven.Core.FinalFantasy.Models
             };
             for (var m = 0; m < record.WeaponMateria.Length; ++m)
             {
-                character.WeaponMateria[m] = gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == record.WeaponMateria[m]);
+                character.WeaponMateria[m] = gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == record.WeaponMateria[m].Id);
             }
             for (var m = 0; m < record.ArmorMateria.Length; ++m)
             {
-                character.ArmletMateria[m] = gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == record.ArmorMateria[m]);
+                character.ArmletMateria[m] = gameDatabase.MateriaDatabase.FirstOrDefault(x => x.Id == record.ArmorMateria[m].Id);
             }
 
             return character;

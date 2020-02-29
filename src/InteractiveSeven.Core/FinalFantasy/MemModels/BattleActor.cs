@@ -14,5 +14,9 @@ namespace InteractiveSeven.Core.FinalFantasy.MemModels
         [FieldOffset(44)] public uint CurrentHp;
         [FieldOffset(48)] public uint MaxHp;
         public bool IsBackRow => (Row & 0x40) == 0x40;
+        public bool IsOutOfCombat => (Status & OutOfCombatStatuses) > 0 || CurrentHp == 0; // TODO : Detect is non-existent
+
+        private static readonly StatusEffects OutOfCombatStatuses =
+            StatusEffects.Death | StatusEffects.Petrify | StatusEffects.Imprisoned;
     }
 }

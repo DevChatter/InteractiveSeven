@@ -1,18 +1,15 @@
-﻿using InteractiveSeven.Core.FinalFantasy.MemModels;
-using System;
+﻿using System;
+using System.Linq;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using Tseng.Constants;
 
-namespace Tseng.GameData
+namespace InteractiveSeven.Core.FinalFantasy
 {
     public class FF7BattleMap
     {
-        #region Private Fields
-
         private readonly byte[] _map;
-
-        #endregion Private Fields
-
-        #region Public Constructors
+        private BattleActor[] _opponents;
+        private BattleActor[] _party;
 
         public FF7BattleMap(byte[] bytes, byte activeBattle)
         {
@@ -20,18 +17,10 @@ namespace Tseng.GameData
             _map = bytes;
         }
 
-        #endregion Public Constructors
-
-        #region Public Properties
-
-        public bool IsActiveBattle { get; set; }
-
-        public BattleActor[] Opponents => GetActors(BattleMapOffsets.EnemyActors, 6);
-        public BattleActor[] Party => GetActors(BattleMapOffsets.PartyActors, 4);
-
-        #endregion Public Properties
-
-        #region Private Methods
+        public bool IsActiveBattle { get; }
+        public bool IsBattleEnding => Opponents.All(x => x.IsOutOfCombat) || Party[..3].All(x => x.IsOutOfCombat);
+        public BattleActor[] Opponents => _opponents ??= GetActors(BattleMapOffsets.EnemyActors, 6);
+        public BattleActor[] Party => _party ??= GetActors(BattleMapOffsets.PartyActors, 4);
 
         private BattleActor[] GetActors(int start, int count)
         {
@@ -48,7 +37,5 @@ namespace Tseng.GameData
 
             return acts;
         }
-
-        #endregion Private Methods
     }
 }

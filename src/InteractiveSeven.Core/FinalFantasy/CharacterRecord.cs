@@ -1,67 +1,112 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using System.Runtime.InteropServices;
+using InteractiveSeven.Core.Data;
+using Shojy.FF7.Elena.Extensions;
+using Tseng.Constants;
 
 namespace Tseng.GameData
 {
+    [StructLayout(LayoutKind.Explicit, Size = 0x80)]
     public struct CharacterRecord
     {
-        #region Public Properties
+        [FieldOffset(0x0)] public byte Id;
+        [FieldOffset(0x1)] public byte Level;
 
-        public byte Accessory { get; set; }
-        public byte Armor { get; set; }
-        public int[] ArmorMateria { get; set; }
-        public bool AtFront { get; set; }
-        public short BaseHp { get; set; }
-        public short BaseMp { get; set; }
-        public CharNames DefaultName { get; set; }
-        public short CurrentHp { get; set; }
-        public short CurrentMp { get; set; }
-        public byte DexBonus { get; set; }
-        public byte Dexterity { get; set; }
-        public int Experience { get; set; }
+        [FieldOffset(0x2)] public byte Strength;
+        [FieldOffset(0x3)] public byte Vitality;
+        [FieldOffset(0x4)] public byte Magic;
+        [FieldOffset(0x5)] public byte Spirit;
+        [FieldOffset(0x6)] public byte Dexterity;
+        [FieldOffset(0x7)] public byte Luck;
 
-        public int ExpToLevel { get; set; }
+        [FieldOffset(0x8)] public byte StrBonus;
+        [FieldOffset(0x9)] public byte VitBonus;
+        [FieldOffset(0xA)] public byte MagBonus;
+        [FieldOffset(0xB)] public byte SprBonus;
+        [FieldOffset(0xC)] public byte DexBonus;
+        [FieldOffset(0xD)] public byte LucBonus;
 
-        public byte Flags { get; set; }
-        public byte Id { get; set; }
-        public short Kills { get; set; }
-        public byte Level { get; set; }
+        [FieldOffset(0xE)] public byte LimitLevel;
+        [FieldOffset(0xF)] public byte LimitBar;
 
-        public byte LevelProgress { get; set; }
+        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 12)]
+        [FieldOffset(0x10)] public byte[] RawName;
+        [FieldOffset(0x1C)] public byte Weapon;
+        [FieldOffset(0x1D)] public byte Armor;
+        [FieldOffset(0x1E)] public byte Accessory;
+        [FieldOffset(0x1F)] public byte Flags;
 
-        public byte LimitBar { get; set; }
-        public byte LimitLevel { get; set; }
+        [FieldOffset(0x20)] public byte Row;
+        [FieldOffset(0x21)] public byte LevelProgress;
+        [FieldOffset(0x22)] public ushort LimitMask;
+        [FieldOffset(0x24)] public ushort Kills;
+        [FieldOffset(0x26)] public ushort LimitLevel1Uses;
+        [FieldOffset(0x28)] public ushort LimitLevel2Uses;
+        [FieldOffset(0x2A)] public ushort LimitLevel3Uses;
+        [FieldOffset(0x2C)] public ushort CurrentHp;
+        [FieldOffset(0x2E)] public ushort BaseHp;
 
-        public short LimitMask { get; set; }
+        [FieldOffset(0x30)] public ushort CurrentMp;
+        [FieldOffset(0x32)] public ushort BaseMp;
+        [FieldOffset(0x38)] public ushort MaxHp;
+        [FieldOffset(0x3A)] public ushort MaxMp;
+        [FieldOffset(0x3C)] public int Experience;
 
-        public short[] LimitTimes { get; set; }
+        [FieldOffset(0x40)] public MateriaRecord WeaponMateria1;
+        [FieldOffset(0x44)] public MateriaRecord WeaponMateria2;
+        [FieldOffset(0x48)] public MateriaRecord WeaponMateria3;
+        [FieldOffset(0x4C)] public MateriaRecord WeaponMateria4;
+        [FieldOffset(0x50)] public MateriaRecord WeaponMateria5;
+        [FieldOffset(0x54)] public MateriaRecord WeaponMateria6;
+        [FieldOffset(0x58)] public MateriaRecord WeaponMateria7;
+        [FieldOffset(0x5C)] public MateriaRecord WeaponMateria8;
 
-        public byte LucBonus { get; set; }
+        [FieldOffset(0x60)] public MateriaRecord ArmorMateria1;
+        [FieldOffset(0x64)] public MateriaRecord ArmorMateria2;
+        [FieldOffset(0x68)] public MateriaRecord ArmorMateria3;
+        [FieldOffset(0x6C)] public MateriaRecord ArmorMateria4;
+        [FieldOffset(0x70)] public MateriaRecord ArmorMateria5;
+        [FieldOffset(0x74)] public MateriaRecord ArmorMateria6;
+        [FieldOffset(0x78)] public MateriaRecord ArmorMateria7;
+        [FieldOffset(0x7C)] public MateriaRecord ArmorMateria8;
 
-        public byte Luck { get; set; }
+        [FieldOffset(0x80)] public uint ExpToLevel;
 
-        public byte MagBonus { get; set; }
-        public byte Magic { get; set; }
+        public CharNames DefaultName => CharNames.GetById(Id);
+        public bool AtFront => Row == FF7Const.Empty;
+        public string Name => RawName.ToFFString();
+        public ushort[] LimitTimes => new[] { LimitLevel1Uses, LimitLevel2Uses, LimitLevel3Uses };
+        public MateriaRecord[] ArmorMateria => new[]
+        {
+            ArmorMateria1,
+            ArmorMateria2,
+            ArmorMateria3,
+            ArmorMateria4,
+            ArmorMateria5,
+            ArmorMateria6,
+            ArmorMateria7,
+            ArmorMateria8,
+        };
+        public MateriaRecord[] WeaponMateria => new[]
+        {
+            WeaponMateria1,
+            WeaponMateria2,
+            WeaponMateria3,
+            WeaponMateria4,
+            WeaponMateria5,
+            WeaponMateria6,
+            WeaponMateria7,
+            WeaponMateria8,
+        };
 
-        public short MaxHp { get; set; }
-        public short MaxMp { get; set; }
-        public string Name { get; set; }
+    }
 
-        public byte Spirit { get; set; }
-
-        public byte SprBonus { get; set; }
-
-        public byte StrBonus { get; set; }
-
-        public byte Strength { get; set; }
-
-        public byte Vitality { get; set; }
-
-        public byte VitBonus { get; set; }
-
-        public byte Weapon { get; set; }
-
-        public int[] WeaponMateria { get; set; }
-
-        #endregion Public Properties
+    [StructLayout(LayoutKind.Explicit, Size = 4)]
+    public struct MateriaRecord
+    {
+        [FieldOffset(0)] public byte Id;
+        [FieldOffset(1)] public byte ApByte1;
+        [FieldOffset(2)] public byte ApByte2;
+        [FieldOffset(3)] public byte ApByte3;
+        public uint Experience => (uint)((ApByte3 << 16) + (ApByte2 << 8) + ApByte1);
     }
 }
