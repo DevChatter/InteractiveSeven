@@ -9,14 +9,14 @@
             <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
             <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="22" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="Foreground" Value="#FF00AADE" />
+                <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style x:Key="SubHeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="Foreground" Value="#FF00AADE" />
+                <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style x:Key="TabHeaderIconBlockStyle" TargetType="TextBlock">
@@ -27,6 +27,7 @@
 
             <Style x:Key="TabHeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
@@ -36,8 +37,7 @@
                             <Border Name="Border" BorderThickness="1,1,1,0"
                                     Background="{StaticResource BackgroundKey}"
                                     BorderBrush="{StaticResource TabItemBorderBrush}"
-                                    CornerRadius="4,4,0,0"
-                                    Margin="2,0">
+                                    CornerRadius="4,4,0,0">
                                 <ContentPresenter x:Name="ContentSite"
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"
