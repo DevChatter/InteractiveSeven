@@ -8,25 +8,27 @@
         xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         mc:Ignorable="d"
         Title="Interactive Seven" Height="650" Width="600" MinWidth="600" MinHeight="650">
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Height="40" Background="#CCC">
+    <DockPanel Background="{StaticResource BackgroundKey}">
+        <DockPanel DockPanel.Dock="Top" Height="40">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
-                           Margin="2" VerticalAlignment="Center" Padding="4" />
+                           Margin="2" VerticalAlignment="Center" Padding="4" Style="{StaticResource SubHeaderTextBlockStyle}" />
                 <Button Content="Connect" Command="{Binding ConnectBotCommand}"
                         Margin="2" VerticalAlignment="Center" Padding="4" />
             </StackPanel>
             <Grid>
-                <Label Content="Interactive Seven" VerticalAlignment="Center"
-                       HorizontalAlignment="Left" FontSize="20" />
+                <TextBlock Text="Interactive Seven" VerticalAlignment="Center"
+                           Style="{StaticResource HeaderTextBlockStyle}"
+                           HorizontalAlignment="Left" FontSize="20" />
             </Grid>
         </DockPanel>
-        <Grid DockPanel.Dock="Bottom" Height="50" Background="#666">
+        <Grid DockPanel.Dock="Bottom" Height="50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
+                       Foreground="{StaticResource ForegroundBrush}"
                        VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by @Brendoneus and the @DevChatter Team" />
             <Button Grid.Column="1" Margin="2 5 5 5">
@@ -38,13 +40,14 @@
         </Grid>
         <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
                         MinHeight="464" VerticalAlignment="Stretch"
-                        VerticalContentAlignment="Stretch" MinWidth="580">
+                        VerticalContentAlignment="Stretch" MinWidth="580"
+                        Background="{StaticResource BackgroundKey}">
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf06e;" FontFamily="{StaticResource FontAwesome}"
-                                       Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Dashboard" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf06e;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Dashboard" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
@@ -65,10 +68,10 @@
 
             <TabItem DataContext="{Binding MenuColorViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf0c8;" FontFamily="{StaticResource FontAwesome}"
-                                       Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Menu Colors" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf0c8;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Menu Colors" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -91,10 +94,10 @@
 
             <TabItem DataContext="{Binding NameBiddingViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf007;" FontFamily="{StaticResource FontAwesome}"
-                                       Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Naming" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf007;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Naming" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
@@ -135,10 +138,10 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf3d1;" FontFamily="{StaticResource FontAwesome}"
-                                       Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Gil" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf3d1;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Gil" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
@@ -150,10 +153,10 @@
 
             <TabItem DataContext="{Binding StreamOverlayViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf26c;" FontFamily="{StaticResource FontAwesome}"
-                                       Margin="0 0 10 0" VerticalAlignment="Center" />
-                        <TextBlock Text="Stream Overlay" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf26c;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Stream Overlay" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer Background="#FFE5E5E5">
@@ -176,9 +179,10 @@
 
             <TabItem DataContext="{Binding SettingsViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf013;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                        <TextBlock Text="Settings" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf013;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="Settings" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <DockPanel Background="#FFE5E5E5">
@@ -666,7 +670,7 @@
                         </TabItem>
 
 
-                        <TabItem DataContext="{Binding Settings.EquipmentSettings}">
+                        <TabItem DataContext="{Binding Settings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Wealth" />
@@ -675,7 +679,7 @@
                             <ScrollViewer>
 
                                 <TabControl>
-                                    <TabItem>
+                                    <TabItem DataContext="{Binding EquipmentSettings}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="General" />
@@ -719,7 +723,7 @@
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem DataContext="{Binding AllWeapons}">
+                                    <TabItem DataContext="{Binding Path=EquipmentSettings.AllWeapons}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Weapons" />
@@ -738,7 +742,7 @@
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem DataContext="{Binding AllArmlets}">
+                                    <TabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Armlets" />
@@ -757,7 +761,7 @@
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem DataContext="{Binding AllAccessories}">
+                                    <TabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Accessories" />
@@ -776,7 +780,7 @@
                                         </ScrollViewer>
                                     </TabItem>
 
-                                    <TabItem DataContext="{Binding PlayerGilSettings}">
+                                    <TabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Gil" />
@@ -987,9 +991,10 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FontAwesome}" Margin="0 0 10 0" VerticalAlignment="Center"></TextBlock>
-                        <TextBlock Text="About" />
+                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                        <TextBlock Text="&#xf05a;" Margin="0 0 10 0"
+                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <TextBlock Text="About" Style="{StaticResource TabHeaderTextBlockStyle}" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>

@@ -4,12 +4,87 @@
              xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
              Startup="App_OnStartup" Exit="App_OnExit" >
     <Application.Resources>
-        <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
-        <lvc:UriValueConverter x:Key="UriValueConverter" />
-        <lvc:ColorValueConverter x:Key="ColorValueConverter" />
-        <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
-        <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
-        <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
-        <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundKey" Color="#FF282828" />
+            <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
+            <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Foreground" Value="#FF00AADE" />
+            </Style>
+
+            <Style x:Key="SubHeaderTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Foreground" Value="#FF00AADE" />
+            </Style>
+
+            <Style x:Key="TabHeaderIconBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="TabHeaderTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+            </Style>
+
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                            <Border Name="Border" BorderThickness="1,1,1,0"
+                                    Background="{StaticResource BackgroundKey}"
+                                    BorderBrush="{StaticResource TabItemBorderBrush}"
+                                    CornerRadius="4,4,0,0"
+                                    Margin="2,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="10,2" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Margin" Value="0,6,0,-1" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Margin" Value="0,10,0,0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
+            <lvc:UriValueConverter x:Key="UriValueConverter" />
+            <lvc:ColorValueConverter x:Key="ColorValueConverter" />
+            <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
+            <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
+            <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <!-- IG Theme -->
+                <!--<ResourceDictionary Source="Themes/IG/IG.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/IG/IG.MSControls.Toolkit.Implicit.xaml" />-->
+
+                <!-- Metro Theme -->
+                <!--<ResourceDictionary Source="Themes/Metro/Metro.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/Metro/Metro.MSControls.Toolkit.Implicit.xaml" />-->
+
+                <!-- MetroDark Theme -->
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" />
+
+                <!-- Office2010Blue Theme -->
+                <!--<ResourceDictionary Source="Themes/Office2010Blue/Office2010Blue.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/Office2010Blue/Office2010Blue.MSControls.Toolkit.Implicit.xaml" />-->
+
+                <!-- Office2013 Theme -->
+                <!--<ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Toolkit.Implicit.xaml" />-->
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
