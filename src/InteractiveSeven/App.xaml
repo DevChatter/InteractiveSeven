@@ -27,7 +27,6 @@
 
             <Style x:Key="TabHeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
