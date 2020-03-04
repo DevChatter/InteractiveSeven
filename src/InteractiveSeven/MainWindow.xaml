@@ -193,7 +193,8 @@
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                     </StackPanel>
 
-                    <TabControl DataContext="{Binding}">
+                    <TabControl DataContext="{Binding}"
+                                Background="{StaticResource BackgroundKey}">
 
 
                         <TabItem DataContext="{Binding Settings}">
@@ -678,7 +679,8 @@
                             </TabItem.Header>
                             <ScrollViewer>
 
-                                <TabControl>
+                                <TabControl Background="{StaticResource BackgroundKey}">
+
                                     <TabItem DataContext="{Binding EquipmentSettings}">
                                         <TabItem.Header>
                                             <StackPanel Orientation="Horizontal">
