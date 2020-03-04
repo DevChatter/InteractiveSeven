@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -17,7 +16,7 @@
         <mah:WindowCommands>
             <Button Click="ChangeAppStyleButtonClick">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconModern Width="24" Height="24" Kind="FoodCupcake" />
+                    <iconPacks:PackIconFontAwesome Width="24" Height="24" Kind="PaletteSolid" />
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change App Style..." />
                 </StackPanel>
             </Button>
