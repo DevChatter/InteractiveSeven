@@ -17,7 +17,7 @@
             <Button Click="ChangeAppStyleButtonClick">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome Width="24" Height="24" Kind="PaletteSolid" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change App Style..." />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change Theme" />
                 </StackPanel>
             </Button>
         </mah:WindowCommands>
