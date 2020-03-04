@@ -25,7 +25,7 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
 
-            <Style x:Key="TabHeaderTextBlockStyle" TargetType="TextBlock">
+            <Style TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 

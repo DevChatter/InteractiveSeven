@@ -47,7 +47,7 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf06e;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Dashboard" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Dashboard" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
@@ -71,11 +71,11 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf0c8;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Menu Colors" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Menu Colors" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid Background="#FFE5E5E5">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -97,10 +97,10 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf007;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Naming" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Naming" />
                     </StackPanel>
                 </TabItem.Header>
-                <ScrollViewer Background="#FFE5E5E5">
+                <ScrollViewer>
                     <DockPanel>
                         <Button DockPanel.Dock="Top" Content="Reset All Name Bid Data" MaxWidth="200"
                                 Command="{Binding ResetDataCommand}" Margin="10 10 10 10" />
@@ -141,10 +141,10 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf3d1;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Gil" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Gil" />
                     </StackPanel>
                 </TabItem.Header>
-                <ScrollViewer Background="#FFE5E5E5">
+                <ScrollViewer>
                     <DockPanel>
                         <Label DockPanel.Dock="Top" Content="Coming soon. For now, edit the 'i7-Account-data.json' file." />
                     </DockPanel>
@@ -156,10 +156,10 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf26c;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Stream Overlay" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Stream Overlay" />
                     </StackPanel>
                 </TabItem.Header>
-                <ScrollViewer Background="#FFE5E5E5">
+                <ScrollViewer>
                     <DockPanel>
                         <Label DockPanel.Dock="Top" Content="Tseng Stream Overlay" Margin="10 10 10 10"
                                FontSize="16" FontWeight="Bold" />
@@ -182,10 +182,10 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf013;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="Settings" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="Settings" />
                     </StackPanel>
                 </TabItem.Header>
-                <DockPanel Background="#FFE5E5E5">
+                <DockPanel>
                     <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Orientation="Horizontal">
                         <Button Content="Save Settings" Command="{Binding Path=SaveSettingsCommand}"
                                         Width="150" Padding="0,10,0,10" Margin="0,10,30,10" />
@@ -994,7 +994,7 @@
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
                         <TextBlock Text="&#xf05a;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
-                        <TextBlock Text="About" Style="{StaticResource TabHeaderTextBlockStyle}" />
+                        <TextBlock Text="About" />
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
