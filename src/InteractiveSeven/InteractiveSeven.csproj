@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <None Remove="Assets\BecomePatron.png" />
-    <None Remove="Assets\FontAwesome5_Free-Solid-900.otf" />
     <None Remove="Controls\EquippableSettingsUc.xaml" />
   </ItemGroup>
 
@@ -48,9 +47,6 @@
 
   <ItemGroup>
     <Resource Include="Assets\BecomePatron.png" />
-    <Resource Include="Assets\FontAwesome5_Free-Solid-900.otf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 </Project>

@@ -58,8 +58,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf06e;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconMaterialDesign Kind="Dashboard" />
                         <TextBlock Text="Dashboard" />
                     </StackPanel>
                 </TabItem.Header>
@@ -82,8 +81,7 @@
             <TabItem DataContext="{Binding MenuColorViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf0c8;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconOcticons Kind="Paintcan" />
                         <TextBlock Text="Menu Colors" />
                     </StackPanel>
                 </TabItem.Header>
@@ -108,8 +106,7 @@
             <TabItem DataContext="{Binding NameBiddingViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf007;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconMaterial Kind="AccountEdit" />
                         <TextBlock Text="Naming" />
                     </StackPanel>
                 </TabItem.Header>
@@ -167,8 +164,7 @@
             <TabItem DataContext="{Binding StreamOverlayViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf26c;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconMaterialDesign Kind="PictureInPicture" />
                         <TextBlock Text="Stream Overlay" />
                     </StackPanel>
                 </TabItem.Header>
@@ -193,8 +189,7 @@
             <TabItem DataContext="{Binding SettingsViewModel}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf013;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconMaterial Kind="Settings" />
                         <TextBlock Text="Settings" />
                     </StackPanel>
                 </TabItem.Header>
@@ -264,6 +259,7 @@
                         <TabItem DataContext="{Binding TwitchSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconFontAwesome Kind="TwitchBrands" />
                                     <TextBlock Text="Twitch" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -317,6 +313,7 @@
                         <TabItem DataContext="{Binding Settings.MenuSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconEvaIcons Kind="ColorPalette" />
                                     <TextBlock Text="Menu Color" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -399,6 +396,7 @@
                         <TabItem DataContext="{Binding Settings.NameBiddingSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Kind="AccountEdit" />
                                     <TextBlock Text="Name Bidding" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -485,6 +483,7 @@
                         <TabItem DataContext="{Binding Settings.CommandSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconFeatherIcons Kind="Terminal" />
                                     <TextBlock Text="Command" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -686,6 +685,7 @@
                         <TabItem DataContext="{Binding Settings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconModern Kind="Money" />
                                     <TextBlock Text="Wealth" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -893,6 +893,7 @@
                         <TabItem DataContext="{Binding Settings.BattleSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconFontAwesome Kind="FistRaisedSolid" />
                                     <TextBlock Text="Status Effects" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -970,6 +971,7 @@
                         <TabItem DataContext="{Binding Settings.TsengSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconModern Kind="PeopleStatus" />
                                     <TextBlock Text="Tseng" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -1006,8 +1008,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf05a;" Margin="0 0 10 0"
-                                   Style="{StaticResource TabHeaderIconBlockStyle}" />
+                        <iconPacks:PackIconBoxIcons Kind="RegularInfoCircle" />
                         <TextBlock Text="About" />
                     </StackPanel>
                 </TabItem.Header>
