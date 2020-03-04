@@ -24,7 +24,7 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    <DockPanel Background="{StaticResource BackgroundKey}">
+    <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="40">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
@@ -58,7 +58,7 @@
                         VerticalContentAlignment="Stretch" MinWidth="580">
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf06e;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Dashboard" />
@@ -82,7 +82,7 @@
 
             <TabItem DataContext="{Binding MenuColorViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf0c8;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Menu Colors" />
@@ -108,7 +108,7 @@
 
             <TabItem DataContext="{Binding NameBiddingViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf007;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Naming" />
@@ -152,7 +152,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf3d1;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Gil" />
@@ -167,7 +167,7 @@
 
             <TabItem DataContext="{Binding StreamOverlayViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf26c;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Stream Overlay" />
@@ -193,7 +193,7 @@
 
             <TabItem DataContext="{Binding SettingsViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf013;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="Settings" />
@@ -1006,7 +1006,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf05a;" Margin="0 0 10 0"
                                    Style="{StaticResource TabHeaderIconBlockStyle}" />
                         <TextBlock Text="About" />
