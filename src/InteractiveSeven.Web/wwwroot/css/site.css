@@ -201,6 +201,19 @@
     float: left;
 }
 
+.i7-title, .devchatter-title {
+    float: right;
+    text-align: right;
+}
+
+.tseng-title {
+    float: left;
+}
+
+.ff7 .text .devchatter-title {
+    clear: both;
+    font-size: 14px;
+}
 
 .fixed {
     display: inline-block;
