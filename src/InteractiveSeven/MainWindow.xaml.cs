@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core.ViewModels;
+using MahApps.Metro.Controls;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -10,7 +11,7 @@ namespace InteractiveSeven
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
 
         public MainWindow(MainWindowViewModel viewModel)
