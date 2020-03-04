@@ -42,5 +42,22 @@ namespace InteractiveSeven
                 ViewModel.SettingsViewModel.TwitchSettings.AccessToken = passwordBox.Password;
             }
         }
+
+        private MetroWindow _accentThemeTestWindow;
+        private void ChangeAppStyleButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (_accentThemeTestWindow != null)
+            {
+                _accentThemeTestWindow.Activate();
+                return;
+            }
+
+            _accentThemeTestWindow = new AccentStyleWindow();
+            _accentThemeTestWindow.Owner = this;
+            _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
+            _accentThemeTestWindow.Left = this.Left + this.ActualWidth / 2.0;
+            _accentThemeTestWindow.Top = this.Top + this.ActualHeight / 2.0;
+            _accentThemeTestWindow.Show();
+        }
     }
 }

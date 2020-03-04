@@ -11,99 +11,16 @@
             <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="22" />
                 <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style x:Key="SubHeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
             </Style>
 
             <Style x:Key="TabHeaderIconBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
-            </Style>
-
-            <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-            </Style>
-
-            <Style TargetType="{x:Type xctk:WatermarkTextBox}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type xctk:WatermarkPasswordBox}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type xctk:IntegerUpDown}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type TabControl}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type DataGrid}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type DataGridRowHeader}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type DataGridColumnHeader}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-            </Style>
-
-            <Style TargetType="{x:Type DataGridRow}">
-                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-
-                <Style.Triggers>
-                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                        <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-                    </Trigger>
-
-                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                        <Setter Property="Background" Value="{StaticResource BackgroundKey}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TabItem}">
-                            <Border Name="Border" BorderThickness="1,1,1,0"
-                                    Background="{StaticResource BackgroundKey}"
-                                    BorderBrush="{StaticResource TabItemBorderBrush}"
-                                    CornerRadius="4,4,0,0">
-                                <ContentPresenter x:Name="ContentSite"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  ContentSource="Header"
-                                                  Margin="10,2" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Margin" Value="0,6,0,-1" />
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="False">
-                                    <Setter TargetName="Border" Property="Margin" Value="0,10,0,0" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
             </Style>
 
             <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
@@ -112,27 +29,8 @@
             <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
             <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
             <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
+
             <ResourceDictionary.MergedDictionaries>
-                <!-- IG Theme -->
-                <!--<ResourceDictionary Source="Themes/IG/IG.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/IG/IG.MSControls.Toolkit.Implicit.xaml" />-->
-
-                <!-- Metro Theme -->
-                <!--<ResourceDictionary Source="Themes/Metro/Metro.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/Metro/Metro.MSControls.Toolkit.Implicit.xaml" />-->
-
-                <!-- MetroDark Theme -->
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" />
-
-                <!-- Office2010Blue Theme -->
-                <!--<ResourceDictionary Source="Themes/Office2010Blue/Office2010Blue.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/Office2010Blue/Office2010Blue.MSControls.Toolkit.Implicit.xaml" />-->
-
-                <!-- Office2013 Theme -->
-                <!--<ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Core.Implicit.xaml" />
-                <ResourceDictionary Source="Themes/Office2013/Office2013.MSControls.Toolkit.Implicit.xaml" />-->
-
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />

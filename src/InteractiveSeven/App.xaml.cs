@@ -2,6 +2,8 @@
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
+using InteractiveSeven.Theming;
+using MahApps.Metro;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using InteractiveSeven.Core.Data;
 using Serilog.Extensions.Logging;
+using System.Windows.Media;
 using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -76,12 +79,45 @@ namespace InteractiveSeven
                 _logger.LogInformation("Starting Tseng Background Monitoring...");
                 Task.Run(() => _tsengMonitor.Start()).RunInBackgroundSafely(false, LogTsengError);
 
+                _logger.LogInformation("Initializing Theming...");
+                InitializeTheming();
+
                 _logger.LogInformation("Showing App Main Window...");
                 _host.Services.GetRequiredService<MainWindow>().Show();
             }
             catch (Exception exception)
             {
                 Log.Error(exception, "Error Loading Application");
+            }
+        }
+
+        private static void InitializeTheming()
+        {
+            try
+            {
+                ThemeManager.AddTheme(
+                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent1.xaml"));
+                ThemeManager.AddTheme(
+                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent2.xaml"));
+                ThemeManager.AddTheme(
+                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent1.xaml"));
+                ThemeManager.AddTheme(
+                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent2.xaml"));
+
+                ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
+                ThemeManager.SyncThemeWithWindowsAppModeSetting();
+
+                // create custom accents
+                ThemeManagerHelper.CreateTheme("Dark", Colors.Red, "CustomAccentDarkRed");
+                ThemeManagerHelper.CreateTheme("Light", Colors.Red, "CustomAccentLightRed");
+                ThemeManagerHelper.CreateTheme("Dark", Colors.GreenYellow);
+                ThemeManagerHelper.CreateTheme("Light", Colors.GreenYellow);
+                ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
+                ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
+            }
+            catch (Exception themeEx)
+            {
+                Log.Error(themeEx, "Error Theming Application");
             }
         }
 

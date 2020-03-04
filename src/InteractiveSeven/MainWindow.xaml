@@ -7,8 +7,23 @@
         xmlns:lc="clr-namespace:InteractiveSeven.Controls"
         xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
+        BorderThickness="0" 
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         Title="Interactive Seven" Height="650" Width="600" MinWidth="600" MinHeight="650">
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Click="ChangeAppStyleButtonClick">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="24" Height="24" Kind="FoodCupcake" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change App Style..." />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
     <DockPanel Background="{StaticResource BackgroundKey}">
         <DockPanel DockPanel.Dock="Top" Height="40">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
@@ -29,7 +44,6 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
-                       Foreground="{StaticResource ForegroundBrush}"
                        VerticalAlignment="Center" TextAlignment="Center"
                        Text="Built by @Brendoneus and the @DevChatter Team" />
             <Button Grid.Column="1" Margin="2 5 5 5">
