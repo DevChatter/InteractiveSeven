@@ -40,8 +40,7 @@
         </Grid>
         <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
                         MinHeight="464" VerticalAlignment="Stretch"
-                        VerticalContentAlignment="Stretch" MinWidth="580"
-                        Background="{StaticResource BackgroundKey}">
+                        VerticalContentAlignment="Stretch" MinWidth="580">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Background="{StaticResource BackgroundKey}">
@@ -193,8 +192,7 @@
                                         Width="150" Padding="0,10,0,10" Margin="30,10,0,10" />
                     </StackPanel>
 
-                    <TabControl DataContext="{Binding}"
-                                Background="{StaticResource BackgroundKey}">
+                    <TabControl DataContext="{Binding}">
 
 
                         <TabItem DataContext="{Binding Settings}">
@@ -679,7 +677,7 @@
                             </TabItem.Header>
                             <ScrollViewer>
 
-                                <TabControl Background="{StaticResource BackgroundKey}">
+                                <TabControl>
 
                                     <TabItem DataContext="{Binding EquipmentSettings}">
                                         <TabItem.Header>
