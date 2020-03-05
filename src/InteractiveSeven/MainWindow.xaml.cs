@@ -1,10 +1,8 @@
 ﻿using InteractiveSeven.Core.ViewModels;
 using MahApps.Metro.Controls;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
-using Xceed.Wpf.Toolkit;
 
 namespace InteractiveSeven
 {
@@ -34,13 +32,21 @@ namespace InteractiveSeven
             e.Handled = true;
         }
 
-        private void AccessTokenTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private MetroWindow _settingsWindow;
+        private void ChangeSettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            if (sender is WatermarkPasswordBox passwordBox
-                && passwordBox.Password.StartsWith("oauth:", StringComparison.OrdinalIgnoreCase))
+            if (_settingsWindow != null)
             {
-                ViewModel.SettingsViewModel.TwitchSettings.AccessToken = passwordBox.Password;
+                _settingsWindow.Activate();
+                return;
             }
+
+            _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
+            _settingsWindow.Owner = this;
+            _settingsWindow.Closed += (o, args) => _settingsWindow = null;
+            _settingsWindow.Left = Left + ActualWidth / 2.0;
+            _settingsWindow.Top = Top + ActualHeight / 2.0;
+            _settingsWindow.Show();
         }
 
         private MetroWindow _accentThemeTestWindow;
@@ -55,8 +61,8 @@ namespace InteractiveSeven
             _accentThemeTestWindow = new AccentStyleWindow();
             _accentThemeTestWindow.Owner = this;
             _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
-            _accentThemeTestWindow.Left = this.Left + this.ActualWidth / 2.0;
-            _accentThemeTestWindow.Top = this.Top + this.ActualHeight / 2.0;
+            _accentThemeTestWindow.Left = Left + ActualWidth / 2.0;
+            _accentThemeTestWindow.Top = Top + ActualHeight / 2.0;
             _accentThemeTestWindow.Show();
         }
     }
