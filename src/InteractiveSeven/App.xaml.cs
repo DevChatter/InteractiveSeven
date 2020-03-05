@@ -95,14 +95,10 @@ namespace InteractiveSeven
         {
             try
             {
-                ThemeManager.AddTheme(
-                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent1.xaml"));
-                ThemeManager.AddTheme(
-                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent2.xaml"));
-                ThemeManager.AddTheme(
-                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent1.xaml"));
-                ThemeManager.AddTheme(
-                    new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent2.xaml"));
+                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent1.xaml"));
+                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent2.xaml"));
+                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent1.xaml"));
+                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent2.xaml"));
 
                 ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
                 ThemeManager.SyncThemeWithWindowsAppModeSetting();
@@ -114,6 +110,9 @@ namespace InteractiveSeven
                 ThemeManagerHelper.CreateTheme("Light", Colors.GreenYellow);
                 ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
                 ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
+
+                ThemeManager.ChangeTheme(Current, "CustomAccentDarkRed");
+
             }
             catch (Exception themeEx)
             {
