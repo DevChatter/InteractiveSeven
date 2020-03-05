@@ -14,7 +14,6 @@
         Title="I7 Settings"
         SizeToContent="WidthAndHeight"
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-        MaxWidth="800" MaxHeight="600"
         ResizeMode="CanResizeWithGrip">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
@@ -65,16 +64,16 @@
                                                   IsChecked="{Binding Path=AllowGameAffectingCommands, Mode=TwoWay}" />
                             <Label Grid.Row="0" Grid.Column="1" Content="Allow Game Affecting Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                            <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                Text="{Binding Path=ProcessName, Mode=TwoWay}" Watermark="Example: ff7_en" />
+                            <TextBox Grid.Row="1" Grid.Column="0" Width="100" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                Text="{Binding Path=ProcessName, Mode=TwoWay}" mah:TextBoxHelper.Watermark="Example: ff7_en" />
                             <Label Grid.Row="1" Grid.Column="1" Content="FF7 Process Name (without .exe)" FontSize="12" Margin="5,0,0,0" />
 
                             <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                       IsChecked="{Binding Path=GiveSubscriberBonusBits, Mode=TwoWay}" />
                             <Label Grid.Row="2" Grid.Column="1" Content="Enable Subscriber Bonus Bits" FontSize="12" Margin="5,0,0,0"/>
 
-                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" IsEnabled="{Binding Path=GiveSubscriberBonusBits}"
-                                                                   Value="{Binding Path=SubscriberBonusBits, Mode=TwoWay}"  Width="50" Minimum="0" Increment="10" FormatString="N0" />
+                            <mah:NumericUpDown Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" IsEnabled="{Binding Path=GiveSubscriberBonusBits}"
+                                                                   Value="{Binding Path=SubscriberBonusBits, Mode=TwoWay}"  Width="90" Minimum="0" Interval="10" StringFormat="N0" />
                             <Label Grid.Row="3" Grid.Column="1" Content="Bonus Bits for Subscribers" FontSize="12" Margin="5,0,0,0"/>
 
                             <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -114,16 +113,16 @@
                             </Grid.RowDefinitions>
 
                             <Label Grid.Row="0" Grid.Column="0" Content="Bot Username" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                        Text="{Binding Path=Username, Mode=TwoWay}" Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                        Text="{Binding Path=Username, Mode=TwoWay}" mah:TextBoxHelper.Watermark="Example: DevChatterBot" Margin="5,10,0,0" />
 
                             <Label Grid.Row="1" Grid.Column="0" Content="Twitch Channel" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                                                  Text="{Binding Path=Channel, Mode=TwoWay}" Watermark="Example: DevChatter" Margin="5,10,0,0" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                                                                  Text="{Binding Path=Channel, Mode=TwoWay}" mah:TextBoxHelper.Watermark="Example: DevChatter" Margin="5,10,0,0" />
 
                             <Label Grid.Row="2" Grid.Column="0" Content="Access Token" FontSize="12" Margin="5,10,0,0" />
                             <xctk:WatermarkPasswordBox Grid.Row="2" Grid.Column="1" Width="300" VerticalContentAlignment="Center" HorizontalAlignment="Left"
-                                        PasswordChanged="AccessTokenTextBox_PasswordChanged" Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
+                                        PasswordChanged="AccessTokenTextBox_PasswordChanged" mah:TextBoxHelper.Watermark="Example: oauth:abcdefghijklmnopqrstuvwxyz" Margin="5,10,0,0" />
 
                         </Grid>
                         <DockPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="5,40,0,0">
@@ -153,77 +152,143 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <DockPanel>
-                        <Grid Margin="5,5,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                    <StackPanel>
+                        <GroupBox Header="General Menu Color Settings" Margin="5">
 
-                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                        IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                            <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Color Command" FontSize="12" Margin="5,0,0,0"/>
+                            <Grid Margin="5,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                        IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
-                            <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                <Label Grid.Row="0" Grid.Column="1" Content="Enable Menu Color Command" FontSize="12" Margin="5,0,0,0"/>
 
-                            <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                        IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=TransitionColors, Mode=TwoWay}" />
-                            <Label Grid.Row="2" Grid.Column="1" Content="Smooth Color Transitions (instead of isntant change)" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                <Label Grid.Row="1" Grid.Column="1" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0" />
 
-                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                           IsEnabled="{Binding Enabled}" Value="{Binding Path=BitCost, Mode=TwoWay}" />
-                            <Label Grid.Row="3" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=TransitionColors, Mode=TwoWay}" />
+                                <Label Grid.Row="2" Grid.Column="1" Content="Smooth Color Transitions (instead of instant change)" FontSize="12" Margin="5,0,0,0" />
 
-                            <CheckBox Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                        IsChecked="{Binding Path=EnablePaletteCommand, Mode=TwoWay}" />
-                            <Label Grid.Row="4" Grid.Column="1" Content="Enable Palette Command" FontSize="12" Margin="5,0,0,0" />
+                                <mah:NumericUpDown Grid.Row="3" Grid.Column="0" Width="90" Minimum="0" Interval="10" StringFormat="N0"
+                                                               IsEnabled="{Binding Enabled}" Value="{Binding Path=BitCost, Mode=TwoWay}" />
+                                <Label Grid.Row="3" Grid.Column="1" Content="Minimum Bits Required" FontSize="12" Margin="5,0,0,0" />
 
-                            <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                        IsEnabled="{Binding EnablePaletteCommand}" IsChecked="{Binding Path=AllowModsToCreatePalettes, Mode=TwoWay}" />
-                            <Label Grid.Row="5" Grid.Column="1" Content="Allow Mods to Create Palettes" FontSize="12" Margin="5,0,0,0" />
+                            </Grid>
+                        </GroupBox>
 
-                            <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=EnableRainbowCommand, Mode=TwoWay}" />
-                            <Label Grid.Row="6" Grid.Column="1" Content="Enable Rainbow Mode" FontSize="12" Margin="5,0,0,0" />
+                        <GroupBox Header="Color Palettes" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                               IsEnabled="{Binding EnableRainbowCommand}" Value="{Binding Path=RainbowModeCost, Mode=TwoWay}" />
-                            <Label Grid.Row="7" Grid.Column="1" Content="Rainbow Mode Cost" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="0" Grid.Column="0"
+                                          VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                          IsChecked="{Binding Path=EnablePaletteCommand, Mode=TwoWay}" />
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Content="Enable Palette Command"
+                                       FontSize="12" Margin="5,0,0,0" />
 
-                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                               IsEnabled="{Binding EnableRainbowCommand}" Value="{Binding Path=RainbowModeIterations, Mode=TwoWay}" />
-                            <Label Grid.Row="8" Grid.Column="1" Content="Rainbow Mode Iterations" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="1" Grid.Column="0"
+                                          VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                          IsEnabled="{Binding EnablePaletteCommand}"
+                                          IsChecked="{Binding Path=AllowModsToCreatePalettes, Mode=TwoWay}" />
+                                <Label Grid.Row="1" Grid.Column="1"
+                                       Content="Allow Mods to Create Palettes"
+                                       FontSize="12" Margin="5,0,0,0" />
+                            </Grid>
 
-                            <CheckBox Grid.Row="9" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                  IsChecked="{Binding Path=EnableMakoCommand, Mode=TwoWay}" />
-                            <Label Grid.Row="9" Grid.Column="1" Content="Enable Mako Mode" FontSize="12" Margin="5,0,0,0" />
+                        </GroupBox>
 
-                            <xctk:IntegerUpDown Grid.Row="10" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                               IsEnabled="{Binding EnableMakoCommand}" Value="{Binding Path=MakoModeCost, Mode=TwoWay}" />
-                            <Label Grid.Row="10" Grid.Column="1" Content="Mako Mode Cost" FontSize="12" Margin="5,0,0,0" />
+                        <GroupBox Header="Rainbow Mode" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <xctk:IntegerUpDown Grid.Row="11" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
-                                                               IsEnabled="{Binding EnableMakoCommand}" Value="{Binding Path=MakoModeIterations, Mode=TwoWay}" />
-                            <Label Grid.Row="11" Grid.Column="1" Content="Mako Mode Iterations" FontSize="12" Margin="5,0,0,0" />
+                                <CheckBox Grid.Row="0" Grid.Column="0"
+                                          VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                          IsChecked="{Binding Path=EnableRainbowCommand, Mode=TwoWay}" />
+                                <Label Grid.Row="0" Grid.Column="1" Content="Enable Rainbow Mode"
+                                       FontSize="12" Margin="5,0,0,0" />
 
-                        </Grid>
-                    </DockPanel>
+                                <mah:NumericUpDown Grid.Row="1" Grid.Column="0"
+                                                   Width="90" Minimum="0" Interval="10" StringFormat="N0"
+                                                   IsEnabled="{Binding EnableRainbowCommand}"
+                                                   Value="{Binding Path=RainbowModeCost, Mode=TwoWay}" />
+                                <Label Grid.Row="1" Grid.Column="1" Content="Rainbow Mode Cost"
+                                       FontSize="12" Margin="5,0,0,0" />
+
+                                <mah:NumericUpDown Grid.Row="2" Grid.Column="0"
+                                                   Width="90" Minimum="0" Interval="10" StringFormat="N0"
+                                                   IsEnabled="{Binding EnableRainbowCommand}"
+                                                   Value="{Binding Path=RainbowModeIterations, Mode=TwoWay}" />
+                                <Label Grid.Row="2" Grid.Column="1"
+                                       Content="Rainbow Mode Iterations (number of transitions)"
+                                       FontSize="12" Margin="5,0,0,0" />
+                            </Grid>
+
+                        </GroupBox>
+
+                        <GroupBox Header="Mako Mode" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+
+                                <CheckBox Grid.Row="0" Grid.Column="0"
+                                          VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                          IsChecked="{Binding Path=EnableMakoCommand, Mode=TwoWay}" />
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Content="Enable Mako Mode"
+                                       FontSize="12" Margin="5,0,0,0" />
+
+                                <mah:NumericUpDown Grid.Row="1" Grid.Column="0"
+                                                   Width="90" Minimum="0" Interval="10" StringFormat="N0"
+                                                   IsEnabled="{Binding EnableMakoCommand}"
+                                                   Value="{Binding Path=MakoModeCost, Mode=TwoWay}" />
+                                <Label Grid.Row="1" Grid.Column="1"
+                                       Content="Mako Mode Cost"
+                                       FontSize="12" Margin="5,0,0,0" />
+
+                                <mah:NumericUpDown Grid.Row="2" Grid.Column="0"
+                                                   Width="90" Minimum="0" Interval="10" StringFormat="N0"
+                                                   IsEnabled="{Binding EnableMakoCommand}"
+                                                   Value="{Binding Path=MakoModeIterations, Mode=TwoWay}" />
+                                <Label Grid.Row="2" Grid.Column="1"
+                                       Content="Mako Mode Iterations (number of transitions)"
+                                       FontSize="12" Margin="5,0,0,0" />
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </mah:MetroTabItem>
 
@@ -262,8 +327,8 @@
                                             IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
                             <Label Grid.Row="0" Grid.Column="1" Content="Enable Naming Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                            Value="{Binding Path=DefaultStartBits, Mode=TwoWay}"  Width="50" Minimum="0" Increment="10" FormatString="N0" />
+                            <mah:NumericUpDown Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                            Value="{Binding Path=DefaultStartBits, Mode=TwoWay}"  Width="50" Minimum="0" Interval="10" StringFormat="N0" />
                             <Label Grid.Row="1" Grid.Column="1" Content="Default Name Starting Bits" FontSize="12" Margin="5,0,0,0"/>
 
                             <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
@@ -323,196 +388,199 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <DockPanel>
-                        <Grid Margin="5,5,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                    <StackPanel>
+                        <GroupBox Header="Command Settings" Margin="5">
 
-                            <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=CostsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                            <Grid Margin="5,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <Label Grid.Row="1" Grid.Column="0" Content="Balance Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=BalanceCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=CostsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="2" Grid.Column="0" Content="Give Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=GiveGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="1" Grid.Column="0" Content="Balance Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=BalanceCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="3" Grid.Column="0" Content="I7 Mod Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=I7CommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="2" Grid.Column="0" Content="Give Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=GiveGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="4" Grid.Column="0" Content="Menu Color Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=MenuCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="3" Grid.Column="0" Content="I7 Mod Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=I7CommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="5" Grid.Column="0" Content="Name Bids Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=NameBidsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="4" Grid.Column="0" Content="Menu Color Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=MenuCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="6" Grid.Column="0" Content="Refresh Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=RefreshCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="5" Grid.Column="0" Content="Name Bids Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=NameBidsCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="7" Grid.Column="0" Content="Help Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=HelpCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="6" Grid.Column="0" Content="Refresh Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=RefreshCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="8" Grid.Column="0" Content="Weapon Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=WeaponCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="7" Grid.Column="0" Content="Help Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="7" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=HelpCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="9" Grid.Column="0" Content="Armlet Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=ArmletCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="8" Grid.Column="0" Content="Weapon Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="8" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=WeaponCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="10" Grid.Column="0" Content="Accessory Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="10" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=AccessoryCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="9" Grid.Column="0" Content="Armlet Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="9" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=ArmletCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="11" Grid.Column="0" Content="Pauper Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="11" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=PauperCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="10" Grid.Column="0" Content="Accessory Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="10" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=AccessoryCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="12" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="12" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=CloudCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="11" Grid.Column="0" Content="Pauper Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox  Grid.Row="11" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=PauperCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="13" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="13" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=BarretCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="12" Grid.Column="0" Content="Name Cloud Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="12" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=CloudCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="14" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="14" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=TifaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="13" Grid.Column="0" Content="Name Barret Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="13" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=BarretCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="15" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="15" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=AerisCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="14" Grid.Column="0" Content="Name Tifa Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="14" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=TifaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="16" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="16" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=CaitCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="15" Grid.Column="0" Content="Name Aeris Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="15" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=AerisCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="17" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="17" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=CidCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="16" Grid.Column="0" Content="Name Cait Sith Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="16" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=CaitCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="18" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="18" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=RedCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="17" Grid.Column="0" Content="Name Cid Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="17" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=CidCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="19" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="19" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=VincentCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="18" Grid.Column="0" Content="Name Red XIII Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="18" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=RedCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="20" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="20" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=YuffieCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="19" Grid.Column="0" Content="Name Vincent Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="19" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=VincentCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="21" Grid.Column="0" Content="Mako Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="21" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=MakoCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="20" Grid.Column="0" Content="Name Yuffie Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="20" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=YuffieCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="22" Grid.Column="0" Content="Rainbow Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="22" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=RainbowCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="21" Grid.Column="0" Content="Mako Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="21" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=MakoCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="23" Grid.Column="0" Content="Palette Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="23" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=PaletteCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="22" Grid.Column="0" Content="Rainbow Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="22" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=RainbowCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="24" Grid.Column="0" Content="Materia Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="24" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=MateriaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="23" Grid.Column="0" Content="Palette Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="23" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=PaletteCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="25" Grid.Column="0" Content="Items Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="25" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=ItemCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="24" Grid.Column="0" Content="Materia Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="24" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=MateriaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="26" Grid.Column="0" Content="Esuna Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="26" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=EsunaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="25" Grid.Column="0" Content="Items Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="25" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=ItemCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="27" Grid.Column="0" Content="Cure Effect Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=HealCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="26" Grid.Column="0" Content="Esuna Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="26" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=EsunaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="28" Grid.Column="0" Content="Give Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="28" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=GivePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                                <Label Grid.Row="27" Grid.Column="0" Content="Cure Effect Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=HealCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                            <Label Grid.Row="29" Grid.Column="0" Content="Remove Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                            <xctk:WatermarkTextBox Grid.Row="29" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                            Text="{Binding Path=RemovePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
-                                            Watermark="Add words separated by commas" Margin="5,10,10,0" />
-                        </Grid>
-                    </DockPanel>
+                                <Label Grid.Row="28" Grid.Column="0" Content="Give Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="28" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=GivePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                <Label Grid.Row="29" Grid.Column="0" Content="Remove Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="29" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=RemovePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </mah:MetroTabItem>
 
@@ -564,7 +632,7 @@
                                                     IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
                                     <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <xctk:IntegerUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Increment="100" FormatString="N0"
+                                    <mah:NumericUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Interval="100" StringFormat="N0"
                                                                        IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
                                     <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
@@ -653,7 +721,7 @@
                                                     IsChecked="{Binding Path=GiveGilEnabled, Mode=TwoWay}" />
                                     <Label Grid.Row="0" Grid.Column="1" Content="Enable Give Player Gil Command" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                    <mah:NumericUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="0" Interval="10" StringFormat="N0"
                                                     IsEnabled="{Binding GiveGilEnabled}" Value="{Binding Path=GiveMultiplier, Mode=TwoWay}" />
                                     <Label Grid.Row="1" Grid.Column="1" Content="Gil Given Per Bit" FontSize="12" Margin="5,0,0,0" />
 
@@ -661,7 +729,7 @@
                                                     IsChecked="{Binding Path=RemoveGilEnabled, Mode=TwoWay}" />
                                     <Label Grid.Row="2" Grid.Column="1" Content="Enable Remove Player Gil Command" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <xctk:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                                    <mah:NumericUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Interval="10" StringFormat="N0"
                                                     IsEnabled="{Binding RemoveGilEnabled}" Value="{Binding Path=RemoveMultiplier, Mode=TwoWay}" />
                                     <Label Grid.Row="3" Grid.Column="1" Content="Gil Removed Per Bit" FontSize="12" Margin="5,0,0,0" />
 
@@ -758,7 +826,7 @@
                                             IsChecked="{Binding Path=AllowEsunaCommand, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
                             <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Esuna Command" FontSize="12" Margin="5,0,0,0"/>
 
-                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Increment="10" FormatString="N0"
+                            <mah:NumericUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Interval="10" StringFormat="N0"
                                             IsEnabled="{Binding AllowEsunaCommand}" Value="{Binding Path=EsunaCost, Mode=TwoWay}" />
                             <Label Grid.Row="3" Grid.Column="1" Content="Esuna Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
@@ -769,32 +837,19 @@
                                               AutoGenerateColumns="False" CanUserReorderColumns="False"
                                               IsEnabled="{Binding AllowStatusEffects}">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Path=Enabled, Mode=TwoWay}" />
+                                <DataGridCheckBoxColumn Header="Enabled"
+                                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                    Binding="{Binding Path=Enabled, Mode=TwoWay}" />
                                 <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                                <DataGridTemplateColumn Width="Auto" Header="Cost">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <xctk:IntegerUpDown VerticalContentAlignment="Center" 
-                                                                               HorizontalAlignment="Right" 
-                                                                               Value="{Binding Path=Cost, Mode=TwoWay}"
-                                                                               Width="60" Minimum="0" Increment="10"
-                                                                               FormatString="N0" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Width="Auto" Header="Cure Cost">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <xctk:IntegerUpDown VerticalContentAlignment="Center" 
-                                                                               HorizontalAlignment="Right" 
-                                                                               Value="{Binding Path=CureCost, Mode=TwoWay}"
-                                                                               Width="60" Minimum="0" Increment="10"
-                                                                               FormatString="N0" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+                                <mah:DataGridNumericUpDownColumn Header="Cost" Width="60"
+                                        Binding="{Binding Path=Cost, Mode=TwoWay}"
+                                        StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
+                                <mah:DataGridNumericUpDownColumn Header="Cure Cost" Width="60"
+                                        Binding="{Binding Path=CureCost, Mode=TwoWay}"
+                                        StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
                                 <DataGridTextColumn Width="Auto" Header="Command Words"
-                                                                Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
+                                        Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
@@ -822,13 +877,13 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <xctk:IntegerUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
-                                                           Increment="10" Maximum="65535"
+                        <mah:NumericUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
+                                                           Interval="10" Maximum="65535"
                                                            Value="{Binding Path=PortNumber, Mode=TwoWay}" />
                         <Label Grid.Row="0" Grid.Column="1" Content="Port Number *requires restart to take effect" FontSize="12" Margin="5,0,0,0" />
 
-                        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="100"
-                                                           Increment="10" Maximum="600000"
+                        <mah:NumericUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="100"
+                                                           Interval="10" Maximum="600000"
                                                            Value="{Binding Path=MemoryReadIntervalInMs, Mode=TwoWay}" />
                         <Label Grid.Row="1" Grid.Column="1" Content="Basic Memory Read Interval in MS" FontSize="12" Margin="5,0,0,0" />
                     </Grid>
