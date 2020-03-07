@@ -818,56 +818,62 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <DockPanel>
-                        <Grid DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="5,5,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                        <GroupBox DockPanel.Dock="Top" Header="Status Effect Command Settings" Margin="5">
+                            <Grid HorizontalAlignment="Left" Margin="5,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                            <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                             IsChecked="{Binding Path=AllowStatusEffects, Mode=TwoWay}" />
-                            <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
+                                <Label Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" Content="Enable Status Effect Commands" FontSize="12" Margin="5,0,0,0"/>
 
-                            <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                             IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
-                            <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0"/>
+                                <Label Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Mod Override" FontSize="12" Margin="5,0,0,0"/>
 
-                            <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                             IsChecked="{Binding Path=AllowEsunaCommand, Mode=TwoWay}" IsEnabled="{Binding AllowStatusEffects}" />
-                            <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Esuna Command" FontSize="12" Margin="5,0,0,0"/>
+                                <Label Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Content="Allow Esuna Command" FontSize="12" Margin="5,0,0,0"/>
 
-                            <mah:NumericUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Interval="10" StringFormat="N0"
+                                <mah:NumericUpDown Grid.Row="3" Grid.Column="0" Width="75" Minimum="0" Interval="10" StringFormat="N0"
                                             IsEnabled="{Binding AllowEsunaCommand}" Value="{Binding Path=EsunaCost, Mode=TwoWay}" />
-                            <Label Grid.Row="3" Grid.Column="1" Content="Esuna Gil Cost" FontSize="12" Margin="5,0,0,0" />
+                                <Label Grid.Row="3" Grid.Column="1" Content="Esuna Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
-                        </Grid>
+                            </Grid>
+                        </GroupBox>
 
-                        <DataGrid ItemsSource="{Binding AllStatusEffects}"
-                                              CanUserAddRows="False" CanUserSortColumns="False"
-                                              AutoGenerateColumns="False" CanUserReorderColumns="False"
-                                              IsEnabled="{Binding AllowStatusEffects}">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Header="Enabled"
-                                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    Binding="{Binding Path=Enabled, Mode=TwoWay}" />
-                                <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                                <mah:DataGridNumericUpDownColumn Header="Cost" Width="60"
-                                        Binding="{Binding Path=Cost, Mode=TwoWay}"
-                                        StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
-                                <mah:DataGridNumericUpDownColumn Header="Cure Cost" Width="60"
-                                        Binding="{Binding Path=CureCost, Mode=TwoWay}"
-                                        StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
-                                <DataGridTextColumn Width="Auto" Header="Command Words"
-                                        Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <GroupBox Header="Status Effects" Margin="5">
+
+                            <DataGrid ItemsSource="{Binding AllStatusEffects}"
+                                      CanUserAddRows="False" CanUserSortColumns="False"
+                                      AutoGenerateColumns="False" CanUserReorderColumns="False"
+                                      IsEnabled="{Binding AllowStatusEffects}">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn Header="Enabled"
+                                                            ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Binding="{Binding Path=Enabled, Mode=TwoWay}" />
+                                    <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                    <mah:DataGridNumericUpDownColumn Header="Cost" Width="60"
+                                                                     Binding="{Binding Path=Cost, Mode=TwoWay}"
+                                                                     StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
+                                    <mah:DataGridNumericUpDownColumn Header="Cure Cost" Width="60"
+                                                                     Binding="{Binding Path=CureCost, Mode=TwoWay}"
+                                                                     StringFormat="N0" Minimum="0" Interval="10" Maximum="2000000000"/>
+                                    <DataGridTextColumn Width="Auto" Header="Command Words"
+                                                        Binding="{Binding Path=Words, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </GroupBox>
 
                     </DockPanel>
                 </ScrollViewer>
@@ -882,30 +888,32 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <Grid Margin="5,5,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical">
+                        <GroupBox Header="Tseng Party Status Tracking Settings" Margin="5">
+                            <Grid Margin="5,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                        <mah:NumericUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
-                                                           Interval="10" Maximum="65535"
-                                                           Value="{Binding Path=PortNumber, Mode=TwoWay}" />
-                        <Label Grid.Row="0" Grid.Column="1" Content="Port Number *requires restart to take effect" FontSize="12" Margin="5,0,0,0" />
+                                <mah:NumericUpDown Grid.Row="0" Grid.Column="0" Width="75" Minimum="0"
+                                                   Interval="10" Maximum="65535"
+                                                   Value="{Binding Path=PortNumber, Mode=TwoWay}" />
+                                <Label Grid.Row="0" Grid.Column="1" Content="Port Number *requires restart to take effect" FontSize="12" Margin="5,0,0,0" />
 
-                        <mah:NumericUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="100"
-                                                           Interval="10" Maximum="600000"
-                                                           Value="{Binding Path=MemoryReadIntervalInMs, Mode=TwoWay}" />
-                        <Label Grid.Row="1" Grid.Column="1" Content="Basic Memory Read Interval in MS" FontSize="12" Margin="5,0,0,0" />
-                    </Grid>
+                                <mah:NumericUpDown Grid.Row="1" Grid.Column="0" Width="75" Minimum="100"
+                                                   Interval="10" Maximum="600000"
+                                                   Value="{Binding Path=MemoryReadIntervalInMs, Mode=TwoWay}" />
+                                <Label Grid.Row="1" Grid.Column="1" Content="Basic Memory Read Interval in MS" FontSize="12" Margin="5,0,0,0" />
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </mah:MetroTabItem>
-
 
         </TabControl>
     </DockPanel>
