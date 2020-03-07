@@ -598,57 +598,62 @@
                         <TextBlock Text="Wealth" />
                     </StackPanel>
                 </TabItem.Header>
-                <ScrollViewer>
+                <GroupBox Header="Wealth Settings">
 
                     <TabControl>
 
-                        <TabItem DataContext="{Binding EquipmentSettings}">
+                        <mah:MetroTabItem DataContext="{Binding EquipmentSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="WrenchSolid" />
                                     <TextBlock Text="General" />
                                 </StackPanel>
                             </TabItem.Header>
                             <ScrollViewer>
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                <GroupBox Header="General Wealth Settings">
+                                    <Grid Margin="5,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                    IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable Equipment Commands" FontSize="12" Margin="5,0,0,0"/>
+                                        <mah:ToggleSwitch Grid.Row="0" Grid.Column="0"
+                                                          Header="Enable Equipment Commands" Margin="0 10 0 10"
+                                                          OnLabel="Enabled" OffLabel="Disabled"
+                                                          IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
 
-                                    <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
-                                    <Label Grid.Row="1" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                        IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                        <Label Grid.Row="1" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
-                                    <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
+                                        <CheckBox Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                        IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=KeepPreviousEquipment, Mode=TwoWay}" />
+                                        <Label Grid.Row="2" Grid.Column="1" Content="Keep Previous Equipment" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                    IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
-                                    <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
+                                        <CheckBox Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                        IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
 
-                                    <mah:NumericUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Interval="100" StringFormat="N0"
-                                                                       IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
-                                    <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
+                                        <mah:NumericUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Interval="100" StringFormat="N0"
+                                                                           IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
+                                        <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
-                                </Grid>
+                                    </Grid>
+                                </GroupBox>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllWeapons}">
+                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllWeapons}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Sword" Flip="Horizontal" />
                                     <TextBlock Text="Weapons" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -663,11 +668,12 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
+                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Shield" />
                                     <TextBlock Text="Armlets" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -682,11 +688,12 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
+                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="GemPendant" />
                                     <TextBlock Text="Accessories" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -701,11 +708,12 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
+                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="CoinsSolid" />
                                     <TextBlock Text="Gil" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -744,11 +752,12 @@
                                     <Label Grid.Row="4" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
                                 </Grid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding ItemSettings}">
+                        <mah:MetroTabItem DataContext="{Binding ItemSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Potion" />
                                     <TextBlock Text="Items" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -768,11 +777,12 @@
 
                                 </Grid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
 
-                        <TabItem DataContext="{Binding MateriaSettings}">
+                        <mah:MetroTabItem DataContext="{Binding MateriaSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Crystals" />
                                     <TextBlock Text="Materia" />
                                 </StackPanel>
                             </TabItem.Header>
@@ -792,10 +802,10 @@
 
                                 </Grid>
                             </ScrollViewer>
-                        </TabItem>
+                        </mah:MetroTabItem>
                     </TabControl>
 
-                </ScrollViewer>
+                </GroupBox>
             </mah:MetroTabItem>
 
 
