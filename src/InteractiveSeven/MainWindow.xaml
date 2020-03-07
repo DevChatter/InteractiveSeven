@@ -226,27 +226,27 @@
                             allows streamers playing Final Fantasy 7 to show the party status while playing.
                         </TextBlock>
                         <Label Content="Primary Contributors" FontWeight="Bold" FontSize="14" />
-                        <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                            <Border BorderBrush="Navy" BorderThickness="1" Padding="5 0 5 5" Margin="5">
-                                <StackPanel>
+                        <UniformGrid Columns="2">
+                            <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                <StackPanel Margin="5 0 5 5">
                                     <Label Content="Brendan Enrick" FontWeight="Bold" FontSize="12" />
-                                    <StackPanel Margin="20 0 0 0">
+                                    <StackPanel Margin="10 0 0 0">
                                         <TextBlock Text="Twitter: @Brendoneus" />
                                         <TextBlock Text="Twitch: @DevChatter" />
                                         <TextBlock Text="GitHub: @benrick" />
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                            <Border BorderBrush="Navy" BorderThickness="1" Padding="5 0 5 5" Margin="5">
-                                <StackPanel>
+                            <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                <StackPanel Margin="5 0 5 5">
                                     <Label Content="Joshua Moon" FontWeight="Bold" FontSize="12" />
-                                    <StackPanel Margin="20 0 0 0">
+                                    <StackPanel Margin="10 0 0 0">
                                         <TextBlock Text="Twitch: @MrShojy" />
                                         <TextBlock Text="GitHub: @shojy" />
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                        </WrapPanel>
+                        </UniformGrid>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
