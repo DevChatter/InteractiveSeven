@@ -30,7 +30,7 @@ namespace InteractiveSeven.Twitch.IntervalMessages
             _messageCount++;
             if (_messageCount > 10 && ElapsedTime > TimeSpan.FromMinutes(NormalDelayInMinutes))
             {
-                const string message = "Enjoying Interactive Seven? Consider supporting its developer, @DevChatter too! (https://twitch.tv/DevChatter)";
+                const string message = "Enjoying Interactive Seven? Consider supporting the developers, @DevChatter and @MrShojy ! (https://twitch.tv/DevChatter)";
                 _twitchClient.SendMessage(TwitchSettings.Channel, message);
                 _messageCount = 0;
                 _lastMessageTime = _clock.UtcNow;
