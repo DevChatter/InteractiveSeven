@@ -111,7 +111,7 @@ namespace InteractiveSeven
                 ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
                 ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
 
-                ThemeManager.ChangeTheme(Current, "CustomAccentDarkRed");
+                ThemeManager.ChangeTheme(Current, "Dark", "Blue");
 
             }
             catch (Exception themeEx)
