@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Linq;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using InteractiveSeven.Core.Data;
 using Serilog.Extensions.Logging;
+using System.IO;
+using System.Linq;
 using System.Windows.Media;
 using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -27,6 +30,8 @@ namespace InteractiveSeven
     public partial class App : Application
     {
         private WorkloadCoordinator _workloadCoordinator;
+
+        const string THEME_FILE_NAME = "i7-theme.json";
 
         private IWebHost _host;
         private TsengMonitor _tsengMonitor;
@@ -91,7 +96,7 @@ namespace InteractiveSeven
             }
         }
 
-        private static void InitializeTheming()
+        private void InitializeTheming()
         {
             try
             {
@@ -111,12 +116,45 @@ namespace InteractiveSeven
                 ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
                 ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
 
-                ThemeManager.ChangeTheme(Current, "Dark", "Blue");
+                Theme theme = LoadCurrentTheme();
+
+                ThemeManager.ChangeTheme(Current, theme);
+
+                ThemeManager.IsThemeChanged += ThemeManager_IsThemeChanged;
 
             }
             catch (Exception themeEx)
             {
-                Log.Error(themeEx, "Error Theming Application");
+                _logger.LogError(themeEx, "Error Initializing Application Theming");
+            }
+        }
+
+        private Theme LoadCurrentTheme()
+        {
+            try
+            {
+                string themeName = File.ReadAllText(THEME_FILE_NAME).Trim();
+                return ThemeManager.Themes.First(x => x.Name == themeName);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to load theme.");
+            }
+
+            return ThemeManager.Themes.First(x => x.Name == "Dark.Blue");
+        }
+
+        private void ThemeManager_IsThemeChanged(object sender, OnThemeChangedEventArgs e)
+        {
+            try
+            {
+                Theme theme = ThemeManager.DetectTheme(Current);
+                File.WriteAllText(THEME_FILE_NAME, theme.Name);
+
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Fail to save changed theme.");
             }
         }
 
