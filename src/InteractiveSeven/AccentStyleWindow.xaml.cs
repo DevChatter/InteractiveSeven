@@ -43,16 +43,6 @@ namespace InteractiveSeven
             ThemeManager.ChangeTheme(this, theme);
         }
 
-        private void ChangeWindowThemeButtonClick(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ChangeThemeBaseColor(this, ((Button)sender).Content.ToString());
-        }
-
-        private void ChangeWindowAccentButtonClick(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.ChangeThemeColorScheme(this, ((Button)sender).Content.ToString());
-        }
-
         private void ChangeAppThemeButtonClick(object sender, RoutedEventArgs e)
         {
             ThemeManager.ChangeThemeBaseColor(Application.Current, ((Button)sender).Content.ToString());

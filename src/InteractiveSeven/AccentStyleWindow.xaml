@@ -11,14 +11,6 @@
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       ResizeMode="CanResizeWithGrip">
 
-    <mah:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </mah:MetroWindow.Resources>
-
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Converter={converters:ToUpperConverter}}"
@@ -42,31 +34,7 @@
             </Style>
         </Grid.Resources>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <GroupBox Grid.Row="0"
-                  Margin="5"
-                  Header="This Window">
-            <UniformGrid Columns="5">
-                <Button Content="Dark"
-                        Click="ChangeWindowThemeButtonClick" />
-                <Button Content="Light"
-                        Click="ChangeWindowThemeButtonClick" />
-                <Button Content="Blue"
-                        Click="ChangeWindowAccentButtonClick" />
-                <Button Content="Red"
-                        Click="ChangeWindowAccentButtonClick" />
-                <Button Content="Green"
-                        Click="ChangeWindowAccentButtonClick" />
-            </UniformGrid>
-        </GroupBox>
-
-        <GroupBox Grid.Row="1"
-                  Margin="5"
-                  Header="The Application">
+        <GroupBox Margin="5" Header="The Application">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
