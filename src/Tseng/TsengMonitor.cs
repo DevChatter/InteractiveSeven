@@ -54,7 +54,7 @@ namespace Tseng
             _statusHubEmitter.ShowNewPartyStatus(_partyStatusViewModel);
         }
 
-        public void Start()
+        public void Start(bool support7H = false)
         {
             SearchForProcess();
 
