@@ -44,8 +44,8 @@ namespace InteractiveSeven
             _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
             _settingsWindow.Owner = this;
             _settingsWindow.Closed += (o, args) => _settingsWindow = null;
-            _settingsWindow.Left = Left + ActualWidth / 2.0;
-            _settingsWindow.Top = Top + ActualHeight / 2.0;
+            _settingsWindow.Left = Left + ActualWidth / 3.0;
+            _settingsWindow.Top = Top + ActualHeight / 3.0;
             _settingsWindow.Show();
         }
 
