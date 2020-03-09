@@ -96,6 +96,7 @@ namespace InteractiveSeven.Twitch.Commands
                 .Where(x => _partyStatus?.Party?[x.Index]?.Id != FF7Const.Empty))
             {
                 Character characterRecord = charRecords[target.Index];
+                if (characterRecord == null) continue;
 
                 if (characterRecord.Accessory?.ProtectsFrom(effect) ?? false)
                 {
