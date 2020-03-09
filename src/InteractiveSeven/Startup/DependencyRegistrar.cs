@@ -47,6 +47,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IModded, Modded>();
 
             services.AddSingleton<PartyStatusViewModel>();
+            services.AddSingleton<DebugWindowViewModel>();
 
             services.AddTransient<IStatusHubEmitter, StatusHubEmitter>();
 

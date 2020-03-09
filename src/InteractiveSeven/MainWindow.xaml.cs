@@ -12,14 +12,16 @@ namespace InteractiveSeven
     public partial class MainWindow
     {
 
-        public MainWindow(MainWindowViewModel viewModel)
+        public MainWindow(MainWindowViewModel viewModel, DebugWindowViewModel debugWindowViewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
             ViewModel = viewModel;
+            DebugWindowViewModel = debugWindowViewModel;
         }
 
         public MainWindowViewModel ViewModel { get; }
+        public DebugWindowViewModel DebugWindowViewModel { get; }
 
         private void PatreonLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -30,6 +32,23 @@ namespace InteractiveSeven
             };
             Process.Start(psi);
             e.Handled = true;
+        }
+
+        private DebugWindow _debugWindow;
+        private void DebugViewButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (_debugWindow != null)
+            {
+                _debugWindow.Activate();
+                return;
+            }
+
+            _debugWindow = new DebugWindow(DebugWindowViewModel);
+            _debugWindow.Owner = this;
+            _debugWindow.Closed += (o, args) => _debugWindow = null;
+            _debugWindow.Left = Left + ActualWidth / 5.0;
+            _debugWindow.Top = Top + ActualHeight / 5.0;
+            _debugWindow.Show();
         }
 
         private MetroWindow _settingsWindow;
@@ -44,8 +63,8 @@ namespace InteractiveSeven
             _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
             _settingsWindow.Owner = this;
             _settingsWindow.Closed += (o, args) => _settingsWindow = null;
-            _settingsWindow.Left = Left + ActualWidth / 3.0;
-            _settingsWindow.Top = Top + ActualHeight / 3.0;
+            _settingsWindow.Left = Left + ActualWidth / 5.0;
+            _settingsWindow.Top = Top + ActualHeight / 5.0;
             _settingsWindow.Show();
         }
 

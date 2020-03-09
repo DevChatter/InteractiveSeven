@@ -16,6 +16,7 @@ namespace InteractiveSeven.Core.ViewModels
         public int Gil { get; set; }
         public string Location { get; set; }
         public bool ActiveBattle { get; set; }
+        public bool BattleEnding { get; set; }
 
         public string ColorTopLeft { get; set; }
         public string ColorTopRight { get; set; }
@@ -29,6 +30,7 @@ namespace InteractiveSeven.Core.ViewModels
             Location = map.LiveMapName;
             Party = new Character[3];
             ActiveBattle = battleMap.IsActiveBattle;
+            BattleEnding = battleMap.IsBattleEnding;
             ColorTopLeft = map.WindowColorTopLeft;
             ColorBottomLeft = map.WindowColorBottomLeft;
             ColorBottomRight = map.WindowColorBottomRight;

@@ -1,5 +1,6 @@
 ﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
@@ -24,6 +25,7 @@ namespace Tseng
         private readonly ProcessConnector _processConnector;
         private readonly GameDatabase _gameDatabase;
         private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly DebugWindowViewModel _debugWindowViewModel;
         private readonly ILogger<TsengMonitor> _logger;
         private readonly NativeMemoryReader _memoryReader;
 
@@ -32,6 +34,7 @@ namespace Tseng
             GameDatabase gameDatabase,
             NativeMemoryReader memoryReader,
             IStatusHubEmitter statusHubEmitter,
+            DebugWindowViewModel debugWindowViewModel,
             ILogger<TsengMonitor> logger)
         {
             _memoryReader = memoryReader;
@@ -39,6 +42,7 @@ namespace Tseng
             _processConnector = processConnector;
             _gameDatabase = gameDatabase;
             _statusHubEmitter = statusHubEmitter;
+            _debugWindowViewModel = debugWindowViewModel;
             _logger = logger;
         }
 
@@ -125,12 +129,14 @@ namespace Tseng
                 byte isBattle = _memoryReader.ReadMemory(Addresses.ActiveBattleState)?.First() ?? 0;
                 var battleMapByteData = _memoryReader.ReadMemory(Addresses.BattleMapStart);
                 var colors = _memoryReader.ReadMemory(Addresses.MenuColorAll);
+                var gameMoment = _memoryReader.ReadMemory(Addresses.GameMoment);
 
                 if (saveMapByteData is null)
                 {
                     return;
                 }
 
+                _debugWindowViewModel.GameMoment = BitConverter.ToUInt16(gameMoment);
                 SaveMap = new FF7SaveMap(saveMapByteData, colors);
                 BattleMap = new FF7BattleMap(battleMapByteData, isBattle);
 

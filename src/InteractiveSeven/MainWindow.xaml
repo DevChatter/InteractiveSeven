@@ -14,6 +14,12 @@
 
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
+            <Button Click="DebugViewButtonClick">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Width="24" Height="24" Kind="Settings" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Debug View" />
+                </StackPanel>
+            </Button>
             <Button Click="ChangeSettingsButtonClick">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial Width="24" Height="24" Kind="Settings" />
