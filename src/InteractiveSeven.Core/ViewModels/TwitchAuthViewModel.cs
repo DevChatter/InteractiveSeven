@@ -12,8 +12,7 @@ namespace InteractiveSeven.Core.ViewModels
             "chat:edit",
             "chat:read",
             "whispers:read",
-            "whispers:edit",
-            "channel_subscriptions"};
+            "whispers:edit"};
         public static string ScopeString = string.Join("+", value: Scopes);
 
         public static readonly string State = Guid.NewGuid().ToString();
