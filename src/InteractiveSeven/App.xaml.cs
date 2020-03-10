@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
@@ -8,16 +9,13 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Serilog;
+using Serilog.Extensions.Logging;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using InteractiveSeven.Core.Data;
-using Serilog.Extensions.Logging;
-using System.IO;
-using System.Linq;
 using System.Windows.Media;
 using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -44,7 +42,7 @@ namespace InteractiveSeven
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            
+
             try
             {
                 Log.Logger = new LoggerConfiguration()
