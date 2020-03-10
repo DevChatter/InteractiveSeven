@@ -73,7 +73,7 @@ namespace Tseng.GameData
 
         public CharNames DefaultName => CharNames.GetById(Id);
         public bool AtFront => Row == FF7Const.Empty;
-        public string Name => RawName.ToFFString();
+        public string Name => RawName?.ToFFString() ?? "";
         public ushort[] LimitTimes => new[] { LimitLevel1Uses, LimitLevel2Uses, LimitLevel3Uses };
         public MateriaRecord[] ArmorMateria => new[]
         {

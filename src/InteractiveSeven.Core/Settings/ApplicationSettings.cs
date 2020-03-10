@@ -85,7 +85,6 @@ namespace InteractiveSeven.Core.Settings
             : GamePlayEffects.DisplayOnly;
 
         public CommandSettings CommandSettings { get; set; } = new CommandSettings();
-        public TwitchSettings TwitchSettings { get; set; } = new TwitchSettings();
         public MenuColorSettings MenuSettings { get; set; } = new MenuColorSettings();
         public NameBiddingSettings NameBiddingSettings { get; set; } = new NameBiddingSettings();
         public BattleSettings BattleSettings { get; set; } = new BattleSettings();

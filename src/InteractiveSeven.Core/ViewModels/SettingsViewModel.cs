@@ -34,5 +34,6 @@ namespace InteractiveSeven.Core.ViewModels
         public ICommand LoadSettingsCommand { get; }
 
         public ApplicationSettings Settings => ApplicationSettings.Instance;
+        public TwitchSettings TwitchSettings => TwitchSettings.Instance;
     }
 }

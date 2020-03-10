@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.ViewModels;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
 
 namespace InteractiveSeven.Core.Settings
 {
@@ -12,7 +13,13 @@ namespace InteractiveSeven.Core.Settings
         private string _channel;
         private bool _updatedFromTwitch;
 
-        public TwitchSettings()
+        public static TwitchSettings Instance { get; private set; }
+        static TwitchSettings()
+        {
+            Instance = new TwitchSettings();
+        }
+
+        private TwitchSettings()
         {
             DomainEvents.Register<AccessTokenReceived>(ReceivedAccessToken);
         }
@@ -68,6 +75,19 @@ namespace InteractiveSeven.Core.Settings
             {
                 _updatedFromTwitch = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public static void LoadFromJson(string json, Action<Exception> errorLogging = null)
+        {
+            try
+            {
+                JsonConvert.PopulateObject(json, Instance);
+            }
+            catch (Exception ex)
+            {
+                Instance = new TwitchSettings();
+                errorLogging?.Invoke(ex);
             }
         }
     }

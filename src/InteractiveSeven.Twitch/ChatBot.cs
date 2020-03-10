@@ -27,7 +27,7 @@ namespace InteractiveSeven.Twitch
         private readonly ILogger<ChatBot> _logger;
         private bool _isConnected;
 
-        private TwitchSettings Settings => ApplicationSettings.Instance.TwitchSettings;
+        private TwitchSettings Settings => TwitchSettings.Instance;
 
         public bool IsConnected
         {
