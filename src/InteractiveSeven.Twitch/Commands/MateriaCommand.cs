@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data.Items;
+﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Model;
@@ -27,17 +28,34 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (!IsAllowedToUseCommand(commandData.User)) return;
 
-            string materiaIdText = commandData.Arguments.FirstOrDefault();
-            if (materiaIdText != null && byte.TryParse(materiaIdText, out byte materiaId) && materiaId < 91)
+            string materiaName = commandData.Arguments.FirstOrDefault();
+
+            var candidates = Materia.All.Where(x => x.IsMatchByName(materiaName)).ToList(); // TODO: Make this lookup based on settings, not on the materia.
+
+            if (candidates.Count == 0)
             {
-                _materiaAccessor.AddMateria(materiaId);
-                Materia materia = Materia.All.SingleOrDefault(x => x.Value == materiaId);
-                string materiaName = materia == null ? "Unknown Materia" : materia.Name;
-                string message = $"Materia {materiaName} Added";
-                _twitchClient.SendMessage(commandData.Channel,
-                    message);
-                _statusHubEmitter.ShowEvent(message);
+                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Materia.");
+                return;
             }
+
+            if (candidates.Count > 15)
+            {
+                _twitchClient.SendMessage(commandData.Channel, "Error: Too many matching materia, be more specific.");
+                return;
+            }
+
+            if (candidates.Count > 1)
+            {
+                string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
+                _twitchClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                return;
+            }
+
+            Materia materia = candidates.Single();
+            _materiaAccessor.AddMateria(materia.Value);
+            string message = $"Materia {materia.Name} Added";
+            _twitchClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
         }
         private bool IsAllowedToUseCommand(in ChatUser user)
             => (Settings.MateriaSettings.AllowMod && user.IsMod)

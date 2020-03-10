@@ -111,5 +111,7 @@ namespace InteractiveSeven.Core.Data.Items
 
         public static Materia Get(int materiaId)
             => All.SingleOrDefault(x => x.Value == materiaId);
+
+        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name);
     }
 }
