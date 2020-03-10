@@ -433,6 +433,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Row="0" Grid.Column="0" Content="Costs Command Words" FontSize="12" Margin="5,10,0,0" />
@@ -565,23 +566,28 @@
                                                 Text="{Binding Path=ItemCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                                <Label Grid.Row="26" Grid.Column="0" Content="Esuna Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <Label Grid.Row="26" Grid.Column="0" Content="Drop Command Words" FontSize="12" Margin="5,10,0,0" />
                                 <TextBox Grid.Row="26" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                                Text="{Binding Path=DropCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
+                                                mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
+
+                                <Label Grid.Row="27" Grid.Column="0" Content="Esuna Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                                 Text="{Binding Path=EsunaCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                                <Label Grid.Row="27" Grid.Column="0" Content="Cure Effect Command Words" FontSize="12" Margin="5,10,0,0" />
-                                <TextBox Grid.Row="27" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                <Label Grid.Row="28" Grid.Column="0" Content="Cure Effect Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="28" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                                 Text="{Binding Path=HealCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                                <Label Grid.Row="28" Grid.Column="0" Content="Give Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                                <TextBox Grid.Row="28" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                <Label Grid.Row="29" Grid.Column="0" Content="Give Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="29" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                                 Text="{Binding Path=GivePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
 
-                                <Label Grid.Row="29" Grid.Column="0" Content="Remove Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
-                                <TextBox Grid.Row="29" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                <Label Grid.Row="30" Grid.Column="0" Content="Remove Player Gil Command Words" FontSize="12" Margin="5,10,0,0" />
+                                <TextBox Grid.Row="30" Grid.Column="1" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                                 Text="{Binding Path=RemovePlayerGilCommandWords, Mode=TwoWay, Converter={StaticResource CommandWordsValueConverter}}"
                                                 mah:TextBoxHelper.Watermark="Add words separated by commas" Margin="5,10,10,0" />
                             </Grid>
@@ -787,7 +793,8 @@
                                         <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Enabled}" />
                                         <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                                         <DataGridTextColumn Width="Auto" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridTextColumn Width="Auto" Header="Give Cost" Binding="{Binding Cost}" />
+                                        <DataGridTextColumn Width="Auto" Header="Drop Cost" Binding="{Binding DropCost}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
 
@@ -810,7 +817,8 @@
                                         <DataGridCheckBoxColumn Width="Auto"  Header="Enabled" Binding="{Binding Enabled}" />
                                         <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
                                         <DataGridTextColumn Width="Auto" Header="Materia Id" Binding="{Binding MateriaId}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridTextColumn Width="Auto" Header="Give Cost" Binding="{Binding Cost}" />
+                                        <DataGridTextColumn Width="Auto" Header="Drop Cost" Binding="{Binding DropCost}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>

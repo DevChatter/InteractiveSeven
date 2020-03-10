@@ -65,6 +65,33 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             }
         }
 
+        public bool HasMateria(byte materiaId) => (FindOffset(materiaId) > -1);
+
+        private int FindOffset(byte materiaId)
+        {
+            var scanResult = _memory.ScanMem(Settings.ProcessName,
+                FirstAddress, ItemSize, InvCapacity, IsItem);
+
+            return scanResult.BaseAddrOffset;
+
+            bool IsItem(byte[] bytes) => new MateriaSlot(bytes).MateriaId == materiaId;
+        }
+
+        public bool DropMateria(byte materiaId)
+        {
+            var addressOffset = FindOffset(materiaId);
+            if (addressOffset < 0)
+            {
+                return false;
+            }
+
+            IntPtr address = IntPtr.Add(FirstAddress, addressOffset);
+            _memory.WriteMem(Settings.ProcessName, address,
+                new[] { byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue });
+
+            return true;
+        }
+
         public void RemoveAllMateria()
         {
             int inventoryTotalBytes = (InvCapacity * ItemSize);

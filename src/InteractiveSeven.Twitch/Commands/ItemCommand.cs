@@ -52,17 +52,17 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
 
-            var materiaSetting = candidates.Single();
+            var itemSettings = candidates.Single();
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, materiaSetting.Cost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, itemSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
                 return;
             }
 
-            Items item = candidates.Single().Item;
+            Items item = itemSettings.Item;
             _inventoryAccessor.AddItem(item.ItemId, 1, true);
             string message = $"Item {item.Name} Added";
             _twitchClient.SendMessage(commandData.Channel, message);

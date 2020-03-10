@@ -53,5 +53,41 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             }
             _memory.WriteMem(Settings.ProcessName, FirstAddress, bytes);
         }
+
+        public bool HasItem(ushort itemId)
+        {
+            var scanResult = _memory.ScanMem(Settings.ProcessName,
+                FirstAddress, ItemSize, InvCapacity, IsTheItem);
+
+            return scanResult.BaseAddrOffset > -1;
+
+            bool IsTheItem(byte[] bytes) => new InventorySlot(bytes).ItemId == itemId;
+        }
+
+        public bool DropItem(ushort itemId, ushort quantity)
+        {
+            var scanResult = _memory.ScanMem(Settings.ProcessName,
+                FirstAddress, ItemSize, InvCapacity, IsItem);
+
+            if (scanResult.BaseAddrOffset == -1) return false; // Not found.
+
+            var item = new InventorySlot(scanResult.Bytes);
+            if (item.Quantity > quantity)
+            {
+                item.Quantity -= quantity;
+                WriteInventoryItem(item, scanResult.BaseAddrOffset);
+            }
+            else
+            {
+                IntPtr address = IntPtr.Add(FirstAddress, scanResult.BaseAddrOffset);
+                _memory.WriteMem(Settings.ProcessName, address, new[] { byte.MaxValue, byte.MaxValue });
+            }
+
+            return true;
+
+            bool IsItem(byte[] bytes) => new InventorySlot(bytes).ItemId == itemId;
+            void WriteInventoryItem(InventorySlot inventorySlot, int addrOffset)
+                => _memory.WriteMem(Settings.ProcessName, IntPtr.Add(FirstAddress, addrOffset), inventorySlot.AsBytes());
+        }
     }
 }
