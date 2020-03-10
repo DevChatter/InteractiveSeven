@@ -622,10 +622,12 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
                                         <mah:ToggleSwitch Grid.Row="0" Grid.Column="0"
-                                                          Header="Enable Equipment Commands" Margin="0 10 0 10"
+                                                          Header="Enable Equipment (Weapon, Armlet, Accessory) Commands" Margin="0 10 0 10"
                                                           OnLabel="Enabled" OffLabel="Disabled"
                                                           IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
 
@@ -645,6 +647,14 @@
                                                                            IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
                                         <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
+                                        <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                        <Label Grid.Row="5" Grid.Column="1" Content="Enable the Item Command" FontSize="12" Margin="5,0,0,0"/>
+
+                                        <CheckBox Grid.Row="6" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+                                                  IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                        <Label Grid.Row="6" Grid.Column="1" Content="Enable the Materia Command" FontSize="12" Margin="5,0,0,0"/>
+
                                     </Grid>
                                 </GroupBox>
                             </ScrollViewer>
@@ -657,17 +667,19 @@
                                     <TextBlock Text="Weapons" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <ScrollViewer>
-                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
-                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                            <GroupBox Header="All Weapons" Margin="5">
+                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False"
+                                          CanUserSortColumns="False" AutoGenerateColumns="False"
+                                          CanUserReorderColumns="False"
+                                          ScrollViewer.CanContentScroll="True" Height="600">
                                     <DataGrid.Columns>
-                                        <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
-                                        <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Enabled}" />
+                                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
-                            </ScrollViewer>
+                            </GroupBox>
                         </mah:MetroTabItem>
 
                         <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
@@ -677,17 +689,19 @@
                                     <TextBlock Text="Armlets" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <ScrollViewer>
-                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
-                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                            <GroupBox Header="All Armlets" Margin="5">
+                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False"
+                                          CanUserSortColumns="False" AutoGenerateColumns="False"
+                                          CanUserReorderColumns="False"
+                                          ScrollViewer.CanContentScroll="True" Height="600">
                                     <DataGrid.Columns>
-                                        <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
-                                        <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Enabled}" />
+                                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
-                            </ScrollViewer>
+                            </GroupBox>
                         </mah:MetroTabItem>
 
                         <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
@@ -697,17 +711,19 @@
                                     <TextBlock Text="Accessories" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <ScrollViewer>
-                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False" CanUserSortColumns="False"
-                                                      AutoGenerateColumns="False" CanUserReorderColumns="False">
+                            <GroupBox Header="All Accessories" Margin="5">
+                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False"
+                                          CanUserSortColumns="False" AutoGenerateColumns="False"
+                                          CanUserReorderColumns="False"
+                                          ScrollViewer.CanContentScroll="True" Height="600">
                                     <DataGrid.Columns>
-                                        <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" />
-                                        <DataGridTextColumn Width="3*" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
-                                        <DataGridTextColumn Width="*" Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Enabled}" />
+                                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
-                            </ScrollViewer>
+                            </GroupBox>
                         </mah:MetroTabItem>
 
                         <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
@@ -754,54 +770,50 @@
                             </ScrollViewer>
                         </mah:MetroTabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding ItemSettings}">
+                        <mah:MetroTabItem DataContext="{Binding ItemSettings.AllItems}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Potion" />
                                     <TextBlock Text="Items" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <ScrollViewer>
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                            <GroupBox Header="All Items" Margin="5">
 
-                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable the Item Command" FontSize="12" Margin="5,0,0,0"/>
+                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False"
+                                          CanUserSortColumns="False" AutoGenerateColumns="False"
+                                          CanUserReorderColumns="False"
+                                          ScrollViewer.CanContentScroll="True" Height="600">
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Width="Auto" Header="Enabled" Binding="{Binding Enabled}" />
+                                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Item Id" Binding="{Binding ItemId}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
 
-                                </Grid>
-                            </ScrollViewer>
+                            </GroupBox>
                         </mah:MetroTabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding MateriaSettings}">
+                        <mah:MetroTabItem DataContext="{Binding MateriaSettings.AllMateria}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Crystals" />
                                     <TextBlock Text="Materia" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <ScrollViewer>
-                                <Grid Margin="5,5,0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <CheckBox Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
-                                                          IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
-                                    <Label Grid.Row="0" Grid.Column="1" Content="Enable the Materia Command" FontSize="12" Margin="5,0,0,0"/>
-
-                                </Grid>
-                            </ScrollViewer>
+                            <GroupBox Header="All Materia" Margin="5">
+                                <DataGrid ItemsSource="{Binding}" CanUserAddRows="False"
+                                          CanUserSortColumns="False" AutoGenerateColumns="False"
+                                          CanUserReorderColumns="False"
+                                          ScrollViewer.CanContentScroll="True" Height="600">
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Width="Auto"  Header="Enabled" Binding="{Binding Enabled}" />
+                                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Materia Id" Binding="{Binding MateriaId}" IsReadOnly="True" />
+                                        <DataGridTextColumn Width="Auto" Header="Cost" Binding="{Binding Cost}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
                         </mah:MetroTabItem>
                     </TabControl>
 

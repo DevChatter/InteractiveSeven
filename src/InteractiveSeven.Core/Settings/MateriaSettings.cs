@@ -1,9 +1,19 @@
-﻿namespace InteractiveSeven.Core.Settings
+﻿using InteractiveSeven.Core.Data.Items;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace InteractiveSeven.Core.Settings
 {
     public class MateriaSettings : ObservableSettingsBase
     {
         private bool _enabled = true;
         private bool _allowMod = true;
+
+        public MateriaSettings()
+        {
+            AllMateria = Materia.All.Select(x => new SpecificMateriaSettings(x, true)).ToList();
+        }
 
         public bool Enabled
         {
@@ -24,5 +34,10 @@
                 OnPropertyChanged();
             }
         }
+
+        public List<SpecificMateriaSettings> AllMateria { get; set; }
+
+        public List<SpecificMateriaSettings> AllByName(string name)
+            => AllMateria.Where(x => x.IsMatchByName(name)).ToList();
     }
 }

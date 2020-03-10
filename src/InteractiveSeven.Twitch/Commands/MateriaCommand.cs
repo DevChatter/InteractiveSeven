@@ -1,9 +1,8 @@
 ﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Twitch.Payments;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -14,23 +13,23 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly ITwitchClient _twitchClient;
         private readonly IMateriaAccessor _materiaAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly PaymentProcessor _paymentProcessor;
 
         public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor,
-            IStatusHubEmitter statusHubEmitter)
+            IStatusHubEmitter statusHubEmitter, PaymentProcessor paymentProcessor)
             : base(x => x.MateriaCommandWords, x => x.MateriaSettings.Enabled)
         {
             _twitchClient = twitchClient;
             _materiaAccessor = materiaAccessor;
             _statusHubEmitter = statusHubEmitter;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
         {
-            if (!IsAllowedToUseCommand(commandData.User)) return;
-
             string materiaName = commandData.Arguments.FirstOrDefault();
 
-            var candidates = Materia.All.Where(x => x.IsMatchByName(materiaName)).ToList(); // TODO: Make this lookup based on settings, not on the materia.
+            var candidates = Settings.MateriaSettings.AllByName(materiaName);
 
             if (candidates.Count == 0)
             {
@@ -51,14 +50,20 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            Materia materia = candidates.Single();
-            _materiaAccessor.AddMateria(materia.Value);
-            string message = $"Materia {materia.Name} Added";
+            var materiaSetting = candidates.Single();
+
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, materiaSetting.Cost, Settings.EquipmentSettings.AllowModOverride);
+
+            if (!gilTransaction.Paid)
+            {
+                return;
+            }
+
+            _materiaAccessor.AddMateria(materiaSetting.Materia.Value);
+            string message = $"Materia {materiaSetting.Materia.Name} Added";
             _twitchClient.SendMessage(commandData.Channel, message);
             _statusHubEmitter.ShowEvent(message);
         }
-        private bool IsAllowedToUseCommand(in ChatUser user)
-            => (Settings.MateriaSettings.AllowMod && user.IsMod)
-               || user.IsMe || user.IsBroadcaster;
     }
 }
