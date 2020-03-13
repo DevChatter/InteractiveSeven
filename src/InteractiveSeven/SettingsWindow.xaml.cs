@@ -19,7 +19,6 @@ namespace InteractiveSeven
 
         public SettingsViewModel ViewModel { get; }
 
-
         private void AccessTokenTextBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (sender is WatermarkPasswordBox passwordBox

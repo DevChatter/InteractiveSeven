@@ -4,6 +4,5 @@ namespace InteractiveSeven.Core.MvvmCommands
 {
     public interface IShowTwitchAuthCommand : ICommand
     {
-        
     }
 }

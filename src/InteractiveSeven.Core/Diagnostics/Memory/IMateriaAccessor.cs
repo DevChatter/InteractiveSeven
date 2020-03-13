@@ -8,5 +8,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
         void RemoveAllMateria();
         void RemoveWeaponMateria(CharNames charNames, int keep = 0);
         void RemoveArmletMateria(CharNames charNames, int keep = 0);
+        bool HasMateria(byte materiaId);
+        bool DropMateria(byte materiaId);
     }
 }

@@ -1,9 +1,18 @@
-﻿namespace InteractiveSeven.Core.Settings
+﻿using InteractiveSeven.Core.Data.Items;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace InteractiveSeven.Core.Settings
 {
     public class ItemSettings : ObservableSettingsBase
     {
         private bool _enabled = true;
         private bool _allowMod = true;
+
+        public ItemSettings()
+        {
+            AllItems = Items.All.Select(x => new SpecificItemSettings(x, true)).ToList();
+        }
 
         public bool Enabled
         {
@@ -24,5 +33,10 @@
                 OnPropertyChanged();
             }
         }
+
+        public List<SpecificItemSettings> AllItems { get; set; }
+
+        public List<SpecificItemSettings> AllByName(string name)
+            => AllItems.Where(x => x.IsMatchByName(name)).ToList();
     }
 }

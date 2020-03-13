@@ -85,6 +85,7 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<PaletteCommand>();
             services.RegisterTwitchCommand<RainbowCommand>();
             services.RegisterTwitchCommand<MakoCommand>();
+            services.RegisterTwitchCommand<DropCommand>();
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();

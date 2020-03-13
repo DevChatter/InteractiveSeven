@@ -115,6 +115,8 @@ namespace InteractiveSeven.Core.Settings
             RemoveDuplicates(EquipmentSettings.AllAccessories);
             RemoveDuplicates(EquipmentSettings.AllArmlets);
             RemoveDuplicates(EquipmentSettings.AllWeapons);
+            RemoveDuplicates(ItemSettings.AllItems);
+            RemoveDuplicates(MateriaSettings.AllMateria);
         }
 
         /// <summary>

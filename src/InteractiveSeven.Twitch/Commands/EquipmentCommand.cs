@@ -51,7 +51,7 @@ namespace InteractiveSeven.Twitch.Commands
             if (!isValidName)
             {
                 _twitchClient.SendMessage(commandData.Channel,
-                    "Invalid Request - Specify equipment and character like this: !weapon cloud 15");
+                    "Invalid Request - Specify equipment and character like this: !weapon cloud buster");
                 return;
             }
 

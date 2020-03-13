@@ -30,11 +30,12 @@ namespace InteractiveSeven.Core.Settings
         private string[] _pauperCommandWords = { "Pauper", "poor" };
         private string[] _materiaCommandWords = { "Materia", "Mats", "Material", "AddMateria" };
         private string[] _itemCommandWords = { "Item", "Items", "AddItem" };
+        private string[] _dropCommandWords = { "Drop" };
 
         private string[] _cloudWords = { "cloud", "cluod", "clodu" };
         private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
         private string[] _tifaWords = { "tifa", "tiaf", "tfia" };
-        private string[] _aerisWords = { "aeris", "aerith" };
+        private string[] _aerisWords = { "aeris", "aerith", "aris", "aries" };
         private string[] _caitWords = { "caitsith", "cait" };
         private string[] _cidWords = { "cid" };
         private string[] _redWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
@@ -95,6 +96,8 @@ namespace InteractiveSeven.Core.Settings
                     () => MateriaCommandWords),
                 (nameof(ItemCommandWords),
                     () => ItemCommandWords),
+                (nameof(DropCommandWords),
+                    () => DropCommandWords),
 
                 (nameof(CloudCommandWords),
                     () => CloudCommandWords),
@@ -336,6 +339,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _itemCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] DropCommandWords
+        {
+            get => _dropCommandWords;
+            set
+            {
+                _dropCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
