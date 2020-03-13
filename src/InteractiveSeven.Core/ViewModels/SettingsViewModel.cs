@@ -10,7 +10,8 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly ISettingsStore _settingsStore;
         private readonly IDialogService _dialogService;
 
-        public SettingsViewModel(ISettingsStore settingsStore, IDialogService dialogService)
+        public SettingsViewModel(ISettingsStore settingsStore, IDialogService dialogService,
+            IShowTwitchAuthCommand showTwitchAuthCommand)
         {
             _settingsStore = settingsStore;
             _dialogService = dialogService;
@@ -28,10 +29,13 @@ namespace InteractiveSeven.Core.ViewModels
                     _settingsStore.LoadSettings();
                 }
             });
+            OpenTwitchAuthWindow = showTwitchAuthCommand;
         }
 
         public ICommand SaveSettingsCommand { get; }
         public ICommand LoadSettingsCommand { get; }
+        public ICommand OpenTwitchAuthWindow { get; }
+
 
         public ApplicationSettings Settings => ApplicationSettings.Instance;
         public TwitchSettings TwitchSettings => TwitchSettings.Instance;
