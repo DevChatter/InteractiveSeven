@@ -5,6 +5,7 @@ using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
+using System;
 using System.Linq;
 using TwitchLib.Client.Interfaces;
 
@@ -61,76 +62,46 @@ namespace InteractiveSeven.Twitch.Commands
             switch (candidates.Single())
             {
                 case SpecificItemSettings itemSettings:
-                    DropItem(itemSettings, commandData);
+                    TryToDrop(itemSettings.ItemId, itemSettings.Name,
+                        itemSettings.DropCost, commandData, "Item",
+                        x => _inventoryAccessor.HasItem(x),
+                        x => _inventoryAccessor.DropItem(x, 1));
                     break;
+
                 case SpecificMateriaSettings materiaSettings:
-                    DropMateria(materiaSettings, commandData);
+                    TryToDrop(materiaSettings.MateriaId, materiaSettings.Name,
+                        materiaSettings.DropCost, commandData, "Materia",
+                        x => _materiaAccessor.HasMateria((byte)x),
+                        x => _materiaAccessor.DropMateria((byte)x));
                     break;
             }
         }
 
-        private void DropItem(SpecificItemSettings itemSettings, CommandData commandData)
+        private void TryToDrop(ushort id, string name, int cost,
+            CommandData commandData, string typeName,
+            Func<ushort, bool> hasIt, Func<ushort, bool> dropIt)
         {
-            Items item = itemSettings.Item;
-
-            if (!_inventoryAccessor.HasItem(item.ItemId))
+            if (!hasIt(id))
             {
-                string message = $"Player out of {item.Name}s.";
+                string message = $"Player out of {name}s.";
                 _twitchClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, itemSettings.DropCost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, cost, Settings.EquipmentSettings.AllowModOverride);
 
-            if (!gilTransaction.Paid)
-            {
-                return;
-            }
+            if (!gilTransaction.Paid) return;
 
-            bool dropped = _inventoryAccessor.DropItem(item.ItemId, 1);
-            if (dropped)
+            if (dropIt(id))
             {
-                string message = $"Item {item.Name} Dropped";
+                string message = $"{typeName} {name} Dropped";
                 _twitchClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
             else
             {
-                string message = $"Player out of {item.Name}s.";
-                _twitchClient.SendMessage(commandData.Channel, message);
-            }
-        }
-
-        private void DropMateria(SpecificMateriaSettings materiaSettings, CommandData commandData)
-        {
-            Materia materia = materiaSettings.Materia;
-
-            if (!_materiaAccessor.HasMateria(materia.Value))
-            {
-                string message = $"Player out of {materia.Name}s.";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                return;
-            }
-
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, materiaSettings.DropCost, Settings.EquipmentSettings.AllowModOverride);
-
-            if (!gilTransaction.Paid)
-            {
-                return;
-            }
-
-            bool dropped = _materiaAccessor.DropMateria(materia.Value);
-            if (dropped)
-            {
-                string message = $"Materia {materia.Name} Dropped";
-                _twitchClient.SendMessage(commandData.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
-            }
-            else
-            {
-                string message = $"Player out of {materia.Name}s.";
+                string message = $"Player out of {name}s.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
         }
