@@ -50,21 +50,21 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (Allies invalidTarget in targets.safeFrom)
             {
-                Character character = GetTargetedCharacter(invalidTarget);
+                Character character = GetTargetedAlly(invalidTarget);
                 string message = $"{character.Name} is immune to {statusSettings.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.unaffected)
             {
-                Character character = GetTargetedCharacter(invalidTarget);
+                Character character = GetTargetedAlly(invalidTarget);
                 string message = $"{character.Name} is not affected by {statusSettings.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
             {
-                Character character = GetTargetedCharacter(target);
+                Character character = GetTargetedAlly(target);
                 _statusAccessor.RemoveActorStatus(target, statusSettings.Effect);
                 string message = $"Removed {statusSettings.Name} from {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);

@@ -54,21 +54,21 @@ namespace InteractiveSeven.Twitch.Commands
 
             foreach (Allies invalidTarget in targets.safeFrom)
             {
-                Character character = GetTargetedCharacter(invalidTarget);
+                Character character = GetTargetedAlly(invalidTarget);
                 string message = $"Can't apply {statusSettings.Name} to {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.hasEffect)
             {
-                Character character = GetTargetedCharacter(invalidTarget);
+                Character character = GetTargetedAlly(invalidTarget);
                 string message = $"{statusSettings.Name} already affects {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
             {
-                Character character = GetTargetedCharacter(target);
+                Character character = GetTargetedAlly(target);
                 _statusAccessor.SetActorStatus(target, statusSettings.Effect);
                 string message = $"Applied {statusSettings.Name} to {character.Name}.";
                 _twitchClient.SendMessage(commandData.Channel, message);

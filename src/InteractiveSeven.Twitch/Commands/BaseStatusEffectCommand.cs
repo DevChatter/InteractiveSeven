@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
@@ -30,11 +31,9 @@ namespace InteractiveSeven.Twitch.Commands
             _statusHubEmitter = statusHubEmitter;
         }
 
-
-        protected Character GetTargetedCharacter(Allies ally)
+        protected Character GetTargetedAlly(Allies ally)
         {
             return _partyStatus.Party[ally.Index];
         }
-
     }
 }
