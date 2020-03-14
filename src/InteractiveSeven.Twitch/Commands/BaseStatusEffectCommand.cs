@@ -5,6 +5,7 @@ using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
+using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System;
 using TwitchLib.Client.Interfaces;
@@ -35,5 +36,14 @@ namespace InteractiveSeven.Twitch.Commands
         {
             return _partyStatus.Party[ally.Index];
         }
+
+        protected bool CouldNotAfford(in int targetCount, CommandData commandData, int eachCost)
+        {
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, eachCost * targetCount, Settings.BattleSettings.AllowModOverride);
+
+            return !gilTransaction.Paid;
+        }
+
     }
 }

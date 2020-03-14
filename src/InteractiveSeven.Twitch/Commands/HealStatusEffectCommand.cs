@@ -43,7 +43,7 @@ namespace InteractiveSeven.Twitch.Commands
 
             var targets = CheckTargetValidity(targeted, _partyStatus.Party, statusSettings.Effect);
 
-            if (CouldNotAfford(targets.valid.Count, statusSettings, commandData))
+            if (CouldNotAfford(targets.valid.Count, commandData, statusSettings.CureCost))
             {
                 return;
             }
@@ -70,15 +70,6 @@ namespace InteractiveSeven.Twitch.Commands
                 _twitchClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
-        }
-
-        protected bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings,
-            CommandData commandData)
-        {
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, statusSettings.CureCost * targetCount, Settings.BattleSettings.AllowModOverride);
-
-            return !gilTransaction.Paid;
         }
 
         protected (List<Allies> valid, List<Allies> safeFrom, List<Allies> unaffected)

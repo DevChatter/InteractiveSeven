@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace InteractiveSeven.Core.Battle
 {
-    public class Allies
+    public class Allies : IHasStatus
     {
         public int Index { get; }
         public MemLoc PrimaryStatus { get; set; }

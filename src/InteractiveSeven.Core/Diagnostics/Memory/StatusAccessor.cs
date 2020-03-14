@@ -16,7 +16,7 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             _memoryAccessor = memoryAccessor;
         }
 
-        public void SetActorStatus(Allies actor, StatusEffects statusEffect)
+        public void SetActorStatus(IHasStatus actor, StatusEffects statusEffect)
         {
             if (statusEffect.HasBlockingOpposite()
                 && RemoveActorStatus(actor, statusEffect.GetOpposite()))
@@ -29,14 +29,14 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
                 RemoveActorStatus(actor, statusEffect.GetOpposite());
             }
 
-            int status = GetTrueStatus(actor);
+            StatusEffects status = GetTrueStatus(actor);
 
-            status |= (int)statusEffect;
+            status |= statusEffect;
 
             ApplyFullStatus(actor, status);
         }
 
-        public void ClearNegativeStatuses(Allies actor)
+        public void ClearNegativeStatuses(IHasStatus actor)
         {
             StatusEffects negativeEffects = StatusEffects.Sleep | StatusEffects.Poison | StatusEffects.Sadness |
                                             StatusEffects.Fury | StatusEffects.Confusion | StatusEffects.Silence |
@@ -45,40 +45,40 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             RemoveActorStatus(actor, negativeEffects);
         }
 
-        public bool RemoveActorStatus(Allies actor, StatusEffects statusEffect)
-        {
-            int status = GetTrueStatus(actor);
 
-            if ((status & (int)statusEffect) == 0) // they don't have the status
+        public bool RemoveActorStatus(IHasStatus actor, StatusEffects statusEffect)
+        {
+            StatusEffects status = GetTrueStatus(actor);
+
+            if ((status & statusEffect) == 0) // they don't have the status
             {
                 return false;
             }
 
-            status &= (int)~statusEffect;
+            status &= ~statusEffect;
 
             ApplyFullStatus(actor, status);
 
             return true;
         }
 
-        private void ApplyFullStatus(Allies actor, int status)
+        private void ApplyFullStatus(IHasStatus actor, StatusEffects status)
         {
-            const int manipStatus = 0b_00000000_1000000_00000000_00000000;
-            if ((status & manipStatus) == manipStatus) // If have manip
+            if ((status & StatusEffects.Manipulate) > 0) // If have manip
             {
-                status ^= manipStatus; // remove manip
+                status ^= StatusEffects.Manipulate; // remove manip
             }
 
             for (int attemptCount = 0; attemptCount < 26; attemptCount++)
             {
                 if (attemptCount % 2 == 0)
                 {
-                    WriteStatus(actor, status + manipStatus);
+                    WriteStatus(actor, status | StatusEffects.Manipulate);
                 }
                 else
                 {
                     WriteStatus(actor, status);
-                    int trueStatus = GetTrueStatus(actor);
+                    StatusEffects trueStatus = GetTrueStatus(actor);
                     if (trueStatus == status)
                     {
                         break;
@@ -89,18 +89,18 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             }
         }
 
-        private void WriteStatus(Allies actor, int status)
+        private void WriteStatus(IHasStatus actor, StatusEffects status)
         {
-            var bytes = BitConverter.GetBytes(status);
+            var bytes = BitConverter.GetBytes((uint)status);
             _memoryAccessor.WriteMem(ProcessName, actor.PrimaryStatus.Address, bytes);
         }
 
-        private int GetTrueStatus(Allies actor)
+        private StatusEffects GetTrueStatus(IHasStatus actor)
         {
             var bytes = new byte[4];
             _memoryAccessor.ReadMem(ProcessName, actor.SecondaryStatus.Address, bytes);
-            int status = BitConverter.ToInt32(bytes);
-            return status;
+            uint status = BitConverter.ToUInt32(bytes);
+            return (StatusEffects)status;
         }
     }
 }

@@ -4,8 +4,8 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
 {
     public interface IStatusAccessor
     {
-        void SetActorStatus(Allies actor, StatusEffects statusEffect);
-        bool RemoveActorStatus(Allies actor, StatusEffects statusEffect);
-        void ClearNegativeStatuses(Allies target);
+        void SetActorStatus(IHasStatus actor, StatusEffects statusEffect);
+        bool RemoveActorStatus(IHasStatus actor, StatusEffects statusEffect);
+        void ClearNegativeStatuses(IHasStatus target);
     }
 }

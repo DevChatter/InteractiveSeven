@@ -4,6 +4,7 @@ using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tseng.Constants;
 using Tseng.GameData;
@@ -13,6 +14,7 @@ namespace InteractiveSeven.Core.ViewModels
     public class PartyStatusViewModel
     {
         public Character[] Party { get; set; }
+        public BattleActor[] Enemies { get; set; }
         public int Gil { get; set; }
         public string Location { get; set; }
         public bool ActiveBattle { get; set; }
@@ -28,6 +30,7 @@ namespace InteractiveSeven.Core.ViewModels
             Gil = map.LiveGil;
             Location = map.LiveMapName;
             Party = new Character[3];
+            Enemies = battleMap.Opponents;
             ActiveBattle = battleMap.IsActiveBattle;
             ColorTopLeft = map.WindowColorTopLeft;
             ColorBottomLeft = map.WindowColorBottomLeft;
