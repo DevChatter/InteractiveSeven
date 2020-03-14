@@ -12,6 +12,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
         private string[] _esunaCommandWords = { "Esuna", "Remedy" };
         private string[] _healCommandWords = { "Heal", "Cure" };
+        private string[] _enemyStatusCommandWords = { "Enemy", "EStatus", "EnemyStatus" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
@@ -61,6 +62,8 @@ namespace InteractiveSeven.Core.Settings
                     () => EsunaCommandWords),
                 (nameof(HealCommandWords),
                     () => HealCommandWords),
+                (nameof(EnemyStatusCommandWords),
+                    () => EnemyStatusCommandWords),
                 (nameof(CostsCommandWords),
                     () => CostsCommandWords),
                 (nameof(BalanceCommandWords),
@@ -169,6 +172,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _healCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] EnemyStatusCommandWords
+        {
+            get => _enemyStatusCommandWords;
+            set
+            {
+                _enemyStatusCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
