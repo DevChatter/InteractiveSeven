@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <None Remove="Assets\BecomePatron.png" />
-    <None Remove="Controls\EquippableSettingsUc.xaml" />
   </ItemGroup>
 
   <ItemGroup>
