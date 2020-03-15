@@ -97,7 +97,7 @@ namespace InteractiveSeven.Core.FinalFantasy
             ['w'] = 87,
             ['x'] = 88,
             ['y'] = 89,
-            ['z'] = 90,
+            ['z'] = 90
         };
 
         private static readonly Dictionary<byte, char> ByteToCharMap = new Dictionary<byte, char>
@@ -188,26 +188,27 @@ namespace InteractiveSeven.Core.FinalFantasy
             [87] = 'w',
             [88] = 'x',
             [89] = 'y',
-            [90] = 'z',
+            [90] = 'z'
         };
 
-        public static string MapFf7BytesToString(this byte[] bytes)
+        public static string MapFf7BytesToString(this byte[] bytes, int byteCount = ByteCount)
         {
-            var chars = new char[ByteCount];
-            for (int i = 0; i < ByteCount; i++)
+            var chars = new char[byteCount];
+            for (int i = 0; i < byteCount; i++)
             {
                 if (!ByteToCharMap.TryGetValue(bytes.ElementAtOrDefault(i), out chars[i]))
                 {
                     break;
                 }
             }
-            return new string(chars.TakeWhile(x => x != (char)FF7Const.Empty).ToArray());
+
+            return new string(chars.TakeWhile(x => x != '\0').ToArray());
         }
 
-        public static byte[] MapStringToFf7Bytes(this string text)
+        public static byte[] MapStringToFf7Bytes(this string text, int byteCount = ByteCount)
         {
-            int charCount = Math.Min(ByteCount - 1, text.Length);
-            var bytes = new byte[ByteCount];
+            int charCount = Math.Min(byteCount - 1, text.Length);
+            var bytes = new byte[byteCount];
             for (int i = 0; i < charCount; i++)
             {
                 if (!CharToByteMap.TryGetValue(text.ElementAtOrDefault(i), out bytes[i]))
@@ -215,7 +216,7 @@ namespace InteractiveSeven.Core.FinalFantasy
                     break;
                 }
             }
-            for (int i = charCount; i < ByteCount; i++)
+            for (int i = charCount; i < byteCount; i++)
             {
                 bytes[i] = FF7Const.Empty;
             }
