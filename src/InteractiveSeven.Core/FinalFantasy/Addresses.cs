@@ -23,6 +23,6 @@ namespace InteractiveSeven.Core.FinalFantasy
         public static readonly MemLoc SaveMapStart = new MemLoc(0xDBFD38, 4342);
         public static readonly MemLoc BattleMapStart = new MemLoc(0x9AB0DC, 1872);
         public static readonly MemLoc ActiveBattleState = new MemLoc(0x9A8AF8);
-        public static readonly MemLoc SceneMapStart = new MemLoc(0x9A8E9C);
+        public static readonly MemLoc SceneMapStart = new MemLoc(0x9A8E9C, 552);
     }
 }

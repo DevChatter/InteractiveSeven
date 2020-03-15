@@ -1,12 +1,13 @@
-﻿using System.Runtime.InteropServices;
-
-namespace InteractiveSeven.Core.FinalFantasy.MemModels
+﻿namespace InteractiveSeven.Core.FinalFantasy.MemModels
 {
-    // Starting Address 0x009A8E9C
-    [StructLayout(LayoutKind.Explicit, Size = 184)]
+    // Starting Address 0x9A8E9C
     public struct Scene
     {
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.U1, SizeConst = 12)]
-        [FieldOffset(0)] public byte[] RawName;
+        public string[] EnemyNames;
+
+        public Scene(string[] enemyNames)
+        {
+            EnemyNames = enemyNames;
+        }
     }
 }
