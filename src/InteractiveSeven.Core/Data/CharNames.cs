@@ -1,9 +1,9 @@
-﻿using InteractiveSeven.Core.Settings;
+﻿using InteractiveSeven.Core.FinalFantasy;
+using InteractiveSeven.Core.FinalFantasy.Constants;
+using InteractiveSeven.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Core.FinalFantasy;
-using Tseng.Constants;
 
 namespace InteractiveSeven.Core.Data
 {

@@ -1,7 +1,7 @@
-﻿using System.Runtime.InteropServices;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.FinalFantasy.Constants;
 using Shojy.FF7.Elena.Extensions;
-using Tseng.Constants;
+using System.Runtime.InteropServices;
 
 namespace Tseng.GameData
 {
