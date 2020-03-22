@@ -19,6 +19,8 @@ namespace InteractiveSeven.Core.FinalFantasy
         public static readonly MemLoc Gil = new MemLoc(0xDC08B4, 4); // 4 bytes
         public static readonly MemLoc GameMoment = new MemLoc(0xDC08DC, 2);
 
+        public static readonly MemLoc MenuVisibility = new MemLoc(0xDC08F8, 2);
+        public static readonly MemLoc MenuLock = new MemLoc(0xDC08FA, 2);
 
         public static readonly MemLoc SaveMapStart = new MemLoc(0xDBFD38, 4342);
         public static readonly MemLoc BattleMapStart = new MemLoc(0x9AB0DC, 1872);
