@@ -17,20 +17,20 @@
             <Button Click="ChangeSettingsButtonClick">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial Width="24" Height="24" Kind="Settings" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change Settings" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
                 </StackPanel>
             </Button>
             <Button Click="ChangeAppStyleButtonClick">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome Width="24" Height="24" Kind="PaletteSolid" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change Theme" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="App Theme" />
                 </StackPanel>
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Height="40">
+        <DockPanel DockPanel.Dock="Top" Height="40" Margin="10 5 10 5">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
                            Margin="2" VerticalAlignment="Center" Padding="4" Style="{StaticResource SubHeaderTextBlockStyle}" />
@@ -59,11 +59,11 @@
             </Button>
         </Grid>
         <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
-                        MinHeight="464" VerticalAlignment="Stretch"
+                        MinHeight="464" VerticalAlignment="Stretch" Margin="5"
                         VerticalContentAlignment="Stretch" MinWidth="580">
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterialDesign Margin="2 0 4 0"  Kind="Dashboard" />
                         <TextBlock Text="Dashboard" />
                     </StackPanel>
@@ -86,7 +86,7 @@
 
             <TabItem DataContext="{Binding MenuColorViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconOcticons Margin="2 0 4 0" Kind="Paintcan" />
                         <TextBlock Text="Menu Colors" />
                     </StackPanel>
@@ -111,7 +111,7 @@
 
             <TabItem DataContext="{Binding NameBiddingViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="AccountEdit" />
                         <TextBlock Text="Naming" />
                     </StackPanel>
@@ -154,7 +154,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="CoinsSolid" />
                         <TextBlock Text="Gil" />
                     </StackPanel>
@@ -168,7 +168,7 @@
 
             <TabItem DataContext="{Binding StreamOverlayViewModel}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterialDesign Margin="2 0 4 0" Kind="PictureInPicture" />
                         <TextBlock Text="Stream Overlay" />
                     </StackPanel>
@@ -194,7 +194,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconBoxIcons Margin="2 0 4 0" Kind="RegularInfoCircle" />
                         <TextBlock Text="About" />
                     </StackPanel>

@@ -39,7 +39,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Settings" />
                         <TextBlock Text="General" />
                     </StackPanel>
@@ -98,7 +98,7 @@
 
             <mah:MetroTabItem DataContext="{Binding TwitchSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="TwitchBrands" />
                         <TextBlock Text="Twitch" />
                     </StackPanel>
@@ -152,7 +152,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings.MenuSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconEvaIcons Margin="2 0 4 0" Kind="ColorPalette" />
                         <TextBlock Text="Menu Color" />
                     </StackPanel>
@@ -301,7 +301,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings.NameBiddingSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="AccountEdit" />
                         <TextBlock Text="Name Bidding" />
                     </StackPanel>
@@ -388,7 +388,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings.CommandSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFeatherIcons Margin="2 0 4 0" Kind="Terminal" />
                         <TextBlock Text="Command" />
                     </StackPanel>
@@ -599,7 +599,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconModern Margin="2 0 4 0" Kind="Money" />
                         <TextBlock Text="Wealth" />
                     </StackPanel>
@@ -831,7 +831,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings.BattleSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="FistRaisedSolid" />
                         <TextBlock Text="Status Effects" />
                     </StackPanel>
@@ -902,7 +902,7 @@
 
             <mah:MetroTabItem DataContext="{Binding Settings.TsengSettings}">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconModern Margin="2 0 4 0" Kind="PeopleStatus" />
                         <TextBlock Text="Tseng" />
                     </StackPanel>

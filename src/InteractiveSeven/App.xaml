@@ -23,6 +23,11 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
 
+            <Style x:Key="TabHeaderStyle" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="Margin" Value="3 4 3 4" />
+            </Style>
+
             <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
             <lvc:UriValueConverter x:Key="UriValueConverter" />
             <lvc:ColorValueConverter x:Key="ColorValueConverter" />
