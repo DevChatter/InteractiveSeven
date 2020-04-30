@@ -129,11 +129,11 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderThickness="1" BorderBrush="Black" Margin="5" Width="250" Height="150">
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" Margin="5" Width="250" MaxHeight="300">
                                         <DockPanel>
-                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                                                <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" />
-                                                <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" />
+                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="{DynamicResource MahApps.Brushes.Accent}">
+                                                <Label Content="{Binding LeadingName}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                                                <Label Content="{Binding DefaultName}" FontSize="14" FontStyle="Italic" Foreground="{DynamicResource MahApps.Brushes.IdealForeground}" />
                                             </StackPanel>
                                             <DataGrid ItemsSource="{Binding NameBids}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
