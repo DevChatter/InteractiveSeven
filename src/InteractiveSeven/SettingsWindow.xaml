@@ -37,7 +37,7 @@
         <TabControl DataContext="{Binding}">
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings}">
+            <TabItem DataContext="{Binding Settings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Settings" />
@@ -93,10 +93,10 @@
 
                     </StackPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding TwitchSettings}">
+            <TabItem DataContext="{Binding TwitchSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="TwitchBrands" />
@@ -147,10 +147,10 @@
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings.MenuSettings}">
+            <TabItem DataContext="{Binding Settings.MenuSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconEvaIcons Margin="2 0 4 0" Kind="ColorPalette" />
@@ -296,10 +296,10 @@
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings.NameBiddingSettings}">
+            <TabItem DataContext="{Binding Settings.NameBiddingSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="AccountEdit" />
@@ -383,10 +383,10 @@
                         </Grid>
                     </DockPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings.CommandSettings}">
+            <TabItem DataContext="{Binding Settings.CommandSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFeatherIcons Margin="2 0 4 0" Kind="Terminal" />
@@ -594,10 +594,10 @@
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings}">
+            <TabItem DataContext="{Binding Settings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconModern Margin="2 0 4 0" Kind="Money" />
@@ -608,7 +608,7 @@
 
                     <TabControl>
 
-                        <mah:MetroTabItem DataContext="{Binding EquipmentSettings}">
+                        <TabItem DataContext="{Binding EquipmentSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="WrenchSolid" />
@@ -664,9 +664,9 @@
                                     </Grid>
                                 </GroupBox>
                             </ScrollViewer>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllWeapons}">
+                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllWeapons}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Sword" Flip="Horizontal" />
@@ -686,9 +686,9 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
+                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllArmlets}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Shield" />
@@ -708,9 +708,9 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
+                        <TabItem DataContext="{Binding Path=EquipmentSettings.AllAccessories}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="GemPendant" />
@@ -730,9 +730,9 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
+                        <TabItem DataContext="{Binding Path=EquipmentSettings.PlayerGilSettings}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="CoinsSolid" />
@@ -774,9 +774,9 @@
                                     <Label Grid.Row="4" Grid.Column="1" Content="Allow Moderator Override" FontSize="12" Margin="5,0,0,0"/>
                                 </Grid>
                             </ScrollViewer>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding ItemSettings.AllItems}">
+                        <TabItem DataContext="{Binding ItemSettings.AllItems}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Potion" />
@@ -799,9 +799,9 @@
                                 </DataGrid>
 
                             </GroupBox>
-                        </mah:MetroTabItem>
+                        </TabItem>
 
-                        <mah:MetroTabItem DataContext="{Binding MateriaSettings.AllMateria}">
+                        <TabItem DataContext="{Binding MateriaSettings.AllMateria}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconRPGAwesome Margin="2 0 4 0" Kind="Crystals" />
@@ -822,14 +822,14 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
-                        </mah:MetroTabItem>
+                        </TabItem>
                     </TabControl>
 
                 </GroupBox>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings.BattleSettings}">
+            <TabItem DataContext="{Binding Settings.BattleSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconFontAwesome Margin="2 0 4 0" Kind="FistRaisedSolid" />
@@ -897,10 +897,10 @@
 
                     </DockPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
 
-            <mah:MetroTabItem DataContext="{Binding Settings.TsengSettings}">
+            <TabItem DataContext="{Binding Settings.TsengSettings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
                         <iconPacks:PackIconModern Margin="2 0 4 0" Kind="PeopleStatus" />
@@ -933,7 +933,7 @@
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
-            </mah:MetroTabItem>
+            </TabItem>
 
         </TabControl>
     </DockPanel>
