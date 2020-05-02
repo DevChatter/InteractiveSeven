@@ -80,20 +80,28 @@
                             </DataGrid>
                         </GroupBox>
                         <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="80" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                            </Grid>
+                            <DockPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                </Grid>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="{Binding Path = TopLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = TopRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = BotLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                </StackPanel>
+                            </DockPanel>
                         </GroupBox>
                     </WrapPanel>
                 </ScrollViewer>
