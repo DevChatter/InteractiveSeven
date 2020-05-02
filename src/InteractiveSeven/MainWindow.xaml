@@ -43,6 +43,7 @@
                            HorizontalAlignment="Left" FontSize="20" />
             </Grid>
         </DockPanel>
+
         <Grid DockPanel.Dock="Bottom" Height="50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -58,9 +59,10 @@
                 </Hyperlink>
             </Button>
         </Grid>
+
         <TabControl TabStripPlacement="Top" HorizontalAlignment="Stretch"
-                        MinHeight="464" VerticalAlignment="Stretch" Margin="5"
-                        VerticalContentAlignment="Stretch" MinWidth="580">
+                    MinHeight="464" VerticalAlignment="Stretch" Margin="5"
+                    VerticalContentAlignment="Stretch" MinWidth="580">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
@@ -103,6 +105,30 @@
                                     <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
                                 </StackPanel>
                             </DockPanel>
+                        </GroupBox>
+                        <GroupBox Header="Settings" DataContext="{Binding SettingsViewModel.Settings}">
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Mods Give Bonus Bits" />
+                                <Label Content="{Binding Path=ModsGiveBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Subs Receive Bonus Bits" />
+                                <Label Content="{Binding Path=GiveSubscriberBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Subs Bonus Bit Value" />
+                                <Label Content="{Binding SubscriberBonusBits}" />
+                                <Label Content="Menu Colors" />
+                                <Label Content="{Binding Path=MenuSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Name Bidding" />
+                                <Label Content="{Binding Path=NameBiddingSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Status Effects" />
+                                <Label Content="{Binding Path=BattleSettings.AllowStatusEffects, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Equipment Commands" />
+                                <Label Content="{Binding Path=EquipmentSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Pauper Command" />
+                                <Label Content="{Binding Path=EquipmentSettings.EnablePauperCommand, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Item Commands" />
+                                <Label Content="{Binding Path=ItemSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                <Label Content="Materia Commands" />
+                                <Label Content="{Binding Path=MateriaSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                            </StackPanel>
                         </GroupBox>
                     </WrapPanel>
                 </ScrollViewer>

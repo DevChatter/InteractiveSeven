@@ -49,6 +49,7 @@
                 </Setter>
             </Style>
 
+            <lvc:BoolToOnOffConverter x:Key="BoolToOnOffConverter" />
             <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
             <lvc:UriValueConverter x:Key="UriValueConverter" />
             <lvc:ColorValueConverter x:Key="ColorValueConverter" />
