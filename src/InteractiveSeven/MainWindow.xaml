@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:interactiveSeven="clr-namespace:InteractiveSeven"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
@@ -69,43 +68,34 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <StackPanel Orientation="Vertical">
-                        <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Current Names">
+                    <WrapPanel Orientation="Horizontal">
+                        <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Character Names" Margin="4">
                             <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
                                                       AutoGenerateColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Current Name" Binding="{Binding LeadingName}" />
-                                    <DataGridTextColumn Header="Default Name" Binding="{Binding DefaultName}" />
+                                    <DataGridTextColumn Header="Current" Binding="{Binding LeadingName}" />
+                                    <DataGridTextColumn Header="Default" Binding="{Binding DefaultName}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
-
-            <TabItem DataContext="{Binding MenuColorViewModel}">
-                <TabItem.Header>
-                    <StackPanel Style="{StaticResource TabHeaderStyle}">
-                        <iconPacks:PackIconOcticons Margin="2 0 4 0" Kind="Paintcan" />
-                        <TextBlock Text="Menu Colors" />
-                    </StackPanel>
-                </TabItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <wpfTool:ColorCanvas x:Name="ColorTL" Grid.Column="0" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                        <wpfTool:ColorCanvas x:Name="ColorTR" Grid.Column="1" Grid.Row="0" UsingAlphaChannel="false" SelectedColor="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                        <wpfTool:ColorCanvas x:Name="ColorBL" Grid.Column="0" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                        <wpfTool:ColorCanvas x:Name="ColorBR" Grid.Column="1" Grid.Row="1" UsingAlphaChannel="false" SelectedColor="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorValueConverter}}" />
-                    </Grid>
+                        <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="80" />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                            </Grid>
+                        </GroupBox>
+                    </WrapPanel>
                 </ScrollViewer>
             </TabItem>
 
@@ -191,7 +181,6 @@
                 </ScrollViewer>
             </TabItem>
 
-
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
@@ -201,52 +190,72 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel>
-                        <Label Content="About Interactive Seven" FontWeight="Bold" FontSize="18" />
-                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
-                            Interactive Seven is intended to help the streamers have more interaction with
-                            chat as well as allow them to earn some bits through command actions and bidding features.
-                        </TextBlock>
-                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
-                            In addition, it includes the Tseng Party Status Overlay, which allows the streamer to display
-                            the current Status of their party in the game directly in their stream at all times.
-                        </TextBlock>
-                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
-                            In July 2019, Brendan and Joshua learned about each other's project and decided it made sense to
-                            collaborate on a combined project, since both applications do similar work. This version of
-                            Interactive Seven includes the Tseng Overlay.
-                        </TextBlock>
-                        <Label Content="History of Interactive Seven" FontWeight="Bold" FontSize="16" />
-                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
-                            The original Interactive Seven was created by Brendan Enrick as a way to give Twitch
-                            chat control over streamers' instances of Final Fantasy 7 while they stream the game.
-                        </TextBlock>
-                        <Label Content="History of Tseng Status Overlay" FontWeight="Bold" FontSize="16" />
-                        <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
-                            The original Tseng Status Overlay was created by Joshua Moon, and
-                            allows streamers playing Final Fantasy 7 to show the party status while playing.
-                        </TextBlock>
-                        <Label Content="Primary Contributors" FontWeight="Bold" FontSize="14" />
-                        <UniformGrid Columns="2">
-                            <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
-                                <StackPanel Margin="5 0 5 5">
-                                    <Label Content="Brendan Enrick" FontWeight="Bold" FontSize="12" />
-                                    <StackPanel Margin="10 0 0 0">
-                                        <TextBlock Text="Twitter: @Brendoneus" />
-                                        <TextBlock Text="Twitch: @DevChatter" />
-                                        <TextBlock Text="GitHub: @benrick" />
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <GroupBox Header="About Interactive Seven" Margin="4">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                                    Interactive Seven is intended to help the streamers have more interaction with
+                                    chat as well as allow them to earn some bits through command actions and bidding features.
+                                </TextBlock>
+                                <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
+                                    In addition, it includes the Tseng Party Status Overlay, which allows the streamer to display
+                                    the current Status of their party in the game directly in their stream at all times.
+                                </TextBlock>
+                                <TextBlock TextWrapping="WrapWithOverflow" Margin="10 5 10 0">
+                                    In July 2019, Brendan and Joshua learned about each other's project and decided it made sense to
+                                    collaborate on a combined project, since both applications do similar work. This version of
+                                    Interactive Seven includes the Tseng Overlay.
+                                </TextBlock>
+
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="History of Interactive Seven" Margin="4">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                                    The original Interactive Seven was created by Brendan Enrick as a way to give Twitch
+                                    chat control over streamers' instances of Final Fantasy 7 while they stream the game.
+                                </TextBlock>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="History of Tseng Status Overlay" Margin="4">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock TextWrapping="WrapWithOverflow" Margin="10 0 10 0">
+                                    The original Tseng Status Overlay was created by Joshua Moon, and
+                                    allows streamers playing Final Fantasy 7 to show the party status while playing.
+                                </TextBlock>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Primary Contributors" Margin="4">
+                            <UniformGrid Columns="2">
+                                <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                    <StackPanel Margin="5 0 5 5">
+                                        <Label Content="Brendan Enrick" FontWeight="Bold" FontSize="12" />
+                                        <StackPanel Margin="10 0 0 0">
+                                            <TextBlock Text="Twitter: @Brendoneus" />
+                                            <TextBlock Text="Twitch: @DevChatter" />
+                                            <TextBlock Text="GitHub: @benrick" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </Border>
-                            <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
-                                <StackPanel Margin="5 0 5 5">
-                                    <Label Content="Joshua Moon" FontWeight="Bold" FontSize="12" />
-                                    <StackPanel Margin="10 0 0 0">
-                                        <TextBlock Text="Twitch: @MrShojy" />
-                                        <TextBlock Text="GitHub: @shojy" />
+                                </Border>
+                                <Border BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}" BorderThickness="1" Padding="5 0 5 5" Margin="5">
+                                    <StackPanel Margin="5 0 5 5">
+                                        <Label Content="Joshua Moon" FontWeight="Bold" FontSize="12" />
+                                        <StackPanel Margin="10 0 0 0">
+                                            <TextBlock Text="Twitch: @MrShojy" />
+                                            <TextBlock Text="GitHub: @shojy" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </UniformGrid>
+                                </Border>
+                            </UniformGrid>
+                        </GroupBox>
+
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

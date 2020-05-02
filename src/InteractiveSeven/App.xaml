@@ -52,6 +52,7 @@
             <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
             <lvc:UriValueConverter x:Key="UriValueConverter" />
             <lvc:ColorValueConverter x:Key="ColorValueConverter" />
+            <lvc:ColorToSolidBrushValueConverter x:Key="ColorToSolidBrushValueConverter" />
             <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
             <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
             <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
