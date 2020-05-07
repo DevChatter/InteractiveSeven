@@ -24,6 +24,12 @@ namespace InteractiveSeven.Core
             return result;
         }
 
+        public static ushort SafeUshortParse(this string text)
+        {
+            ushort.TryParse(text, out ushort result);
+            return result;
+        }
+
         public static string NoAt(this string text) => text.TrimStart('@');
     }
 }

@@ -58,6 +58,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IGameMomentAccessor, GameMomentAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
             services.AddSingleton<IGilAccessor, GilAccessor>();
+            services.AddSingleton<IGpAccessor, GpAccessor>();
             services.AddSingleton<IInventoryAccessor, InventoryAccessor>();
             services.AddSingleton<IMateriaAccessor, MateriaAccessor>();
             services.AddSingleton<IBattleInfoAccessor, BattleInfoAccessor>();
@@ -81,6 +82,8 @@ namespace InteractiveSeven.Startup
             services.RegisterNonBattleCommand<PauperCommand>();
             services.RegisterNonBattleCommand<RemovePlayerGilCommand>();
             services.RegisterNonBattleCommand<GivePlayerGilCommand>();
+            services.RegisterNonBattleCommand<RemovePlayerGpCommand>();
+            services.RegisterNonBattleCommand<GivePlayerGpCommand>();
 
             services.RegisterTwitchCommand<PaletteCommand>();
             services.RegisterTwitchCommand<RainbowCommand>();

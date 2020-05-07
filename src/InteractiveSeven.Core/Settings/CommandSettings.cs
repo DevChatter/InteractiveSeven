@@ -10,6 +10,8 @@ namespace InteractiveSeven.Core.Settings
     {
         private string[] _givePlayerGilCommandWords = { "FindGil", "GivePlayerGil" };
         private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
+        private string[] _givePlayerGpCommandWords = { "FindGp", "GivePlayerGp" };
+        private string[] _removePlayerGpCommandWords = { "DropGp", "RemovePlayerGp" };
         private string[] _esunaCommandWords = { "Esuna", "Remedy" };
         private string[] _healCommandWords = { "Heal", "Cure" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
@@ -52,10 +54,15 @@ namespace InteractiveSeven.Core.Settings
                 ("BrendanLock", () => new [] {"BrendanLock"}),
                 ("BrendanUnlock", () => new [] {"BrendanUnlock"}),
 
-                (nameof(GiveGilCommandWords),
-                    () => GiveGilCommandWords),
+                (nameof(GivePlayerGilCommandWords),
+                    () => GivePlayerGilCommandWords),
                 (nameof(RemovePlayerGilCommandWords),
                     () => RemovePlayerGilCommandWords),
+
+                (nameof(GivePlayerGpCommandWords),
+                    () => GivePlayerGpCommandWords),
+                (nameof(RemovePlayerGpCommandWords),
+                    () => RemovePlayerGpCommandWords),
 
                 (nameof(EsunaCommandWords),
                     () => EsunaCommandWords),
@@ -149,6 +156,26 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _removePlayerGilCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] GivePlayerGpCommandWords
+        {
+            get => _givePlayerGpCommandWords;
+            set
+            {
+                _givePlayerGpCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] RemovePlayerGpCommandWords
+        {
+            get => _removePlayerGpCommandWords;
+            set
+            {
+                _removePlayerGpCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
