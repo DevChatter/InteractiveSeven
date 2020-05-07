@@ -90,6 +90,13 @@ namespace InteractiveSeven.Twitch.Commands
         private void TriggerDomainEvent(in CharNames charName, in CommandData data)
         {
             int gil = GetGilFromCommandData(data);
+
+            if (gil < 1)
+            {
+                _twitchClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
+                return;
+            }
+
             if (!CanOverrideBitRestriction(data.User))
             {
                 (int balance, int withdrawn) = _gilBank.Withdraw(data.User, gil, true);
@@ -99,12 +106,6 @@ namespace InteractiveSeven.Twitch.Commands
                     _twitchClient.SendMessage(data.Channel, message);
                     return;
                 }
-            }
-
-            if (gil < 1)
-            {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
-                return;
             }
 
             string newName = data.Arguments.FirstOrDefault() ?? "";
