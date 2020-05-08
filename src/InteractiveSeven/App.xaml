@@ -2,12 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:lvc="clr-namespace:InteractiveSeven.ValueConverters"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              Startup="App_OnStartup" Exit="App_OnExit" >
     <Application.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="BackgroundKey" Color="#FF282828" />
             <FontFamily x:Key="FontAwesome">/InteractiveSeven;component/Assets/FontAwesome5_Free-Solid-900.otf#Font Awesome 5 Free Solid</FontFamily>
+
             <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="22" />
                 <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
@@ -18,14 +18,43 @@
                 <Setter Property="FontFamily" Value="Verdana, sans-serif;" />
             </Style>
 
-            <Style x:Key="TabHeaderIconBlockStyle" TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
+            <Style x:Key="TabHeaderStyle" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="Margin" Value="3 4 3 4" />
             </Style>
 
+            <Style TargetType="TabItem" BasedOn="{StaticResource MahApps.Styles.TabItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border" BorderThickness="0,0,0,0" CornerRadius="2,15,0,0" Margin="2,0,2,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="5,2,5,2" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <lvc:BoolToOnOffConverter x:Key="BoolToOnOffConverter" />
             <lvc:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
             <lvc:UriValueConverter x:Key="UriValueConverter" />
             <lvc:ColorValueConverter x:Key="ColorValueConverter" />
+            <lvc:MenuColorNameConverter x:Key="MenuColorNameConverter" />
+            <lvc:ColorToSolidBrushValueConverter x:Key="ColorToSolidBrushValueConverter" />
             <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
             <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
             <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />

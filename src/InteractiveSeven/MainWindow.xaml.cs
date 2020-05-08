@@ -44,8 +44,8 @@ namespace InteractiveSeven
             _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
             _settingsWindow.Owner = this;
             _settingsWindow.Closed += (o, args) => _settingsWindow = null;
-            _settingsWindow.Left = Left + ActualWidth / 3.0;
-            _settingsWindow.Top = Top + ActualHeight / 3.0;
+            _settingsWindow.Left = Left + ActualWidth / 6.0;
+            _settingsWindow.Top = Top + ActualHeight / 6.0;
             _settingsWindow.Show();
         }
 
@@ -61,8 +61,8 @@ namespace InteractiveSeven
             _accentThemeTestWindow = new AccentStyleWindow();
             _accentThemeTestWindow.Owner = this;
             _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
-            _accentThemeTestWindow.Left = Left + ActualWidth / 2.0;
-            _accentThemeTestWindow.Top = Top + ActualHeight / 2.0;
+            _accentThemeTestWindow.Left = Left + ActualWidth / 4.0;
+            _accentThemeTestWindow.Top = Top + ActualHeight / 4.0;
             _accentThemeTestWindow.Show();
         }
     }
