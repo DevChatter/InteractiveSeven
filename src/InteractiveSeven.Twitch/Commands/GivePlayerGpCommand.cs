@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
@@ -36,6 +37,14 @@ namespace InteractiveSeven.Twitch.Commands
             {
                 _twitchClient.SendMessage(commandData.Channel,
                     $"How much gp do you want to give to the player, {commandData.User.Username}?");
+                return;
+            }
+
+            ushort currentGp = _gpAccessor.GetGp();
+            if (FF7Const.MaxGp - currentGp > amount)
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Max GP is {FF7Const.MaxGp:N0}. Current GP: {currentGp:N0}.");
                 return;
             }
 

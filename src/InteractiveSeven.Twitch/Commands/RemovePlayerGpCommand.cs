@@ -39,12 +39,12 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            uint currentGp = _gpAccessor.GetGp();
+            ushort currentGp = _gpAccessor.GetGp();
             if (amount > currentGp)
             {
                 // TODO: Adjust their request to remove all gp.
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Player doesn't have {amount} gp.");
+                    $"Player has {currentGp:N0} GP. Can't remove {amount:N0} GP.");
                 return;
             }
 
