@@ -2,13 +2,13 @@
 {
     public class PlayerGpSettings : ObservableSettingsBase
     {
-        private int _giveMultiplier = 100;
-        private int _removeMultiplier = 100;
+        private ushort _giveMultiplier = 100;
+        private ushort _removeMultiplier = 100;
         private bool _allowModOverride = true;
         private bool _giveGpEnabled = false;
         private bool _removeGpEnabled = false;
 
-        public bool GiveGpEnabled // TODO: Add to UI
+        public bool GiveGpEnabled
         {
             get => _giveGpEnabled;
             set
@@ -17,7 +17,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool RemoveGpEnabled // TODO: Add to UI
+        public bool RemoveGpEnabled
         {
             get => _removeGpEnabled;
             set
@@ -26,7 +26,7 @@
                 OnPropertyChanged();
             }
         }
-        public int GiveMultiplier // TODO: Add to UI
+        public ushort GiveMultiplier
         {
             get => _giveMultiplier;
             set
@@ -35,7 +35,7 @@
                 OnPropertyChanged();
             }
         }
-        public int RemoveMultiplier // TODO: Add to UI
+        public ushort RemoveMultiplier
         {
             get => _removeMultiplier;
             set
@@ -44,7 +44,7 @@
                 OnPropertyChanged();
             }
         }
-        public bool AllowModOverride // TODO: Add to UI
+        public bool AllowModOverride
         {
             get => _allowModOverride;
             set
