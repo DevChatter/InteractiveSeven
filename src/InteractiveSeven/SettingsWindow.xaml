@@ -785,7 +785,7 @@
                             </TabItem.Header>
                             <ScrollViewer>
                                 <StackPanel Orientation="Vertical">
-                                    <GroupBox Header="GP" Margin="5">
+                                    <GroupBox Header="GP Settings" Margin="5">
                                         <Grid Margin="5,5,0,5">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -835,6 +835,10 @@
                                                 Content="Allow Mods to Avoid Costs"
                                                 FontSize="12" Margin="5,0,0,0" />
                                         </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Header="Battle Points Settings" Margin="5">
+                                        <Label Content="Coming Soon!" />
                                     </GroupBox>
                                 </StackPanel>
                             </ScrollViewer>
