@@ -8,11 +8,11 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
     public class GilAccessor : IGilAccessor
     {
         private readonly IMemoryAccessor _memoryAccessor;
-        private readonly ILogger<GameMomentAccessor> _logger;
+        private readonly ILogger<GilAccessor> _logger;
         private ApplicationSettings Settings => ApplicationSettings.Instance;
         private static readonly object Padlock = new object();
 
-        public GilAccessor(IMemoryAccessor memoryAccessor, ILogger<GameMomentAccessor> logger)
+        public GilAccessor(IMemoryAccessor memoryAccessor, ILogger<GilAccessor> logger)
         {
             _memoryAccessor = memoryAccessor;
             _logger = logger;

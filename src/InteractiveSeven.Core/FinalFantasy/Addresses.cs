@@ -17,6 +17,7 @@ namespace InteractiveSeven.Core.FinalFantasy
         public static readonly MemLoc MenuBotRightSave = new MemLoc(0x91EFE1, 3); // order red, green, blue
 
         public static readonly MemLoc Gil = new MemLoc(0xDC08B4, 4); // 4 bytes
+        public static readonly MemLoc Gp = new MemLoc(0xDC0A26, 2); // Max of 10,000?
         public static readonly MemLoc GameMoment = new MemLoc(0xDC08DC, 2);
 
         public static readonly MemLoc MenuVisibility = new MemLoc(0xDC08F8, 2);

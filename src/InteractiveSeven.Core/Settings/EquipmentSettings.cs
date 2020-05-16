@@ -92,5 +92,6 @@ namespace InteractiveSeven.Core.Settings
         public List<EquippableSettings> AllArmlets { get; set; }
         public List<EquippableSettings> AllAccessories { get; set; }
         public PlayerGilSettings PlayerGilSettings { get; set; } = new PlayerGilSettings();
+        public PlayerGpSettings PlayerGpSettings { get; set; } = new PlayerGpSettings();
     }
 }

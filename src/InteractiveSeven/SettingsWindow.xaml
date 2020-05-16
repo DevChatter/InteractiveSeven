@@ -776,6 +776,74 @@
                             </ScrollViewer>
                         </TabItem>
 
+                        <TabItem DataContext="{Binding EquipmentSettings.PlayerGpSettings}">
+                            <TabItem.Header>
+                                <StackPanel Style="{StaticResource TabHeaderStyle}">
+                                    <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Balloon" />
+                                    <TextBlock Text="Gold Saucer" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical">
+                                    <GroupBox Header="GP Settings" Margin="5">
+                                        <Grid Margin="5,5,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Row="0" Grid.Column="0" Width="75"
+                                                IsChecked="{Binding Path=GiveGpEnabled, Mode=TwoWay}" />
+                                            <Label Grid.Row="0" Grid.Column="1"
+                                                Content="Enable Giving GP"
+                                                FontSize="12" Margin="5,0,0,0" />
+
+                                            <mah:NumericUpDown Grid.Row="1" Grid.Column="0"
+                                                Width="75" Minimum="0"
+                                                Interval="10" Maximum="65535"
+                                                IsEnabled="{Binding GiveGpEnabled}"
+                                                Value="{Binding Path=GiveMultiplier, Mode=TwoWay}" />
+                                            <Label Grid.Row="1" Grid.Column="1"
+                                                Content="Gil Cost Per GP Added"
+                                                FontSize="12" Margin="5,0,0,0" />
+
+                                            <CheckBox Grid.Row="2" Grid.Column="0" Width="75"
+                                                IsChecked="{Binding Path=RemoveGpEnabled, Mode=TwoWay}" />
+                                            <Label Grid.Row="2" Grid.Column="1"
+                                                Content="Enable Removing GP"
+                                                FontSize="12" Margin="5,0,0,0" />
+
+                                            <mah:NumericUpDown Grid.Row="3" Grid.Column="0"
+                                                Width="75" Minimum="100"
+                                                Interval="10" Maximum="65535"
+                                                IsEnabled="{Binding RemoveGpEnabled}"
+                                                Value="{Binding Path=RemoveMultiplier, Mode=TwoWay}" />
+                                            <Label Grid.Row="3" Grid.Column="1"
+                                                Content="Gil Cost Per GP Removed"
+                                                FontSize="12" Margin="5,0,0,0" />
+
+                                            <CheckBox Grid.Row="4" Grid.Column="0" Width="75"
+                                                IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />
+                                            <Label Grid.Row="4" Grid.Column="1"
+                                                Content="Allow Mods to Avoid Costs"
+                                                FontSize="12" Margin="5,0,0,0" />
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Header="Battle Points Settings" Margin="5">
+                                        <Label Content="Coming Soon!" />
+                                    </GroupBox>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+
                         <TabItem DataContext="{Binding ItemSettings.AllItems}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -823,6 +891,7 @@
                                 </DataGrid>
                             </GroupBox>
                         </TabItem>
+
                     </TabControl>
 
                 </GroupBox>
