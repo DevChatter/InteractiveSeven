@@ -649,8 +649,11 @@
                                                         IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=EnablePauperCommand, Mode=TwoWay}" />
                                         <Label Grid.Row="3" Grid.Column="1" Content="Enable Pauper Command (lose all equipment, items, materia, and gil)" FontSize="12" Margin="5,0,0,0"/>
 
-                                        <mah:NumericUpDown Grid.Row="4" Grid.Column="0" Width="75" Minimum="0" Interval="100" StringFormat="N0"
-                                                                           IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
+                                        <mah:NumericUpDown Grid.Row="4" Grid.Column="0"
+                                                           HorizontalAlignment="Right" Width="200"
+                                                           Minimum="0" Interval="100" StringFormat="N0"
+                                                           Maximum="20000000"
+                                                           IsEnabled="{Binding EnablePauperCommand}" Value="{Binding Path=PauperCommandCost, Mode=TwoWay}" />
                                         <Label Grid.Row="4" Grid.Column="1" Content="Pauper Gil Cost" FontSize="12" Margin="5,0,0,0" />
 
                                         <CheckBox Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
