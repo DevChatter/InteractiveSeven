@@ -65,6 +65,8 @@ namespace InteractiveSeven.Twitch
                 return;
             }
 
+            Settings.AccessToken = Settings.AccessToken.Replace("oauth:", "", StringComparison.OrdinalIgnoreCase);
+
             try
             {
                 ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
