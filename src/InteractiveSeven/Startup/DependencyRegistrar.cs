@@ -7,6 +7,7 @@ using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
@@ -39,6 +40,9 @@ namespace InteractiveSeven.Startup
             services.AddTransient(typeof(IList<>), typeof(List<>));
 
             services.AddSingleton<WorkloadCoordinator>();
+            services.AddSingleton<MoodEnforcer>();
+
+            RegisterMoods(services);
 
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<NameBiddingViewModel>();
@@ -109,6 +113,8 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<HelpCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
+            services.RegisterTwitchCommand<ChangeMoodCommand>();
+
             services.AddSingleton<IChatBot, ChatBot>();
 
             services.AddSingleton<IGameDatabaseLoader, GameDatabaseLoader>();
@@ -134,6 +140,13 @@ namespace InteractiveSeven.Startup
             });
 
             services.AddMvcCore();
+        }
+
+        private static void RegisterMoods(IServiceCollection services)
+        {
+            services.AddSingleton<BaseMood, DangerMood>();
+            services.AddSingleton<BaseMood, NormalMood>();
+            services.AddSingleton<BaseMood, PeacefulMood>();
         }
     }
 }

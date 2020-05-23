@@ -45,7 +45,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            var targets = CheckTargetValidity(targeted, _partyStatus.Party, statusSettings.Effect);
+            var targets = _partyStatus.CheckTargetValidity(targeted, statusSettings.Effect);
 
             if (CouldNotAfford(targets.valid.Count, statusSettings, commandData))
             {
@@ -83,49 +83,6 @@ namespace InteractiveSeven.Twitch.Commands
                 commandData, statusSettings.Cost * targetCount, Settings.BattleSettings.AllowModOverride);
 
             return !gilTransaction.Paid;
-        }
-
-        protected (List<Allies> valid, List<Allies> safeFrom, List<Allies> hasEffect) CheckTargetValidity(
-            IEnumerable<Allies> targets, Character[] charRecords, StatusEffects effect)
-        {
-            var valid = new List<Allies>();
-            var safeFrom = new List<Allies>();
-            var hasEffect = new List<Allies>();
-
-            foreach (Allies target in targets
-                .Where(x => _partyStatus?.Party?[x.Index]?.Id != FF7Const.Empty))
-            {
-                Character characterRecord = charRecords[target.Index];
-                if (characterRecord == null) continue;
-
-                if (characterRecord.Accessory?.ProtectsFrom(effect) ?? false)
-                {
-                    safeFrom.Add(target);
-                }
-                else if (IsInPyramid(characterRecord))
-                {
-                    safeFrom.Add(target);
-                }
-                else if (characterRecord.CurrentHp == 0)
-                {
-                    safeFrom.Add(target);
-                }
-                else if (characterRecord.HasStatus(effect))
-                {
-                    hasEffect.Add(target);
-                }
-                else
-                {
-                    valid.Add(target);
-                }
-            }
-
-            return (valid, safeFrom, hasEffect);
-        }
-
-        private static bool IsInPyramid(Character characterRecord)
-        {
-            return characterRecord.HasStatus(StatusEffects.Imprisoned);
         }
     }
 }
