@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Linq;
+using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
+using System.Collections.Generic;
 using Tseng.GameData;
 
 namespace InteractiveSeven.Core.ViewModels
@@ -64,5 +66,48 @@ namespace InteractiveSeven.Core.ViewModels
                 Party[index] = chr;
             }
         }
+
+        public (List<Allies> valid, List<Allies> safeFrom, List<Allies> hasEffect)
+            CheckTargetValidity(IEnumerable<Allies> targets, StatusEffects effect)
+        {
+            var valid = new List<Allies>();
+            var safeFrom = new List<Allies>();
+            var hasEffect = new List<Allies>();
+
+            foreach (Allies target in targets.Where(x => Party?[x.Index]?.Id != FF7Const.Empty))
+            {
+                Character characterRecord = Party[target.Index];
+                if (characterRecord == null) continue;
+
+                if (characterRecord.Accessory?.ProtectsFrom(effect) ?? false)
+                {
+                    safeFrom.Add(target);
+                }
+                else if (IsInPyramid(characterRecord))
+                {
+                    safeFrom.Add(target);
+                }
+                else if (characterRecord.CurrentHp == 0)
+                {
+                    safeFrom.Add(target);
+                }
+                else if (characterRecord.HasStatus(effect))
+                {
+                    hasEffect.Add(target);
+                }
+                else
+                {
+                    valid.Add(target);
+                }
+            }
+
+            return (valid, safeFrom, hasEffect);
+        }
+
+        private static bool IsInPyramid(Character characterRecord)
+        {
+            return characterRecord.HasStatus(StatusEffects.Imprisoned);
+        }
+
     }
 }
