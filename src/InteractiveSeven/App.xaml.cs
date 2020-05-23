@@ -1,6 +1,7 @@
 ﻿using ControlzEx.Theming;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
@@ -36,6 +37,7 @@ namespace InteractiveSeven
 
         private IWebHost _host;
         private TsengMonitor _tsengMonitor;
+        private MoodEnforcer _moodEnforcer;
         private ILogger<App> _logger;
 
         private static void InitializeSettings(ILogger logger)
@@ -84,6 +86,11 @@ namespace InteractiveSeven
 
                 _logger.LogInformation("Starting Tseng Background Monitoring...");
                 Task.Run(() => _tsengMonitor.Start()).RunInBackgroundSafely(false, LogTsengError);
+
+                _moodEnforcer = _host.Services.GetService<MoodEnforcer>();
+
+                _logger.LogInformation("Starting Mood Enforcer...");
+                Task.Run(() => _moodEnforcer.Start()).RunInBackgroundSafely(false, LogMoodEnforcerError);
 
                 _logger.LogInformation("Initializing Theming...");
                 InitializeTheming();
@@ -158,6 +165,11 @@ namespace InteractiveSeven
         private void LogTsengError(Exception ex)
         {
             _logger.LogError(ex, "Error in Tseng Status Overlay.");
+        }
+
+        private void LogMoodEnforcerError(Exception ex)
+        {
+            _logger.LogError(ex, "Error in Mood Enforcer.");
         }
 
         private async void App_OnExit(object sender, ExitEventArgs e)
