@@ -12,6 +12,9 @@ namespace InteractiveSeven.Core.Settings
         private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
         private string[] _givePlayerGpCommandWords = { "FindGp", "GivePlayerGp" };
         private string[] _removePlayerGpCommandWords = { "DropGp", "RemovePlayerGp" };
+
+        private string[] _changeMoodWords = { "ChangeMood", "MoodChange" };
+
         private string[] _esunaCommandWords = { "Esuna", "Remedy" };
         private string[] _healCommandWords = { "Heal", "Cure" };
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
@@ -64,6 +67,11 @@ namespace InteractiveSeven.Core.Settings
                     () => GivePlayerGpCommandWords),
                 (nameof(RemovePlayerGpCommandWords),
                     () => RemovePlayerGpCommandWords),
+
+
+                (nameof(ChangeMoodCommandWords),
+                    () => ChangeMoodCommandWords),
+
 
                 (nameof(EsunaCommandWords),
                     () => EsunaCommandWords),
@@ -479,6 +487,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _yuffieWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] ChangeMoodCommandWords
+        {
+            get => _changeMoodWords;
+            set
+            {
+                _changeMoodWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
