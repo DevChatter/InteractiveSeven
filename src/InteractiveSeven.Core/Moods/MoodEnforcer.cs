@@ -9,8 +9,8 @@ namespace InteractiveSeven.Core.Moods
     public class MoodEnforcer : IDisposable
     {
         private readonly IStatusHubEmitter _statusHubEmitter;
-        private BaseMood _nextMood;
-        public BaseMood CurrentMood { get; private set; }
+        private Mood<> _nextMood;
+        public Mood<> CurrentMood { get; private set; }
         private Timer _runTimer;
         private Timer _checkerTimer;
 
@@ -22,7 +22,7 @@ namespace InteractiveSeven.Core.Moods
             MoodSettings.PropertyChanged += MoodSettingsChanged;
         }
 
-        public void ChangeMood(BaseMood mood)
+        public void ChangeMood(Mood<> mood)
         {
             _nextMood = mood;
         }
