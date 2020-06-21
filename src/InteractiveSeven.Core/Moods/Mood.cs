@@ -1,8 +1,8 @@
 ﻿namespace InteractiveSeven.Core.Moods
 {
-    public abstract class BaseMood
+    public abstract class Mood
     {
-        protected BaseMood(string name)
+        protected Mood(string name)
         {
             Name = name;
         }
@@ -11,5 +11,6 @@
         public string Name { get; }
 
         public abstract void ApplyEffect();
+        public virtual void RemoveEffect() { }
     }
 }

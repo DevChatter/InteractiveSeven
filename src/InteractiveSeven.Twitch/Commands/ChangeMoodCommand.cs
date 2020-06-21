@@ -11,10 +11,10 @@ namespace InteractiveSeven.Twitch.Commands
     {
         private readonly ITwitchClient _twitchClient;
         private readonly MoodEnforcer _moodEnforcer;
-        private readonly IList<BaseMood> _moods;
+        private readonly IList<Mood<>> _moods;
 
         public ChangeMoodCommand(ITwitchClient twitchClient, MoodEnforcer moodEnforcer,
-            IList<BaseMood> moods)
+            IList<Mood<>> moods)
             : base(x => x.ChangeMoodCommandWords, x => x.MoodSettings.Enabled)
         {
             _twitchClient = twitchClient;
