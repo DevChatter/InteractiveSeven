@@ -144,9 +144,9 @@ namespace InteractiveSeven.Startup
 
         private static void RegisterMoods(IServiceCollection services)
         {
-            services.AddSingleton<BaseMood, DangerMood>();
-            services.AddSingleton<BaseMood, NormalMood>();
-            services.AddSingleton<BaseMood, PeacefulMood>();
+            services.AddSingleton<Mood<>, DangerMood>();
+            services.AddSingleton<Mood<>, NormalMood>();
+            services.AddSingleton<Mood<>, PeacefulMood>();
         }
     }
 }
