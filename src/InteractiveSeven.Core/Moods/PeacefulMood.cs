@@ -4,7 +4,7 @@ using InteractiveSeven.Core.ViewModels;
 
 namespace InteractiveSeven.Core.Moods
 {
-    public class PeacefulMood : Mood<>
+    public class PeacefulMood : Mood
     {
         private readonly IStatusAccessor _statusAccessor;
         private readonly PartyStatusViewModel _partyStatus;
