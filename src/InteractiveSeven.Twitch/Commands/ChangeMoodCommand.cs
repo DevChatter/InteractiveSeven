@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
@@ -10,15 +11,14 @@ namespace InteractiveSeven.Twitch.Commands
     public class ChangeMoodCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
-        private readonly MoodEnforcer _moodEnforcer;
-        private readonly IList<Mood<>> _moods;
+        private readonly MoodBidding _moodBidding;
+        private readonly IList<Mood> _moods;
 
-        public ChangeMoodCommand(ITwitchClient twitchClient, MoodEnforcer moodEnforcer,
-            IList<Mood<>> moods)
+        public ChangeMoodCommand(ITwitchClient twitchClient, MoodBidding moodBidding, IList<Mood> moods)
             : base(x => x.ChangeMoodCommandWords, x => x.MoodSettings.Enabled)
         {
             _twitchClient = twitchClient;
-            _moodEnforcer = moodEnforcer;
+            _moodBidding = moodBidding;
             _moods = moods;
         }
 
@@ -48,7 +48,8 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-            _moodEnforcer.ChangeMood(moods.Single());
+
+            _moodBidding.AddBid(new MoodBid(moods.Single().Id));
         }
 
         private static bool CanRunThisCommand(CommandData commandData)
