@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -113,6 +114,7 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<HelpCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
+            services.RegisterTwitchCommand<MoodBidsCommand>();
             services.RegisterTwitchCommand<ChangeMoodCommand>();
 
             services.AddSingleton<IChatBot, ChatBot>();
@@ -144,6 +146,7 @@ namespace InteractiveSeven.Startup
 
         private static void RegisterMoods(IServiceCollection services)
         {
+            services.AddSingleton<MoodBidding>();
             services.AddSingleton<Mood, DangerMood>();
             services.AddSingleton<Mood, NormalMood>();
             services.AddSingleton<Mood, PeacefulMood>();
