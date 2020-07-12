@@ -18,7 +18,8 @@ namespace InteractiveSeven.Core.Moods
             _battleInfoAccessor = battleInfoAccessor;
         }
 
-        public override int Id => 2;
+        public const int DefaultId = 2;
+        public override int Id => DefaultId;
 
         public override void ApplyEffect()
         {

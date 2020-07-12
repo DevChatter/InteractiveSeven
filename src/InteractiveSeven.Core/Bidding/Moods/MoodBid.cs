@@ -11,9 +11,10 @@ namespace InteractiveSeven.Core.Bidding.Moods
 
         private readonly object _padlock = new object();
 
-        public MoodBid(int moodId)
+        public MoodBid(int moodId, int amount)
         {
             MoodId = moodId;
+            _totalBits = amount;
         }
 
         public int TotalBits
@@ -28,12 +29,13 @@ namespace InteractiveSeven.Core.Bidding.Moods
 
         public List<BidRecord> BidRecords { get; set; } = new List<BidRecord>();
 
-        public void AddRecord(BidRecord record)
+        public int AddRecord(BidRecord record)
         {
             lock (_padlock)
             {
                 BidRecords.Add(record);
                 TotalBits += record.Bits;
+                return TotalBits;
             }
         }
 
