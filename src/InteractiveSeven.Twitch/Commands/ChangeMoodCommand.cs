@@ -1,4 +1,5 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Twitch.Model;
@@ -26,31 +27,57 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (!CanRunThisCommand(commandData)) return;
 
-            string nameArg = commandData.Arguments.FirstOrDefault();
-            if (string.IsNullOrWhiteSpace(nameArg))
+            (bool isValid, int amount, string moodArg) = ParseArgs(commandData.Arguments);
+            if (!isValid)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Please specify mood name.");
+                _twitchClient.SendMessage(commandData.Channel, "Please specify a mood name and an amount to bid.");
                 return;
             }
 
-            var moods = _moods.Where(x => x.Name.StartsWithIns(nameArg)).ToList();
+            var moods = _moods.Where(x => x.Name.StartsWithIns(moodArg)).ToList();
 
             if (moods.Count == 0)
             {
-                _twitchClient.SendMessage(commandData.Channel, $"Mood: {nameArg} not found.");
+                _twitchClient.SendMessage(commandData.Channel, $"Mood: {moodArg} not found.");
                 return;
             }
 
             if (moods.Count > 1)
             {
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Error: {nameArg} found {moods.Count} moods - {string.Join(", ", moods.Select(x => x.Name))}");
+                    $"Error: {moodArg} found {moods.Count} moods - {string.Join(", ", moods.Select(x => x.Name))}");
                 return;
             }
 
 
-            _moodBidding.AddBid(new MoodBid(moods.Single().Id));
+            var bidRecord = new BidRecord(commandData.User.Username, commandData.User.UserId, amount);
+            Mood mood = moods.Single();
+            int total = _moodBidding.AddBid(mood.Id, bidRecord);
+
+            _twitchClient.SendMessage(commandData.Channel, $"Added {bidRecord.Bits} to {mood.Name} for total: {total}");
         }
+
+        private (bool isValid, int amount, string recipient) ParseArgs(IList<string> args)
+        {
+            bool isValid = true;
+            var amountArg = args
+                .Select(x => new { Amount = x.SafeIntParse(), Raw = x })
+                .FirstOrDefault(x => x.Amount > 0);
+            if (amountArg == null)
+            {
+                return (false, 0, "");
+            }
+
+            string nameArg = args.Except(new[] { amountArg.Raw }).FirstOrDefault();
+
+            if (nameArg == null || amountArg.Amount < 1)
+            {
+                isValid = false;
+            }
+
+            return (isValid, amountArg.Amount, nameArg);
+        }
+
 
         private static bool CanRunThisCommand(CommandData commandData)
         {
