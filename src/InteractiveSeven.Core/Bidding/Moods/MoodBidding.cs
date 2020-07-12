@@ -1,9 +1,6 @@
-﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Moods;
+﻿using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace InteractiveSeven.Core.Bidding.Moods
@@ -11,34 +8,37 @@ namespace InteractiveSeven.Core.Bidding.Moods
     public class MoodBidding
     {
         private readonly ILogger<MoodBidding> _logger;
-        public List<Mood> Moods { get; }
-        public int DefaultMoodId { get; }
 
         public ThreadedObservableCollection<MoodBid> MoodBids { get; }
             = new ThreadedObservableCollection<MoodBid>();
 
-        private readonly object _padlock = new object();
+        private int GetTopMoodId() => MoodBids.OrderByDescending(x => x.TotalBits).First().MoodId;
 
-        private int GetHighestBid() => MoodBids.OrderByDescending(x => x.TotalBits)
-                  .FirstOrDefault()?.MoodId ?? DefaultMoodId;
+        private MoodSettings Settings => ApplicationSettings.Instance.MoodSettings;
 
-        private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
-
-        public MoodBidding(List<Mood> moods, ILogger<MoodBidding> logger)
+        public MoodBidding(ILogger<MoodBidding> logger)
         {
             _logger = logger;
 
-            AddDefaultRecord();
+            AddDefaultRecords();
         }
 
-        private void AddDefaultRecord()
+        private void AddDefaultRecords()
         {
-            MoodBids.Add(new MoodBid(NormalMood.DefaultId));
+            MoodBids.Add(new MoodBid(NormalMood.DefaultId, Settings.DefaultNormalBid));
+            MoodBids.Add(new MoodBid(DangerMood.DefaultId, 0));
+            MoodBids.Add(new MoodBid(PeacefulMood.DefaultId, 0));
         }
 
-        public void AddBid(MoodBid moodBid)
+        public void ResetBids()
         {
-            MoodBids.Add(moodBid);
+            MoodBids.Clear();
+            AddDefaultRecords();
+        }
+
+        public int AddBid(int moodId, BidRecord bid)
+        {
+            return MoodBids.Single(x => x.MoodId == moodId).AddRecord(bid);
         }
     }
 }
