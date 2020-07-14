@@ -17,6 +17,7 @@ namespace InteractiveSeven.Core.Settings
         private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
         private string[] _balanceCommandWords = { "Balance", "Gil" };
         private string[] _giveGilCommandWords = { "GiveGil", "Give" };
+        private string[] _removeGilCommandWords = { "RemoveGil", "Remove", "TakeGil" };
         private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
         private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
         private string[] _nameBidsCommandWords = { "NameBids", "NameBid" };
@@ -72,6 +73,8 @@ namespace InteractiveSeven.Core.Settings
                     () => CostsCommandWords),
                 (nameof(BalanceCommandWords),
                     () => BalanceCommandWords),
+                (nameof(RemoveGilCommandWords),
+                    () => RemoveGilCommandWords),
                 (nameof(GiveGilCommandWords),
                     () => GiveGilCommandWords),
                 (nameof(I7CommandWords),
@@ -216,6 +219,16 @@ namespace InteractiveSeven.Core.Settings
             set
             {
                 _balanceCommandWords = RemoveAllDuplicates(value);
+                OnPropertyChanged();
+            }
+        }
+
+        public string[] RemoveGilCommandWords
+        {
+            get => _removeGilCommandWords;
+            set
+            {
+                _removeGilCommandWords = RemoveAllDuplicates(value);
                 OnPropertyChanged();
             }
         }
