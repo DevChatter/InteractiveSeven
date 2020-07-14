@@ -45,5 +45,14 @@ namespace InteractiveSeven.Core.Bidding.Moods
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void Reset()
+        {
+            lock (_padlock)
+            {
+                TotalBits = 0;
+                BidRecords.Clear();
+            }
+        }
     }
 }
