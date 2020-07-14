@@ -1,45 +1,71 @@
-﻿using InteractiveSeven.Core.Emitters;
+﻿using InteractiveSeven.Core.Bidding.Moods;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Settings;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 
 namespace InteractiveSeven.Core.Moods
 {
     public class MoodEnforcer : IDisposable
     {
+        private const int MinutesBetweenMoodChanges = 2;
         private readonly IStatusHubEmitter _statusHubEmitter;
-        private Mood _nextMood;
+        private readonly MoodBidding _moodBidding;
         public Mood CurrentMood { get; private set; }
         private Timer _runTimer;
         private Timer _checkerTimer;
+        private DateTime _nextMoodChange;
+        private readonly IList<Mood> _moods;
+
+        private readonly object _padlock = new object();
 
         private MoodSettings MoodSettings => ApplicationSettings.Instance.MoodSettings;
 
-        public MoodEnforcer(IStatusHubEmitter statusHubEmitter)
+        public MoodEnforcer(IStatusHubEmitter statusHubEmitter, MoodBidding moodBidding, IList<Mood> moods)
         {
             _statusHubEmitter = statusHubEmitter;
+            _moodBidding = moodBidding;
+            _moods = moods;
             MoodSettings.PropertyChanged += MoodSettingsChanged;
-        }
-
-        public void ChangeMood(Mood mood)
-        {
-            _nextMood = mood;
         }
 
         public void Start()
         {
+            _nextMoodChange = DateTime.UtcNow;
             if (MoodSettings.Enabled && _runTimer == null && _checkerTimer == null)
             {
                 _runTimer = new Timer(DoTheWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
 
-                _checkerTimer = new Timer(Check, null, TimeSpan.Zero, TimeSpan.FromSeconds(120));
+                _checkerTimer = new Timer(Check, null, TimeSpan.Zero, TimeSpan.FromSeconds(20));
             }
         }
 
-        private void Check(object state)
+        private void Check(object _)
         {
-            // TODO: Check current vote balance and set nextMood.
+            if (_nextMoodChange < DateTime.UtcNow)
+            {
+                lock (_padlock)
+                {
+                    int topMoodId = _moodBidding.GetTopMoodId();
+                    if (topMoodId != CurrentMood?.Id)
+                    {
+                        var previousMood = CurrentMood;
+                        CurrentMood = _moods.SingleOrDefault(x => x.Id == topMoodId);
+                        previousMood?.RemoveEffect();
+                        CurrentMood?.ApplyEffect();
+                        if (CurrentMood != null)
+                        {
+                            _moodBidding.ResetBids(topMoodId);
+                            _statusHubEmitter.ShowEvent($"{CurrentMood.Name} Starting",
+                                $"Next Mood in {MinutesBetweenMoodChanges} minutes.");
+                        }
+                    }
+                    _nextMoodChange = DateTime.UtcNow.AddMinutes(MinutesBetweenMoodChanges);
+                }
+            }
         }
 
         private void MoodSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -59,13 +85,9 @@ namespace InteractiveSeven.Core.Moods
 
         private void DoTheWork(object _)
         {
-            CurrentMood?.ApplyEffect();
-
-            if (_nextMood != null)
+            lock (_padlock)
             {
-                CurrentMood = _nextMood;
-                _nextMood = null;
-                _statusHubEmitter.ShowEvent($"{CurrentMood.Name} is now Active.");
+                CurrentMood?.ApplyEffect();
             }
         }
 
