@@ -7,7 +7,7 @@ namespace InteractiveSeven.Core.Model
         public ChatUser(string username, string userId,
             bool isBroadcaster = false, bool isMe = false, bool isMod = false, bool isSubscriber = false)
         {
-            Username = username;
+            Username = username.NoAt();
             UserId = userId;
             IsBroadcaster = isBroadcaster;
             IsMe = isMe;
@@ -22,6 +22,7 @@ namespace InteractiveSeven.Core.Model
                 message.IsModerator, message.IsSubscriber);
         }
 
+        public string SafeUsername => Username?.NoAt()?.ToLower();
         public string Username { get; set; }
         public string UserId { get; set; }
         public bool IsBroadcaster { get; set; }

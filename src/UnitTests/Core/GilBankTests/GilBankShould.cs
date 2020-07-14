@@ -91,5 +91,30 @@ namespace UnitTests.Core.GilBankTests
             balance.Should().Be(start);
             withdrawn.Should().Be(0);
         }
+
+        [Fact]
+        public void FindAccountGivenOnlyName()
+        {
+            _bank.Deposit(_user, 10);
+            (int balance, int withdrawn) = _bank.Withdraw(new ChatUser(_user.Username, null), 5, true);
+
+            balance.Should().Be(5);
+            withdrawn.Should().Be(5);
+        }
+
+        [Fact]
+        public void FindAccountCreatedWithNameOnly()
+        {
+            _bank.Deposit(new ChatUser(_user.Username, null), 100);
+            (int balance, int withdrawn) = _bank.Withdraw(_user, 5, true);
+
+            balance.Should().Be(95);
+            withdrawn.Should().Be(5);
+
+            (balance, withdrawn) = _bank.Withdraw(new ChatUser(null, _user.UserId), 5, true);
+
+            balance.Should().Be(90);
+            withdrawn.Should().Be(5);
+        }
     }
 }

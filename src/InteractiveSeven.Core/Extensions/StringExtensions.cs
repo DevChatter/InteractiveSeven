@@ -30,6 +30,6 @@ namespace InteractiveSeven.Core
             return result;
         }
 
-        public static string NoAt(this string text) => text.TrimStart('@');
+        public static string NoAt(this string text) => text?.TrimStart('@');
     }
 }

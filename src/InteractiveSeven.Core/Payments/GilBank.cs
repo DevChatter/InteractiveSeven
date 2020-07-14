@@ -15,16 +15,21 @@ namespace InteractiveSeven.Core.Payments
         public GilBank(IDataStore<Account> accountStore)
         {
             _accountStore = accountStore;
-            Accounts = accountStore.LoadData() ?? new List<Account>();
+            List<Account> accounts = accountStore.LoadData() ?? new List<Account>();
+            Accounts = accounts;
+            AccountsByName = accounts.Where(x => x.Username != null).ToDictionary(x => x.Username);
+            AccountsById = accounts.Where(x => x.UserId != null).ToDictionary(x => x.UserId);
         }
 
-        private readonly HashSet<string> _knownUsers = new HashSet<string>();
         private ApplicationSettings Settings => ApplicationSettings.Instance;
         private List<Account> Accounts { get; }
+        private Dictionary<string, Account> AccountsByName { get; }
+        private Dictionary<string, Account> AccountsById { get; }
 
         private readonly object _padlock = new object();
 
-        public bool HasAccount(string username) => _knownUsers.Contains(username.ToLower().NoAt());
+        public bool HasAccount(ChatUser user) => AccountsByName.ContainsKey(user.SafeUsername)
+                                                 || AccountsById.ContainsKey(user.UserId);
 
         public int Deposit(in ChatUser user, int bits)
         {
@@ -33,6 +38,7 @@ namespace InteractiveSeven.Core.Payments
             {
                 var account = AccessAccount(user);
                 account.Balance += bits;
+                _accountStore.SaveData(Accounts);
                 return account.Balance;
             }
         }
@@ -63,20 +69,46 @@ namespace InteractiveSeven.Core.Payments
             }
         }
 
-        private Account AccessAccount(in ChatUser user)
+        private Account AccessAccount(ChatUser user)
         {
-            string username = user.Username;
-            Account account = Accounts.SingleOrDefault(a => a.Username.EqualsIns(username));
-            if (account == null)
+            Account account;
+            if ((user.UserId == null || !AccountsById.TryGetValue(user.UserId, out account))
+                && (user.SafeUsername == null || !AccountsByName.TryGetValue(user.SafeUsername, out account)))
             {
-                account = new Account(username);
-                Accounts.Add(account);
+                account = CreateAccount(user);
+            }
+            else if (user.UserId != null && account.UserId != user.UserId)
+            {
+                account.UserId = user.UserId;
+                AccountsById.Add(user.UserId, account);
+            }
+            else if (user.Username != null && !account.Username.EqualsIns(user.SafeUsername))
+            {
+                account.Username = user.Username.NoAt();
+                AccountsByName.Add(user.SafeUsername, account);
             }
 
             if (ShouldGiveSubBonus(user, account))
             {
                 account.Balance += Settings.SubscriberBonusBits;
                 account.LastSubBonus = DateTime.UtcNow;
+            }
+
+            return account;
+        }
+
+        private Account CreateAccount(ChatUser user)
+        {
+            var account = new Account(user.UserId, user.SafeUsername);
+            Accounts.Add(account);
+            if (user.UserId != null)
+            {
+                AccountsById.Add(user.UserId, account);
+            }
+
+            if (user.SafeUsername != null)
+            {
+                AccountsByName.Add(user.SafeUsername, account);
             }
 
             return account;
@@ -91,7 +123,8 @@ namespace InteractiveSeven.Core.Payments
 
         public void EnsureAccountExists(in ChatUser user)
         {
-            bool newUser = _knownUsers.Add(user.Username.ToLower());
+            bool newUser = !AccountsByName.ContainsKey(user.SafeUsername)
+                && !AccountsById.ContainsKey(user.UserId);
             if (newUser)
             {
                 lock (_padlock)
