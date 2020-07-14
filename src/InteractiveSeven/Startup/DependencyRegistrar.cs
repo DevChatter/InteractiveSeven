@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using Tseng;
 using Tseng.lib;
 using Tseng.RunOnce;
+using TwitchLib.Api;
+using TwitchLib.Api.Interfaces;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
@@ -64,6 +66,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IBattleInfoAccessor, BattleInfoAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
+            services.AddSingleton<ITwitchAPI, TwitchAPI>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
             services.AddSingleton<IDialogService, DialogService>();
 
@@ -92,6 +95,7 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<ItemCommand>();
             services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
+            services.RegisterTwitchCommand<RemoveGilCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
             services.RegisterTwitchCommand<NameBidsCommand>();
             services.RegisterTwitchCommand<MenuCommand>();

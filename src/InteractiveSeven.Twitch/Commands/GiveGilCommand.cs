@@ -4,8 +4,6 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using TwitchLib.Api.Helix.Models.Users;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client.Interfaces;
 
