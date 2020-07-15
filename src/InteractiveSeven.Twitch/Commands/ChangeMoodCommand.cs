@@ -27,10 +27,10 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (!CanRunThisCommand(commandData)) return;
 
-            (bool isValid, int amount, string moodArg) = ParseArgs(commandData.Arguments);
-            if (!isValid)
+            (string error, int amount, string moodArg) = ParseArgs(commandData.Arguments);
+            if (error != null)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Please specify a mood name and an amount to bid.");
+                _twitchClient.SendMessage(commandData.Channel, error);
                 return;
             }
 
@@ -49,7 +49,6 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-
             var bidRecord = new BidRecord(commandData.User.Username, commandData.User.UserId, amount);
             Mood mood = moods.Single();
             int total = _moodBidding.AddBid(mood.Id, bidRecord);
@@ -57,25 +56,24 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient.SendMessage(commandData.Channel, $"Added {bidRecord.Bits} to {mood.Name} for total: {total}");
         }
 
-        private (bool isValid, int amount, string recipient) ParseArgs(IList<string> args)
+        private (string error, int amount, string recipient) ParseArgs(IList<string> args)
         {
-            bool isValid = true;
             var amountArg = args
                 .Select(x => new { Amount = x.SafeIntParse(), Raw = x })
                 .FirstOrDefault(x => x.Amount > 0);
-            if (amountArg == null)
+            if (amountArg == null || amountArg.Amount < 1)
             {
-                return (false, 0, "");
+                return ("Please specify an amount to bid.", 0, "");
             }
 
             string nameArg = args.Except(new[] { amountArg.Raw }).FirstOrDefault();
 
-            if (nameArg == null || amountArg.Amount < 1)
+            if (nameArg == null)
             {
-                isValid = false;
+                return ("Please specify a mood name.", 0, "");
             }
 
-            return (isValid, amountArg.Amount, nameArg);
+            return (null, amountArg.Amount, nameArg);
         }
 
 
