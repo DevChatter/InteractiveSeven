@@ -2,7 +2,7 @@
 {
     public class MoodSettings : ObservableSettingsBase
     {
-        private bool _enabled = true;
+        private bool _enabled = false;
         public bool Enabled // TODO: Add to UI
         {
             get => _enabled;
