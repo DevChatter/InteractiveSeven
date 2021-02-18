@@ -5,6 +5,7 @@ using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using System;
@@ -19,6 +20,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IMateriaAccessor _materiaAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly GameDatabase _gameDatabase;
         private readonly GilBank _gilBank;
         private readonly ITwitchClient _twitchClient;
@@ -26,16 +28,23 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PaymentProcessor _paymentProcessor;
 
         protected EquipmentCommand(IEquipmentAccessor equipmentAccessor,
-            IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
-            IStatusHubEmitter statusHubEmitter, GameDatabase gameDatabase,
-            GilBank gilBank, ITwitchClient twitchClient, EquipmentData<T> equipmentData,
-            Func<CommandSettings, string[]> commandWordsSelector, PaymentProcessor paymentProcessor)
+            IInventoryAccessor inventoryAccessor,
+            IMateriaAccessor materiaAccessor,
+            IStatusHubEmitter statusHubEmitter,
+            PartyStatusViewModel partyStatusViewModel,
+            GameDatabase gameDatabase,
+            GilBank gilBank,
+            ITwitchClient twitchClient,
+            EquipmentData<T> equipmentData,
+            Func<CommandSettings, string[]> commandWordsSelector,
+            PaymentProcessor paymentProcessor)
             : base(commandWordsSelector, x => x.EquipmentSettings.Enabled)
         {
             _equipmentAccessor = equipmentAccessor;
             _inventoryAccessor = inventoryAccessor;
             _materiaAccessor = materiaAccessor;
             _statusHubEmitter = statusHubEmitter;
+            _partyStatusViewModel = partyStatusViewModel;
             _gameDatabase = gameDatabase;
             _gilBank = gilBank;
             _twitchClient = twitchClient;
@@ -47,6 +56,13 @@ namespace InteractiveSeven.Twitch.Commands
         {
             (bool isValidName, CharNames charName) =
                 CharNames.GetByName(commandData.Arguments.FirstOrDefault());
+
+            if (isValidName && TryingToChangeSephirothOrYoungCloud(charName))
+            {
+                SendMessage(commandData, "Cannot Change Equipment of Sephiroth or Young Cloud.");
+                return;
+            }
+
             var equipmentArg = commandData.Arguments.ElementAtOrDefault(1);
             if (!isValidName)
             {
@@ -107,6 +123,19 @@ namespace InteractiveSeven.Twitch.Commands
             _statusHubEmitter.ShowEvent(message, commandData.User.Username);
         }
 
+        private bool TryingToChangeSephirothOrYoungCloud(CharNames charName)
+        {
+            byte[] ids =
+            {
+                CharNames.Vincent.Id,
+                CharNames.CaitSith.Id,
+                CharNames.Sephiroth.Id,
+                CharNames.YoungCloud.Id
+            };
+            return ids.Contains(charName.Id)
+                   && _partyStatusViewModel.Party.Any(x => x?.Id == CharNames.Sephiroth.Id || x?.Id == CharNames.YoungCloud.Id);
+        }
+
         private void RemoveMateria(CharNames charName, int equipmentId)
         {
             int keep = 0;
@@ -146,5 +175,8 @@ namespace InteractiveSeven.Twitch.Commands
             }
             throw new NotImplementedException();
         }
+
+        protected void SendMessage(in CommandData commandData, string message)
+            => _twitchClient.SendMessage(commandData.Channel, message);
     }
 }

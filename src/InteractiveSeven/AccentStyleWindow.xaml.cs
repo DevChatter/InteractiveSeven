@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Theming;
+﻿using ControlzEx.Theming;
+using InteractiveSeven.Theming;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using XamlColorSchemeGenerator;
 
 namespace InteractiveSeven
 {
@@ -39,39 +41,39 @@ namespace InteractiveSeven
                 .Select(prop => new KeyValuePair<String, Color>(prop.Name, (Color)prop.GetValue(null)))
                 .ToList();
 
-            var theme = ThemeManager.DetectTheme(Application.Current);
-            ThemeManager.ChangeTheme(this, theme);
+            var theme = ThemeManager.Current.DetectTheme(Application.Current);
+            ThemeManager.Current.ChangeTheme(this, theme);
         }
 
         private void ChangeAppThemeButtonClick(object sender, RoutedEventArgs e)
         {
-            ThemeManager.ChangeThemeBaseColor(Application.Current, ((Button)sender).Content.ToString());
+            ThemeManager.Current.ChangeThemeBaseColor(Application.Current, ((Button)sender).Content.ToString());
             Application.Current?.MainWindow?.Activate();
         }
 
         private void ChangeAppAccentButtonClick(object sender, RoutedEventArgs e)
         {
-            ThemeManager.ChangeThemeColorScheme(Application.Current, ((Button)sender).Content.ToString());
+            ThemeManager.Current.ChangeThemeColorScheme(Application.Current, ((Button)sender).Content.ToString());
             Application.Current?.MainWindow?.Activate();
         }
 
         private void DarkAccent1AppButtonClick(object sender, RoutedEventArgs e)
         {
-            var expectedTheme = ThemeManager.GetTheme("DarkAccent1");
-            ThemeManager.ChangeTheme(Application.Current, expectedTheme);
+            var expectedTheme = ThemeManager.Current.GetTheme("DarkAccent1");
+            ThemeManager.Current.ChangeTheme(Application.Current, expectedTheme);
         }
 
         private void LightAccent2AppButtonClick(object sender, RoutedEventArgs e)
         {
-            var expectedTheme = ThemeManager.GetTheme("LightAccent2");
-            ThemeManager.ChangeTheme(Application.Current, expectedTheme);
+            var expectedTheme = ThemeManager.Current.GetTheme("LightAccent2");
+            ThemeManager.Current.ChangeTheme(Application.Current, expectedTheme);
         }
 
         private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AccentSelector.SelectedItem is ColorScheme selectedAccent)
             {
-                ThemeManager.ChangeThemeColorScheme(Application.Current, selectedAccent.Name);
+                ThemeManager.Current.ChangeThemeColorScheme(Application.Current, selectedAccent.Name);
                 Application.Current?.MainWindow?.Activate();
             }
         }
@@ -80,7 +82,7 @@ namespace InteractiveSeven
         {
             if (ColorsSelector.SelectedItem is KeyValuePair<string, Color> selectedColor)
             {
-                var theme = ThemeManager.DetectTheme(Application.Current);
+                var theme = ThemeManager.Current.DetectTheme(Application.Current);
                 ThemeManagerHelper.CreateTheme(theme.BaseColorScheme, selectedColor.Value, changeImmediately: true);
                 Application.Current?.MainWindow?.Activate();
             }

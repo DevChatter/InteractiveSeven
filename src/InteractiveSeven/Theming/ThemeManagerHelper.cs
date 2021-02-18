@@ -1,11 +1,12 @@
-﻿using MahApps.Metro;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
+using ControlzEx.Theming;
+using MahApps.Metro.Theming;
+using Newtonsoft.Json;
 using XamlColorSchemeGenerator;
 using ColorScheme = XamlColorSchemeGenerator.ColorScheme;
 
@@ -43,14 +44,16 @@ namespace InteractiveSeven.Theming
 
             var resourceDictionary = (ResourceDictionary)XamlReader.Parse(xamlContent);
 
-            var newTheme = new Theme(resourceDictionary);
+            var libraryTheme = new LibraryTheme(resourceDictionary, new MahAppsLibraryThemeProvider());
 
-            ThemeManager.AddTheme(newTheme.Resources);
+            var newTheme = new Theme(libraryTheme);
+
+            ThemeManager.Current.AddTheme(newTheme);
 
             // Apply theme
             if (changeImmediately)
             {
-                ThemeManager.ChangeTheme(Application.Current, newTheme);
+                ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
             }
 
             return resourceDictionary;

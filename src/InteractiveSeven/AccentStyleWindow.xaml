@@ -4,6 +4,7 @@
                       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
                       xmlns:metro="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
+                      xmlns:controlzex="urn:controlzex"
                       RenderOptions.ClearTypeHint="Enabled"
                       TextOptions.TextFormattingMode="Display"
                       Title="Change App Style"
@@ -71,8 +72,8 @@
                     <ComboBox x:Name="AccentSelector"
                               Margin="0 0 2 0"
                               VerticalAlignment="Center"
-                              SelectionChanged="AccentSelectionChanged"
-                              ItemsSource="{x:Static metro:ThemeManager.ColorSchemes}">
+                              SelectionChanged="AccentSelectionChanged">
+                        <!--ItemsSource="{x:Static controlzex:ThemeManager.ColorSchemes}">-->
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
