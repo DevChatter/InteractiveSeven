@@ -1,5 +1,4 @@
 ﻿using ControlzEx.Theming;
-using InteractiveSeven.Theming;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using System;
@@ -45,7 +44,7 @@ namespace InteractiveSeven
             ThemeManager.Current.ChangeTheme(this, theme);
         }
 
-        private void ChangeAppThemeButtonClick(object sender, RoutedEventArgs e)
+        private void ChangeAppBaseColorButtonClick(object sender, RoutedEventArgs e)
         {
             ThemeManager.Current.ChangeThemeBaseColor(Application.Current, ((Button)sender).Content.ToString());
             Application.Current?.MainWindow?.Activate();
@@ -57,33 +56,19 @@ namespace InteractiveSeven
             Application.Current?.MainWindow?.Activate();
         }
 
-        private void DarkAccent1AppButtonClick(object sender, RoutedEventArgs e)
+        private void ChangeAppThemeButtonClick(object sender, RoutedEventArgs e)
         {
-            var expectedTheme = ThemeManager.Current.GetTheme("DarkAccent1");
+            var expectedTheme = ThemeManager.Current.GetTheme(((Button)sender).Content.ToString());
             ThemeManager.Current.ChangeTheme(Application.Current, expectedTheme);
-        }
-
-        private void LightAccent2AppButtonClick(object sender, RoutedEventArgs e)
-        {
-            var expectedTheme = ThemeManager.Current.GetTheme("LightAccent2");
-            ThemeManager.Current.ChangeTheme(Application.Current, expectedTheme);
-        }
-
-        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (AccentSelector.SelectedItem is ColorScheme selectedAccent)
-            {
-                ThemeManager.Current.ChangeThemeColorScheme(Application.Current, selectedAccent.Name);
-                Application.Current?.MainWindow?.Activate();
-            }
         }
 
         private void ColorsSelectorOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ColorsSelector.SelectedItem is KeyValuePair<string, Color> selectedColor)
             {
-                var theme = ThemeManager.Current.DetectTheme(Application.Current);
-                ThemeManagerHelper.CreateTheme(theme.BaseColorScheme, selectedColor.Value, changeImmediately: true);
+                var currentTheme = ThemeManager.Current.DetectTheme(Application.Current);
+                var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(currentTheme.BaseColorScheme, selectedColor.Value);
+                ThemeManager.Current.ChangeTheme(Application.Current, theme);
                 Application.Current?.MainWindow?.Activate();
             }
         }
