@@ -4,7 +4,7 @@ using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
-using InteractiveSeven.Theming;
+//using InteractiveSeven.Theming;
 using MahApps.Metro;
 using MahApps.Metro.Theming;
 using Microsoft.AspNetCore;
@@ -112,14 +112,6 @@ namespace InteractiveSeven
                 ThemeManager.Current.AddTheme(lightAccent2);
 
                 ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
-
-                // create custom accents
-                ThemeManagerHelper.CreateTheme("Dark", Colors.Red, "CustomAccentDarkRed");
-                ThemeManagerHelper.CreateTheme("Light", Colors.Red, "CustomAccentLightRed");
-                ThemeManagerHelper.CreateTheme("Dark", Colors.GreenYellow);
-                ThemeManagerHelper.CreateTheme("Light", Colors.GreenYellow);
-                ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
-                ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
 
                 Theme theme = LoadCurrentTheme();
 

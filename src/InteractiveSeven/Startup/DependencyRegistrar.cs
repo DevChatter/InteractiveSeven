@@ -46,6 +46,8 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<SettingsViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<TwitchAuthViewModel>();
+            services.AddSingleton<ThemeViewModel>();
+
             services.AddSingleton<IModded, Modded>();
 
             services.AddSingleton<PartyStatusViewModel>();
@@ -69,6 +71,8 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<ITwitchAPI, TwitchAPI>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
             services.AddSingleton<IDialogService, DialogService>();
+
+            services.AddTransient<IThemeChanger, ThemeChanger>();
 
             services.RegisterEquipmentData();
 

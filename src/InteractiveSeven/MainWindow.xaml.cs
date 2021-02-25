@@ -58,7 +58,7 @@ namespace InteractiveSeven
                 return;
             }
 
-            _accentThemeTestWindow = new AccentStyleWindow();
+            _accentThemeTestWindow = new AccentStyleWindow(ViewModel.ThemeViewModel);
             _accentThemeTestWindow.Owner = this;
             _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
             _accentThemeTestWindow.Left = Left + ActualWidth / 4.0;
