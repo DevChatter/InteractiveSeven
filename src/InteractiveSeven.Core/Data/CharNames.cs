@@ -10,7 +10,7 @@ namespace InteractiveSeven.Core.Data
     public class CharNames
     {
         private readonly Func<CommandSettings, IList<string>> _wordsSelector;
-        public int Id { get; }
+        public byte Id { get; }
         public string DefaultName { get; }
         public int SaveMapRecordOffset { get; }
         public string SanitizedDefaultName => DefaultName.ToLower().Replace(' ', '-');
@@ -18,7 +18,7 @@ namespace InteractiveSeven.Core.Data
 
         public GameMoments AllowNamingAfter { get; }
 
-        private CharNames(int id, string defaultName, Func<CommandSettings, IList<string>> wordsSelector,
+        private CharNames(byte id, string defaultName, Func<CommandSettings, IList<string>> wordsSelector,
             int saveMapRecordOffset,
             GameMoments allowNamingAfter = GameMoments.AfterBarretNamed,
             bool included = true)

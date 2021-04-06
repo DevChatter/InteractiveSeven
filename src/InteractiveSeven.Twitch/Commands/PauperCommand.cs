@@ -2,8 +2,10 @@
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
+using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
@@ -19,6 +21,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly EquipmentData<Armlet> _armletData;
         private readonly PaymentProcessor _paymentProcessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly PartyStatusViewModel _partyStatusViewModel;
 
         public PauperCommand(IEquipmentAccessor equipmentAccessor,
             IMateriaAccessor materiaAccessor,
@@ -28,7 +31,8 @@ namespace InteractiveSeven.Twitch.Commands
             EquipmentData<Weapon> weaponData,
             EquipmentData<Armlet> armletData,
             PaymentProcessor paymentProcessor,
-            IStatusHubEmitter statusHubEmitter)
+            IStatusHubEmitter statusHubEmitter,
+            PartyStatusViewModel partyStatusViewModel)
             : base(x => x.PauperCommandWords, x => x.EquipmentSettings.EnablePauperCommand)
         {
             _equipmentAccessor = equipmentAccessor;
@@ -40,10 +44,18 @@ namespace InteractiveSeven.Twitch.Commands
             _armletData = armletData;
             _paymentProcessor = paymentProcessor;
             _statusHubEmitter = statusHubEmitter;
+            _partyStatusViewModel = partyStatusViewModel;
         }
 
         public override void Execute(in CommandData commandData)
         {
+            if (_partyStatusViewModel.Party.Any(x => x?.Id == CharNames.Sephiroth.Id))
+            {
+                _twitchClient.SendMessage(commandData.Channel,
+                    "Cannot Change Equipment while Sephiroth is in the Party.");
+                return;
+            }
+
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
                 commandData, Settings.EquipmentSettings.PauperCommandCost,
                 Settings.EquipmentSettings.AllowModOverride);

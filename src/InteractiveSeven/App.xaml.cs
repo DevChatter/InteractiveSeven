@@ -1,10 +1,12 @@
-﻿using InteractiveSeven.Core;
+﻿using ControlzEx.Theming;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Startup;
-using InteractiveSeven.Theming;
+//using InteractiveSeven.Theming;
 using MahApps.Metro;
+using MahApps.Metro.Theming;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,7 @@ namespace InteractiveSeven
         private WorkloadCoordinator _workloadCoordinator;
 
         const string THEME_FILE_NAME = "i7-theme.json";
+        private const string DarkBlueThemeName = "Dark.Blue";
 
         private IWebHost _host;
         private TsengMonitor _tsengMonitor;
@@ -98,27 +101,23 @@ namespace InteractiveSeven
         {
             try
             {
-                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent1.xaml"));
-                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent2.xaml"));
-                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent1.xaml"));
-                ThemeManager.AddTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent2.xaml"));
+                var darkAccent1 = new Theme(new LibraryTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent1.xaml"), MahAppsLibraryThemeProvider.DefaultInstance));
+                var darkAccent2 = new Theme(new LibraryTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/DarkAccent2.xaml"), MahAppsLibraryThemeProvider.DefaultInstance));
+                var lightAccent1 = new Theme(new LibraryTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent1.xaml"), MahAppsLibraryThemeProvider.DefaultInstance));
+                var lightAccent2 = new Theme(new LibraryTheme(new Uri("pack://application:,,,/InteractiveSeven;component/Theming/CustomAccents/LightAccent2.xaml"), MahAppsLibraryThemeProvider.DefaultInstance));
 
-                ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
-                ThemeManager.SyncThemeWithWindowsAppModeSetting();
+                ThemeManager.Current.AddTheme(darkAccent1);
+                ThemeManager.Current.AddTheme(darkAccent2);
+                ThemeManager.Current.AddTheme(lightAccent1);
+                ThemeManager.Current.AddTheme(lightAccent2);
 
-                // create custom accents
-                ThemeManagerHelper.CreateTheme("Dark", Colors.Red, "CustomAccentDarkRed");
-                ThemeManagerHelper.CreateTheme("Light", Colors.Red, "CustomAccentLightRed");
-                ThemeManagerHelper.CreateTheme("Dark", Colors.GreenYellow);
-                ThemeManagerHelper.CreateTheme("Light", Colors.GreenYellow);
-                ThemeManagerHelper.CreateTheme("Dark", Colors.Indigo);
-                ThemeManagerHelper.CreateTheme("Light", Colors.Indigo, changeImmediately: true);
+                ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
 
                 Theme theme = LoadCurrentTheme();
 
-                ThemeManager.ChangeTheme(Current, theme);
+                ThemeManager.Current.ChangeTheme(Current, theme);
 
-                ThemeManager.IsThemeChanged += ThemeManager_IsThemeChanged;
+                ThemeManager.Current.ThemeChanged += Current_ThemeChanged;
 
             }
             catch (Exception themeEx)
@@ -132,22 +131,22 @@ namespace InteractiveSeven
             try
             {
                 string themeName = File.ReadAllText(THEME_FILE_NAME).Trim();
-                return ThemeManager.Themes.First(x => x.Name == themeName);
+                return ThemeManager.Current.Themes.First(x => x.Name == themeName);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Failed to load theme.");
             }
 
-            return ThemeManager.Themes.First(x => x.Name == "Dark.Blue");
+            return ThemeManager.Current.Themes.First(x => x.Name == DarkBlueThemeName);
         }
 
-        private void ThemeManager_IsThemeChanged(object sender, OnThemeChangedEventArgs e)
+        private void Current_ThemeChanged(object sender, ThemeChangedEventArgs e)
         {
             try
             {
-                Theme theme = ThemeManager.DetectTheme(Current);
-                File.WriteAllText(THEME_FILE_NAME, theme.Name);
+                Theme theme = ThemeManager.Current.DetectTheme(Current);
+                File.WriteAllText(THEME_FILE_NAME, theme?.Name ?? DarkBlueThemeName);
 
             }
             catch (Exception exception)

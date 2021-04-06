@@ -3,7 +3,6 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-                      xmlns:metro="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
                       RenderOptions.ClearTypeHint="Enabled"
                       TextOptions.TextFormattingMode="Display"
                       Title="Change App Style"
@@ -22,9 +21,9 @@
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
 
-    <Grid>
+    <StackPanel Orientation="Vertical">
 
-        <Grid.Resources>
+        <StackPanel.Resources>
             <Style TargetType="{x:Type Button}"
                    BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Height"
@@ -32,69 +31,63 @@
                 <Setter Property="Margin"
                         Value="2" />
             </Style>
-        </Grid.Resources>
+        </StackPanel.Resources>
 
-        <GroupBox Margin="5" Header="The Application">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <GroupBox Margin="5" Header="Application Themes">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Dark.Accent1" Command="{Binding Path=ChangeTheme}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                <Button Content="Dark.Accent2" Command="{Binding Path=ChangeTheme}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                <Button Content="Light.Accent1" Command="{Binding Path=ChangeTheme}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                <Button Content="Light.Accent2" Command="{Binding Path=ChangeTheme}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
 
-                <UniformGrid Grid.Row="0"
-                             Columns="5">
-                    <Button Content="Dark"
-                            Click="ChangeAppThemeButtonClick" />
-                    <Button Content="Light"
-                            Click="ChangeAppThemeButtonClick" />
-                    <Button Content="Blue"
-                            Click="ChangeAppAccentButtonClick" />
-                    <Button Content="Red"
-                            Click="ChangeAppAccentButtonClick" />
-                    <Button Content="Green"
-                            Click="ChangeAppAccentButtonClick" />
-                </UniformGrid>
-
-                <UniformGrid Grid.Row="1"
-                             Columns="5">
-                    <Button Content="Dark.Accent1"
-                            Click="DarkAccent1AppButtonClick" />
-                    <Button Content="Light.Accent2"
-                            Click="LightAccent2AppButtonClick" />
-                </UniformGrid>
-
-                <UniformGrid Grid.Row="2" Margin="5" Columns="2" Rows="2">
-                    <TextBlock Text="Accents" Margin="0 0 2 0" VerticalAlignment="Center" />
-                    <TextBlock Text="Colors" Margin="2 0 0 0" VerticalAlignment="Center" />
-
-                    <ComboBox x:Name="AccentSelector"
-                              Margin="0 0 2 0"
-                              VerticalAlignment="Center"
-                              SelectionChanged="AccentSelectionChanged"
-                              ItemsSource="{x:Static metro:ThemeManager.ColorSchemes}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-
-                    <ComboBox x:Name="ColorsSelector"
-                              Margin="2 0 0 0"
-                              VerticalAlignment="Center"
-                              SelectionChanged="ColorsSelectorOnSelectionChanged"
-                              ItemsSource="{Binding Colors}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Key}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </UniformGrid>
-            </Grid>
+            </StackPanel>
         </GroupBox>
 
-    </Grid>
+        <GroupBox Margin="5" Header="Base Color">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Dark" Command="{Binding Path=ChangeBaseColor}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                <Button Content="Light" Command="{Binding Path=ChangeBaseColor}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Margin="5" Header="Accent Color">
+            <StackPanel>
+                <TextBlock Text="Additional Colors" Margin="0 0 2 0" 
+                           VerticalAlignment="Center" />
+
+                <UniformGrid Rows="2" Columns="4">
+                    <Button Content="Red" Command="{Binding Path=ChangeAccentColor}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                    <Button Content="Green" Command="{Binding Path=ChangeAccentColor}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                    <Button Content="Blue" Command="{Binding Path=ChangeAccentColor}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                    <Button Content="Yellow" Command="{Binding Path=ChangeAccentColor}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
+                </UniformGrid>
+
+                <TextBlock Text="Additional Colors" Margin="0 0 2 0" VerticalAlignment="Center" />
+
+                <ComboBox x:Name="ColorsSelector"
+                          Margin="2 0 0 0"
+                          VerticalAlignment="Center"
+                          SelectedItem="{Binding SelectedAccentColor}"
+                          ItemsSource="{Binding Colors}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Key}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+
+    </StackPanel>
 
 </mah:MetroWindow>

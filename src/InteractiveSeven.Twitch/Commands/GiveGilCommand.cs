@@ -2,10 +2,10 @@
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Model;
-using System.Collections.Generic;
 using System.Linq;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client.Interfaces;
+using System.Collections.Generic;
 
 namespace InteractiveSeven.Twitch.Commands
 {
@@ -27,6 +27,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
+
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {

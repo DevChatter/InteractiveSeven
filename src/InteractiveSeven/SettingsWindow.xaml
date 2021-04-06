@@ -40,7 +40,7 @@
             <TabItem DataContext="{Binding Settings}">
                 <TabItem.Header>
                     <StackPanel Style="{StaticResource TabHeaderStyle}">
-                        <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="Settings" />
+                        <iconPacks:PackIconMaterial Margin="2 0 4 0" Kind="ApplicationSettings" />
                         <TextBlock Text="General" />
                     </StackPanel>
                 </TabItem.Header>
@@ -56,19 +56,19 @@
 
                         <GroupBox Header="Temporary Settings" Margin="5">
                             <mah:ToggleSwitch Header="Allow Game Affecting Commands" Margin="0 10 0 10"
-                                              OnLabel="Allowed" OffLabel="Not Allowed"
-                                              IsChecked="{Binding Path=AllowGameAffectingCommands, Mode=TwoWay}" />
+                                              OnContent="Allowed" OffContent="Not Allowed"
+                                              IsOn="{Binding Path=AllowGameAffectingCommands, Mode=TwoWay}" />
                         </GroupBox>
 
                         <GroupBox Header="Mod Settings (General)" Margin="5">
                             <StackPanel Orientation="Vertical">
                                 <mah:ToggleSwitch Header="Allow Mods to Give Bonus Bits" Margin="0 10 0 10"
-                                                  OnLabel="Allowed" OffLabel="Not Allowed"
-                                                  IsChecked="{Binding Path=ModsGiveBonusBits, Mode=TwoWay}" />
+                                                  OnContent="Allowed" OffContent="Not Allowed"
+                                                  IsOn="{Binding Path=ModsGiveBonusBits, Mode=TwoWay}" />
 
                                 <mah:ToggleSwitch Header="Enable Mod Command (!i7)" Margin="0 10 0 10"
-                                                  OnLabel="Enabled" OffLabel="Disabled"
-                                                  IsChecked="{Binding Path=EnableModCommand, Mode=TwoWay}" />
+                                                  OnContent="Enabled" OffContent="Disabled"
+                                                  IsOn="{Binding Path=EnableModCommand, Mode=TwoWay}" />
 
                             </StackPanel>
 
@@ -77,8 +77,8 @@
                         <GroupBox Header="Subscription Bonus" Margin="5">
                             <StackPanel Orientation="Vertical">
                                 <mah:ToggleSwitch Header="Enable Subscriber Bonus Bits" Margin="0 10 0 10"
-                                                  OnLabel="Give Bonus" OffLabel="No Bonus"
-                                                  IsChecked="{Binding Path=GiveSubscriberBonusBits, Mode=TwoWay}" />
+                                                  OnContent="Give Bonus" OffContent="No Bonus"
+                                                  IsOn="{Binding Path=GiveSubscriberBonusBits, Mode=TwoWay}" />
 
                                 <StackPanel Orientation="Vertical" Margin="0 10 0 10">
                                     <Label Content="Bonus Bits for Subscribers" FontSize="12" Margin="5,0,0,0"/>
@@ -634,8 +634,8 @@
 
                                         <mah:ToggleSwitch Grid.Row="0" Grid.Column="0"
                                                           Header="Enable Equipment (Weapon, Armlet, Accessory) Commands" Margin="0 10 0 10"
-                                                          OnLabel="Enabled" OffLabel="Disabled"
-                                                          IsChecked="{Binding Path=Enabled, Mode=TwoWay}" />
+                                                          OnContent="Enabled" OffContent="Disabled"
+                                                          IsOn="{Binding Path=Enabled, Mode=TwoWay}" />
 
                                         <CheckBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" HorizontalAlignment="Right"
                                                         IsEnabled="{Binding Enabled}" IsChecked="{Binding Path=AllowModOverride, Mode=TwoWay}" />

@@ -11,6 +11,7 @@ using InteractiveSeven.Twitch.Payments;
 using Moq;
 using System.Linq;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.ViewModels;
 using TwitchLib.Client.Interfaces;
 using UnitTests.Core.GilBankTests;
 using Xunit;
@@ -36,7 +37,7 @@ namespace UnitTests.Twitch.Commands
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
-                _materiaAccess.Object, _statusHubEmitter.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 
@@ -50,7 +51,7 @@ namespace UnitTests.Twitch.Commands
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, "cloud");
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
-                _materiaAccess.Object, _statusHubEmitter.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 
@@ -65,7 +66,7 @@ namespace UnitTests.Twitch.Commands
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
-                _materiaAccess.Object, _statusHubEmitter.Object,
+                _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 

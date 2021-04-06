@@ -159,7 +159,7 @@ namespace Tseng.GameData
                 if (map[0xBA3] != 0x0)
                     consistencyCheck = false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 consistencyCheck = false;
             }
