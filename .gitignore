@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 
 src/InteractiveSeven\.UI/App\.config
+*.CT
