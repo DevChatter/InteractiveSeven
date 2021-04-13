@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch.Model
 {
-    public struct CommandData
+    public record CommandData
     {
         public static CommandData FromChatCommand(ChatCommand chatCommand)
         {
-            return new CommandData
+            return new()
             {
                 Arguments = chatCommand.ArgumentsAsList,
                 Bits = chatCommand.ChatMessage.Bits,

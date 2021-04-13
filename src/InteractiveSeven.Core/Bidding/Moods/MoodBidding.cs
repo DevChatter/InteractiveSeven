@@ -1,10 +1,10 @@
-﻿using InteractiveSeven.Core.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace InteractiveSeven.Core.Bidding.Moods
 {
