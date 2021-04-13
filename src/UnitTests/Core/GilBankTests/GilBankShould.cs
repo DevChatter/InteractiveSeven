@@ -1,8 +1,7 @@
-﻿using FluentAssertions;
-using InteractiveSeven.Core.Model;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
-using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTests.Core.GilBankTests

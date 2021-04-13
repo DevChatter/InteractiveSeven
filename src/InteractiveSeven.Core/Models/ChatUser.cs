@@ -1,6 +1,6 @@
 ﻿using TwitchLib.Client.Models;
 
-namespace InteractiveSeven.Core.Model
+namespace InteractiveSeven.Core.Models
 {
     public struct ChatUser
     {
@@ -17,7 +17,7 @@ namespace InteractiveSeven.Core.Model
 
         public static ChatUser FromChatMessage(in ChatMessage message)
         {
-            return new ChatUser(message.Username, message.UserId,
+            return new(message.Username, message.UserId,
                 message.IsBroadcaster, message.IsMe,
                 message.IsModerator, message.IsSubscriber);
         }

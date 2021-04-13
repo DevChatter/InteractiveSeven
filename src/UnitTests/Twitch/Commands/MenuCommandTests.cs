@@ -1,6 +1,7 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Collections.Generic;
+using FluentAssertions;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
@@ -9,8 +10,6 @@ using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
 using TwitchLib.Client.Interfaces;
 using UnitTests.Core.GilBankTests;
 using Xunit;
