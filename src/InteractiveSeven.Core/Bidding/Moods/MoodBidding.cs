@@ -13,8 +13,7 @@ namespace InteractiveSeven.Core.Bidding.Moods
         private readonly GilBank _gilBank;
         private readonly ILogger<MoodBidding> _logger;
 
-        public ThreadedObservableCollection<MoodBid> MoodBids { get; }
-            = new ThreadedObservableCollection<MoodBid>();
+        public ThreadedObservableCollection<MoodBid> MoodBids { get; } = new();
 
         public int GetTopMoodId() => MoodBids.OrderByDescending(x => x.TotalBits).First().MoodId;
 
@@ -33,6 +32,7 @@ namespace InteractiveSeven.Core.Bidding.Moods
             MoodBids.Add(new MoodBid(NormalMood.DefaultId, Settings.DefaultNormalBid));
             MoodBids.Add(new MoodBid(DangerMood.DefaultId, 0));
             MoodBids.Add(new MoodBid(PeacefulMood.DefaultId, 0));
+            MoodBids.Add(new MoodBid(LooseChangeMood.DefaultId, 0));
         }
 
         public void ResetBids(int topMoodId)

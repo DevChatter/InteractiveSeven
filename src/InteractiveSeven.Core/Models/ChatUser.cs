@@ -2,7 +2,7 @@
 
 namespace InteractiveSeven.Core.Models
 {
-    public struct ChatUser
+    public record ChatUser
     {
         public ChatUser(string username, string userId,
             bool isBroadcaster = false, bool isMe = false, bool isMod = false, bool isSubscriber = false)
