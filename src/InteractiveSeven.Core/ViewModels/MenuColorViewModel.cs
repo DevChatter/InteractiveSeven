@@ -1,5 +1,4 @@
 ﻿using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using Microsoft.Extensions.Logging;
 using System;
