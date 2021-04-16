@@ -87,7 +87,7 @@ namespace InteractiveSeven.Core.ViewModels
 
         private void HandleColorRefresh(RefreshEvent e)
         {
-            DomainEvents.Raise(new MenuColorChanging(PreviewImage, new ChatUser(), 0));
+            DomainEvents.Raise(new MenuColorChanging(PreviewImage, ChatUser.None, 0));
         }
 
         public ObservableCollection<ChangeRecord> Changes { get; } = new ObservableCollection<ChangeRecord>();

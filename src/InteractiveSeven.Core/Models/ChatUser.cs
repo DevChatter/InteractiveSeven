@@ -4,7 +4,7 @@ namespace InteractiveSeven.Core.Models
 {
     public record ChatUser
     {
-        public ChatUser(string username, string userId,
+        public ChatUser(string username, string userId = null,
             bool isBroadcaster = false, bool isMe = false, bool isMod = false, bool isSubscriber = false)
         {
             Username = username.NoAt();
@@ -31,5 +31,7 @@ namespace InteractiveSeven.Core.Models
         public bool IsShojy => UserId == "29477956";
         public bool IsMod { get; set; }
         public bool IsSubscriber { get; set; }
+
+        public static ChatUser None { get; } = new("", "");
     }
 }

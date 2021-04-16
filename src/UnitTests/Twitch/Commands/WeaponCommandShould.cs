@@ -84,7 +84,7 @@ namespace UnitTests.Twitch.Commands
             var itemAccessor = new Mock<IInventoryAccessor>();
             var chat = new Mock<ITwitchClient>();
             var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
-            var chatUser = new ChatUser { Username = "Fred" };
+            var chatUser = new ChatUser("Fred");
             gilBank.Deposit(chatUser, gil);
             var commandData = new CommandData
             {
