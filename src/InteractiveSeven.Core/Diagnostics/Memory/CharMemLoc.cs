@@ -53,37 +53,35 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
             return All[charName.Id];
         }
 
-        public static CharMemLoc Cloud { get; }
-            = new CharMemLoc(new IntPtr(0xDBFD8D), new IntPtr(0x921CB8));
-        public static CharMemLoc Barret { get; }
-            = new CharMemLoc(new IntPtr(0xDBFE11), new IntPtr(0x921CC4));
-        public static CharMemLoc Tifa { get; }
-            = new CharMemLoc(new IntPtr(0xDBFE95), new IntPtr(0x921CD0));
-        public static CharMemLoc Aeris { get; }
-            = new CharMemLoc(new IntPtr(0xDBFF19), new IntPtr(0x921CDC));
-        public static CharMemLoc Red { get; }
-            = new CharMemLoc(new IntPtr(0xDBFF9D), new IntPtr(0x921CE8));
-        public static CharMemLoc Yuffie { get; }
-            = new CharMemLoc(new IntPtr(0xDC0021), new IntPtr(0x921CF4));
-        public static CharMemLoc CaitSith { get; }
-            = new CharMemLoc(new IntPtr(0xDC00A5), new IntPtr(0x921D00));
-        public static CharMemLoc Vincent { get; }
-            = new CharMemLoc(new IntPtr(0xDC0129), new IntPtr(0x921D0C));
-        public static CharMemLoc Cid { get; }
-            = new CharMemLoc(new IntPtr(0xDC01AD), new IntPtr(0x921D18));
+        public static CharMemLoc Cloud { get; } = new(new(0xDBFD8D), new(0x921CB8));
+        public static CharMemLoc Barret { get; } = new(new(0xDBFE11), new(0x921CC4));
+        public static CharMemLoc Tifa { get; } = new(new(0xDBFE95), new(0x921CD0));
+        public static CharMemLoc Aeris { get; } = new(new(0xDBFF19), new(0x921CDC));
+        public static CharMemLoc Red { get; } = new(new(0xDBFF9D), new(0x921CE8));
+        public static CharMemLoc Yuffie { get; } = new(new(0xDC0021), new(0x921CF4));
+        public static CharMemLoc CaitSith { get; } = new(new(0xDC00A5), new(0x921D00));
+        public static CharMemLoc Vincent { get; } = new(new(0xDC0129), new(0x921D0C));
+        public static CharMemLoc Cid { get; } = new(new(0xDC01AD), new(0x921D18));
 
-        private static readonly Dictionary<int, CharMemLoc> All
-            = new Dictionary<int, CharMemLoc>
-            {
-                [CharNames.Cloud.Id] = Cloud,
-                [CharNames.Barret.Id] = Barret,
-                [CharNames.Tifa.Id] = Tifa,
-                [CharNames.Aeris.Id] = Aeris,
-                [CharNames.Red.Id] = Red,
-                [CharNames.Yuffie.Id] = Yuffie,
-                [CharNames.CaitSith.Id] = CaitSith,
-                [CharNames.Vincent.Id] = Vincent,
-                [CharNames.Cid.Id] = Cid,
-            };
+        private static readonly Dictionary<int, CharMemLoc> All = new()
+        {
+            [CharNames.Cloud.Id] = Cloud,
+            [CharNames.Barret.Id] = Barret,
+            [CharNames.Tifa.Id] = Tifa,
+            [CharNames.Aeris.Id] = Aeris,
+            [CharNames.Red.Id] = Red,
+            [CharNames.Yuffie.Id] = Yuffie,
+            [CharNames.CaitSith.Id] = CaitSith,
+            [CharNames.Vincent.Id] = Vincent,
+            [CharNames.Cid.Id] = Cid,
+        };
     }
+
+    public enum FF7CharState
+    {
+        Sadness = 16,
+        Fury = 32,
+        BackRow = 254,
+        FrontRow = 255
+    };
 }

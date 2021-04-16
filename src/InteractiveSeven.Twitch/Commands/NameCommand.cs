@@ -18,17 +18,14 @@ namespace InteractiveSeven.Twitch.Commands
 
         private static CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
 
-        private static string[] AllWords(CommandSettings settings) =>
-            settings.CloudCommandWords
-                .Union(settings.BarretCommandWords)
-                .Union(settings.TifaCommandWords)
-                .Union(settings.AerisCommandWords)
-                .Union(settings.CaitCommandWords)
-                .Union(settings.CidCommandWords)
-                .Union(settings.RedCommandWords)
-                .Union(settings.VincentCommandWords)
-                .Union(settings.YuffieCommandWords)
+        private static string[] AllWords(CommandSettings settings)
+        {
+            return settings.AllWordSets
+                .Select(x => x.Words?.Invoke() ?? new string[] { })
+                .SelectMany(x => x)
+                .Distinct()
                 .ToArray();
+        }
 
         public NameBiddingSettings NameBidSettings => ApplicationSettings.Instance.NameBiddingSettings;
 
