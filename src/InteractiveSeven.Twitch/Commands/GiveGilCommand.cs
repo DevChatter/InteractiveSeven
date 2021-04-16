@@ -61,7 +61,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             string fromMessage = isBonus ? "" : $" from {commandData.User.Username}'s account";
-            _gilBank.Deposit(new ChatUser { Username = recipient }, withdrawn);
+            _gilBank.Deposit(new ChatUser(recipient), withdrawn);
             _twitchClient.SendMessage(commandData.Channel,
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
