@@ -39,7 +39,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         private void AttemptRemoval(in CommandData commandData, string target, int amount)
         {
-            var (balance, withdrawn) = _gilBank.Withdraw(new ChatUser { Username = target }, amount);
+            var (balance, withdrawn) = _gilBank.Withdraw(new ChatUser(target), amount);
             string status = withdrawn != amount ? "Insufficient funds:" : "Success:";
 
             string message = $"{status} Removed {withdrawn} gil from {target}'s account.";
