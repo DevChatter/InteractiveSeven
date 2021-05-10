@@ -35,8 +35,9 @@ namespace InteractiveSeven.Core.FinalFantasy
         public static readonly MemLoc SceneMapStart = new(0x9A8E9C, 552);
 
         // Battle Rewards
-        public static readonly MemLoc BattleExperienceGain = new(0xDC0E2C, 2);
-        public static readonly MemLoc BattleApGain = new(0xDC0E30, 2);
+        public static readonly MemLoc BattleXpGain = new(0x99E2C0, 4);
+        public static readonly MemLoc BattleApGain = new(0x99E2C4, 2);
+        public static readonly MemLoc BattleGilGain = new(0x99E2C8, 4);
 
         public static readonly MemLoc RewardItem1 = new(0x99E2F0, 2);
         public static readonly MemLoc RewardItem1Amount = new(0x99E2F2, 2);

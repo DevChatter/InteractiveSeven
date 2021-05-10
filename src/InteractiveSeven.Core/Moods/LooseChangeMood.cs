@@ -1,6 +1,4 @@
-﻿using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Diagnostics.Memory;
-using InteractiveSeven.Core.ViewModels;
+﻿using InteractiveSeven.Core.Diagnostics.Memory;
 
 namespace InteractiveSeven.Core.Moods
 {
