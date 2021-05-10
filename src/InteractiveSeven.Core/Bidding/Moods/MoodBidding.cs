@@ -33,11 +33,12 @@ namespace InteractiveSeven.Core.Bidding.Moods
             MoodBids.Add(new MoodBid(DangerMood.DefaultId, 0));
             MoodBids.Add(new MoodBid(PeacefulMood.DefaultId, 0));
             MoodBids.Add(new MoodBid(LooseChangeMood.DefaultId, 0));
+            MoodBids.Add(new MoodBid(LooseChangeMood.DefaultId, 0));
         }
 
         public void ResetBids(int topMoodId)
         {
-            List<BidRecord> refunds = new List<BidRecord>();
+            List<BidRecord> refunds = new();
             foreach (MoodBid nonWinner in MoodBids.Where(x => x.MoodId != topMoodId))
             {
                 refunds.AddRange(nonWinner.BidRecords);
