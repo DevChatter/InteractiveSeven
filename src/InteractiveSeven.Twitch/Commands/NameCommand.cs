@@ -20,8 +20,18 @@ namespace InteractiveSeven.Twitch.Commands
 
         private static string[] AllWords(CommandSettings settings)
         {
-            return settings.AllWordSets
-                .Select(x => x.Words?.Invoke() ?? new string[] { })
+            return new[]
+                {
+                    settings.CloudCommandWords,
+                    settings.BarretCommandWords,
+                    settings.TifaCommandWords,
+                    settings.AerisCommandWords,
+                    settings.CaitCommandWords,
+                    settings.CidCommandWords,
+                    settings.RedCommandWords,
+                    settings.VincentCommandWords,
+                    settings.YuffieCommandWords,
+                }
                 .SelectMany(x => x)
                 .Distinct()
                 .ToArray();
