@@ -7,5 +7,7 @@ namespace InteractiveSeven.Core.MvvmCommands
         public SimpleCommand(Action<object> executeAction) : base(executeAction)
         {
         }
+
+        public override bool CanExecute(object parameter) => true;
     }
 }
