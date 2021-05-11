@@ -36,8 +36,12 @@ namespace InteractiveSeven.Twitch
             {
                 _isConnected = value;
                 OnPropertyChanged();
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged("IsDisconnected");
             }
         }
+
+        public bool IsDisconnected => !_isConnected;
 
         public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
             IIntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
@@ -89,8 +93,8 @@ namespace InteractiveSeven.Twitch
         {
             try
             {
-                _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                    ?.Execute(CommandData.FromChatCommand(e.Command));
+                var command = _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText));
+                command?.Execute(CommandData.FromChatCommand(e.Command));
                 _intervalMessaging.MessageReceived();
             }
             catch (Exception exception)

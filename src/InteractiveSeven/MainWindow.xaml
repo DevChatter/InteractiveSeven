@@ -35,7 +35,11 @@
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
                            Margin="2" VerticalAlignment="Center" Padding="4" Style="{StaticResource SubHeaderTextBlockStyle}" />
                 <Button Content="Connect" Command="{Binding ConnectBotCommand}"
-                        Margin="2" VerticalAlignment="Center" Padding="4" />
+                        Margin="2" VerticalAlignment="Center" Padding="4"
+                        Visibility="{Binding ChatBot.IsDisconnected, Converter={StaticResource BoolToHiddenConverter}}" />
+                <Button Content="Disconnect" Command="{Binding DisconnectBotCommand}"
+                        Margin="2" VerticalAlignment="Center" Padding="4"
+                        Visibility="{Binding ChatBot.IsConnected, Converter={StaticResource BoolToHiddenConverter}}" />
             </StackPanel>
             <Grid>
                 <TextBlock Text="Interactive Seven" VerticalAlignment="Center"
