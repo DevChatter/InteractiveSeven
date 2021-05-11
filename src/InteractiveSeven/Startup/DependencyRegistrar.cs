@@ -131,6 +131,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<GilBank>();
+            services.AddSingleton<MemoryFreezer>();
             services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
@@ -150,6 +151,8 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<Mood, DangerMood>();
             services.AddSingleton<Mood, NormalMood>();
             services.AddSingleton<Mood, PeacefulMood>();
+            services.AddSingleton<Mood, NothingMood>();
+            services.AddSingleton<Mood, LooseChangeMood>();
         }
     }
 }
