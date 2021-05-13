@@ -13,7 +13,7 @@ namespace InteractiveSeven.Core.FinalFantasy
 
         public FF7BattleMap(byte[] bytes, byte activeBattle)
         {
-            IsActiveBattle = activeBattle == 0x01;
+            IsActiveBattle = activeBattle > 0;
             _map = bytes;
         }
 
