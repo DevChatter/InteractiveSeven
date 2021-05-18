@@ -18,9 +18,9 @@ namespace InteractiveSeven.Core.Moods
             _memoryFreezer.AddValue(Addresses.BattleApGain, new byte[] { 0, 0 });
             _memoryFreezer.AddValue(Addresses.BattleXpGain, new byte[] { 0, 0, 0, 0 });
             _memoryFreezer.AddValue(Addresses.BattleGilGain, new byte[] { 0, 0, 0, 0 });
-            _memoryFreezer.AddValue(Addresses.RewardItem1Amount, new byte[] { 0, 0 });
-            _memoryFreezer.AddValue(Addresses.RewardItem2Amount, new byte[] { 0, 0 });
-            _memoryFreezer.AddValue(Addresses.RewardItem3Amount, new byte[] { 0, 0 });
+            _memoryFreezer.AddValue(Addresses.RewardItem1, new byte[] { 255, 255, 0, 0 });
+            _memoryFreezer.AddValue(Addresses.RewardItem2, new byte[] { 255, 255, 0, 0 });
+            _memoryFreezer.AddValue(Addresses.RewardItem3, new byte[] { 255, 255, 0, 0 });
         }
 
         public const int DefaultId = 5;
