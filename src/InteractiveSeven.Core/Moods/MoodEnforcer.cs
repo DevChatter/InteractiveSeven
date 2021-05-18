@@ -19,8 +19,9 @@ namespace InteractiveSeven.Core.Moods
         private Timer _checkerTimer;
         private DateTime _nextMoodChange;
         private readonly IList<Mood> _moods;
+        private bool _isRunning = false;
 
-        private readonly object _padlock = new object();
+        private object _padlock = new();
 
         private MoodSettings MoodSettings => ApplicationSettings.Instance.MoodSettings;
 
@@ -34,38 +35,52 @@ namespace InteractiveSeven.Core.Moods
 
         public void Start()
         {
-            _nextMoodChange = DateTime.UtcNow;
-            if (MoodSettings.Enabled && _runTimer == null && _checkerTimer == null)
+            SafeLock.DoInLock(CanStart, ref _padlock, () =>
             {
+                _isRunning = true;
+                _nextMoodChange = DateTime.UtcNow;
+
                 _runTimer = new Timer(DoTheWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
 
                 _checkerTimer = new Timer(Check, null, TimeSpan.Zero, TimeSpan.FromSeconds(20));
-            }
+            });
+        }
+
+        private bool CanStart()
+        {
+            return !_isRunning && MoodSettings.Enabled && _runTimer == null && _checkerTimer == null;
+        }
+
+        private bool CanStop()
+        {
+            return _isRunning || _runTimer != null || _checkerTimer != null;
+        }
+
+        private bool TimeToChange()
+        {
+            return _isRunning && _nextMoodChange < DateTime.UtcNow;
         }
 
         private void Check(object _)
         {
-            if (_nextMoodChange < DateTime.UtcNow)
+            SafeLock.DoInLock(TimeToChange, ref _padlock, () =>
             {
-                lock (_padlock)
+                int topMoodId = _moodBidding.GetTopMoodId();
+                if (topMoodId != CurrentMood?.Id)
                 {
-                    int topMoodId = _moodBidding.GetTopMoodId();
-                    if (topMoodId != CurrentMood?.Id)
+                    var previousMood = CurrentMood;
+                    CurrentMood = _moods.SingleOrDefault(x => x.Id == topMoodId);
+                    previousMood?.RemoveEffect();
+                    CurrentMood?.ApplyEffect();
+                    if (CurrentMood != null)
                     {
-                        var previousMood = CurrentMood;
-                        CurrentMood = _moods.SingleOrDefault(x => x.Id == topMoodId);
-                        previousMood?.RemoveEffect();
-                        CurrentMood?.ApplyEffect();
-                        if (CurrentMood != null)
-                        {
-                            _moodBidding.ResetBids(topMoodId);
-                            _statusHubEmitter.ShowEvent($"{CurrentMood.Name} Starting",
-                                $"Next Mood in {MinutesBetweenMoodChanges} minutes.");
-                        }
+                        _moodBidding.ResetBids(topMoodId);
+                        _statusHubEmitter.ShowEvent($"{CurrentMood.Name} Starting",
+                            $"Next Mood in {MinutesBetweenMoodChanges} minutes.");
                     }
-                    _nextMoodChange = DateTime.UtcNow.AddMinutes(MinutesBetweenMoodChanges);
                 }
-            }
+                _nextMoodChange = DateTime.UtcNow.AddMinutes(MinutesBetweenMoodChanges);
+            });
         }
 
         private void MoodSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -93,8 +108,14 @@ namespace InteractiveSeven.Core.Moods
 
         public void Stop()
         {
-            _runTimer?.Dispose();
-            _checkerTimer?.Dispose();
+            SafeLock.DoInLock(CanStop, ref _padlock, () =>
+            {
+                _runTimer?.Dispose();
+                _checkerTimer?.Dispose();
+                _runTimer = null;
+                _checkerTimer = null;
+                _isRunning = false;
+            });
         }
 
         public void Dispose()
