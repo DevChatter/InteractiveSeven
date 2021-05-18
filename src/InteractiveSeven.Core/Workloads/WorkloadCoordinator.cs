@@ -13,9 +13,9 @@ namespace InteractiveSeven.Core.Workloads
         private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<WorkloadCoordinator> _logger;
-        private readonly ConcurrentQueue<IWorkload> _workloads = new ConcurrentQueue<IWorkload>();
+        private readonly ConcurrentQueue<IWorkload> _workloads = new();
         private bool _isRunning = false;
-        private readonly object _padlock = new object();
+        private readonly object _padlock = new();
 
         public WorkloadCoordinator(IMenuColorAccessor menuColorAccessor,
             ILogger<WorkloadCoordinator> logger,

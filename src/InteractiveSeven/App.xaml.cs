@@ -87,6 +87,7 @@ namespace InteractiveSeven
 
                 _moodEnforcer = _host.Services.GetService<MoodEnforcer>();
 
+                // TODO: Don't start unless feature is "on"
                 _logger.LogInformation("Starting Mood Enforcer...");
                 Task.Run(() => _moodEnforcer.Start()).RunInBackgroundSafely(false, LogMoodEnforcerError);
 
@@ -173,6 +174,7 @@ namespace InteractiveSeven
         private async void App_OnExit(object sender, ExitEventArgs e)
         {
             await _host.StopAsync();
+            _moodEnforcer.Stop();
             _host.Dispose();
         }
     }
