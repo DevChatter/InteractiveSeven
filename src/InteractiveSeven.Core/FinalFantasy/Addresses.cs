@@ -39,14 +39,14 @@ namespace InteractiveSeven.Core.FinalFantasy
         public static readonly MemLoc BattleApGain = new(0x99E2C4, 2);
         public static readonly MemLoc BattleGilGain = new(0x99E2C8, 4);
 
-        public static readonly MemLoc RewardItem1 = new(0x99E2F0, 2);
-        public static readonly MemLoc RewardItem1Amount = new(0x99E2F2, 2);
+        public static readonly MemLoc RewardItem1 = new(0x99E2F0, 4);
+        //public static readonly MemLoc RewardItem1Amount = new(0x99E2F2, 2);
 
-        public static readonly MemLoc RewardItem2 = new(0x99E2F6, 2);
-        public static readonly MemLoc RewardItem2Amount = new(0x99E2F8, 2);
+        public static readonly MemLoc RewardItem2 = new(0x99E2F6, 4);
+        //public static readonly MemLoc RewardItem2Amount = new(0x99E2F8, 2);
 
-        public static readonly MemLoc RewardItem3 = new(0x99E2FC, 2);
-        public static readonly MemLoc RewardItem3Amount = new(0x99E2FE, 2);
+        public static readonly MemLoc RewardItem3 = new(0x99E2FC, 4);
+        //public static readonly MemLoc RewardItem3Amount = new(0x99E2FE, 2);
 
         public static readonly MemLoc RewardItem4 = new(0x99E302, 2);
         public static readonly MemLoc RewardItem4Amount = new(0x99E304, 2);
