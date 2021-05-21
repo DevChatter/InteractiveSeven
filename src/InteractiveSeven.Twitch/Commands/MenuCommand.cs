@@ -7,19 +7,26 @@ using InteractiveSeven.Twitch.Payments;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using InteractiveSeven.Core.Diagnostics.Memory;
+using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands
 {
     public class MenuCommand : BaseCommand
     {
+        private readonly ITwitchClient _twitchClient;
+        private readonly IMenuColorAccessor _menuColorAccessor;
         private readonly ColorPaletteCollection _paletteCollection;
         private readonly PaymentProcessor _paymentProcessor;
 
         private MenuColorSettings MenuSettings => ApplicationSettings.Instance.MenuSettings;
 
-        public MenuCommand(ColorPaletteCollection paletteCollection, PaymentProcessor paymentProcessor)
+        public MenuCommand(ITwitchClient twitchClient, IMenuColorAccessor menuColorAccessor,
+            ColorPaletteCollection paletteCollection, PaymentProcessor paymentProcessor)
             : base(x => x.MenuCommandWords, x => x.MenuSettings.Enabled)
         {
+            _twitchClient = twitchClient;
+            _menuColorAccessor = menuColorAccessor;
             _paletteCollection = paletteCollection;
             _paymentProcessor = paymentProcessor;
         }
@@ -32,7 +39,17 @@ namespace InteractiveSeven.Twitch.Commands
 
             MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
 
-            if (menuColors == null) return;
+            if (menuColors == null)
+            {
+                var colors = _menuColorAccessor.GetMenuColors(Settings.ProcessName);
+                string tl = colors.TopLeft.ToHexString();
+                string tr = colors.TopRight.ToHexString();
+                string bl = colors.BotLeft.ToHexString();
+                string br = colors.BotRight.ToHexString();
+                _twitchClient.SendMessage(commandData.Channel,
+                    $"Current Menu Colors: {tl} {tr} {bl} {br}");
+                return;
+            }
 
             var gilTransaction = _paymentProcessor.ProcessPayment(commandData,
                 MenuSettings.BitCost, MenuSettings.AllowModOverride);

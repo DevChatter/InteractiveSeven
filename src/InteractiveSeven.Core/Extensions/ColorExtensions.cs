@@ -18,6 +18,16 @@ namespace InteractiveSeven.Core
         }
 
         /// <summary>
+        /// Get a string of the hex rgb value of the color.
+        /// </summary>
+        /// <param name="c">color to convert</param>
+        /// <returns>string representation of the color</returns>
+        public static string ToHexString(this Color c)
+        {
+            return $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        }
+
+        /// <summary>
         /// Return Color as bytes formatted for use in FF7.
         /// Note: Order is BGR.
         /// </summary>
