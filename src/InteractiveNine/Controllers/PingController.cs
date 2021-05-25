@@ -7,11 +7,6 @@ namespace InteractiveNine.Controllers
     [Route("[controller]")]
     public class PingController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<PingController> _logger;
 
         public PingController(ILogger<PingController> logger)
@@ -22,6 +17,7 @@ namespace InteractiveNine.Controllers
         [HttpGet]
         public string Get()
         {
+            _logger.LogInformation("Ping Controller Called");
             return "Pong";
         }
     }
