@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace InteractiveEight.Controllers
 {
@@ -22,6 +18,7 @@ namespace InteractiveEight.Controllers
         [HttpGet]
         public string Get()
         {
+            _logger.LogInformation("Ping Controller Called");
             return "Pong";
         }
     }
