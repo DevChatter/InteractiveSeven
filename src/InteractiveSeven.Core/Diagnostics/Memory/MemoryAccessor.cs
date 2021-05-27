@@ -31,6 +31,12 @@ namespace InteractiveSeven.Core.Diagnostics.Memory
         private static extern Int32 CloseHandle(IntPtr hProcess);
 
 
+        public byte[] ReadMem(string processName, MemLoc memLoc)
+        {
+            byte[] buffer = new byte[memLoc.NumBytes];
+            return ReadMem(processName, memLoc.Address, buffer) ? buffer : null;
+        }
+
         public bool ReadMem(string processName, IntPtr address, byte[] buffer)
         {
             try
