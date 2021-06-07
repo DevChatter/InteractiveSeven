@@ -44,7 +44,6 @@
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Web\InteractiveSeven.Web.csproj" />
-    <ProjectReference Include="..\Tseng\Tseng.csproj" />
   </ItemGroup>
 
   <ItemGroup>
