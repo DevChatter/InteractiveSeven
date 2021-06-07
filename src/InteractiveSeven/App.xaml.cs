@@ -7,7 +7,6 @@ using DevChatter.InteractiveGames.Core.Seven;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Startup;
 using MahApps.Metro.Theming;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

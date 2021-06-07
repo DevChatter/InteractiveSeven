@@ -1,4 +1,4 @@
-﻿namespace Tseng.RunOnce
+﻿namespace DevChatter.InteractiveGames.Core.Seven.Tseng.RunOnce
 {
     public static class Assets
     {
