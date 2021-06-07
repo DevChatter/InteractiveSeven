@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Models;
-using InteractiveSeven.Services;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using DevChatter.InteractiveGames.Core.Seven.Services;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.ValueConverters
 {
