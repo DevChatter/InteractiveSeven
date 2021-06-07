@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using InteractiveSeven;
+using DevChatter.InteractiveGames.Core.Seven.Tseng;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.Workloads;
-using InteractiveSeven.Startup;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Tseng;
 
 namespace DevChatter.InteractiveGames.Core.Seven
 {

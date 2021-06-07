@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevChatter.InteractiveGames.Core.Seven.Extensions;
+using DevChatter.InteractiveGames.Core.Seven.Tseng;
+using DevChatter.InteractiveGames.Core.Seven.Tseng.RunOnce;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -10,10 +12,8 @@ using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Twitch.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using Tseng;
-using Tseng.RunOnce;
 
-namespace InteractiveSeven.Startup
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     public static class FF7Registrar
     {

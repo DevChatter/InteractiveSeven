@@ -1,12 +1,12 @@
-﻿using InteractiveSeven.Core.Diagnostics;
-using InteractiveSeven.Core.Diagnostics.Memory;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using InteractiveSeven.Core.Diagnostics;
+using InteractiveSeven.Core.Diagnostics.Memory;
+using Microsoft.Extensions.Logging;
 
-namespace Tseng.lib
+namespace DevChatter.InteractiveGames.Core.Seven.Tseng.Memory
 {
     public class NativeMemoryReader : IDisposable
     {

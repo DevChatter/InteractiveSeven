@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core.ViewModels;
-using MahApps.Metro.Controls;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Windows;
+using MahApps.Metro.Controls;
 
-namespace InteractiveSeven
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
