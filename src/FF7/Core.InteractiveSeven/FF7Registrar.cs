@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DevChatter.InteractiveGames.Core.Seven.Extensions;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -11,7 +12,6 @@ using InteractiveSeven.Twitch.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Tseng;
 using Tseng.RunOnce;
-using InteractiveSeven;
 
 namespace InteractiveSeven.Startup
 {

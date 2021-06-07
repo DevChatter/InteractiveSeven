@@ -6,7 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:behaviors="clr-namespace:InteractiveSeven.Behaviors"
+        xmlns:behaviors="clr-namespace:DevChatter.InteractiveGames.Core.Seven.Behaviors"
         mc:Ignorable="d"
         BorderThickness="0" 
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"

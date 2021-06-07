@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using ControlzEx.Theming;
+using DevChatter.InteractiveGames.Core.Seven;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;

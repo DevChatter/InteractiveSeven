@@ -1,8 +1,8 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Xaml.Behaviors;
 
-namespace InteractiveSeven.Behaviors
+namespace DevChatter.InteractiveGames.Core.Seven.Behaviors
 {
     public class SelectAllTextOnFocusBehavior : Behavior<TextBox>
     {
