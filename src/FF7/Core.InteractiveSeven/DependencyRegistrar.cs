@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using InteractiveSeven.Commands;
+using DevChatter.InteractiveGames.Core.Seven.Commands;
+using DevChatter.InteractiveGames.Core.Seven.Extensions;
+using InteractiveSeven;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Data;
@@ -12,6 +14,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Services;
+using InteractiveSeven.Startup;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
@@ -26,7 +29,7 @@ using TwitchLib.Api.Interfaces;
 using TwitchLib.Client;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Startup
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     public static class DependencyRegistrar
     {

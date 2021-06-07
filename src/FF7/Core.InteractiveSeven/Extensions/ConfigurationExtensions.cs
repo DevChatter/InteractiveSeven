@@ -3,7 +3,7 @@ using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.Commands.Decorators;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InteractiveSeven
+namespace DevChatter.InteractiveGames.Core.Seven.Extensions
 {
     public static class ConfigurationExtensions
     {

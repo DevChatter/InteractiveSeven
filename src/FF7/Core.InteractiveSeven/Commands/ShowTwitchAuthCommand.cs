@@ -4,7 +4,7 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 
-namespace InteractiveSeven.Commands
+namespace DevChatter.InteractiveGames.Core.Seven.Commands
 {
     public class ShowTwitchAuthCommand : IShowTwitchAuthCommand
     {
