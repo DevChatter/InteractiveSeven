@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using InteractiveSeven.Core.ViewModels;
+using InteractiveSeven.Core.Windows;
 using Xceed.Wpf.Toolkit;
 
 namespace InteractiveSeven
@@ -8,7 +9,7 @@ namespace InteractiveSeven
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow
+    public partial class SettingsWindow : ISettingsWindow
     {
         public SettingsWindow(SettingsViewModel viewModel)
         {

@@ -1,12 +1,9 @@
 ﻿using InteractiveSeven.Core.ViewModels;
-using MahApps.Metro.Controls;
+using InteractiveSeven.Core.Windows;
 
 namespace InteractiveSeven
 {
-    /// <summary>
-    /// Interaction logic for AccentStyleWindow.xaml
-    /// </summary>
-    public partial class AccentStyleWindow : MetroWindow
+    public partial class AccentStyleWindow : IAccentStyleWindow
     {
         public AccentStyleWindow(ThemeViewModel viewModel)
         {
