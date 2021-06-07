@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevChatter.InteractiveGames.Core.Seven.Commands;
 using DevChatter.InteractiveGames.Core.Seven.Extensions;
+using DevChatter.InteractiveGames.Core.Seven.Services;
 using InteractiveSeven;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding.Moods;
@@ -13,7 +14,6 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Services;
 using InteractiveSeven.Startup;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;

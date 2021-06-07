@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Services;
-using System.Windows;
+﻿using System.Windows;
+using InteractiveSeven.Core.Services;
 
-namespace InteractiveSeven.Services
+namespace DevChatter.InteractiveGames.Core.Seven.Services
 {
     public class DialogService : IDialogService
     {
