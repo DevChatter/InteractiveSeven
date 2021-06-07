@@ -3,6 +3,7 @@ using MahApps.Metro.Controls;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using InteractiveSeven.Core.Windows;
 
 namespace InteractiveSeven
 {
@@ -11,9 +12,15 @@ namespace InteractiveSeven
     /// </summary>
     public partial class MainWindow
     {
+        private MetroWindow _accentStyleWindow;
+        private MetroWindow _settingsWindow;
 
-        public MainWindow(MainWindowViewModel viewModel)
+        public MainWindow(MainWindowViewModel viewModel,
+            ISettingsWindow settingsWindow,
+            IAccentStyleWindow accentStyleWindow)
         {
+            _accentStyleWindow = accentStyleWindow as MetroWindow;
+            _settingsWindow = settingsWindow as MetroWindow;
             InitializeComponent();
             DataContext = viewModel;
             ViewModel = viewModel;
@@ -32,7 +39,6 @@ namespace InteractiveSeven
             e.Handled = true;
         }
 
-        private MetroWindow _settingsWindow;
         private void ChangeSettingsButtonClick(object sender, RoutedEventArgs e)
         {
             if (_settingsWindow != null)
@@ -41,7 +47,6 @@ namespace InteractiveSeven
                 return;
             }
 
-            _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
             _settingsWindow.Owner = this;
             _settingsWindow.Closed += (o, args) => _settingsWindow = null;
             _settingsWindow.Left = Left + ActualWidth / 6.0;
@@ -49,21 +54,19 @@ namespace InteractiveSeven
             _settingsWindow.Show();
         }
 
-        private MetroWindow _accentThemeTestWindow;
         private void ChangeAppStyleButtonClick(object sender, RoutedEventArgs e)
         {
-            if (_accentThemeTestWindow != null)
+            if (_accentStyleWindow != null)
             {
-                _accentThemeTestWindow.Activate();
+                _accentStyleWindow.Activate();
                 return;
             }
 
-            _accentThemeTestWindow = new AccentStyleWindow(ViewModel.ThemeViewModel);
-            _accentThemeTestWindow.Owner = this;
-            _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
-            _accentThemeTestWindow.Left = Left + ActualWidth / 4.0;
-            _accentThemeTestWindow.Top = Top + ActualHeight / 4.0;
-            _accentThemeTestWindow.Show();
+            _accentStyleWindow.Owner = this;
+            _accentStyleWindow.Closed += (o, args) => _accentStyleWindow = null;
+            _accentStyleWindow.Left = Left + ActualWidth / 4.0;
+            _accentStyleWindow.Top = Top + ActualHeight / 4.0;
+            _accentStyleWindow.Show();
         }
     }
 }

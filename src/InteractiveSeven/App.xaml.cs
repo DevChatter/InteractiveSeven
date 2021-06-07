@@ -1,44 +1,29 @@
-﻿using ControlzEx.Theming;
-using InteractiveSeven.Core;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using ControlzEx.Theming;
 using InteractiveSeven.Core.Data;
-using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Core.Workloads;
+using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Startup;
-//using InteractiveSeven.Theming;
-using MahApps.Metro;
 using MahApps.Metro.Theming;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace InteractiveSeven
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private WorkloadCoordinator _workloadCoordinator;
-
-        const string THEME_FILE_NAME = "i7-theme.json";
+        const string THEME_FILE_NAME = "theme.json";
         private const string DarkBlueThemeName = "Dark.Blue";
 
-        private IWebHost _host;
-        private TsengMonitor _tsengMonitor;
-        private MoodEnforcer _moodEnforcer;
-        private ILogger<App> _logger;
+        private IServiceCollection _services = new ServiceCollection();
+        private GameSelectWindow _gameSelectWindow;
+        private AppViewModel _appViewModel = new();
 
         private static void InitializeSettings(ILogger logger)
         {
@@ -55,54 +40,41 @@ namespace InteractiveSeven
                     .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 
-                var logger = new SerilogLoggerProvider(Log.Logger).CreateLogger(nameof(SettingsStore));
-                InitializeSettings(logger);
+                var loggerProvider = new SerilogLoggerProvider(Log.Logger);
+                var settingsLogger = loggerProvider.CreateLogger(nameof(SettingsStore));
+                InitializeSettings(settingsLogger);
 
-                var uri = new UriBuilder("http", "localhost", ApplicationSettings.Instance.TsengSettings.PortNumber).Uri;
-                _host = WebHost.CreateDefaultBuilder(e.Args)
-                    .UseStartup<InteractiveSeven.Web.Startup>()
-                    .UseUrls(uri.AbsoluteUri)
-                    .ConfigureServices(DependencyRegistrar.ConfigureServices)
-                    .Build();
+                _services.AddLogging(builder => builder.AddSerilog(dispose: true));
+
+                DependencyRegistrar.ConfigureServices(_services);
+
+                RegisterSharedWindows(_services);
+
+                _services.AddSingleton(_appViewModel);
+                _services.AddSingleton<IModded>(_appViewModel);
 
                 if (e.Args.Contains("--7h"))
                 {
-                    (this._host.Services.GetService<IModded>() as Modded)?.SetLoadedBy7H(true);
+                    _appViewModel.SetLoadedBy7H(true);
                 }
 
-                _logger = _host.Services.GetService<ILogger<App>>();
-
-                _logger.LogInformation("Starting Web Host...");
-
-                _host.Start();
-
-                var dataLoader = _host.Services.GetService<DataLoader>();
-                _logger.LogInformation("Starting Elena DataLoader...");
-                dataLoader.LoadPreviousData();
-
-                _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
-
-                _tsengMonitor = _host.Services.GetService<TsengMonitor>();
-
-                _logger.LogInformation("Starting Tseng Background Monitoring...");
-                Task.Run(() => _tsengMonitor.Start()).RunInBackgroundSafely(false, LogTsengError);
-
-                _moodEnforcer = _host.Services.GetService<MoodEnforcer>();
-
-                // TODO: Don't start unless feature is "on"
-                _logger.LogInformation("Starting Mood Enforcer...");
-                Task.Run(() => _moodEnforcer.Start()).RunInBackgroundSafely(false, LogMoodEnforcerError);
-
-                _logger.LogInformation("Initializing Theming...");
+                Log.Logger.Information("Initializing Theming...");
                 InitializeTheming();
 
-                _logger.LogInformation("Showing App Main Window...");
-                _host.Services.GetRequiredService<MainWindow>().Show();
+                Log.Logger.Information("Showing Game Selection Window...");
+                _gameSelectWindow = new GameSelectWindow(_appViewModel, _services);
+                _gameSelectWindow.Show();
             }
             catch (Exception exception)
             {
                 Log.Error(exception, "Error Loading Application");
             }
+        }
+
+        private void RegisterSharedWindows(IServiceCollection services)
+        {
+            services.AddSingleton<SettingsWindow>();
+            services.AddSingleton<AccentStyleWindow>();
         }
 
         private void InitializeTheming()
@@ -130,7 +102,7 @@ namespace InteractiveSeven
             }
             catch (Exception themeEx)
             {
-                _logger.LogError(themeEx, "Error Initializing Application Theming");
+                Log.Logger.Error(themeEx, "Error Initializing Application Theming");
             }
         }
 
@@ -143,7 +115,7 @@ namespace InteractiveSeven
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to load theme.");
+                Log.Logger.Error(e, "Failed to load theme.");
             }
 
             return ThemeManager.Current.Themes.First(x => x.Name == DarkBlueThemeName);
@@ -159,25 +131,14 @@ namespace InteractiveSeven
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Fail to save changed theme.");
+                Log.Logger.Error(exception, "Fail to save changed theme.");
             }
         }
 
-        private void LogTsengError(Exception ex)
+        private void App_OnExit(object sender, ExitEventArgs e)
         {
-            _logger.LogError(ex, "Error in Tseng Status Overlay.");
-        }
-
-        private void LogMoodEnforcerError(Exception ex)
-        {
-            _logger.LogError(ex, "Error in Mood Enforcer.");
-        }
-
-        private async void App_OnExit(object sender, ExitEventArgs e)
-        {
-            await _host.StopAsync();
-            _moodEnforcer.Stop();
-            _host.Dispose();
+            _appViewModel?.GameRunner?.Stop();
+            _gameSelectWindow?.Close();
         }
     }
 }

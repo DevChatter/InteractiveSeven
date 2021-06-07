@@ -1,0 +1,64 @@
+﻿<mah:MetroWindow x:Class="InteractiveSeven.GameSelectWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:InteractiveSeven"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 mc:Ignorable="d"
+                 BorderThickness="0" 
+                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                 Title="Select Game" MinHeight="200" MinWidth="630" Width="630" Height="200">
+    <Grid Margin="12" Width="600" Height="120">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0"
+                IsEnabled="{Binding IsAwaitingGameSelection}"
+                Margin="5" Padding="0"
+                FontFamily="Microsoft Himalaya"
+                Click="FF7Button_Click">
+            <Grid>
+                <Image Source="/Assets/FF7Gradient.png" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="FINAL FANTASY" FontSize="30" TextAlignment="Center" />
+                    <TextBlock Text="VII" FontSize="40" TextAlignment="Center" />
+                </StackPanel>
+
+            </Grid>
+        </Button>
+        <Button Grid.Column="1"
+                IsEnabled="{Binding IsAwaitingGameSelection}"
+                Margin="5" Padding="0"
+                FontFamily="Microsoft Himalaya"
+                Click="FF8Button_Click">
+            <Grid>
+                <Image Source="/Assets/FF8Gradient.png" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="FINAL FANTASY" FontSize="30" TextAlignment="Center" />
+                    <TextBlock Text="VIII" FontSize="40" TextAlignment="Center" />
+                </StackPanel>
+
+            </Grid>
+        </Button>
+        <Button Grid.Column="2"
+                IsEnabled="{Binding IsAwaitingGameSelection}"
+                Margin="5" Padding="0"
+                FontFamily="Microsoft Himalaya"
+                Click="FF9Button_Click">
+            <Grid>
+                <Image Source="/Assets/FF9Gradient.png" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="FINAL FANTASY" FontSize="30" TextAlignment="Center" />
+                    <TextBlock Text="IX" FontSize="40" TextAlignment="Center" />
+                </StackPanel>
+
+            </Grid>
+        </Button>
+    </Grid>
+</mah:MetroWindow>

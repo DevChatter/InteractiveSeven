@@ -13,4 +13,8 @@
     <PackageReference Include="Shojy.FF7.Elena" Version="0.2-dev" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Windows\" />
+  </ItemGroup>
+
 </Project>
