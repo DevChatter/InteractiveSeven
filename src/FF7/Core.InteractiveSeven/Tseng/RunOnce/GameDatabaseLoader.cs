@@ -12,7 +12,7 @@ using Shojy.FF7.Elena.Equipment;
 using Accessory = InteractiveSeven.Core.FinalFantasy.Models.Accessory;
 using Weapon = InteractiveSeven.Core.FinalFantasy.Models.Weapon;
 
-namespace Tseng.RunOnce
+namespace DevChatter.InteractiveGames.Core.Seven.Tseng.RunOnce
 {
     public class GameDatabaseLoader : IGameDatabaseLoader
     {

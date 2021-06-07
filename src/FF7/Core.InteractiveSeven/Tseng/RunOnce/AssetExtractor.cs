@@ -6,7 +6,7 @@ using System.Linq;
 using Shojy.FF7.Elena;
 using Shojy.FF7.Elena.Converters;
 
-namespace Tseng.RunOnce
+namespace DevChatter.InteractiveGames.Core.Seven.Tseng.RunOnce
 {
     public static class AssetExtractor
     {

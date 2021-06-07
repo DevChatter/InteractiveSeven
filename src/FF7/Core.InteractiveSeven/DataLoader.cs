@@ -7,7 +7,7 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
 
-namespace InteractiveSeven.Startup
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     public class DataLoader
     {

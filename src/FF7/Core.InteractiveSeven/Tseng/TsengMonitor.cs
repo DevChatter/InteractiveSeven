@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using DevChatter.InteractiveGames.Core.Seven.Tseng.Memory;
+using DevChatter.InteractiveGames.Core.Seven.Tseng.RunOnce;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Emitters;
@@ -12,11 +14,9 @@ using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
 using Tseng.GameData;
-using Tseng.lib;
-using Tseng.RunOnce;
 using Timer = System.Timers.Timer;
 
-namespace Tseng
+namespace DevChatter.InteractiveGames.Core.Seven.Tseng
 {
     public class TsengMonitor
     {
