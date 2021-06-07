@@ -1,12 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.FinalFantasy;
 using Microsoft.Extensions.Hosting;
 
-namespace InteractiveNine
+namespace DevChatter.InteractiveGames.Core.Nine
 {
     public class MonitoringService : BackgroundService
     {
