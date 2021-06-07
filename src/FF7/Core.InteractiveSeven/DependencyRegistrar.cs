@@ -1,20 +1,16 @@
-﻿using InteractiveSeven.Commands;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Data;
-using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
-using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.IntervalMessages;
-using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
@@ -23,10 +19,7 @@ using InteractiveSeven.Twitch.Payments;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System.Collections.Generic;
-using Tseng;
 using Tseng.lib;
-using Tseng.RunOnce;
 using TwitchLib.Api;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client;
@@ -40,29 +33,15 @@ namespace InteractiveSeven.Startup
         {
             services.AddTransient(typeof(IList<>), typeof(List<>));
 
-            services.AddSingleton<WorkloadCoordinator>();
-            services.AddSingleton<MoodEnforcer>();
 
             RegisterMoods(services);
 
-            services.AddSingleton<MenuColorViewModel>();
-            services.AddSingleton<NameBiddingViewModel>();
-            services.AddSingleton<StreamOverlayViewModel>();
-            services.AddSingleton<SettingsViewModel>();
-            services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<TwitchAuthViewModel>();
-            services.AddSingleton<ThemeViewModel>();
-
-            services.AddSingleton<IModded, Modded>();
-
-            services.AddSingleton<PartyStatusViewModel>();
 
             services.AddTransient<IStatusHubEmitter, StatusHubEmitter>();
 
             services.AddSingleton<IClock, SystemClock>();
             services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
-            services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
-            services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
+            services.AddSingleton<AoBScanner>();
             services.AddSingleton<NativeMemoryReader>();
             services.AddSingleton<IGameMomentAccessor, GameMomentAccessor>();
             services.AddSingleton<IMenuColorAccessor, MenuColorAccessor>();
@@ -84,31 +63,9 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<LockCommand>();
             services.RegisterTwitchCommand<UnlockCommand>();
 
-            services.RegisterBattleCommand<StatusEffectCommand>();
-            services.RegisterBattleCommand<EsunaCommand>();
-            services.RegisterBattleCommand<HealStatusEffectCommand>();
-
-            services.RegisterNonBattleCommand<WeaponCommand>();
-            services.RegisterNonBattleCommand<ArmletCommand>();
-            services.RegisterNonBattleCommand<AccessoryCommand>();
-            services.RegisterNonBattleCommand<PauperCommand>();
-            services.RegisterNonBattleCommand<RemovePlayerGilCommand>();
-            services.RegisterNonBattleCommand<GivePlayerGilCommand>();
-            services.RegisterNonBattleCommand<RemovePlayerGpCommand>();
-            services.RegisterNonBattleCommand<GivePlayerGpCommand>();
-
-            services.RegisterTwitchCommand<PaletteCommand>();
-            services.RegisterTwitchCommand<RainbowCommand>();
-            services.RegisterTwitchCommand<MakoCommand>();
-            services.RegisterTwitchCommand<DropCommand>();
-            services.RegisterTwitchCommand<ItemCommand>();
-            services.RegisterTwitchCommand<MateriaCommand>();
             services.RegisterTwitchCommand<CostsCommand>();
             services.RegisterTwitchCommand<RemoveGilCommand>();
             services.RegisterTwitchCommand<GiveGilCommand>();
-            services.RegisterTwitchCommand<NameBidsCommand>();
-            services.RegisterTwitchCommand<MenuCommand>();
-            services.RegisterTwitchCommand<NameCommand>();
             services.RegisterTwitchCommand<RefreshCommand>();
             services.RegisterTwitchCommand<BalanceCommand>();
             services.RegisterTwitchCommand<HelpCommand>();
@@ -119,11 +76,6 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<IChatBot, ChatBot>();
 
-            services.AddSingleton<IGameDatabaseLoader, GameDatabaseLoader>();
-            services.AddSingleton<GameDatabase>();
-            services.AddSingleton<FF7BattleMap>();
-            services.AddSingleton<ProcessConnector>();
-            services.AddSingleton<TsengMonitor>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
 
@@ -133,7 +85,6 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GilBank>();
             services.AddSingleton<MemoryFreezer>();
             services.AddSingleton<PaymentProcessor>();
-            services.AddSingleton<ColorPaletteCollection>();
             services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
             services.AddSingleton<MainWindow>();
 

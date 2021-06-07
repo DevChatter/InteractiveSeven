@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.MvvmCommands;
+﻿using System.Windows.Input;
+using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
-using System.Windows.Input;
 
 namespace InteractiveSeven.Core.ViewModels
 {

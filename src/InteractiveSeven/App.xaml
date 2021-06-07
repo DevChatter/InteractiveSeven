@@ -23,7 +23,8 @@
                 <Setter Property="Margin" Value="3 4 3 4" />
             </Style>
 
-            <Style TargetType="TabItem" BasedOn="{StaticResource MahApps.Styles.TabItem}">
+            <!--<Style TargetType="TabItem" BasedOn="{StaticResource MahApps.Styles.TabItem}">-->
+            <Style TargetType="TabItem">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TabItem">

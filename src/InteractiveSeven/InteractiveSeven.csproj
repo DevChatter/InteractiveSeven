@@ -14,6 +14,9 @@
 
   <ItemGroup>
     <None Remove="Assets\BecomePatron.png" />
+    <None Remove="Assets\FF7Gradient.png" />
+    <None Remove="Assets\FF8Gradient.png" />
+    <None Remove="Assets\FF9Gradient.png" />
     <None Remove="Controls\EquippableSettingsUc.xaml" />
   </ItemGroup>
 
@@ -29,6 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FF7\Core.InteractiveSeven\Core.InteractiveSeven.csproj" />
+    <ProjectReference Include="..\FF9\Core.InteractiveNine\Core.InteractiveNine.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Web\InteractiveSeven.Web.csproj" />
@@ -37,6 +42,13 @@
 
   <ItemGroup>
     <Resource Include="Assets\BecomePatron.png" />
+    <Resource Include="Assets\FF7Gradient.png" />
+    <Resource Include="Assets\FF8Gradient.png" />
+    <Resource Include="Assets\FF9Gradient.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Startup\" />
   </ItemGroup>
 
 </Project>

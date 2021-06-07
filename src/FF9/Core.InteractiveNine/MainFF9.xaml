@@ -1,0 +1,33 @@
+﻿<mah:MetroWindow x:Class="DevChatter.InteractiveGames.Core.Nine.MainFF9"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:DevChatter.InteractiveGames.Core.Nine"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 mc:Ignorable="d"
+                 BorderThickness="0" 
+                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                 Title="Interactive Nine" Height="650" Width="600" MinWidth="600" MinHeight="650">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Width="24" Height="24" Kind="ApplicationSettings" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Width="24" Height="24" Kind="PaletteSolid" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="App Theme" />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <Grid>
+
+    </Grid>
+</mah:MetroWindow>
