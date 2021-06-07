@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven", "Interac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Web", "InteractiveSeven.Web\InteractiveSeven.Web.csproj", "{75E11106-A7C9-46B5-84AC-CC757385FCA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tseng", "Tseng\Tseng.csproj", "{BB773192-5869-4FCE-8C7A-343AD797CFF2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4EBBEB0-C51B-452C-8A17-47A5C076EA98}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -54,10 +52,6 @@ Global
 		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75E11106-A7C9-46B5-84AC-CC757385FCA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FE0AC04-1504-450F-BB48-F9ABF6E7D4F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FE0AC04-1504-450F-BB48-F9ABF6E7D4F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE0AC04-1504-450F-BB48-F9ABF6E7D4F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
