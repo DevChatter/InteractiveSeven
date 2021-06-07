@@ -4,7 +4,7 @@ using System.Windows;
 using ControlzEx.Theming;
 using InteractiveSeven.Core.Services;
 
-namespace InteractiveSeven.Services
+namespace DevChatter.InteractiveGames.Core.Seven.Services
 {
     public class ThemeChanger : IThemeChanger
     {

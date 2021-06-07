@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Windows.Data;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Services;
+using DevChatter.InteractiveGames.Core.Seven.Services;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.ValueConverters
 {
