@@ -55,8 +55,6 @@ namespace InteractiveSeven
 
                 DependencyRegistrar.ConfigureServices(_services);
 
-                RegisterSharedWindows(_services);
-
                 _services.AddSingleton(_appViewModel);
                 _services.AddSingleton<IModded>(_appViewModel);
 
@@ -76,12 +74,6 @@ namespace InteractiveSeven
             {
                 Log.Error(exception, "Error Loading Application");
             }
-        }
-
-        private void RegisterSharedWindows(IServiceCollection services)
-        {
-            services.AddSingleton<SettingsWindow>();
-            services.AddSingleton<AccentStyleWindow>();
         }
 
         private void InitializeTheming()

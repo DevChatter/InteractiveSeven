@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.3" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
@@ -19,9 +20,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\..\InteractiveSeven.Web\InteractiveSeven.Web.csproj" />
+    <ProjectReference Include="..\..\Shared\SharedUI\SharedUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\EquippableSettingsUc.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Controls\StatusEffectSettings.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

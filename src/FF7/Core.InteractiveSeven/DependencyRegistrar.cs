@@ -3,6 +3,7 @@ using DevChatter.InteractiveGames.Core.Seven.Commands;
 using DevChatter.InteractiveGames.Core.Seven.Extensions;
 using DevChatter.InteractiveGames.Core.Seven.Services;
 using DevChatter.InteractiveGames.Core.Seven.Tseng.Memory;
+using DevChatter.InteractiveGames.SharedUI;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Data;
@@ -90,6 +91,8 @@ namespace DevChatter.InteractiveGames.Core.Seven
             services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
             services.AddSingleton<MainWindow>();
+
+            services.AddSharedWindows();
 
             services.AddLogging(config =>
             {

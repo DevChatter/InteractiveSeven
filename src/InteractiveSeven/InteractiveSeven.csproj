@@ -19,7 +19,6 @@
     <None Remove="Assets\FF7Gradient.png" />
     <None Remove="Assets\FF8Gradient.png" />
     <None Remove="Assets\FF9Gradient.png" />
-    <None Remove="Controls\EquippableSettingsUc.xaml" />
   </ItemGroup>
 
   <ItemGroup>
