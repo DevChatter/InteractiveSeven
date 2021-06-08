@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace InteractiveSeven.Controls
+namespace DevChatter.InteractiveGames.Core.Seven.Controls
 {
     /// <summary>
     /// Interaction logic for StatusEffectSettings.xaml
