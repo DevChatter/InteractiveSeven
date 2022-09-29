@@ -9,7 +9,7 @@ namespace InteractiveSeven.Core.MvvmCommands
 
         public BaseCommand(Action<T> executeAction) => _executeAction = executeAction;
 
-        public bool CanExecute(object parameter) => parameter is T;
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter) => _executeAction?.Invoke((T)parameter);
 
