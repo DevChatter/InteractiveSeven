@@ -19,7 +19,7 @@ namespace DevChatter.InteractiveGames.Core.Seven
         private IWebHost _host;
         private TsengMonitor _tsengMonitor;
         private MoodEnforcer _moodEnforcer;
-        private ServiceProvider _serviceProvider;
+        private readonly ServiceProvider _serviceProvider;
         private readonly ILogger<FF7Runner> _logger;
 
         public FF7Runner(IServiceCollection services)
@@ -35,7 +35,7 @@ namespace DevChatter.InteractiveGames.Core.Seven
             {
                 var uri = new UriBuilder("http", "localhost", ApplicationSettings.Instance.TsengSettings.PortNumber).Uri;
                 _host = WebHost.CreateDefaultBuilder()
-                    .UseStartup<InteractiveSeven.Web.Startup>()
+                    .UseStartup<Overlays.InteractiveSeven.Startup>()
                     .UseUrls(uri.AbsoluteUri)
                     .ConfigureServices(DependencyRegistrar.ConfigureServices)
                     .Build();

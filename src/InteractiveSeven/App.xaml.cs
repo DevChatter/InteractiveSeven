@@ -32,7 +32,6 @@ namespace InteractiveSeven
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-
             try
             {
                 Log.Logger = new LoggerConfiguration()
