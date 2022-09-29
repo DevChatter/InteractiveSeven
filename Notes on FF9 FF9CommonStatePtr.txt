@@ -1,0 +1,31 @@
+1BCA34D8 -- seems to always end in "34D8"
+
+0060 "Common State"
+-C to get to:
+0054 Points to 051B88F0
+
+051B88F0 +20 (FF9CommonStatePtr) points to 1BCA34D8
++20 (pointer)
++1C (gil)
+
+
+Address of "Common State" -C
+Follow Pointer
+Offset 20
+Follow Pointer
+Offset 20
+Follow Pointer
+Offset 20
+Follow Pointer
+Offset 1C is gil
+
+
+
+
+Address of "Settings State" -C
+Follow Pointer
+Offset 20
+Follow Pointer
+Offset 20
+Follow Pointer
+Offset 88 is window color (Gray 0 - Blue 1)
