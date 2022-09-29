@@ -18,8 +18,8 @@ namespace InteractiveSeven.Core.ViewModels
             ThemeViewModel = themeViewModel;
             StreamOverlayViewModel = streamOverlayViewModel;
             ChatBot = chatBot;
-            ConnectBotCommand = new SimpleCommand(x => ChatBot.Connect());
-            DisconnectBotCommand = new SimpleCommand(x => ChatBot.Disconnect());
+            ConnectBotCommand = new BotConnectCommand(chatBot);
+            DisconnectBotCommand = new BotDisconnectCommand(chatBot);
         }
 
         public ICommand ConnectBotCommand { get; }
