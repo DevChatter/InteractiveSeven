@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.InteractiveNine", "FF9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1244F890-1E94-4AB6-8CD2-D2FB620450D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUI", "Shared\SharedUI\SharedUI.csproj", "{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedUI", "Shared\SharedUI\SharedUI.csproj", "{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlays.InteractiveSeven", "FF7\Overlays.InteractiveSeven\Overlays.InteractiveSeven.csproj", "{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{4FE0AC04-1504-450F-BB48-F9ABF6E7D4F1} = {36A7C474-F6B7-45CC-9061-3BD772B5F079}
 		{9763E918-5DA8-4334-8A7F-518A210B82DF} = {BBE520D1-7802-4526-B736-8C8865CF4F1A}
 		{80B7BFA1-D748-4F94-B01F-B8071B61C8F5} = {1244F890-1E94-4AB6-8CD2-D2FB620450D9}
+		{E44F15C4-BB3E-48A2-9A0E-46B050E05A85} = {36A7C474-F6B7-45CC-9061-3BD772B5F079}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {573D4C0E-580C-424D-92AE-0CD57C35C0C1}
