@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Startup\**" />
+    <EmbeddedResource Remove="Startup\**" />
+    <None Remove="Startup\**" />
+    <Page Remove="Startup\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\BecomePatron.png" />
     <None Remove="Assets\FF7Gradient.png" />
     <None Remove="Assets\FF8Gradient.png" />
@@ -43,10 +50,6 @@
     <Resource Include="Assets\FF7Gradient.png" />
     <Resource Include="Assets\FF8Gradient.png" />
     <Resource Include="Assets\FF9Gradient.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Startup\" />
   </ItemGroup>
 
 </Project>

@@ -25,6 +25,7 @@ namespace DevChatter.InteractiveGames.Core.Seven
             services.AddSingleton<MoodEnforcer>();
 
             services.RegisterViewModels();
+            services.RegisterCommands();
 
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
