@@ -4,7 +4,7 @@ using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Windows;
 using Xceed.Wpf.Toolkit;
 
-namespace DevChatter.InteractiveGames.SharedUI
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

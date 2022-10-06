@@ -21,10 +21,22 @@
     <ProjectReference Include="..\Overlays.InteractiveSeven\Overlays.InteractiveSeven.csproj" />
     <ProjectReference Include="..\..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\..\InteractiveSeven.Web\InteractiveSeven.Web.csproj" />
-    <ProjectReference Include="..\..\Shared\SharedUI\SharedUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AccentStyleWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="AccentStyleWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\EquippableSettingsUc.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
@@ -33,6 +45,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingsWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

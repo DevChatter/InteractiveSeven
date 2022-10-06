@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Navigation;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Core.Windows;
 using MahApps.Metro.Controls;
 
 namespace DevChatter.InteractiveGames.Core.Seven
@@ -15,12 +14,8 @@ namespace DevChatter.InteractiveGames.Core.Seven
         private MetroWindow _accentStyleWindow;
         private MetroWindow _settingsWindow;
 
-        public MainWindow(MainWindowViewModel viewModel,
-            ISettingsWindow settingsWindow,
-            IAccentStyleWindow accentStyleWindow)
+        public MainWindow(MainWindowViewModel viewModel)
         {
-            _accentStyleWindow = accentStyleWindow as MetroWindow;
-            _settingsWindow = settingsWindow as MetroWindow;
             InitializeComponent();
             DataContext = viewModel;
             ViewModel = viewModel;
@@ -47,6 +42,7 @@ namespace DevChatter.InteractiveGames.Core.Seven
                 return;
             }
 
+            _settingsWindow = new SettingsWindow(ViewModel.SettingsViewModel);
             _settingsWindow.Owner = this;
             _settingsWindow.Closed += (o, args) => _settingsWindow = null;
             _settingsWindow.Left = Left + ActualWidth / 6.0;
@@ -62,6 +58,7 @@ namespace DevChatter.InteractiveGames.Core.Seven
                 return;
             }
 
+            _accentStyleWindow = new AccentStyleWindow(ViewModel.ThemeViewModel);
             _accentStyleWindow.Owner = this;
             _accentStyleWindow.Closed += (o, args) => _accentStyleWindow = null;
             _accentStyleWindow.Left = Left + ActualWidth / 4.0;

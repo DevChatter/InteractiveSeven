@@ -21,7 +21,7 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly ITwitchClient _twitchClient;
         private readonly IDataStore<CharacterNameBid> _dataStore;
         private readonly IDialogService _dialogService;
-        private readonly IStatusHubEmitter _statusHubEmitter;
+        //private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly ILogger<NameBiddingViewModel> _logger;
         private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
@@ -32,7 +32,7 @@ namespace InteractiveSeven.Core.ViewModels
 
         public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
             IDataStore<CharacterNameBid> dataStore, IDialogService dialogService,
-            IStatusHubEmitter statusHubEmitter,
+            //IStatusHubEmitter statusHubEmitter,
             ILogger<NameBiddingViewModel> logger,
             ILogger<CharacterNameBidding> charNameBiddingLogger)
         {
@@ -45,7 +45,7 @@ namespace InteractiveSeven.Core.ViewModels
             _twitchClient = twitchClient;
             _dataStore = dataStore;
             _dialogService = dialogService;
-            _statusHubEmitter = statusHubEmitter;
+            //_statusHubEmitter = statusHubEmitter;
             _logger = logger;
             _charNameBiddingLogger = charNameBiddingLogger;
 
@@ -121,7 +121,7 @@ namespace InteractiveSeven.Core.ViewModels
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
                 string message = $"{e.CharName.DefaultName}'s name is now {e.NewName}.";
                 _twitchClient.SendMessage(TwitchSettings.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                //_statusHubEmitter.ShowEvent(message);
             }
             catch (Exception exception)
             {

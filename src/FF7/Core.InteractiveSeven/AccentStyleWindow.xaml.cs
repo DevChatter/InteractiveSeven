@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Windows;
 
-namespace DevChatter.InteractiveGames.SharedUI
+namespace DevChatter.InteractiveGames.Core.Seven
 {
     public partial class AccentStyleWindow : IAccentStyleWindow
     {

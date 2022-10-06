@@ -3,7 +3,6 @@ using DevChatter.InteractiveGames.Core.Seven.Commands;
 using DevChatter.InteractiveGames.Core.Seven.Extensions;
 using DevChatter.InteractiveGames.Core.Seven.Services;
 using DevChatter.InteractiveGames.Core.Seven.Tseng.Memory;
-using DevChatter.InteractiveGames.SharedUI;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Data;
@@ -15,6 +14,7 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
+using InteractiveSeven.Core.Windows;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
@@ -90,14 +90,21 @@ namespace DevChatter.InteractiveGames.Core.Seven
             services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
             services.AddSingleton<MainWindow>();
 
-            services.AddSharedWindows();
-
             services.AddLogging(config =>
             {
                 config.AddSerilog();
             });
 
             services.AddMvcCore();
+            services.AddSignalR();
+
+            services.AddWpfWindows();
+        }
+
+        private static void AddWpfWindows(this IServiceCollection services)
+        {
+            services.AddSingleton<ISettingsWindow, SettingsWindow>();
+            services.AddSingleton<IAccentStyleWindow, AccentStyleWindow>();
         }
 
         private static void RegisterMoods(IServiceCollection services)
