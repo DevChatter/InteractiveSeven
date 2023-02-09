@@ -9,7 +9,7 @@ namespace UnitTests.Core.GilBankTests
 {
     public class GilBankShould
     {
-        private readonly ChatUser _user = new ChatUser("any", "123456");
+        private readonly ChatUser _user = new ("any", "123456");
         private readonly GilBank _bank;
 
         public GilBankShould()
@@ -96,7 +96,7 @@ namespace UnitTests.Core.GilBankTests
         public void FindAccountGivenOnlyName()
         {
             _bank.Deposit(_user, 10);
-            (int balance, int withdrawn) = _bank.Withdraw(new ChatUser(_user.Username, null), 5, true);
+            (int balance, int withdrawn) = _bank.Withdraw(new (_user.Username, null), 5, true);
 
             balance.Should().Be(5);
             withdrawn.Should().Be(5);
@@ -105,16 +105,66 @@ namespace UnitTests.Core.GilBankTests
         [Fact]
         public void FindAccountCreatedWithNameOnly()
         {
-            _bank.Deposit(new ChatUser(_user.Username, null), 100);
+            _bank.Deposit(new (_user.Username, null), 100);
             (int balance, int withdrawn) = _bank.Withdraw(_user, 5, true);
 
             balance.Should().Be(95);
             withdrawn.Should().Be(5);
 
-            (balance, withdrawn) = _bank.Withdraw(new ChatUser(null, _user.UserId), 5, true);
+            (balance, withdrawn) = _bank.Withdraw(new (null, _user.UserId), 5, true);
 
             balance.Should().Be(90);
             withdrawn.Should().Be(5);
+        }
+
+        [Fact]
+        public void CheckBalance_CreatesAccount_GivenNewUser()
+        {
+            ChatUser chatUser = new ("Brendoneus", "123456");
+            _bank.HasAccount(chatUser).Should().BeFalse("Bad Given: Not a new account.");
+
+            _bank.HasAccount(chatUser).Should()
+                .BeFalse("`HasAccount` created an account.");
+
+            _bank.CheckBalance(chatUser);
+
+            _bank.HasAccount(chatUser).Should().BeTrue();
+        }
+
+        [Fact]
+        public void CheckBalance_AccessesAccount_GivenExistingUser()
+        {
+            ChatUser chatUser = new ("Brendoneus", "123456");
+            _bank.HasAccount(chatUser).Should().BeFalse("Bad Given: Not a new account.");
+
+            int balance = _bank.CheckBalance(chatUser);
+
+            balance.Should().Be(0, "Account had non-zero starting balance.");
+
+            _bank.Deposit(chatUser, 100);
+
+            balance = _bank.CheckBalance(chatUser);
+
+            balance.Should().Be(100);
+        }
+
+        [Fact]
+        public void AddsUserIdIfMissing()
+        {
+            ChatUser noId = new ("Brendoneus", null);
+            ChatUser withId = new ("Brendoneus", "123456");
+            ChatUser onlyId = new ("Different", "123456");
+            _bank.HasAccount(noId).Should().BeFalse("Bad Given: Not a new account.");
+
+            _ = _bank.CheckBalance(noId);
+
+            _bank.HasAccount(noId).Should().BeTrue("Account not created");
+            _bank.HasAccount(onlyId).Should().BeFalse("Id lookup somehow existed");
+
+            _ = _bank.CheckBalance(withId);
+
+            _bank.HasAccount(onlyId).Should().BeTrue("Can't find by Id");
+            _bank.HasAccount(noId).Should().BeTrue("Can't find by Name");
         }
     }
 }

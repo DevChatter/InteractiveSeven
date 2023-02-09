@@ -26,10 +26,10 @@ namespace InteractiveSeven.Core.Payments
         private Dictionary<string, Account> AccountsByName { get; }
         private Dictionary<string, Account> AccountsById { get; }
 
-        private readonly object _padlock = new object();
+        private readonly object _padlock = new ();
 
         public bool HasAccount(ChatUser user) => AccountsByName.ContainsKey(user.SafeUsername)
-                                                 || AccountsById.ContainsKey(user.UserId);
+                                                 || AccountsById.ContainsKey(user.UserId ?? "INVALID_USERNAME");
 
         public int Deposit(in ChatUser user, int bits)
         {
@@ -72,20 +72,28 @@ namespace InteractiveSeven.Core.Payments
         private Account AccessAccount(ChatUser user)
         {
             Account account;
-            if ((user.UserId == null || !AccountsById.TryGetValue(user.UserId, out account))
-                && (user.SafeUsername == null || !AccountsByName.TryGetValue(user.SafeUsername, out account)))
+
+            if (user.UserId == null || !AccountsById.ContainsKey(user.UserId))
             {
-                account = CreateAccount(user);
+                account = AccountsByName.GetValueOrDefault(user.SafeUsername);
+                if (account != null && user.UserId != null)
+                {
+                    account.UserId = user.UserId;
+                    AccountsById.Add(user.UserId, account);
+                }
+                else if (account == null)
+                {
+                    account = CreateAccount(user);
+                }
             }
-            else if (user.UserId != null && account.UserId != user.UserId)
+            else
             {
-                account.UserId = user.UserId;
-                AccountsById.Add(user.UserId, account);
-            }
-            else if (user.Username != null && !account.Username.EqualsIns(user.SafeUsername))
-            {
-                account.Username = user.Username.NoAt();
-                AccountsByName.Add(user.SafeUsername, account);
+                account = AccountsById[user.UserId];
+                if (account.Username == null && !AccountsByName.ContainsKey(user.SafeUsername))
+                {
+                    account.Username = user.SafeUsername;
+                    AccountsByName.Add(user.SafeUsername, account);
+                }
             }
 
             if (ShouldGiveSubBonus(user, account))
