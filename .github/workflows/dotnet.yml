@@ -12,14 +12,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
+    - uses: actions/checkout@v3
+
     - name: Restore dependencies
       run: dotnet restore .\src
+
     - name: Build
-      run: dotnet build .\src --no-restore --configuration Release
+      run: dotnet build .\src --no-restore
+
     - name: Test
-      run: dotnet test .\src\UnitTests --no-build --verbosity normal --configuration Release
+      run: dotnet test .\src\UnitTests --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish .\src\InteractiveSeven\InteractiveSeven.csproj --no-restore -c Release
