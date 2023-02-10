@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
-using System.Collections.Generic;
 
 namespace UnitTests.Core.GilBankTests
 {

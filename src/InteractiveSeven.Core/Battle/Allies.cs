@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Diagnostics.Memory;
 
 namespace InteractiveSeven.Core.Battle
 {

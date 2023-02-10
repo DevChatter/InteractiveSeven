@@ -1,10 +1,10 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using System;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.Models;
 using Shojy.FF7.Elena.Extensions;
-using System;
 
 namespace Tseng.GameData
 {

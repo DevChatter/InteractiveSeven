@@ -1,12 +1,12 @@
-﻿using InteractiveSeven.Core;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace InteractiveSeven.Twitch.Commands
 {

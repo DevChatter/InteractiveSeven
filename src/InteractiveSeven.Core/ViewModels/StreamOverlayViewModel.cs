@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Settings;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.ViewModels
 {

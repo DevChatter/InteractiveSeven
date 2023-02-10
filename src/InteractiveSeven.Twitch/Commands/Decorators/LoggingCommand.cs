@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Twitch.Model;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace InteractiveSeven.Twitch.Commands.Decorators
 {

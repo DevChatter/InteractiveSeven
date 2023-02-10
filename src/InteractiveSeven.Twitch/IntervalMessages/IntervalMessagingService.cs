@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Settings;
-using System;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.IntervalMessages

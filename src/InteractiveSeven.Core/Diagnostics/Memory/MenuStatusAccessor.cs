@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.FinalFantasy;
+﻿using System;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
-using System;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

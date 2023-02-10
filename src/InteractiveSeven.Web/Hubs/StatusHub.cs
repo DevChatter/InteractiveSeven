@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Emitters;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 
 namespace InteractiveSeven.Web.Hubs
 {

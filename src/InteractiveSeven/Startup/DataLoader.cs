@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core.Bidding.Naming;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace InteractiveSeven.Startup
 {

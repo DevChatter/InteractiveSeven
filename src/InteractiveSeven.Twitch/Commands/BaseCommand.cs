@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using System.Linq;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
-using System;
-using System.Linq;
 
 namespace InteractiveSeven.Twitch.Commands
 {

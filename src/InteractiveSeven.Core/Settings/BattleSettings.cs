@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.Battle;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Battle;
 
 namespace InteractiveSeven.Core.Settings
 {

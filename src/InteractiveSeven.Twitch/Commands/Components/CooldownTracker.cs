@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core;
+﻿using System;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Model;
-using System;
 
 namespace InteractiveSeven.Twitch.Commands.Components
 {

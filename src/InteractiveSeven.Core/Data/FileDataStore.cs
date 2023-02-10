@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Data
 {

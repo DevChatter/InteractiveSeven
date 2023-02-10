@@ -1,7 +1,6 @@
-﻿using InteractiveSeven.Core.FinalFantasy;
+﻿using System.Linq;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
-using System.Linq;
-using Tseng.GameData;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

@@ -1,12 +1,12 @@
-﻿using InteractiveSeven.Core.Data;
-using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Bidding.Naming
 {

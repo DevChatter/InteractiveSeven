@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.MvvmCommands;
+﻿using System;
+using System.Diagnostics;
+using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using System;
-using System.Diagnostics;
 
 namespace InteractiveSeven.Commands
 {

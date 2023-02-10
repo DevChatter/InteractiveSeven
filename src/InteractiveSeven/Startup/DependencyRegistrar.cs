@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Commands;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
@@ -21,7 +22,6 @@ using InteractiveSeven.Twitch.Payments;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System.Collections.Generic;
 using Tseng;
 using Tseng.lib;
 using Tseng.RunOnce;

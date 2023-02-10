@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using InteractiveSeven.Core.Settings;
+using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Diagnostics
 {

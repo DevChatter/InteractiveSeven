@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.FinalFantasy;
+﻿using System.Linq;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.Settings;
-using System.Linq;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {
