@@ -1,5 +1,5 @@
-﻿using InteractiveSeven.Core.FinalFantasy.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.FinalFantasy.Models;
 
 namespace InteractiveSeven.Core.Data
 {

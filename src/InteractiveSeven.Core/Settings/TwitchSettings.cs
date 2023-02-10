@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using System;
+using System.Linq;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.ViewModels;
 using Newtonsoft.Json;
-using System;
-using System.Linq;
 
 namespace InteractiveSeven.Core.Settings
 {

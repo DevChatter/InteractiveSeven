@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.FinalFantasy.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.FinalFantasy.Constants;
 
 namespace InteractiveSeven.Core.FinalFantasy
 {

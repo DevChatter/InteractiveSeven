@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Settings;
-using System;
+﻿using System;
 using System.Threading;
+using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

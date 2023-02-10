@@ -1,4 +1,8 @@
-﻿using InteractiveSeven.Core.Bidding.Naming;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -7,10 +11,6 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels

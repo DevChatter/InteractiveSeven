@@ -1,10 +1,10 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Events;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Concurrent;
-using System.Threading.Tasks;
 
 namespace InteractiveSeven.Core.Workloads
 {

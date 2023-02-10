@@ -1,12 +1,11 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Data.Items;
+﻿using System;
+using System.Linq;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
-using System;
-using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

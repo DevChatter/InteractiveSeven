@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core.Emitters;
+﻿using System;
+using System.Drawing;
+using System.Threading;
+using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Drawing;
-using System.Threading;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

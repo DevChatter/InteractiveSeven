@@ -1,5 +1,5 @@
-﻿using InteractiveSeven.Core.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch.Model

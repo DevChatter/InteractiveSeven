@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core;
+﻿using System.Linq;
+using InteractiveSeven.Core;
 using InteractiveSeven.Twitch.Model;
-using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

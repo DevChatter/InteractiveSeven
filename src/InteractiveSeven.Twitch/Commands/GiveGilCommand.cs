@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Twitch.Model;
-using System.Linq;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client.Interfaces;
-using System.Collections.Generic;
 
 namespace InteractiveSeven.Twitch.Commands
 {

@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
+using InteractiveSeven.Core.ViewModels;
 using Xceed.Wpf.Toolkit;
 
 namespace InteractiveSeven

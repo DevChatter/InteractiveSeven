@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using System;
+using System.Linq;
+using InteractiveSeven.Core.Battle;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Linq;
 
 namespace InteractiveSeven.Core.Settings
 {

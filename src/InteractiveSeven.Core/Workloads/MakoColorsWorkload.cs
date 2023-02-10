@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace InteractiveSeven.Core.Workloads
 {

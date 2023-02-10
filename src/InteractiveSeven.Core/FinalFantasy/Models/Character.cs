@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using System.Linq;
+using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
-using System.Linq;
 using Tseng.GameData;
 
 namespace InteractiveSeven.Core.FinalFantasy.Models

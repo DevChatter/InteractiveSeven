@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.FinalFantasy;
+﻿using System;
+using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

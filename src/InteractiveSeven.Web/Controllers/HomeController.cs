@@ -1,6 +1,4 @@
-﻿using InteractiveSeven.Core.Events;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveSeven.Web.Controllers
 {

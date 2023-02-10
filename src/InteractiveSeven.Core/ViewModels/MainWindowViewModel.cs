@@ -1,5 +1,5 @@
-﻿using InteractiveSeven.Core.MvvmCommands;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using InteractiveSeven.Core.MvvmCommands;
 
 namespace InteractiveSeven.Core.ViewModels
 {

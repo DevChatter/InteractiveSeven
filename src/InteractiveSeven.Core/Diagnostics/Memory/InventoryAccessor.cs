@@ -1,7 +1,7 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory.Model;
-using InteractiveSeven.Core.Settings;
-using System;
+﻿using System;
 using System.Linq;
+using InteractiveSeven.Core.Diagnostics.Memory.Model;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

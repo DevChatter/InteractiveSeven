@@ -1,10 +1,10 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace InteractiveSeven.Core.Payments
 {
@@ -26,7 +26,7 @@ namespace InteractiveSeven.Core.Payments
         private Dictionary<string, Account> AccountsByName { get; }
         private Dictionary<string, Account> AccountsById { get; }
 
-        private readonly object _padlock = new ();
+        private readonly object _padlock = new();
 
         public bool HasAccount(ChatUser user) => AccountsByName.ContainsKey(user.SafeUsername)
                                                  || AccountsById.ContainsKey(user.UserId ?? "INVALID_USERNAME");

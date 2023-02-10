@@ -1,6 +1,6 @@
-﻿using InteractiveSeven.Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {
