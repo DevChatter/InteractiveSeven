@@ -27,7 +27,6 @@
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="XamlColorSchemeGenerator" Version="3.0.0.31" />
   </ItemGroup>
 
   <ItemGroup>
