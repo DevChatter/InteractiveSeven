@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven", "Interac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveSeven.Web", "InteractiveSeven.Web\InteractiveSeven.Web.csproj", "{75E11106-A7C9-46B5-84AC-CC757385FCA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tseng", "Tseng\Tseng.csproj", "{BB773192-5869-4FCE-8C7A-343AD797CFF2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAACBCAF-D606-4C7A-BC9B-B1BE089D60A2}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -33,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1244F8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedUI", "Shared\SharedUI\SharedUI.csproj", "{80B7BFA1-D748-4F94-B01F-B8071B61C8F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlays.InteractiveSeven", "FF7\Overlays.InteractiveSeven\Overlays.InteractiveSeven.csproj", "{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Overlays.InteractiveSeven", "FF7\Overlays.InteractiveSeven\Overlays.InteractiveSeven.csproj", "{E44F15C4-BB3E-48A2-9A0E-46B050E05A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
