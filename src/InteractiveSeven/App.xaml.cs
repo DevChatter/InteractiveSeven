@@ -1,24 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using ControlzEx.Theming;
-using InteractiveSeven.Core;
 using System.Windows;
 using ControlzEx.Theming;
 using DevChatter.InteractiveGames.Core.Seven;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven;
 //using InteractiveSeven.Theming;
 using MahApps.Metro.Theming;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Tseng;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace InteractiveSeven

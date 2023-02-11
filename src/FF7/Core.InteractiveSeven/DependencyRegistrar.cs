@@ -22,7 +22,6 @@ using InteractiveSeven.Twitch.Payments;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Tseng;
 using TwitchLib.Api;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client;

@@ -1,8 +1,8 @@
-﻿using InteractiveSeven.Core.Bidding.Moods;
+﻿using System.Collections.Generic;
+using System.Linq;
+using InteractiveSeven.Core.Bidding.Moods;
 using InteractiveSeven.Core.Moods;
 using InteractiveSeven.Twitch.Model;
-using System.Collections.Generic;
-using System.Linq;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

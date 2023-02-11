@@ -1,11 +1,11 @@
-﻿using InteractiveSeven.Core.Bidding.Moods;
-using InteractiveSeven.Core.Emitters;
-using InteractiveSeven.Core.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using InteractiveSeven.Core.Bidding.Moods;
+using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Moods
 {

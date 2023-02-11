@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
 using InteractiveSeven.Core.Data;
@@ -6,7 +7,6 @@ using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.MemModels;
 using InteractiveSeven.Core.FinalFantasy.Models;
-using System.Collections.Generic;
 using Tseng.GameData;
 
 namespace InteractiveSeven.Core.ViewModels

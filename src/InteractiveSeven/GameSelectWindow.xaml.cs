@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using DevChatter.InteractiveGames.Core.Nine;
 using DevChatter.InteractiveGames.Core.Seven;
 using InteractiveSeven.Core.General;
 using InteractiveSeven.Core.ViewModels;
