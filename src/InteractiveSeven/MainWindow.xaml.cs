@@ -1,8 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Windows;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using InteractiveSeven.Core.ViewModels;
+using InteractiveSeven.Startup;
 using MahApps.Metro.Controls;
+using Serilog;
 
 namespace InteractiveSeven
 {
@@ -11,12 +16,17 @@ namespace InteractiveSeven
     /// </summary>
     public partial class MainWindow
     {
-
         public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;
             ViewModel = viewModel;
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ConfigureLogging.WithRichTextOutput(outputBox);
         }
 
         public MainWindowViewModel ViewModel { get; }

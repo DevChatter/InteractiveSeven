@@ -71,66 +71,72 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <WrapPanel Orientation="Horizontal">
-                        <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Character Names" Margin="4">
-                            <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
+                    <StackPanel Orientation="Vertical">
+                        <RichTextBox x:Name="outputBox" VerticalScrollBarVisibility="Visible"
+                             HorizontalScrollBarVisibility="Visible" IsReadOnly="True" MaxHeight="200px">
+                            <FlowDocument/>
+                        </RichTextBox>
+                        <WrapPanel Orientation="Horizontal">
+                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Character Names" Margin="4">
+                                <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
                                                       CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
                                                       AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Current" Binding="{Binding LeadingName}" />
-                                    <DataGridTextColumn Header="Default" Binding="{Binding DefaultName}" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </GroupBox>
-                        <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
-                            <DockPanel>
-                                <Grid DockPanel.Dock="Top">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="40" />
-                                        <RowDefinition Height="40" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80" />
-                                        <ColumnDefinition Width="80" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                    <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                    <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                    <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                </Grid>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Current" Binding="{Binding LeadingName}" />
+                                        <DataGridTextColumn Header="Default" Binding="{Binding DefaultName}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                            <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
+                                <DockPanel>
+                                    <Grid DockPanel.Dock="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="80" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                        <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                        <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                        <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    </Grid>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="{Binding Path = TopLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                        <Label Content="{Binding Path = TopRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                        <Label Content="{Binding Path = BotLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                        <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    </StackPanel>
+                                </DockPanel>
+                            </GroupBox>
+                            <GroupBox Header="Settings" DataContext="{Binding SettingsViewModel.Settings}">
                                 <StackPanel Orientation="Vertical">
-                                    <Label Content="{Binding Path = TopLeft, Converter = {StaticResource MenuColorNameConverter}}" />
-                                    <Label Content="{Binding Path = TopRight, Converter = {StaticResource MenuColorNameConverter}}" />
-                                    <Label Content="{Binding Path = BotLeft, Converter = {StaticResource MenuColorNameConverter}}" />
-                                    <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="Mods Give Bonus Bits" />
+                                    <Label Content="{Binding Path=ModsGiveBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Subs Receive Bonus Bits" />
+                                    <Label Content="{Binding Path=GiveSubscriberBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Subs Bonus Bit Value" />
+                                    <Label Content="{Binding SubscriberBonusBits}" />
+                                    <Label Content="Menu Colors" />
+                                    <Label Content="{Binding Path=MenuSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Name Bidding" />
+                                    <Label Content="{Binding Path=NameBiddingSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Status Effects" />
+                                    <Label Content="{Binding Path=BattleSettings.AllowStatusEffects, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Equipment Commands" />
+                                    <Label Content="{Binding Path=EquipmentSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Pauper Command" />
+                                    <Label Content="{Binding Path=EquipmentSettings.EnablePauperCommand, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Item Commands" />
+                                    <Label Content="{Binding Path=ItemSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
+                                    <Label Content="Materia Commands" />
+                                    <Label Content="{Binding Path=MateriaSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
                                 </StackPanel>
-                            </DockPanel>
-                        </GroupBox>
-                        <GroupBox Header="Settings" DataContext="{Binding SettingsViewModel.Settings}">
-                            <StackPanel Orientation="Vertical">
-                                <Label Content="Mods Give Bonus Bits" />
-                                <Label Content="{Binding Path=ModsGiveBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Subs Receive Bonus Bits" />
-                                <Label Content="{Binding Path=GiveSubscriberBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Subs Bonus Bit Value" />
-                                <Label Content="{Binding SubscriberBonusBits}" />
-                                <Label Content="Menu Colors" />
-                                <Label Content="{Binding Path=MenuSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Name Bidding" />
-                                <Label Content="{Binding Path=NameBiddingSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Status Effects" />
-                                <Label Content="{Binding Path=BattleSettings.AllowStatusEffects, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Equipment Commands" />
-                                <Label Content="{Binding Path=EquipmentSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Pauper Command" />
-                                <Label Content="{Binding Path=EquipmentSettings.EnablePauperCommand, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Item Commands" />
-                                <Label Content="{Binding Path=ItemSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                <Label Content="Materia Commands" />
-                                <Label Content="{Binding Path=MateriaSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                            </StackPanel>
-                        </GroupBox>
-                    </WrapPanel>
+                            </GroupBox>
+                        </WrapPanel>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 

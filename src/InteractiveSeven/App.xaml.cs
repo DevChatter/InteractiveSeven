@@ -46,12 +46,7 @@ namespace InteractiveSeven
 
             try
             {
-                Log.Logger = new LoggerConfiguration()
-                    .MinimumLevel.Information()
-                    .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
-                    .CreateLogger();
-
-                var logger = new SerilogLoggerProvider(Log.Logger).CreateLogger(nameof(SettingsStore));
+                ILogger logger = ConfigureLogging.Initial();
                 InitializeSettings(logger);
 
                 var uri = new UriBuilder("http", "localhost", ApplicationSettings.Instance.TsengSettings.PortNumber).Uri;
