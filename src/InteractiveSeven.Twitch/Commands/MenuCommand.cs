@@ -5,8 +5,8 @@ using InteractiveSeven.Core;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Payments;
 
 namespace InteractiveSeven.Twitch.Commands
 {

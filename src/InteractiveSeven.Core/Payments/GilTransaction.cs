@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Twitch.Payments
+﻿namespace InteractiveSeven.Core.Payments
 {
     public class GilTransaction
     {

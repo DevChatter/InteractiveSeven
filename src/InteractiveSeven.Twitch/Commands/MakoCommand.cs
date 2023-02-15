@@ -2,7 +2,7 @@
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
-using InteractiveSeven.Twitch.Payments;
+using InteractiveSeven.Core.Payments;
 
 namespace InteractiveSeven.Twitch.Commands
 {

@@ -1,8 +1,7 @@
 ﻿using InteractiveSeven.Core.Models;
-using InteractiveSeven.Core.Payments;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Payments
+namespace InteractiveSeven.Core.Payments
 {
     public class PaymentProcessor
     {

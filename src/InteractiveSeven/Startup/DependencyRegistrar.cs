@@ -18,7 +18,6 @@ using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
-using InteractiveSeven.Twitch.Payments;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
