@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public class HelpCommand : BaseCommand
     {
