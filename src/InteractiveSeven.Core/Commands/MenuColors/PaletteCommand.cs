@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.MenuColors
 {
     public class PaletteCommand : BaseCommand
     {
@@ -97,7 +95,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             string paletteName = commandData.Arguments[1];
-            MenuColors menuColors = GetMenuColors(commandData);
+            Models.MenuColors menuColors = GetMenuColors(commandData);
 
             if (menuColors == null)
             {
@@ -111,7 +109,7 @@ namespace InteractiveSeven.Twitch.Commands
             _twitchClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
         }
 
-        private static MenuColors GetMenuColors(CommandData commandData)
+        private static Models.MenuColors GetMenuColors(CommandData commandData)
         {
             string topLeftText = commandData.Arguments[2];
             string topRightText = commandData.Arguments[3];
@@ -126,7 +124,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return null;
             }
 
-            var menuColors = new MenuColors
+            var menuColors = new Models.MenuColors
             {
                 TopLeft = topLeftText.ToColor(),
                 TopRight = topRightText.ToColor(),
@@ -158,7 +156,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
 
             string paletteName = commandData.Arguments[1];
-            MenuColors menuColors = GetMenuColors(commandData);
+            Models.MenuColors menuColors = GetMenuColors(commandData);
 
             if (menuColors == null)
             {

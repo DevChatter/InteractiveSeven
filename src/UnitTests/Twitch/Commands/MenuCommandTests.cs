@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands.MenuColors;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Commands;
 using Microsoft.Extensions.Logging;
 using Moq;
-using TwitchLib.Client.Interfaces;
 using UnitTests.Core.GilBankTests;
 using Xunit;
 

@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.MenuColors
 {
     public class MenuCommand : BaseCommand
     {
@@ -30,7 +28,7 @@ namespace InteractiveSeven.Twitch.Commands
         {
             if (commandData.Arguments.Count == 0) return;
 
-            MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
+            Models.MenuColors menuColors = GetMenuColorsFromArgs(commandData.Arguments);
 
             if (menuColors == null) return;
 
@@ -42,7 +40,7 @@ namespace InteractiveSeven.Twitch.Commands
             DomainEvents.Raise(new MenuColorChanging(menuColors, commandData.User, gilTransaction.AmountPaid));
         }
 
-        private MenuColors GetMenuColorsFromArgs(List<string> args)
+        private Models.MenuColors GetMenuColorsFromArgs(List<string> args)
         {
             var specialColor = GetSpecialColor(args.FirstOrDefault());
             if (specialColor != null)
@@ -50,7 +48,7 @@ namespace InteractiveSeven.Twitch.Commands
                 return specialColor;
             }
             List<string> colorArgs = args.Where(arg => arg.IsColor()).ToList();
-            var menuColors = new MenuColors();
+            var menuColors = new Models.MenuColors();
 
             switch (colorArgs.Count)
             {
@@ -75,11 +73,11 @@ namespace InteractiveSeven.Twitch.Commands
             return menuColors;
         }
 
-        private MenuColors GetSpecialColor(string firstArg)
+        private Models.MenuColors GetSpecialColor(string firstArg)
         {
             if (firstArg.EqualsIns("random"))
             {
-                return MenuColors.RandomPalette();
+                return Models.MenuColors.RandomPalette();
             }
 
             return _paletteCollection.ByName(firstArg);

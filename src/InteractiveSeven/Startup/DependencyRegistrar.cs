@@ -6,6 +6,7 @@ using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Commands.Admin;
 using InteractiveSeven.Core.Commands.Battle;
 using InteractiveSeven.Core.Commands.Equipment;
+using InteractiveSeven.Core.Commands.MenuColors;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
