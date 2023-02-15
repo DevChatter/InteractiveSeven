@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

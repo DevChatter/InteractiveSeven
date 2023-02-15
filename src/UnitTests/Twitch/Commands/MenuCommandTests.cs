@@ -7,7 +7,6 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Commands;
-using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.Logging;
 using Moq;

@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Twitch.Commands
 {

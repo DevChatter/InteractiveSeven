@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.Models;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
 

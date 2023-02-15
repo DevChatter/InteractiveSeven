@@ -2,7 +2,7 @@
 using InteractiveSeven.Core.Model;
 using TwitchLib.Client.Models;
 
-namespace InteractiveSeven.Twitch.Model
+namespace InteractiveSeven.Core.Models
 {
     public struct CommandData
     {

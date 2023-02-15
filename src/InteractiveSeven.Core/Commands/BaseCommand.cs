@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using InteractiveSeven.Core;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Model;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public abstract class BaseCommand : ITwitchCommand
     {

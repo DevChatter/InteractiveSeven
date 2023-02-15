@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Linq;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 
 namespace InteractiveSeven.Twitch.Commands

@@ -1,6 +1,7 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
-using InteractiveSeven.Twitch.Model;
+using InteractiveSeven.Core.Models;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands.Decorators

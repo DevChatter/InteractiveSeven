@@ -1,7 +1,6 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Twitch.Model;
+﻿using InteractiveSeven.Core.Models;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public interface ITwitchCommand
     {

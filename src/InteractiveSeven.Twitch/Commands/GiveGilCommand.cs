@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
-using InteractiveSeven.Twitch.Model;
 using TwitchLib.Api.Interfaces;
 using TwitchLib.Client.Interfaces;
 

@@ -1,7 +1,8 @@
 ﻿using InteractiveSeven.Core;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Twitch.Commands.Components;
-using InteractiveSeven.Twitch.Model;
 using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands

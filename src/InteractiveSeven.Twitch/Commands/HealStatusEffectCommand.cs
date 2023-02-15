@@ -5,9 +5,9 @@ using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
 using InteractiveSeven.Core.FinalFantasy.Models;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Twitch.Model;
 using InteractiveSeven.Twitch.Payments;
 using TwitchLib.Client.Interfaces;
 

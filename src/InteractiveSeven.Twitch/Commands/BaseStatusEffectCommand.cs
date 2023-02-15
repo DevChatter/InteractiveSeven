@@ -1,5 +1,6 @@
 ﻿using System;
 using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Models;
