@@ -1,16 +1,14 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public class UnlockCommand : BaseCommand
     {
         private readonly PaymentProcessor _paymentProcessor;
 
         public UnlockCommand(PaymentProcessor paymentProcessor)
-            : base(new[] { "BrendanUnlock", "I7Unlock" }, x => true)
+            : base(new[] { "BrendanUnlock", "I7Unlock", "HelloI7" }, x => true)
         {
             _paymentProcessor = paymentProcessor;
         }

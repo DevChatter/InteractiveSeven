@@ -1,10 +1,8 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public class BalanceCommand : BaseCommand
     {
