@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands
 {
     public class CostsCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
 
-        public CostsCommand(ITwitchClient twitchClient)
+        public CostsCommand(IChatClient chatClient)
             : base(x => x.CostsCommandWords, x => true)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
         }
 
         private BattleSettings BattleSettings => Settings.BattleSettings;
@@ -163,7 +163,7 @@ namespace InteractiveSeven.Core.Commands
         }
         private void SendMessage(CommandData commandData, string message)
         {
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

@@ -1,18 +1,18 @@
-﻿using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands
 {
     public class BalanceCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly GilBank _gilBank;
 
-        public BalanceCommand(ITwitchClient twitchClient, GilBank gilBank)
+        public BalanceCommand(IChatClient chatClient, GilBank gilBank)
             : base(x => x.BalanceCommandWords, x => true)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _gilBank = gilBank;
         }
 
@@ -22,7 +22,7 @@ namespace InteractiveSeven.Core.Commands
         {
             int balance = _gilBank.CheckBalance(data.User);
 
-            _twitchClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
+            _chatClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
         }
     }
 }

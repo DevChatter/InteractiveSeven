@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
@@ -9,16 +10,15 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Battle
 {
     public class HealStatusEffectCommand : BaseStatusEffectCommand
     {
-        public HealStatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
+        public HealStatusEffectCommand(IChatClient chatClient, PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
             IStatusHubEmitter statusHubEmitter)
-            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
+            : base(chatClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
         {
         }
 
@@ -31,13 +31,13 @@ namespace InteractiveSeven.Core.Commands.Battle
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.ElementAtOrDefault(1));
             if (statusSettings == null || !targeted.Any())
             {
-                _twitchClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !cure psn top");
+                _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !cure psn top");
                 return;
             }
 
             if (!statusSettings.Enabled)
             {
-                _twitchClient.SendMessage(commandData.Channel, $"The {statusSettings.Name} status effect is disabled.");
+                _chatClient.SendMessage(commandData.Channel, $"The {statusSettings.Name} status effect is disabled.");
                 return;
             }
 
@@ -52,14 +52,14 @@ namespace InteractiveSeven.Core.Commands.Battle
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{character.Name} is immune to {statusSettings.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.unaffected)
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{character.Name} is not affected by {statusSettings.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
@@ -67,7 +67,7 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.RemoveActorStatus(target, statusSettings.Effect);
                 string message = $"Removed {statusSettings.Name} from {character.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
         }

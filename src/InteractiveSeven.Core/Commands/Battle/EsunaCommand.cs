@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
@@ -8,25 +9,24 @@ using InteractiveSeven.Core.FinalFantasy.Models;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Battle
 {
     public class EsunaCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly PartyStatusViewModel _partyStatus;
         private readonly IStatusAccessor _statusAccessor;
         private readonly PaymentProcessor _paymentProcessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
 
-        public EsunaCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
+        public EsunaCommand(IChatClient chatClient, PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
             IStatusHubEmitter statusHubEmitter)
             : base(x => x.EsunaCommandWords,
                 x => x.BattleSettings.AllowEsunaCommand && x.BattleSettings.AllowStatusEffects)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
             _paymentProcessor = paymentProcessor;
@@ -38,7 +38,7 @@ namespace InteractiveSeven.Core.Commands.Battle
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (!targeted.Any())
             {
-                _twitchClient.SendMessage(commandData.Channel, "Be sure to name a valid actor. Example: !esuna top");
+                _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid actor. Example: !esuna top");
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.ClearNegativeStatuses(target);
                 string message = $"Removed Negative Effects from {character.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
         }

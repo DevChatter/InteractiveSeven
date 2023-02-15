@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -18,7 +19,7 @@ namespace InteractiveSeven.Core.ViewModels
     public class NameBiddingViewModel
     {
         private readonly INameAccessor _nameAccessor;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IDataStore<CharacterNameBid> _dataStore;
         private readonly IDialogService _dialogService;
         private readonly IStatusHubEmitter _statusHubEmitter;
@@ -30,7 +31,7 @@ namespace InteractiveSeven.Core.ViewModels
 
         public TwitchSettings TwitchSettings => TwitchSettings.Instance;
 
-        public NameBiddingViewModel(INameAccessor nameAccessor, ITwitchClient twitchClient,
+        public NameBiddingViewModel(INameAccessor nameAccessor, IChatClient chatClient,
             IDataStore<CharacterNameBid> dataStore, IDialogService dialogService,
             IStatusHubEmitter statusHubEmitter,
             ILogger<NameBiddingViewModel> logger,
@@ -42,7 +43,7 @@ namespace InteractiveSeven.Core.ViewModels
             DomainEvents.Register<RefreshEvent>(HandleNameRefresh);
 
             _nameAccessor = nameAccessor;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _dataStore = dataStore;
             _dialogService = dialogService;
             _statusHubEmitter = statusHubEmitter;
@@ -120,7 +121,7 @@ namespace InteractiveSeven.Core.ViewModels
             {
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
                 string message = $"{e.CharName.DefaultName}'s name is now {e.NewName}.";
-                _twitchClient.SendMessage(TwitchSettings.Channel, message);
+                _chatClient.SendMessage(TwitchSettings.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
             catch (Exception exception)

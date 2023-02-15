@@ -1,17 +1,17 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Models;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands
 {
     public class HelpCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
 
-        public HelpCommand(ITwitchClient twitchClient)
+        public HelpCommand(IChatClient chatClient)
             : base(x => x.HelpCommandWords, x => true)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
@@ -19,7 +19,7 @@ namespace InteractiveSeven.Core.Commands
         public override void Execute(in CommandData commandData)
         {
             string[] commandWords = Settings.CommandSettings.AllWordSets.Select(wordSet => wordSet.Words().First()).ToArray();
-            _twitchClient.SendMessage(commandData.Channel,
+            _chatClient.SendMessage(commandData.Channel,
                 $"These are the available commands: {string.Join(", ", commandWords)}");
         }
     }

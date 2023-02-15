@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
@@ -15,10 +16,10 @@ namespace InteractiveSeven.Core.Commands.Battle
 {
     public class StatusEffectCommand : BaseStatusEffectCommand
     {
-        public StatusEffectCommand(ITwitchClient twitchClient, PartyStatusViewModel partyStatus,
+        public StatusEffectCommand(IChatClient chatClient, PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
             IStatusHubEmitter statusHubEmitter)
-            : base(twitchClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
+            : base(chatClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
         {
         }
 
@@ -33,14 +34,14 @@ namespace InteractiveSeven.Core.Commands.Battle
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (statusSettings == null || !targeted.Any())
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     "Be sure to name a valid status and actor. Example: !psn top");
                 return;
             }
 
             if (!statusSettings.Enabled)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"The {statusSettings.Name} status effect is disabled.");
                 return;
             }
@@ -56,14 +57,14 @@ namespace InteractiveSeven.Core.Commands.Battle
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"Can't apply {statusSettings.Name} to {character.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.hasEffect)
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{statusSettings.Name} already affects {character.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
@@ -71,7 +72,7 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.SetActorStatus(target, statusSettings.Effect);
                 string message = $"Applied {statusSettings.Name} to {character.Name}.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
         }
