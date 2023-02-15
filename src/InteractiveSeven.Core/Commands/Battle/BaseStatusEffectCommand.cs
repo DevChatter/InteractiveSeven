@@ -1,6 +1,5 @@
 ﻿using System;
 using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Models;
@@ -9,7 +8,7 @@ using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Battle
 {
     public abstract class BaseStatusEffectCommand : BaseCommand
     {

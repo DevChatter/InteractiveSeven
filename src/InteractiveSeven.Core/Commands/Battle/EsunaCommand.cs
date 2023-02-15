@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Battle;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy.Constants;
@@ -11,7 +10,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Battle
 {
     public class EsunaCommand : BaseCommand
     {
