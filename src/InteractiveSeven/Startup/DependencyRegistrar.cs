@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -16,6 +17,7 @@ using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
+using InteractiveSeven.Twitch.Chat;
 using InteractiveSeven.Twitch.Commands;
 using InteractiveSeven.Twitch.IntervalMessages;
 using InteractiveSeven.Web.Hubs;
@@ -68,6 +70,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchAPI, TwitchAPI>();
+            services.AddSingleton<IChatClient, TwitchChatClient>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
             services.AddSingleton<IDialogService, DialogService>();
 

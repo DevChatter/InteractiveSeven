@@ -1,18 +1,18 @@
-﻿using InteractiveSeven.Core.Models;
-using TwitchLib.Client.Interfaces;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Payments
 {
     public class PaymentProcessor
     {
         private readonly GilBank _gilBank;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private bool _unlocked;
 
-        public PaymentProcessor(GilBank gilBank, ITwitchClient twitchClient)
+        public PaymentProcessor(GilBank gilBank, IChatClient chatClient)
         {
             _gilBank = gilBank;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
         }
 
         public GilTransaction ProcessPayment(CommandData commandData, int amount, bool canModsOverride)
@@ -28,7 +28,7 @@ namespace InteractiveSeven.Core.Payments
                 (_, gilSpent) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (gilSpent < amount)
                 {
-                    _twitchClient.SendMessage(commandData.Channel,
+                    _chatClient.SendMessage(commandData.Channel,
                         $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {amount}. Cheer for gil.");
                     return new GilTransaction(false, gilSpent);
                 }

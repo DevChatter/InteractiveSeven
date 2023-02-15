@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
@@ -23,7 +24,7 @@ namespace InteractiveSeven.Twitch.Commands
         private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly GameDatabase _gameDatabase;
         private readonly GilBank _gilBank;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly EquipmentData<T> _equipmentData;
         private readonly PaymentProcessor _paymentProcessor;
 
@@ -34,7 +35,7 @@ namespace InteractiveSeven.Twitch.Commands
             PartyStatusViewModel partyStatusViewModel,
             GameDatabase gameDatabase,
             GilBank gilBank,
-            ITwitchClient twitchClient,
+            IChatClient chatClient,
             EquipmentData<T> equipmentData,
             Func<CommandSettings, string[]> commandWordsSelector,
             PaymentProcessor paymentProcessor)
@@ -47,7 +48,7 @@ namespace InteractiveSeven.Twitch.Commands
             _partyStatusViewModel = partyStatusViewModel;
             _gameDatabase = gameDatabase;
             _gilBank = gilBank;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _equipmentData = equipmentData;
             _paymentProcessor = paymentProcessor;
         }
@@ -66,7 +67,7 @@ namespace InteractiveSeven.Twitch.Commands
             var equipmentArg = commandData.Arguments.ElementAtOrDefault(1);
             if (!isValidName)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     "Invalid Request - Specify equipment and character like this: !weapon cloud buster");
                 return;
             }
@@ -75,14 +76,14 @@ namespace InteractiveSeven.Twitch.Commands
 
             if (candidates.Count == 0)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
+                _chatClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
                 return;
             }
 
             if (candidates.Count() > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                _twitchClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
+                _chatClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
                 return;
             }
 
@@ -99,7 +100,7 @@ namespace InteractiveSeven.Twitch.Commands
             ushort existingEquipmentId = _equipmentAccessor.GetCharacterEquipment(charName, AddressSelector());
             if (equippableSettings.Item.EquipmentId == existingEquipmentId)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {equippableSettings.Name} equipped.");
                 if (gilTransaction.AmountPaid > 0) // return the gil, since we did nothing
                 {
@@ -119,7 +120,7 @@ namespace InteractiveSeven.Twitch.Commands
             }
             RemoveMateria(charName, equippableSettings.Item.EquipmentId);
             string message = $"Equipped {charName.DefaultName} with {equippableSettings.Name}.";
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
             _statusHubEmitter.ShowEvent(message, commandData.User.Username);
         }
 
@@ -177,6 +178,6 @@ namespace InteractiveSeven.Twitch.Commands
         }
 
         protected void SendMessage(in CommandData commandData, string message)
-            => _twitchClient.SendMessage(commandData.Channel, message);
+            => _chatClient.SendMessage(commandData.Channel, message);
     }
 }

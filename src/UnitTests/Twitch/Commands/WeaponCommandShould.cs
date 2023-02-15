@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -55,7 +56,7 @@ namespace UnitTests.Twitch.Commands
 
             weaponCommand.Execute(commandData);
 
-            chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>(), false), Times.Once);
+            chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>()), Times.Once);
             eqAccessor.Verify(x => x.SetCharacterEquipment(It.IsAny<CharNames>(), It.IsAny<byte>(), m => m.Weapon.Address), Times.Never);
         }
 
@@ -70,18 +71,18 @@ namespace UnitTests.Twitch.Commands
 
             weaponCommand.Execute(commandData);
 
-            chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>(), false), Times.Once);
+            chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>()), Times.Once);
             eqAccessor.Verify(x => x.SetCharacterEquipment(It.IsAny<CharNames>(), It.IsAny<byte>(), m => m.Weapon.Address), Times.Never);
         }
 
         private (CommandData data, GilBank gilBank,
             Mock<IEquipmentAccessor> eqAccessor, Mock<IInventoryAccessor> itemAccessor,
-            Mock<ITwitchClient> chat)
+            Mock<IChatClient> chat)
             SetUpTest(int gil, params string[] args)
         {
             var eqAccessor = new Mock<IEquipmentAccessor>();
             var itemAccessor = new Mock<IInventoryAccessor>();
-            var chat = new Mock<ITwitchClient>();
+            var chat = new Mock<IChatClient>();
             var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
             var chatUser = new ChatUser { Username = "Fred" };
             gilBank.Deposit(chatUser, gil);

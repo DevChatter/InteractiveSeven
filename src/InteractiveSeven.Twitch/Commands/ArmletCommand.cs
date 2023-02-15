@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -13,10 +14,10 @@ namespace InteractiveSeven.Twitch.Commands
         public ArmletCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             IStatusHubEmitter statusHubEmitter, PartyStatusViewModel partyStatusViewModel,
-            GameDatabase gameDatabase, GilBank gilBank, ITwitchClient twitchClient,
+            GameDatabase gameDatabase, GilBank gilBank, IChatClient chatClient,
             EquipmentData<Armlet> equipmentData, PaymentProcessor paymentProcessor)
             : base(equipmentAccessor, inventoryAccessor, materiaAccessor, statusHubEmitter,
-                partyStatusViewModel, gameDatabase, gilBank, twitchClient, equipmentData,
+                partyStatusViewModel, gameDatabase, gilBank, chatClient, equipmentData,
                 x => x.ArmletCommandWords, paymentProcessor)
         {
         }
