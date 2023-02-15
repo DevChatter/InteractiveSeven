@@ -1,0 +1,30 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Autofac" Version="6.5.0" />
+        <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageVersion Include="MahApps.Metro" Version="2.4.9" />
+        <PackageVersion Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+        <PackageVersion Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageVersion Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
+        <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
+        <PackageVersion Include="Serilog" Version="2.12.0" />
+        <PackageVersion Include="Serilog.Extensions.Logging" Version="3.1.0" />
+        <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
+        <PackageVersion Include="Serilog.Sinks.RichTextBox.Wpf" Version="1.1.0" />
+        <PackageVersion Include="Shojy.FF7.Elena" Version="0.2-dev" />
+        <PackageVersion Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+        <PackageVersion Include="TwitchLib" Version="3.5.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="FluentAssertions" Version="6.9.0" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+        <PackageVersion Include="Moq" Version="4.18.4" />
+        <PackageVersion Include="xunit" Version="2.4.2" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    </ItemGroup>
+</Project>

@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
-    <PackageReference Include="TwitchLib" Version="3.5.3" />
-    <PackageReference Include="Shojy.FF7.Elena" Version="0.2-dev" />
+    <PackageReference Include="Autofac" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+    <PackageReference Include="TwitchLib" />
+    <PackageReference Include="Shojy.FF7.Elena" />
   </ItemGroup>
 
 </Project>
