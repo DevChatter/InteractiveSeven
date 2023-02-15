@@ -2,6 +2,7 @@
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;

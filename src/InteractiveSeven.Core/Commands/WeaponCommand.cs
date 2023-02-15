@@ -5,20 +5,19 @@ using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
-    public class ArmletCommand : EquipmentCommand<Armlet>
+    public class WeaponCommand : EquipmentCommand<Weapon>
     {
-        public ArmletCommand(IEquipmentAccessor equipmentAccessor,
+        public WeaponCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             IStatusHubEmitter statusHubEmitter, PartyStatusViewModel partyStatusViewModel,
             GameDatabase gameDatabase, GilBank gilBank, IChatClient chatClient,
-            EquipmentData<Armlet> equipmentData, PaymentProcessor paymentProcessor)
+            EquipmentData<Weapon> equipmentData, PaymentProcessor paymentProcessor)
             : base(equipmentAccessor, inventoryAccessor, materiaAccessor, statusHubEmitter,
                 partyStatusViewModel, gameDatabase, gilBank, chatClient, equipmentData,
-                x => x.ArmletCommandWords, paymentProcessor)
+                x => x.WeaponCommandWords, paymentProcessor)
         {
         }
     }

@@ -5,9 +5,8 @@ using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands
 {
     public class AccessoryCommand : EquipmentCommand<Accessory>
     {

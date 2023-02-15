@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -9,9 +10,7 @@ using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
-using InteractiveSeven.Twitch.Commands;
 using Moq;
-using TwitchLib.Client.Interfaces;
 using UnitTests.Core.GilBankTests;
 using Xunit;
 
