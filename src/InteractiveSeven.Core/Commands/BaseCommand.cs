@@ -5,7 +5,7 @@ using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Commands
 {
-    public abstract class BaseCommand : ITwitchCommand
+    public abstract class BaseCommand : IChatCommand
     {
         private readonly Func<CommandSettings, string[]> _commandWordsSelector;
         private readonly Func<ApplicationSettings, bool> _enableCheck;

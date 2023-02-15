@@ -8,7 +8,7 @@ using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Twitch.Commands.Decorators
 {
-    public class NonBattleCommand<T> : ITwitchCommand where T : ITwitchCommand
+    public class NonBattleCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
         private readonly ITwitchClient _twitchClient;

@@ -22,7 +22,7 @@ namespace InteractiveSeven.Twitch
     public class ChatBot : INotifyPropertyChanged, IChatBot
     {
         private readonly ITwitchClient _client;
-        private readonly IList<ITwitchCommand> _commands;
+        private readonly IList<IChatCommand> _commands;
         private readonly IIntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
         private readonly ILogger<ChatBot> _logger;
@@ -40,7 +40,7 @@ namespace InteractiveSeven.Twitch
             }
         }
 
-        public ChatBot(ITwitchClient twitchClient, IList<ITwitchCommand> commands,
+        public ChatBot(ITwitchClient twitchClient, IList<IChatCommand> commands,
             IIntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
         {
             _client = twitchClient;

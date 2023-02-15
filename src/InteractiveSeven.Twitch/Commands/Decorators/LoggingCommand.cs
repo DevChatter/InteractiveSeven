@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Twitch.Commands.Decorators
 {
-    public class LoggingCommand<T> : ITwitchCommand where T : ITwitchCommand
+    public class LoggingCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
         private readonly ILogger<LoggingCommand<T>> _logger;

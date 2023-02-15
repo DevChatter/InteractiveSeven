@@ -2,7 +2,7 @@
 
 namespace InteractiveSeven.Core.Commands
 {
-    public interface ITwitchCommand
+    public interface IChatCommand
     {
         GamePlayEffects GamePlayEffects { get; }
         bool ShouldExecute(string commandWord);
