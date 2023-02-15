@@ -1,7 +1,7 @@
 ﻿using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 
-namespace InteractiveSeven.Core.Commands
+namespace InteractiveSeven.Core.Commands.Admin
 {
     public class UnlockCommand : BaseCommand
     {

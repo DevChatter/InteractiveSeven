@@ -6,7 +6,7 @@ using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
 
-namespace InteractiveSeven.Core.Commands
+namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class ArmletCommand : EquipmentCommand<Armlet>
     {

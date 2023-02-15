@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InteractiveSeven.Core.Chat;
-using InteractiveSeven.Core.Commands;
+using InteractiveSeven.Core.Commands.Equipment;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;

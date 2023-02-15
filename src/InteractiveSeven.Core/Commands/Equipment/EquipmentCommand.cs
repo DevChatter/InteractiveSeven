@@ -10,9 +10,9 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 
-namespace InteractiveSeven.Core.Commands
+namespace InteractiveSeven.Core.Commands.Equipment
 {
-    public class EquipmentCommand<T> : BaseCommand where T : Equipment
+    public class EquipmentCommand<T> : BaseCommand where T : Data.Items.Equipment
     {
         private readonly IEquipmentAccessor _equipmentAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;

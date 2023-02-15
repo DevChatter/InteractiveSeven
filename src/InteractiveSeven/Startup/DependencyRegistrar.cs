@@ -3,6 +3,8 @@ using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
+using InteractiveSeven.Core.Commands.Admin;
+using InteractiveSeven.Core.Commands.Equipment;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
