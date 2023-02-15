@@ -1,23 +1,23 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.MenuColors
 {
     public class PaletteCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IDataStore<ColorPalette> _colorPaletteDataStore;
         private readonly ColorPaletteCollection _colorPaletteCollection;
 
-        public PaletteCommand(ITwitchClient twitchClient,
+        public PaletteCommand(IChatClient chatClient,
             IDataStore<ColorPalette> colorPaletteDataStore,
             ColorPaletteCollection colorPaletteCollection)
             : base(x => x.PaletteCommandWords,
                 x => x.MenuSettings.EnablePaletteCommand)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _colorPaletteDataStore = colorPaletteDataStore;
             _colorPaletteCollection = colorPaletteCollection;
         }
@@ -78,7 +78,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             _colorPaletteCollection.RemovePalette(paletteName);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _twitchClient.SendMessage(commandData.Channel, $"Removed the '!menu {paletteName}' color palette.");
+            _chatClient.SendMessage(commandData.Channel, $"Removed the '!menu {paletteName}' color palette.");
         }
 
         private void EditPalette(in CommandData commandData)
@@ -99,14 +99,14 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (menuColors == null)
             {
-                _twitchClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
+                _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
                 return;
             }
 
             _colorPaletteCollection.EditPalette(menuColors, paletteName);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _twitchClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
+            _chatClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
         }
 
         private static Models.MenuColors GetMenuColors(CommandData commandData)
@@ -139,7 +139,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             const string word = "palette";
             string message =
                 $"List available palettes by '!{word} list' or add a new one by '!{word} add Sunset Orange OrangeRed Red DarkRed'.";
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
         }
 
         private void CreateNewPalette(CommandData commandData)
@@ -160,7 +160,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (menuColors == null)
             {
-                _twitchClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
+                _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
                 return;
             }
 
@@ -169,7 +169,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             _colorPaletteCollection.AddPalette(colorPalette);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _twitchClient.SendMessage(commandData.Channel, $"Added a '!menu {paletteName}' color palette.");
+            _chatClient.SendMessage(commandData.Channel, $"Added a '!menu {paletteName}' color palette.");
         }
 
         private bool AllowedToRunCommand(CommandData commandData)
@@ -181,7 +181,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
         private void ShowCurrentPaletteList(CommandData commandData)
         {
             string message = string.Join(", ", _colorPaletteCollection.All.Select(x => x.Names.First()));
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }
