@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
 
-namespace InteractiveSeven.Core.Commands
+namespace InteractiveSeven.Core.Commands.Currency
 {
     public class CostsCommand : BaseCommand
     {
@@ -22,15 +21,15 @@ namespace InteractiveSeven.Core.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            string argument = commandData.Arguments.FirstOrDefault();
+            var argument = commandData.Arguments.FirstOrDefault();
             if (argument is null)
             {
-                string message = "Specify cost type to check (color, status, item, materia, equipment).";
+                var message = "Specify cost type to check (color, status, item, materia, equipment).";
                 SendMessage(commandData, message);
             }
             else if (argument.StartsWithIns("col") || argument.StartsWithIns("menu"))
             {
-                string message = GetColorCostMessage();
+                var message = GetColorCostMessage();
                 SendMessage(commandData, message);
             }
             else if (argument.StartsWithIns("status") || argument.StartsWithIns("eff"))
@@ -87,7 +86,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetItemCostMessage()
         {
-            IEnumerable<string> pieces = Settings.ItemSettings.AllItems
+            var pieces = Settings.ItemSettings.AllItems
                 .Where(x => x.Enabled)
                 .Select(item => $"[{item.Name}: {item.Cost}]");
 
@@ -96,7 +95,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetItemDropCostMessage()
         {
-            IEnumerable<string> pieces = Settings.ItemSettings.AllItems
+            var pieces = Settings.ItemSettings.AllItems
                 .Where(x => x.Enabled)
                 .Select(item => $"[{item.Name}: {item.DropCost}]");
 
@@ -105,7 +104,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetMateriaCostMessage()
         {
-            IEnumerable<string> pieces = Settings.MateriaSettings.AllMateria
+            var pieces = Settings.MateriaSettings.AllMateria
                 .Where(x => x.Enabled)
                 .Select(materia => $"[{materia.Name}: {materia.Cost}]");
 
@@ -114,7 +113,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetMateriaDropCostMessage()
         {
-            IEnumerable<string> pieces = Settings.MateriaSettings.AllMateria
+            var pieces = Settings.MateriaSettings.AllMateria
                 .Where(x => x.Enabled)
                 .Select(materia => $"[{materia.Name}: {materia.DropCost}]");
 
@@ -123,7 +122,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetStatusCostMessage()
         {
-            IEnumerable<string> pieces = BattleSettings.AllStatusEffects
+            var pieces = BattleSettings.AllStatusEffects
                 .Where(x => x.Enabled)
                 .Select(effect => $"[{effect.Name}: {effect.Cost}]");
 
@@ -132,7 +131,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetCureCostMessage()
         {
-            IEnumerable<string> pieces = BattleSettings.AllStatusEffects
+            var pieces = BattleSettings.AllStatusEffects
                 .Where(x => x.Enabled)
                 .Select(effect => $"[{effect.Name}: {effect.CureCost}]");
 
@@ -141,7 +140,7 @@ namespace InteractiveSeven.Core.Commands
 
         private string GetColorCostMessage()
         {
-            string message = "";
+            var message = "";
 
             if (Settings.MenuSettings.Enabled)
             {

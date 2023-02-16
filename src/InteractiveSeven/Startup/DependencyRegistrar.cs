@@ -5,6 +5,7 @@ using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Commands.Admin;
 using InteractiveSeven.Core.Commands.Battle;
+using InteractiveSeven.Core.Commands.Currency;
 using InteractiveSeven.Core.Commands.Equipment;
 using InteractiveSeven.Core.Commands.MenuColors;
 using InteractiveSeven.Core.Data;

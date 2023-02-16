@@ -2,7 +2,7 @@
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 
-namespace InteractiveSeven.Core.Commands
+namespace InteractiveSeven.Core.Commands.Currency
 {
     public class BalanceCommand : BaseCommand
     {
@@ -20,7 +20,7 @@ namespace InteractiveSeven.Core.Commands
 
         public override void Execute(in CommandData data)
         {
-            int balance = _gilBank.CheckBalance(data.User);
+            var balance = _gilBank.CheckBalance(data.User);
 
             _chatClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
         }
