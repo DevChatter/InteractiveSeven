@@ -94,8 +94,8 @@
     color: #c71585 !important;
 }
 
-.hp-low .current-hp, .mp-low:not(.dead) .current-mp {
-    color: #ffa500;
+.hp-low:not(.dead), .mp-low:not(.dead) {
+    color: #ffa500 !important;
 }
 
 
@@ -222,8 +222,8 @@
     width: 60px;
 }
 
-.ff7 .text .character.dead * {
-    color: #ab0000;
+.dead {
+    color: #ab0000 !important;
 }
 
 .ff7 {
