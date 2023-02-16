@@ -1,10 +1,8 @@
 ﻿using System;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace InteractiveSeven.Twitch.Commands.Decorators
+namespace InteractiveSeven.Core.Commands.Decorators
 {
     public class LoggingCommand<T> : IChatCommand where T : IChatCommand
     {

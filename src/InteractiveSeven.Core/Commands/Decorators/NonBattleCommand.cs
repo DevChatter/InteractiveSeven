@@ -1,24 +1,25 @@
-﻿using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
+﻿using System.Linq;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Settings;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands.Decorators
+namespace InteractiveSeven.Core.Commands.Decorators
 {
-    public class BattleOnlyCommand<T> : IChatCommand where T : IChatCommand
+    public class NonBattleCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
         private readonly ITwitchClient _twitchClient;
-        private readonly IBattleInfoAccessor _battleInfoAccessor;
+        private readonly IMemoryAccessor _memoryAccessor;
 
-        public BattleOnlyCommand(T internalCommand,
-            ITwitchClient twitchClient,
-            IBattleInfoAccessor battleInfoAccessor)
+        private ApplicationSettings Settings => ApplicationSettings.Instance;
+
+        public NonBattleCommand(T internalCommand,
+            ITwitchClient twitchClient, IMemoryAccessor memoryAccessor)
         {
             _internalCommand = internalCommand;
             _twitchClient = twitchClient;
-            _battleInfoAccessor = battleInfoAccessor;
+            _memoryAccessor = memoryAccessor;
         }
 
         public GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
@@ -30,21 +31,23 @@ namespace InteractiveSeven.Twitch.Commands.Decorators
 
         public void Execute(in CommandData commandData)
         {
-            if (IsBattleActive())
+            if (!IsBattleActive())
             {
                 _internalCommand.Execute(commandData);
             }
             else
             {
                 _twitchClient.SendMessage(commandData.Channel,
-                    $"Can only use !{commandData.CommandText} during battle.");
+                    $"Can only use !{commandData.CommandText} outside of battle.");
             }
         }
 
         private bool IsBattleActive()
         {
-            var ff7BattleMap = _battleInfoAccessor.GetBattleMap();
-            return ff7BattleMap.IsActiveBattle && !ff7BattleMap.IsBattleEnding;
+            MemLoc battleIndicator = BattleMemoryLocations.BattleStartedIndicator;
+            byte[] bytes = new byte[battleIndicator.NumBytes];
+            _memoryAccessor.ReadMem(Settings.ProcessName, battleIndicator.Address, bytes);
+            return bytes.Any(b => b > 0);
         }
     }
 }
