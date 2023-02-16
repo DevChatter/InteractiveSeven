@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
@@ -8,7 +6,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class RemovePlayerGpCommand : BaseCommand
     {

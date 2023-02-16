@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -9,7 +8,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class PauperCommand : BaseCommand
     {

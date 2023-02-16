@@ -1,47 +1,44 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
-using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Equipment
 {
-    public class ItemCommand : BaseCommand
+    public class MateriaCommand : BaseCommand
     {
         private readonly ITwitchClient _twitchClient;
-        private readonly IInventoryAccessor _inventoryAccessor;
+        private readonly IMateriaAccessor _materiaAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly PaymentProcessor _paymentProcessor;
 
-        public ItemCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor,
+        public MateriaCommand(ITwitchClient twitchClient, IMateriaAccessor materiaAccessor,
             IStatusHubEmitter statusHubEmitter, PaymentProcessor paymentProcessor)
-            : base(x => x.ItemCommandWords, x => x.ItemSettings.Enabled)
+            : base(x => x.MateriaCommandWords, x => x.MateriaSettings.Enabled)
         {
             _twitchClient = twitchClient;
-            _inventoryAccessor = inventoryAccessor;
+            _materiaAccessor = materiaAccessor;
             _statusHubEmitter = statusHubEmitter;
             _paymentProcessor = paymentProcessor;
         }
 
         public override void Execute(in CommandData commandData)
         {
-            string itemName = commandData.Arguments.FirstOrDefault();
+            string materiaName = commandData.Arguments.FirstOrDefault();
 
-            var candidates = Settings.ItemSettings.AllByName(itemName);
+            var candidates = Settings.MateriaSettings.AllByName(materiaName);
 
             if (candidates.Count == 0)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Materia.");
                 return;
             }
 
             if (candidates.Count > 15)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                _twitchClient.SendMessage(commandData.Channel, "Error: Too many matching materia, be more specific.");
                 return;
             }
 
@@ -52,20 +49,18 @@ namespace InteractiveSeven.Twitch.Commands
                 return;
             }
 
-
-            var itemSettings = candidates.Single();
+            var materiaSetting = candidates.Single();
 
             GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
-                commandData, itemSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, materiaSetting.Cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
                 return;
             }
 
-            Items item = itemSettings.Item;
-            _inventoryAccessor.AddItem(item.ItemId, 1, true);
-            string message = $"Item {item.Name} Added";
+            _materiaAccessor.AddMateria(materiaSetting.Materia.Value);
+            string message = $"Materia {materiaSetting.Materia.Name} Added";
             _twitchClient.SendMessage(commandData.Channel, message);
             _statusHubEmitter.ShowEvent(message);
         }
