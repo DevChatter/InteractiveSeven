@@ -1,24 +1,24 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Decorators
 {
     public class NonBattleCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IMemoryAccessor _memoryAccessor;
 
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
         public NonBattleCommand(T internalCommand,
-            ITwitchClient twitchClient, IMemoryAccessor memoryAccessor)
+            IChatClient chatClient, IMemoryAccessor memoryAccessor)
         {
             _internalCommand = internalCommand;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _memoryAccessor = memoryAccessor;
         }
 
@@ -37,7 +37,7 @@ namespace InteractiveSeven.Core.Commands.Decorators
             }
             else
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Can only use !{commandData.CommandText} outside of battle.");
             }
         }

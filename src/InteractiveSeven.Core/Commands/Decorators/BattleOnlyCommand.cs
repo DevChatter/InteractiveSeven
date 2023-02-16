@@ -1,21 +1,21 @@
-﻿using InteractiveSeven.Core.Diagnostics.Memory;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Models;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Decorators
 {
     public class BattleOnlyCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IBattleInfoAccessor _battleInfoAccessor;
 
         public BattleOnlyCommand(T internalCommand,
-            ITwitchClient twitchClient,
+            IChatClient chatClient,
             IBattleInfoAccessor battleInfoAccessor)
         {
             _internalCommand = internalCommand;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _battleInfoAccessor = battleInfoAccessor;
         }
 
@@ -34,7 +34,7 @@ namespace InteractiveSeven.Core.Commands.Decorators
             }
             else
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Can only use !{commandData.CommandText} during battle.");
             }
         }
