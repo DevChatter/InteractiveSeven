@@ -5,9 +5,9 @@ namespace InteractiveSeven.Core.MvvmCommands
 {
     public class BotDisconnectCommand : ICommand
     {
-        private IChatBot ChatBot;
+        private ChatBot ChatBot;
 
-        public BotDisconnectCommand(IChatBot chatBot)
+        public BotDisconnectCommand(ChatBot chatBot)
         {
             ChatBot = chatBot;
         }
