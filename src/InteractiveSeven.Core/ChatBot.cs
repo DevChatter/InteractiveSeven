@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using InteractiveSeven.Core;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.IntervalMessages;
@@ -11,7 +10,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
 
-namespace InteractiveSeven.Twitch
+namespace InteractiveSeven.Core
 {
     public class ChatBot : INotifyPropertyChanged, IChatBot
     {
