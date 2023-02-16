@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using Xunit;

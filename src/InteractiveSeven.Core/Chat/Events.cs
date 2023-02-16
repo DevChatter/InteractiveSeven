@@ -1,5 +1,4 @@
 ﻿using System;
-using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Chat
 {

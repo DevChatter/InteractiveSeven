@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Chat;
 using TwitchLib.Client.Models;
 
 namespace InteractiveSeven.Twitch

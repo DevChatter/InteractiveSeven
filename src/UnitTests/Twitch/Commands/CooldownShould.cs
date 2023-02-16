@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Models;
 using Moq;

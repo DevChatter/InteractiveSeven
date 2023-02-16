@@ -1,6 +1,5 @@
 ﻿using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
-using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Commands.Decorators
 {

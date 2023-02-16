@@ -1,5 +1,5 @@
 ﻿using System;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Chat;
 
 namespace InteractiveSeven.Core.Commands
 {
