@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Currency
 {
     public class RemoveGilCommand : BaseCommand
     {
         private readonly GilBank _gilBank;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
 
-        public RemoveGilCommand(GilBank gilBank, ITwitchClient twitchClient)
+        public RemoveGilCommand(GilBank gilBank, IChatClient chatClient)
             : base(x => x.RemoveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
@@ -28,7 +28,7 @@ namespace InteractiveSeven.Core.Commands.Currency
             var (isValid, amount, target) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
@@ -42,7 +42,7 @@ namespace InteractiveSeven.Core.Commands.Currency
             string status = withdrawn != amount ? "Insufficient funds:" : "Success:";
 
             string message = $"{status} Removed {withdrawn} gil from {target}'s account.";
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
         }
 
         private bool CanSendBonusBits(in ChatUser user)

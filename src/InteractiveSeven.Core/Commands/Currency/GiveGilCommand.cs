@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using TwitchLib.Api.Interfaces;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Currency
 {
     public class GiveGilCommand : BaseCommand
     {
         private readonly GilBank _gilBank;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly ITwitchAPI _api;
 
-        public GiveGilCommand(GilBank gilBank, ITwitchClient twitchClient, ITwitchAPI api)
+        public GiveGilCommand(GilBank gilBank, IChatClient chatClient, ITwitchAPI api)
             : base(x => x.GiveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _api = api;
         }
 
@@ -30,7 +30,7 @@ namespace InteractiveSeven.Core.Commands.Currency
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
@@ -53,7 +53,7 @@ namespace InteractiveSeven.Core.Commands.Currency
                 (balance, withdrawn) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (withdrawn == 0)
                 {
-                    _twitchClient.SendMessage(commandData.Channel,
+                    _chatClient.SendMessage(commandData.Channel,
                         $"Insufficient funds, {commandData.User.Username}. You have only {balance} gil.");
                     return;
                 }
@@ -61,7 +61,7 @@ namespace InteractiveSeven.Core.Commands.Currency
 
             string fromMessage = isBonus ? "" : $" from {commandData.User.Username}'s account";
             _gilBank.Deposit(new ChatUser { Username = recipient }, withdrawn);
-            _twitchClient.SendMessage(commandData.Channel,
+            _chatClient.SendMessage(commandData.Channel,
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
 
