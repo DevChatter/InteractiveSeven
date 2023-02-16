@@ -1,8 +1,7 @@
 ﻿using System;
-using InteractiveSeven.Core;
 using InteractiveSeven.Core.Model;
 
-namespace InteractiveSeven.Twitch.Commands.Components
+namespace InteractiveSeven.Core.Commands
 {
     public class CooldownTracker
     {
