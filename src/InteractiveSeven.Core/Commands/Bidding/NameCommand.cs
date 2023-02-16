@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
 using InteractiveSeven.Core.Bidding;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Model;
@@ -10,7 +8,7 @@ using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class NameCommand : BaseCommand
     {

@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class NameBidsCommand : BaseCommand
     {

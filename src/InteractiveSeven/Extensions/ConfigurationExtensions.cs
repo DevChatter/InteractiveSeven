@@ -1,7 +1,6 @@
 ﻿using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Commands.Decorators;
 using InteractiveSeven.Core.Data.Items;
-using InteractiveSeven.Twitch.Commands;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InteractiveSeven
