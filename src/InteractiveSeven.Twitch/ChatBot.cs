@@ -4,22 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.IntervalMessages;
-using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using TwitchLib.Client.Events;
-using TwitchLib.Client.Interfaces;
-using TwitchLib.Client.Models;
-using TwitchLib.Communication.Events;
 
 namespace InteractiveSeven.Twitch
 {
     public class ChatBot : INotifyPropertyChanged, IChatBot
     {
-        private readonly ITwitchClient _client;
+        private readonly IChatClient _chatClient;
         private readonly IList<IChatCommand> _commands;
         private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
@@ -38,21 +34,21 @@ namespace InteractiveSeven.Twitch
             }
         }
 
-        public ChatBot(ITwitchClient twitchClient, IList<IChatCommand> commands,
+        public ChatBot(IChatClient chatClient, IList<IChatCommand> commands,
             IntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
         {
-            _client = twitchClient;
+            _chatClient = chatClient;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
             _gilBank = gilBank;
             _logger = logger;
 
-            _client.OnLog += Client_OnLog;
-            _client.OnJoinedChannel += Client_OnJoinedChannel;
-            _client.OnMessageReceived += Client_OnMessageReceived;
-            _client.OnChatCommandReceived += Client_OnChatCommandReceived;
-            _client.OnConnected += Client_OnConnected;
-            _client.OnDisconnected += Client_OnDisconnected;
+            _chatClient.OnLog += Client_OnLog;
+            _chatClient.OnJoinedChannel += Client_OnJoinedChannel;
+            _chatClient.OnMessageReceived += Client_OnMessageReceived;
+            _chatClient.OnChatCommandReceived += Client_OnChatCommandReceived;
+            _chatClient.OnConnected += Client_OnConnected;
+            _chatClient.OnDisconnected += Client_OnDisconnected;
         }
 
         public void Connect()
@@ -68,9 +64,7 @@ namespace InteractiveSeven.Twitch
 
             try
             {
-                ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
-                _client.Initialize(credentials, Settings.Channel);
-                _client.Connect();
+                _chatClient.Connect(Settings.Username, Settings.AccessToken, Settings.Channel);
             }
             catch (Exception e)
             {
@@ -80,16 +74,16 @@ namespace InteractiveSeven.Twitch
 
         public void Disconnect()
         {
-            _client.SendMessage(_client.JoinedChannels.FirstOrDefault(), "Disconnecting Interactive Seven!");
-            _client.Disconnect();
+            _chatClient.SendMessage(Settings.Channel, "Disconnecting Interactive Seven!");
+            _chatClient.Disconnect();
         }
 
         private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             try
             {
-                _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                    ?.Execute(e.Command.GetCommandData());
+                _commands.FirstOrDefault(x => x.ShouldExecute(e.CommandData.CommandText))
+                    ?.Execute(e.CommandData);
                 _intervalMessaging.MessageReceived();
             }
             catch (Exception exception)
@@ -114,21 +108,21 @@ namespace InteractiveSeven.Twitch
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            _client.SendMessage(e.Channel, "Interactive Seven is live!");
+            _chatClient.SendMessage(e.Channel, "Interactive Seven is live!");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             try
             {
-                int bits = e.ChatMessage.Bits;
+                int bits = e.Bits;
                 if (bits > 0)
                 {
-                    _gilBank.Deposit(e.ChatMessage.GetChatUser(), bits);
+                    _gilBank.Deposit(e.ChatUser, bits);
                 }
                 else
                 {
-                    _gilBank.EnsureAccountExists(e.ChatMessage.GetChatUser());
+                    _gilBank.EnsureAccountExists(e.ChatUser);
                 }
             }
             catch (Exception exception)
