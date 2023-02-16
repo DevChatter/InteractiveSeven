@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands.Battle;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.FinalFantasy.Constants;

@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Battle;
+﻿using InteractiveSeven.Core.Commands.Battle;
 
 namespace InteractiveSeven.Core.Diagnostics.Memory
 {

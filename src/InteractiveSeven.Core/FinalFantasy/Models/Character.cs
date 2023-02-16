@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands.Battle;
 using InteractiveSeven.Core.Data;
 using Tseng.GameData;
 

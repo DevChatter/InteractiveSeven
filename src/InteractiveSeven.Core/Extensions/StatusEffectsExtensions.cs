@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands.Battle;
 
 namespace InteractiveSeven.Core
 {

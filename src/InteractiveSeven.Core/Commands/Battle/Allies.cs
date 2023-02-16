@@ -2,7 +2,7 @@
 using System.Linq;
 using InteractiveSeven.Core.Diagnostics.Memory;
 
-namespace InteractiveSeven.Core.Battle
+namespace InteractiveSeven.Core.Commands.Battle
 {
     public class Allies
     {

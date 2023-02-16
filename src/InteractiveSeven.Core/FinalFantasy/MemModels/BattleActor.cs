@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands.Battle;
 
 namespace InteractiveSeven.Core.FinalFantasy.MemModels
 {
