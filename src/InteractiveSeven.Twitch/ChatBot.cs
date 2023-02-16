@@ -21,7 +21,7 @@ namespace InteractiveSeven.Twitch
     {
         private readonly ITwitchClient _client;
         private readonly IList<IChatCommand> _commands;
-        private readonly IIntervalMessagingService _intervalMessaging;
+        private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
         private readonly ILogger<ChatBot> _logger;
         private bool _isConnected;
@@ -39,7 +39,7 @@ namespace InteractiveSeven.Twitch
         }
 
         public ChatBot(ITwitchClient twitchClient, IList<IChatCommand> commands,
-            IIntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
+            IntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
         {
             _client = twitchClient;
             _commands = commands;

@@ -61,7 +61,7 @@ namespace InteractiveSeven.Startup
             services.AddTransient<IStatusHubEmitter, StatusHubEmitter>();
 
             services.AddSingleton<IClock, SystemClock>();
-            services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
+            services.AddSingleton<IntervalMessagingService>();
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<NativeMemoryReader>();

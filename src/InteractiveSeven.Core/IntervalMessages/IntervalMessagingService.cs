@@ -4,7 +4,7 @@ using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.IntervalMessages
 {
-    public class IntervalMessagingService : IIntervalMessagingService
+    public class IntervalMessagingService
     {
         private const int NormalDelayInMinutes = 60;
         private int _messageCount = 0;
