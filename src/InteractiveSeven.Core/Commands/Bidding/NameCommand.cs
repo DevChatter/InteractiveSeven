@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core.Bidding;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using InteractiveSeven.Core.Bidding;
-using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Commands.Bidding;
+using InteractiveSeven.Core.Commands.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using Xunit;

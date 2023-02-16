@@ -8,7 +8,7 @@ using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
 
-namespace InteractiveSeven.Core.Bidding.Naming
+namespace InteractiveSeven.Core.Commands.Bidding.Naming
 {
     public class CharacterNameBidding : INotifyPropertyChanged
     {
@@ -78,7 +78,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
 
         private void CheckNameChange()
         {
-            string highestBid = GetHighestBid();
+            var highestBid = GetHighestBid();
             if (LeadingName != highestBid)
             {
                 LeadingName = highestBid;
@@ -89,7 +89,7 @@ namespace InteractiveSeven.Core.Bidding.Naming
         {
             try
             {
-                CharacterNameBid nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
+                var nameBid = NameBids.SingleOrDefault(bid => bid.Name == e.BidName);
                 if (nameBid == null)
                 {
                     lock (_padlock)
