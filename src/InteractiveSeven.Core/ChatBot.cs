@@ -8,7 +8,7 @@ using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace InteractiveSeven.Core
 {
@@ -18,7 +18,6 @@ namespace InteractiveSeven.Core
         private readonly IList<IChatCommand> _commands;
         private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
-        private readonly ILogger<ChatBot> _logger;
         private bool _isConnected;
 
         private TwitchSettings Settings => TwitchSettings.Instance;
@@ -34,13 +33,12 @@ namespace InteractiveSeven.Core
         }
 
         public ChatBot(IChatClient chatClient, IList<IChatCommand> commands,
-            IntervalMessagingService intervalMessaging, GilBank gilBank, ILogger<ChatBot> logger)
+            IntervalMessagingService intervalMessaging, GilBank gilBank)
         {
             _chatClient = chatClient;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
             _gilBank = gilBank;
-            _logger = logger;
 
             _chatClient.OnLog += Client_OnLog;
             _chatClient.OnJoinedChannel += Client_OnJoinedChannel;
@@ -67,7 +65,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error Connecting to Twitch");
+                Log.Logger.Error(e, "Error Connecting to Twitch");
             }
         }
 
@@ -87,7 +85,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Command Error");
+                Log.Logger.Error(exception, "Command Error");
             }
         }
 
@@ -126,7 +124,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Error updating account balances.");
+                Log.Logger.Error(exception, "Error updating account balances.");
             }
         }
 

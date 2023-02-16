@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using InteractiveSeven.Core.FinalFantasy.Models;
+using Serilog;
 
 namespace InteractiveSeven.Core.Data
 {
@@ -7,10 +8,10 @@ namespace InteractiveSeven.Core.Data
     {
         private readonly IGameDatabaseLoader _loader;
         private bool _isLoaded = false;
-        private readonly List<Accessory> _accessoryDatabase = new List<Accessory>();
-        private readonly List<Armlet> _armletDatabase = new List<Armlet>();
-        private readonly List<Materia> _materiaDatabase = new List<Materia>();
-        private readonly List<Weapon> _weaponDatabase = new List<Weapon>();
+        private readonly List<Accessory> _accessoryDatabase = new();
+        private readonly List<Armlet> _armletDatabase = new();
+        private readonly List<Materia> _materiaDatabase = new();
+        private readonly List<Weapon> _weaponDatabase = new();
 
         private readonly object _padlock = new object();
 
@@ -21,6 +22,7 @@ namespace InteractiveSeven.Core.Data
 
         public void LoadData()
         {
+            Log.Logger.Information("Loading game metadata from Kernel");
             if (!_isLoaded)
             {
                 lock (_padlock)

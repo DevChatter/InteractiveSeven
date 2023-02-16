@@ -12,6 +12,7 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -22,8 +23,6 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly IDataStore<CharacterNameBid> _dataStore;
         private readonly IDialogService _dialogService;
         private readonly IStatusHubEmitter _statusHubEmitter;
-        private readonly ILogger<NameBiddingViewModel> _logger;
-        private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
         public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; } = new ();
 
@@ -45,8 +44,6 @@ namespace InteractiveSeven.Core.ViewModels
             _dataStore = dataStore;
             _dialogService = dialogService;
             _statusHubEmitter = statusHubEmitter;
-            _logger = logger;
-            _charNameBiddingLogger = charNameBiddingLogger;
 
             ResetDataCommand = new SimpleCommand(x =>
             {
@@ -58,7 +55,7 @@ namespace InteractiveSeven.Core.ViewModels
 
             foreach (CharNames charName in CharNames.Core)
             {
-                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName));
             }
         }
 
@@ -69,7 +66,7 @@ namespace InteractiveSeven.Core.ViewModels
             CharacterNameBiddings.Clear();
             foreach (CharNames charName in CharNames.Core)
             {
-                var nameBidding = new CharacterNameBidding(charName, _charNameBiddingLogger, false);
+                var nameBidding = new CharacterNameBidding(charName, false);
 
                 var namesForChar = nameBids.Where(x => x.CharNameId == charName.Id)
                     .OrderByDescending(x => x.TotalBits);
@@ -92,7 +89,7 @@ namespace InteractiveSeven.Core.ViewModels
             CharacterNameBiddings.Clear();
             foreach (CharNames charName in CharNames.Core)
             {
-                CharacterNameBiddings.Add(new CharacterNameBidding(charName, _charNameBiddingLogger));
+                CharacterNameBiddings.Add(new CharacterNameBidding(charName));
             }
             _dataStore.SaveData(CharacterNameBiddings.SelectMany(cnb => cnb.NameBids).ToList());
             HandleNameRefresh(new RefreshEvent());
@@ -109,7 +106,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Failed to refresh names.");
+                Log.Logger.Error(exception, "Failed to refresh names.");
             }
         }
 
@@ -124,7 +121,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Failed to update top name.");
+                Log.Logger.Error(exception, "Failed to update top name.");
             }
         }
 
@@ -137,7 +134,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Failed to record name vote and save.");
+                Log.Logger.Error(exception, "Failed to record name vote and save.");
             }
         }
 
@@ -153,7 +150,7 @@ namespace InteractiveSeven.Core.ViewModels
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Failed to remove Name.");
+                Log.Logger.Error(exception, "Failed to remove Name.");
             }
         }
     }

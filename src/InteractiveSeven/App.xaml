@@ -56,6 +56,7 @@
             <lvc:MenuColorNameConverter x:Key="MenuColorNameConverter" />
             <lvc:ColorToSolidBrushValueConverter x:Key="ColorToSolidBrushValueConverter" />
             <lvc:ConnectionValueConverter x:Key="ConnectionValueConverter" />
+            <lvc:ConnectionColorConverter x:Key="ConnectionColorConverter" />
             <lvc:CommandWordsValueConverter x:Key="CommandWordsValueConverter" />
             <lvc:MenuColorsToImageSourceConverter x:Key="MenuColorsToImageSourceConverter" />
 

@@ -46,6 +46,7 @@ namespace InteractiveSeven.Startup
 
             services.AddSingleton<WorkloadCoordinator>();
 
+            services.AddSingleton<MonitorViewModel>();
             services.AddSingleton<MenuColorViewModel>();
             services.AddSingleton<NameBiddingViewModel>();
             services.AddSingleton<StreamOverlayViewModel>();
@@ -123,7 +124,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GameDatabase>();
             services.AddSingleton<FF7BattleMap>();
             services.AddSingleton<ProcessConnector>();
-            services.AddSingleton<TsengMonitor>();
+            services.AddSingleton<FF7Monitor>();
 
             services.AddSingleton(typeof(IDataStore<>), typeof(FileDataStore<>));
 

@@ -25,6 +25,7 @@
     <PackageReference Include="Microsoft.AspNetCore" />
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" />
     <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
     <PackageReference Include="Serilog.Extensions.Logging" />
     <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="Serilog.Sinks.RichTextBox.Wpf" />
