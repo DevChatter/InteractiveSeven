@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;

@@ -1,5 +1,4 @@
 ﻿using InteractiveSeven.Core.Chat;
-using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Payments
 {

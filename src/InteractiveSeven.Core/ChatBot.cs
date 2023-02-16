@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core
 {
-    public class ChatBot : INotifyPropertyChanged, IChatBot
+    public class ChatBot : INotifyPropertyChanged
     {
         private readonly IChatClient _chatClient;
         private readonly IList<IChatCommand> _commands;

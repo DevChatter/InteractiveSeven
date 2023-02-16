@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using InteractiveSeven.Core.Bidding.Naming;
+using InteractiveSeven.Core.Commands.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;

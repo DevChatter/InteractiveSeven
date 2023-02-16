@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InteractiveSeven.Core.Battle
+namespace InteractiveSeven.Core.Commands.Battle
 {
     [Flags]
     public enum StatusEffects : uint

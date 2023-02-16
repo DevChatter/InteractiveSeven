@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace InteractiveSeven.Core.Bidding.Naming
+namespace InteractiveSeven.Core.Commands.Bidding.Naming
 {
     public class CharacterNameBid : INotifyPropertyChanged
     {

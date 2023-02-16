@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using InteractiveSeven.Core.Battle;
+using InteractiveSeven.Core.Commands.Battle;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 

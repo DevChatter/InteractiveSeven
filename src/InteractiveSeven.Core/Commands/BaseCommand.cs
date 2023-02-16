@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.Commands

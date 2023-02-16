@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Events
 {

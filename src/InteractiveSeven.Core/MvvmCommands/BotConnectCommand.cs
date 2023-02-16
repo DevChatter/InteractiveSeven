@@ -5,9 +5,9 @@ namespace InteractiveSeven.Core.MvvmCommands
 {
     public class BotConnectCommand : ICommand
     {
-        private IChatBot ChatBot;
+        private ChatBot ChatBot;
 
-        public BotConnectCommand(IChatBot chatBot)
+        public BotConnectCommand(ChatBot chatBot)
         {
             ChatBot = chatBot;
         }

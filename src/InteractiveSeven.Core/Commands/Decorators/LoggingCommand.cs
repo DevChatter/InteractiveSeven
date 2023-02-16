@@ -1,5 +1,5 @@
 ﻿using System;
-using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Chat;
 using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.Commands.Decorators

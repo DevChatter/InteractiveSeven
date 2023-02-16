@@ -117,7 +117,7 @@ namespace InteractiveSeven.Startup
             services.RegisterTwitchCommand<HelpCommand>();
             services.RegisterTwitchCommand<I7Command>();
 
-            services.AddSingleton<IChatBot, ChatBot>();
+            services.AddSingleton<ChatBot>();
 
             services.AddSingleton<IGameDatabaseLoader, GameDatabaseLoader>();
             services.AddSingleton<GameDatabase>();

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using InteractiveSeven.Core.Bidding.Naming;
 using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;

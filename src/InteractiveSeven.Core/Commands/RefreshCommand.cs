@@ -1,6 +1,5 @@
 ﻿using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Commands
 {

@@ -5,7 +5,6 @@ using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
-using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;

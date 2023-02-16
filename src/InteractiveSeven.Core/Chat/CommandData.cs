@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InteractiveSeven.Core.Models
+namespace InteractiveSeven.Core.Chat
 {
     public struct CommandData
     {

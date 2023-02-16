@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core.Models
+﻿namespace InteractiveSeven.Core.Chat
 {
     public struct ChatUser
     {

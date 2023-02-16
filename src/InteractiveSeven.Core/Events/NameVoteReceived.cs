@@ -1,4 +1,4 @@
-﻿using InteractiveSeven.Core.Bidding;
+﻿using InteractiveSeven.Core.Commands.Bidding;
 using InteractiveSeven.Core.Data;
 
 namespace InteractiveSeven.Core.Events

@@ -1,4 +1,4 @@
-﻿namespace InteractiveSeven.Core.Bidding
+﻿namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class BidRecord
     {
