@@ -1,10 +1,8 @@
 ﻿using System;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.IntervalMessages;
 using InteractiveSeven.Core.Settings;
 using TwitchLib.Client.Interfaces;
 
-namespace InteractiveSeven.Twitch.IntervalMessages
+namespace InteractiveSeven.Core.IntervalMessages
 {
     public class IntervalMessagingService : IIntervalMessagingService
     {

@@ -25,7 +25,6 @@ using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
 using InteractiveSeven.Twitch.Chat;
-using InteractiveSeven.Twitch.IntervalMessages;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
