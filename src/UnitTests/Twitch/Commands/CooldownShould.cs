@@ -2,7 +2,7 @@
 using FluentAssertions;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Commands;
-using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 using Moq;
 using Xunit;
 

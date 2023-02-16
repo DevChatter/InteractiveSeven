@@ -1,17 +1,17 @@
-﻿using InteractiveSeven.Core.Events;
+﻿using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands
 {
     public class RefreshCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly CooldownTracker _cooldownTracker;
-        public RefreshCommand(ITwitchClient twitchClient)
+        public RefreshCommand(IChatClient chatClient)
             : base(x => x.RefreshCommandWords, x => true)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _cooldownTracker = new CooldownTracker(1);
         }
 
@@ -26,7 +26,7 @@ namespace InteractiveSeven.Core.Commands
             }
             else
             {
-                _twitchClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
+                _chatClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
             }
         }
 

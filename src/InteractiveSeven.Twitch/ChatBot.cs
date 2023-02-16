@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.IntervalMessages;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
@@ -90,7 +89,7 @@ namespace InteractiveSeven.Twitch
             try
             {
                 _commands.FirstOrDefault(x => x.ShouldExecute(e.Command.CommandText))
-                    ?.Execute(CommandData.FromChatCommand(e.Command));
+                    ?.Execute(e.Command.GetCommandData());
                 _intervalMessaging.MessageReceived();
             }
             catch (Exception exception)
@@ -125,11 +124,11 @@ namespace InteractiveSeven.Twitch
                 int bits = e.ChatMessage.Bits;
                 if (bits > 0)
                 {
-                    _gilBank.Deposit(ChatUser.FromChatMessage(e.ChatMessage), bits);
+                    _gilBank.Deposit(e.ChatMessage.GetChatUser(), bits);
                 }
                 else
                 {
-                    _gilBank.EnsureAccountExists(ChatUser.FromChatMessage(e.ChatMessage));
+                    _gilBank.EnsureAccountExists(e.ChatMessage.GetChatUser());
                 }
             }
             catch (Exception exception)

@@ -10,7 +10,6 @@ using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Battle
 {

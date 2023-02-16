@@ -1,5 +1,5 @@
 ﻿using System;
-using InteractiveSeven.Core.Model;
+using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Commands
 {
