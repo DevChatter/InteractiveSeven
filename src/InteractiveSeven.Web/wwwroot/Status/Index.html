@@ -124,7 +124,7 @@
             <span v-bind:class="'name ' + (data.stats.currentHp == 0? 'dead ' : '') + (data.stats.currentHp == 7777? 'rainbow ' : '')">{{data.name}}</span>
             <span class="aqua">LV </span><span class="level">{{data.stats.level}}</span> <span class="status"></span>
             <span class="status" v-if="data.stats.status.length > 0"> {{data.stats.status[data.statusIndex]}}</span><br />
-            <span class="aqua">HP </span><span v-bind:class="'current-hp ' + (data.stats.currentHp > 0 && data.stats.currentHp < data.stats.maxHp / 4? 'hp-low' : '') + (data.stats.currentHp == 0? 'dead ' : '')">{{data.stats.currentHp}}</span> / <span class="max-hp">{{data.stats.maxHp}}</span><br />
+            <span class="aqua">HP </span><span v-bind:class="'current-hp ' + (data.stats.currentHp > 0 && data.stats.currentHp < data.stats.maxHp / 4? 'hp-low' : '') + (data.stats.currentHp <= 0 ? 'dead ' : '')">{{data.stats.currentHp}}</span> / <span class="max-hp">{{data.stats.maxHp}}</span><br />
             <span class="aqua">MP </span><span class="current-mp">{{data.stats.currentMp}}</span> / <span class="max-mp">{{data.stats.maxMp}}</span><br />
             <div class="slide active-slide" v-if="slide === 'materia'">
                 <ul v-bind:class="'wpn slots ' + (data.weapon.growth === 0? 'no-growth' : '')">
