@@ -12,9 +12,9 @@ namespace InteractiveSeven.Core.Commands.Currency
     {
         private readonly GilBank _gilBank;
         private readonly IChatClient _chatClient;
-        private readonly ITwitchAPI _api;
+        private readonly IChatApi _api;
 
-        public GiveGilCommand(GilBank gilBank, IChatClient chatClient, ITwitchAPI api)
+        public GiveGilCommand(GilBank gilBank, IChatClient chatClient, IChatApi api)
             : base(x => x.GiveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
@@ -99,9 +99,7 @@ namespace InteractiveSeven.Core.Commands.Currency
                 return true;
             }
 
-            var response = _api.Helix.Users.GetUsersAsync(logins: new List<string> { recipient }).Result;
-
-            return response?.Users?.Any() ?? false;
+            return _api.IsValidUsername(recipient);
         }
     }
 }

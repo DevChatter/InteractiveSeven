@@ -77,6 +77,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchAPI, TwitchAPI>();
             services.AddSingleton<IChatClient, TwitchChatClient>();
+            services.AddSingleton<IChatApi, TwitchChatApi>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
             services.AddSingleton<IDialogService, DialogService>();
 
