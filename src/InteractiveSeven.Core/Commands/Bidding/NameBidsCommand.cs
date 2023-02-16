@@ -1,21 +1,21 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class NameBidsCommand : BaseCommand
     {
         private readonly NameBiddingViewModel _biddingVm;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
 
-        public NameBidsCommand(NameBiddingViewModel nameBiddingViewModel, ITwitchClient twitchClient)
+        public NameBidsCommand(NameBiddingViewModel nameBiddingViewModel, IChatClient chatClient)
             : base(x => x.NameBidsCommandWords, x => x.NameBiddingSettings.Enabled)
         {
             _biddingVm = nameBiddingViewModel;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
         }
 
         public override void Execute(in CommandData commandData)
@@ -26,7 +26,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
             if (!exists)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
                 return;
             }
 
@@ -34,14 +34,14 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
             if (bidding == null)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
                 return;
             }
 
             var values = bidding.NameBids.OrderByDescending(x => x.TotalBits).Take(5).Select(x => $"({x.Name} {x.TotalBits})");
             string message = string.Join(", ", values);
 
-            _twitchClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
+            _chatClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
         }
     }
 }

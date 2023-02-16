@@ -1,18 +1,18 @@
 ﻿using System.Linq;
 using InteractiveSeven.Core.Bidding;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class NameCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly GilBank _gilBank;
 
         private static CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
@@ -31,10 +31,10 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
         public NameBiddingSettings NameBidSettings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand(ITwitchClient twitchClient, GilBank gilBank)
+        public NameCommand(IChatClient chatClient, GilBank gilBank)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _gilBank = gilBank;
         }
 
@@ -92,7 +92,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
             if (gil < 1)
             {
-                _twitchClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
+                _chatClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
                 return;
             }
 
@@ -102,7 +102,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
                 if (withdrawn == 0)
                 {
                     string message = $"You don't have {gil} gil, {data.User.Username}. You have {balance} gil.";
-                    _twitchClient.SendMessage(data.Channel, message);
+                    _chatClient.SendMessage(data.Channel, message);
                     return;
                 }
             }
