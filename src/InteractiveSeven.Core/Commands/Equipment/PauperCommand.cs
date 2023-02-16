@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -6,7 +7,6 @@ using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.ViewModels;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Equipment
 {
@@ -16,7 +16,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
         private readonly IMateriaAccessor _materiaAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IGilAccessor _gilAccessor;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly EquipmentData<Weapon> _weaponData;
         private readonly EquipmentData<Armlet> _armletData;
         private readonly PaymentProcessor _paymentProcessor;
@@ -27,7 +27,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             IMateriaAccessor materiaAccessor,
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
-            ITwitchClient twitchClient,
+            IChatClient chatClient,
             EquipmentData<Weapon> weaponData,
             EquipmentData<Armlet> armletData,
             PaymentProcessor paymentProcessor,
@@ -39,7 +39,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _materiaAccessor = materiaAccessor;
             _inventoryAccessor = inventoryAccessor;
             _gilAccessor = gilAccessor;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _weaponData = weaponData;
             _armletData = armletData;
             _paymentProcessor = paymentProcessor;
@@ -51,7 +51,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
         {
             if (_partyStatusViewModel.Party.Any(x => x?.Id == CharNames.Sephiroth.Id))
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     "Cannot Change Equipment while Sephiroth is in the Party.");
                 return;
             }
@@ -81,7 +81,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             _gilAccessor.SetGil(2);
 
-            _twitchClient.SendMessage(commandData.Channel,
+            _chatClient.SendMessage(commandData.Channel,
                 "All Weapons and Armor set to Default. " +
                 "All Items, Accessories, Materia, and Gil have been removed. " +
                 "Good luck.");

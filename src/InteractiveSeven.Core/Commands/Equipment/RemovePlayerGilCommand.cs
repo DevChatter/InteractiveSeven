@@ -1,26 +1,26 @@
 ﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class RemovePlayerGilCommand : BaseCommand
     {
         private readonly PaymentProcessor _paymentProcessor;
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IGilAccessor _gilAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
 
-        public RemovePlayerGilCommand(PaymentProcessor paymentProcessor, ITwitchClient twitchClient,
+        public RemovePlayerGilCommand(PaymentProcessor paymentProcessor, IChatClient chatClient,
             IGilAccessor gilAccessor, IStatusHubEmitter statusHubEmitter)
             : base(x => x.RemovePlayerGilCommandWords,
                 x => x.EquipmentSettings.PlayerGilSettings.RemoveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _gilAccessor = gilAccessor;
             _statusHubEmitter = statusHubEmitter;
         }
@@ -31,7 +31,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (amount <= 0)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"How much of your gil do you want to take from the player, {commandData.User.Username}?");
                 return;
             }
@@ -41,7 +41,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (gilToRemove > currentGil)
             {
                 // TODO: Adjust their request to remove all gil.
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"Player doesn't have {gilToRemove} gil.");
                 return;
             }
@@ -52,14 +52,14 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (!gilTransaction.Paid)
             {
-                _twitchClient.SendMessage(commandData.Channel,
+                _chatClient.SendMessage(commandData.Channel,
                     $"You don't have {amount} gil, {commandData.User.Username}.");
                 return;
             }
 
             _gilAccessor.RemoveGil(gilToRemove);
             string message = $"Removed {gilToRemove} gil from player.";
-            _twitchClient.SendMessage(commandData.Channel, message);
+            _chatClient.SendMessage(commandData.Channel, message);
             _statusHubEmitter.ShowEvent(message);
         }
     }

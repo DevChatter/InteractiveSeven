@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Linq;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class DropCommand : BaseCommand
     {
-        private readonly ITwitchClient _twitchClient;
+        private readonly IChatClient _chatClient;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IMateriaAccessor _materiaAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly PaymentProcessor _paymentProcessor;
 
-        public DropCommand(ITwitchClient twitchClient, IInventoryAccessor inventoryAccessor,
+        public DropCommand(IChatClient chatClient, IInventoryAccessor inventoryAccessor,
             IMateriaAccessor materiaAccessor, IStatusHubEmitter statusHubEmitter,
             PaymentProcessor paymentProcessor)
             : base(x => x.DropCommandWords, x => x.ItemSettings.Enabled)
         {
-            _twitchClient = twitchClient;
+            _chatClient = chatClient;
             _inventoryAccessor = inventoryAccessor;
             _statusHubEmitter = statusHubEmitter;
             _paymentProcessor = paymentProcessor;
@@ -39,20 +39,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                _chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
                 return;
             }
 
             if (candidates.Count > 15)
             {
-                _twitchClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                _chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
                 return;
             }
 
             if (candidates.Count > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                _twitchClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
                 return;
             }
 
@@ -82,7 +82,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (!hasIt(id))
             {
                 string message = $"Player out of {name}s.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
@@ -94,13 +94,13 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (dropIt(id))
             {
                 string message = $"{typeName} {name} Dropped";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
                 _statusHubEmitter.ShowEvent(message);
             }
             else
             {
                 string message = $"Player out of {name}s.";
-                _twitchClient.SendMessage(commandData.Channel, message);
+                _chatClient.SendMessage(commandData.Channel, message);
             }
         }
     }
