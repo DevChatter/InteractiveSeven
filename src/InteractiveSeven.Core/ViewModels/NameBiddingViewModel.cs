@@ -12,7 +12,6 @@ using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 using Microsoft.Extensions.Logging;
-using TwitchLib.Client.Interfaces;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -26,8 +25,7 @@ namespace InteractiveSeven.Core.ViewModels
         private readonly ILogger<NameBiddingViewModel> _logger;
         private readonly ILogger<CharacterNameBidding> _charNameBiddingLogger;
 
-        public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; }
-            = new ThreadedObservableCollection<CharacterNameBidding>();
+        public ThreadedObservableCollection<CharacterNameBidding> CharacterNameBiddings { get; set; } = new ();
 
         public TwitchSettings TwitchSettings => TwitchSettings.Instance;
 
