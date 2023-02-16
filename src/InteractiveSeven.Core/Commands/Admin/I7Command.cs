@@ -1,10 +1,8 @@
 ﻿using System.Linq;
-using InteractiveSeven.Core;
-using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
 
-namespace InteractiveSeven.Twitch.Commands
+namespace InteractiveSeven.Core.Commands.Admin
 {
     public class I7Command : BaseCommand
     {
@@ -17,7 +15,7 @@ namespace InteractiveSeven.Twitch.Commands
 
         public override void Execute(in CommandData commandData)
         {
-            if (!commandData.User.IsBroadcaster && !commandData.User.IsMe && !commandData.User.IsMod) return;
+            if (commandData.User is { IsBroadcaster: false, IsMe: false, IsMod: false }) return;
 
             var action = commandData.Arguments.FirstOrDefault();
 
