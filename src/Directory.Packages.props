@@ -8,6 +8,7 @@
         <PackageVersion Include="MahApps.Metro" Version="2.4.9" />
         <PackageVersion Include="MahApps.Metro.IconPacks" Version="4.11.0" />
         <PackageVersion Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
         <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageVersion Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
         <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />

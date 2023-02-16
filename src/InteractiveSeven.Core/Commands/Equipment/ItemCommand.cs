@@ -1,0 +1,71 @@
+﻿using System.Linq;
+using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Data.Items;
+using InteractiveSeven.Core.Diagnostics.Memory;
+using InteractiveSeven.Core.Emitters;
+using InteractiveSeven.Core.Models;
+using InteractiveSeven.Core.Payments;
+
+namespace InteractiveSeven.Core.Commands.Equipment
+{
+    public class ItemCommand : BaseCommand
+    {
+        private readonly IChatClient _chatClient;
+        private readonly IInventoryAccessor _inventoryAccessor;
+        private readonly IStatusHubEmitter _statusHubEmitter;
+        private readonly PaymentProcessor _paymentProcessor;
+
+        public ItemCommand(IChatClient chatClient, IInventoryAccessor inventoryAccessor,
+            IStatusHubEmitter statusHubEmitter, PaymentProcessor paymentProcessor)
+            : base(x => x.ItemCommandWords, x => x.ItemSettings.Enabled)
+        {
+            _chatClient = chatClient;
+            _inventoryAccessor = inventoryAccessor;
+            _statusHubEmitter = statusHubEmitter;
+            _paymentProcessor = paymentProcessor;
+        }
+
+        public override void Execute(in CommandData commandData)
+        {
+            string itemName = commandData.Arguments.FirstOrDefault();
+
+            var candidates = Settings.ItemSettings.AllByName(itemName);
+
+            if (candidates.Count == 0)
+            {
+                _chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                return;
+            }
+
+            if (candidates.Count > 15)
+            {
+                _chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                return;
+            }
+
+            if (candidates.Count > 1)
+            {
+                string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
+                _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                return;
+            }
+
+
+            var itemSettings = candidates.Single();
+
+            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+                commandData, itemSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
+
+            if (!gilTransaction.Paid)
+            {
+                return;
+            }
+
+            Items item = itemSettings.Item;
+            _inventoryAccessor.AddItem(item.ItemId, 1, true);
+            string message = $"Item {item.Name} Added";
+            _chatClient.SendMessage(commandData.Channel, message);
+            _statusHubEmitter.ShowEvent(message);
+        }
+    }
+}

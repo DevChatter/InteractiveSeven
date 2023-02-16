@@ -1,5 +1,4 @@
-﻿using InteractiveSeven.Core.Model;
-using InteractiveSeven.Core.Models;
+﻿using InteractiveSeven.Core.Models;
 
 namespace InteractiveSeven.Core.Events
 {

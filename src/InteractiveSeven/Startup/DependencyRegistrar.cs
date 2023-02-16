@@ -1,6 +1,14 @@
 ﻿using System.Collections.Generic;
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
+using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands;
+using InteractiveSeven.Core.Commands.Admin;
+using InteractiveSeven.Core.Commands.Battle;
+using InteractiveSeven.Core.Commands.Bidding;
+using InteractiveSeven.Core.Commands.Currency;
+using InteractiveSeven.Core.Commands.Equipment;
+using InteractiveSeven.Core.Commands.MenuColors;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics;
 using InteractiveSeven.Core.Diagnostics.Memory;
@@ -16,9 +24,7 @@ using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Core.Workloads;
 using InteractiveSeven.Services;
 using InteractiveSeven.Twitch;
-using InteractiveSeven.Twitch.Commands;
-using InteractiveSeven.Twitch.IntervalMessages;
-using InteractiveSeven.Twitch.Payments;
+using InteractiveSeven.Twitch.Chat;
 using InteractiveSeven.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -55,7 +61,7 @@ namespace InteractiveSeven.Startup
             services.AddTransient<IStatusHubEmitter, StatusHubEmitter>();
 
             services.AddSingleton<IClock, SystemClock>();
-            services.AddSingleton<IIntervalMessagingService, IntervalMessagingService>();
+            services.AddSingleton<IntervalMessagingService>();
             services.AddSingleton<IEquipmentAccessor, EquipmentAccessor>();
             services.AddSingleton<IMemoryAccessor, MemoryAccessor>();
             services.AddSingleton<NativeMemoryReader>();
@@ -69,6 +75,8 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
             services.AddSingleton<ITwitchAPI, TwitchAPI>();
+            services.AddSingleton<IChatClient, TwitchChatClient>();
+            services.AddSingleton<IChatApi, TwitchChatApi>();
             services.AddSingleton<ITwitchClient, TwitchClient>();
             services.AddSingleton<IDialogService, DialogService>();
 

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using InteractiveSeven.Core.Chat;
+using InteractiveSeven.Core.Commands.MenuColors;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Payments;
 using InteractiveSeven.Core.Settings;
-using InteractiveSeven.Twitch.Commands;
-using InteractiveSeven.Twitch.Model;
-using InteractiveSeven.Twitch.Payments;
 using Microsoft.Extensions.Logging;
 using Moq;
-using TwitchLib.Client.Interfaces;
 using UnitTests.Core.GilBankTests;
 using Xunit;
 
@@ -145,12 +142,12 @@ namespace UnitTests.Twitch.Commands
 
         private static (MenuCommand, ChatUser) SetUpTest(int bits = 0, bool isMod = false)
         {
-            var twitchClient = new Mock<ITwitchClient>();
+            var chatClient = new Mock<IChatClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
             var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
             var chatUser = new ChatUser { IsMod = isMod, Username = Guid.NewGuid().ToString() };
             gilBank.Deposit(chatUser, bits);
-            var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank, twitchClient.Object));
+            var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank, chatClient.Object));
             return (menuCommand, chatUser);
         }
     }

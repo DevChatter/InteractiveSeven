@@ -7,9 +7,9 @@
   <ItemGroup>
     <PackageReference Include="Autofac" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="System.Configuration.ConfigurationManager" />
-    <PackageReference Include="TwitchLib" />
     <PackageReference Include="Shojy.FF7.Elena" />
   </ItemGroup>
 

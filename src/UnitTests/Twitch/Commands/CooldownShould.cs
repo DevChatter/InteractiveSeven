@@ -1,8 +1,8 @@
 ﻿using System;
 using FluentAssertions;
 using InteractiveSeven.Core;
-using InteractiveSeven.Core.Model;
-using InteractiveSeven.Twitch.Commands.Components;
+using InteractiveSeven.Core.Commands;
+using InteractiveSeven.Core.Models;
 using Moq;
 using Xunit;
 

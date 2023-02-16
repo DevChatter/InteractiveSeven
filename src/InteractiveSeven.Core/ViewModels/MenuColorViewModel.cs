@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.Model;
 using InteractiveSeven.Core.Models;
 using Microsoft.Extensions.Logging;
 

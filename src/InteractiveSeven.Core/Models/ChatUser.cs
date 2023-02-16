@@ -1,6 +1,4 @@
-﻿using TwitchLib.Client.Models;
-
-namespace InteractiveSeven.Core.Model
+﻿namespace InteractiveSeven.Core.Models
 {
     public struct ChatUser
     {
@@ -13,13 +11,6 @@ namespace InteractiveSeven.Core.Model
             IsMe = isMe;
             IsMod = isMod;
             IsSubscriber = isSubscriber;
-        }
-
-        public static ChatUser FromChatMessage(in ChatMessage message)
-        {
-            return new ChatUser(message.Username, message.UserId,
-                message.IsBroadcaster, message.IsMe,
-                message.IsModerator, message.IsSubscriber);
         }
 
         public string SafeUsername => Username?.NoAt()?.ToLower();
