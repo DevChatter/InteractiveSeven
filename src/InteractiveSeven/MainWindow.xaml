@@ -34,8 +34,14 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
                            Margin="2" VerticalAlignment="Center" Padding="4" Style="{StaticResource SubHeaderTextBlockStyle}" />
-                <Button Content="Connect" Command="{Binding ConnectBotCommand}"
-                        Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Grid Width="150px">
+                    <Button Content="Connect" Command="{Binding ConnectBotCommand}"
+                            Margin="2" VerticalAlignment="Center" Padding="4"
+                            Visibility="{Binding ChatBot.IsConnected, Converter={StaticResource TrueIsCollapsedConverter}}" />
+                    <Button Content="Disconnect" Command="{Binding DisconnectBotCommand}"
+                            Margin="2" VerticalAlignment="Center" Padding="4"
+                            Visibility="{Binding ChatBot.IsConnected, Converter={StaticResource FalseIsCollapsedConverter}}" />
+                </Grid>
             </StackPanel>
             <Grid>
                 <TextBlock Text="Interactive Seven" VerticalAlignment="Center"
