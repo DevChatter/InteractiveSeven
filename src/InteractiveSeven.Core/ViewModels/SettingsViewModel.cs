@@ -1,11 +1,12 @@
 ﻿using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
 
 namespace InteractiveSeven.Core.ViewModels
 {
-    public class SettingsViewModel
+    public partial class SettingsViewModel
     {
         private readonly ISettingsStore _settingsStore;
         private readonly IDialogService _dialogService;
@@ -15,25 +16,27 @@ namespace InteractiveSeven.Core.ViewModels
         {
             _settingsStore = settingsStore;
             _dialogService = dialogService;
-            SaveSettingsCommand = new SimpleCommand(x =>
-            {
-                if (_dialogService.ConfirmDialog("Saving will overwrite your previously saved settings. OK?"))
-                {
-                    _settingsStore.SaveSettings();
-                }
-            });
-            LoadSettingsCommand = new SimpleCommand(x =>
-            {
-                if (_dialogService.ConfirmDialog("Loading will replace your current settings. OK?"))
-                {
-                    _settingsStore.LoadSettings();
-                }
-            });
             OpenTwitchAuthWindow = showTwitchAuthCommand;
         }
 
-        public ICommand SaveSettingsCommand { get; }
-        public ICommand LoadSettingsCommand { get; }
+        [RelayCommand]
+        public void SaveSettings()
+        {
+            if (_dialogService.ConfirmDialog("Saving will overwrite your previously saved settings. OK?"))
+            {
+                _settingsStore.SaveSettings();
+            }
+        }
+
+        [RelayCommand]
+        public void LoadSettings()
+        {
+            if (_dialogService.ConfirmDialog("Loading will replace your current settings. OK?"))
+            {
+                _settingsStore.LoadSettings();
+            }
+        }
+
         public ICommand OpenTwitchAuthWindow { get; }
 
 

@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands.Bidding.Naming;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace InteractiveSeven.Core.ViewModels
 {
-    public class NameBiddingViewModel
+    public partial class NameBiddingViewModel
     {
         private readonly INameAccessor _nameAccessor;
         private readonly IChatClient _chatClient;
@@ -30,9 +28,7 @@ namespace InteractiveSeven.Core.ViewModels
 
         public NameBiddingViewModel(INameAccessor nameAccessor, IChatClient chatClient,
             IDataStore<CharacterNameBid> dataStore, IDialogService dialogService,
-            IStatusHubEmitter statusHubEmitter,
-            ILogger<NameBiddingViewModel> logger,
-            ILogger<CharacterNameBidding> charNameBiddingLogger)
+            IStatusHubEmitter statusHubEmitter)
         {
             DomainEvents.Register<RemovingName>(HandleNameRemoval);
             DomainEvents.Register<NameVoteReceived>(HandleNameVote);
@@ -45,21 +41,20 @@ namespace InteractiveSeven.Core.ViewModels
             _dialogService = dialogService;
             _statusHubEmitter = statusHubEmitter;
 
-            ResetDataCommand = new SimpleCommand(x =>
-            {
-                if (_dialogService.ConfirmDialog("Are you sure you want to reset all name bids?"))
-                {
-                    Reset();
-                }
-            });
-
             foreach (CharNames charName in CharNames.Core)
             {
                 CharacterNameBiddings.Add(new CharacterNameBidding(charName));
             }
         }
 
-        public ICommand ResetDataCommand { get; }
+        [RelayCommand]
+        public void ResetData()
+        {
+            if (_dialogService.ConfirmDialog("Are you sure you want to reset all name bids?"))
+            {
+                Reset();
+            }
+        }
 
         public void Load(List<CharacterNameBid> nameBids)
         {
