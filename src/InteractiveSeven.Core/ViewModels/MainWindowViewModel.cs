@@ -10,12 +10,14 @@ namespace InteractiveSeven.Core.ViewModels
             NameBiddingViewModel nameBiddingViewModel,
             SettingsViewModel settingsViewModel,
             ThemeViewModel themeViewModel,
+            MonitorViewModel monitorViewModel,
             ChatBot chatBot)
         {
             MenuColorViewModel = menuColorViewModel;
             NameBiddingViewModel = nameBiddingViewModel;
             SettingsViewModel = settingsViewModel;
             ThemeViewModel = themeViewModel;
+            MonitorViewModel = monitorViewModel;
             StreamOverlayViewModel = streamOverlayViewModel;
             ChatBot = chatBot;
             ConnectBotCommand = new BotConnectCommand(chatBot);
@@ -30,6 +32,7 @@ namespace InteractiveSeven.Core.ViewModels
         public StreamOverlayViewModel StreamOverlayViewModel { get; }
         public SettingsViewModel SettingsViewModel { get; }
         public ThemeViewModel ThemeViewModel { get; }
+        public MonitorViewModel MonitorViewModel { get; }
         public ChatBot ChatBot { get; }
     }
 }

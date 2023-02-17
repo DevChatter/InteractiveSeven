@@ -34,7 +34,7 @@ namespace InteractiveSeven.Twitch.Events
 
         public static OnConnectedArgs ToCore(this TwitchOnConnectedArgs e)
         {
-            return new OnConnectedArgs(e.AutoJoinChannel, e.BotUsername);
+            return new OnConnectedArgs(e.BotUsername);
         }
 
         public static OnDisconnectedEventArgs ToCore(this TwitchOnDisconnectedEventArgs e)

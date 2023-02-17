@@ -8,7 +8,7 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:behaviors="clr-namespace:InteractiveSeven.Behaviors"
         mc:Ignorable="d"
-        BorderThickness="0" 
+        BorderThickness="0"
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         Title="Interactive Seven" Height="650" Width="600" MinWidth="600" MinHeight="650">
 
@@ -34,8 +34,14 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
                 <TextBlock Text="{Binding Path=ChatBot.IsConnected, Converter={StaticResource ConnectionValueConverter}}"
                            Margin="2" VerticalAlignment="Center" Padding="4" Style="{StaticResource SubHeaderTextBlockStyle}" />
-                <Button Content="Connect" Command="{Binding ConnectBotCommand}"
-                        Margin="2" VerticalAlignment="Center" Padding="4" />
+                <Grid Width="150px">
+                    <Button Content="Connect" Command="{Binding ConnectBotCommand}"
+                            Margin="2" VerticalAlignment="Center" Padding="4"
+                            Visibility="{Binding ChatBot.IsConnected, Converter={StaticResource TrueIsCollapsedConverter}}" />
+                    <Button Content="Disconnect" Command="{Binding DisconnectBotCommand}"
+                            Margin="2" VerticalAlignment="Center" Padding="4"
+                            Visibility="{Binding ChatBot.IsConnected, Converter={StaticResource FalseIsCollapsedConverter}}" />
+                </Grid>
             </StackPanel>
             <Grid>
                 <TextBlock Text="Interactive Seven" VerticalAlignment="Center"
@@ -72,71 +78,87 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Orientation="Vertical">
-                        <RichTextBox x:Name="outputBox" VerticalScrollBarVisibility="Visible"
-                             HorizontalScrollBarVisibility="Visible" IsReadOnly="True" MaxHeight="200px">
+                        <RichTextBox x:Name="OutputBox"
+                                     VerticalScrollBarVisibility="Visible"
+                                     HorizontalScrollBarVisibility="Visible"
+                                     IsReadOnly="True"
+                                     Height="200px">
                             <FlowDocument/>
                         </RichTextBox>
-                        <WrapPanel Orientation="Horizontal">
-                            <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Character Names" Margin="4">
-                                <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
-                                                      CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
-                                                      AutoGenerateColumns="False">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Current" Binding="{Binding LeadingName}" />
-                                        <DataGridTextColumn Header="Default" Binding="{Binding DefaultName}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </GroupBox>
-                            <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
-                                <DockPanel>
-                                    <Grid DockPanel.Dock="Top">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40" />
-                                            <RowDefinition Height="40" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80" />
-                                            <ColumnDefinition Width="80" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                        <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                        <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                        <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
-                                    </Grid>
-                                    <StackPanel Orientation="Vertical">
-                                        <Label Content="{Binding Path = TopLeft, Converter = {StaticResource MenuColorNameConverter}}" />
-                                        <Label Content="{Binding Path = TopRight, Converter = {StaticResource MenuColorNameConverter}}" />
-                                        <Label Content="{Binding Path = BotLeft, Converter = {StaticResource MenuColorNameConverter}}" />
-                                        <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
-                                    </StackPanel>
-                                </DockPanel>
-                            </GroupBox>
-                            <GroupBox Header="Settings" DataContext="{Binding SettingsViewModel.Settings}">
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="Mods Give Bonus Bits" />
-                                    <Label Content="{Binding Path=ModsGiveBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Subs Receive Bonus Bits" />
-                                    <Label Content="{Binding Path=GiveSubscriberBonusBits, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Subs Bonus Bit Value" />
-                                    <Label Content="{Binding SubscriberBonusBits}" />
-                                    <Label Content="Menu Colors" />
-                                    <Label Content="{Binding Path=MenuSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Name Bidding" />
-                                    <Label Content="{Binding Path=NameBiddingSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Status Effects" />
-                                    <Label Content="{Binding Path=BattleSettings.AllowStatusEffects, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Equipment Commands" />
-                                    <Label Content="{Binding Path=EquipmentSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Pauper Command" />
-                                    <Label Content="{Binding Path=EquipmentSettings.EnablePauperCommand, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Item Commands" />
-                                    <Label Content="{Binding Path=ItemSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                    <Label Content="Materia Commands" />
-                                    <Label Content="{Binding Path=MateriaSettings.Enabled, Converter= {StaticResource BoolToOnOffConverter}}" />
-                                </StackPanel>
-                            </GroupBox>
-                        </WrapPanel>
+                        <Grid Margin="10px" Width="300px" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Process Connection: " />
+                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding MonitorViewModel.IsConnected, Converter={StaticResource ConnectionColorConverter}}" />
+                                </Border.Background>
+                                <TextBlock Height="24" Width="128" TextAlignment="Center"
+                                           Text="{Binding MonitorViewModel.ProcessName }" />
+                            </Border>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Chat Connection: " />
+                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding ChatBot.IsConnected, Converter={StaticResource ConnectionColorConverter}}" />
+                                </Border.Background>
+                                <TextBlock Height="24" Width="128" TextAlignment="Center"
+                                           Text="{Binding ChatBot.IsConnected}" />
+                            </Border>
+                        </Grid>
                     </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Style="{StaticResource TabHeaderStyle}">
+                        <iconPacks:PackIconMaterialDesign Margin="2 0 4 0"  Kind="Group" />
+                        <TextBlock Text="Game State" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <WrapPanel Orientation="Horizontal">
+                        <GroupBox DataContext="{Binding NameBiddingViewModel}" Header="Character Names" Margin="4">
+                            <DataGrid ItemsSource="{Binding CharacterNameBiddings}" CanUserDeleteRows="False"
+                                                  CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                                                  AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Current" Binding="{Binding LeadingName}" />
+                                    <DataGridTextColumn Header="Default" Binding="{Binding DefaultName}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                        <GroupBox Header="Menu Colors" DataContext="{Binding MenuColorViewModel}" Margin="4">
+                            <DockPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = TopRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotLeft, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                    <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path = BotRight, Mode = TwoWay, Converter = {StaticResource ColorToSolidBrushValueConverter}}" />
+                                </Grid>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="{Binding Path = TopLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = TopRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = BotLeft, Converter = {StaticResource MenuColorNameConverter}}" />
+                                    <Label Content="{Binding Path = BotRight, Converter = {StaticResource MenuColorNameConverter}}" />
+                                </StackPanel>
+                            </DockPanel>
+                        </GroupBox>
+                    </WrapPanel>
                 </ScrollViewer>
             </TabItem>
 

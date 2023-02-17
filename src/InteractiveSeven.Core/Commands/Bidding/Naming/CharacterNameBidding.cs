@@ -6,23 +6,20 @@ using System.Runtime.CompilerServices;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Settings;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace InteractiveSeven.Core.Commands.Bidding.Naming
 {
     public class CharacterNameBidding : INotifyPropertyChanged
     {
-        private readonly ILogger<CharacterNameBidding> _logger;
         public CharNames CharName { get; }
         public string DefaultName { get; }
 
-        public ThreadedObservableCollection<CharacterNameBid> NameBids { get; }
-            = new ThreadedObservableCollection<CharacterNameBid>();
+        public ThreadedObservableCollection<CharacterNameBid> NameBids { get; } = new();
 
         private readonly object _padlock = new object();
 
-        private string GetHighestBid() => NameBids.OrderByDescending(x => x.TotalBits)
-                  .FirstOrDefault()?.Name ?? DefaultName;
+        private string GetHighestBid() => NameBids.MaxBy(x => x.TotalBits)?.Name ?? DefaultName;
 
         private string _leadingName;
         public string LeadingName
@@ -38,9 +35,8 @@ namespace InteractiveSeven.Core.Commands.Bidding.Naming
 
         private NameBiddingSettings Settings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public CharacterNameBidding(CharNames charNames, ILogger<CharacterNameBidding> logger, bool withDefault = true)
+        public CharacterNameBidding(CharNames charNames, bool withDefault = true)
         {
-            _logger = logger;
             CharName = charNames;
             DefaultName = charNames.DefaultName;
             _leadingName = charNames.DefaultName;
@@ -107,7 +103,7 @@ namespace InteractiveSeven.Core.Commands.Bidding.Naming
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Failed to record name bid.");
+                Log.Logger.Error(exception, "Failed to record name bid.");
             }
         }
 

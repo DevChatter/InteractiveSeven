@@ -1,13 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Threading;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Startup;
 using MahApps.Metro.Controls;
-using Serilog;
 
 namespace InteractiveSeven
 {
@@ -26,7 +22,7 @@ namespace InteractiveSeven
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            ConfigureLogging.WithRichTextOutput(outputBox);
+            ConfigureLogging.WithRichTextOutput(OutputBox);
         }
 
         public MainWindowViewModel ViewModel { get; }

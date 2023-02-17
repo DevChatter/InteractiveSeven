@@ -9,6 +9,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Serilog" />
     <PackageReference Include="System.Configuration.ConfigurationManager" />
     <PackageReference Include="Shojy.FF7.Elena" />
   </ItemGroup>

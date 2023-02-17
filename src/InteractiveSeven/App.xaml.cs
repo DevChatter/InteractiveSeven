@@ -14,11 +14,9 @@ using MahApps.Metro.Theming;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Extensions.Logging;
 using Tseng;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
+using ILogger = Serilog.ILogger;
 
 namespace InteractiveSeven
 {
@@ -33,12 +31,11 @@ namespace InteractiveSeven
         private const string DarkBlueThemeName = "Dark.Blue";
 
         private IWebHost _host;
-        private TsengMonitor _tsengMonitor;
-        private ILogger<App> _logger;
+        private FF7Monitor _ff7Monitor;
 
         private static void InitializeSettings(ILogger logger)
         {
-            new SettingsStore().EnsureExists(ex => logger.LogError(ex, "Error loading settings from JSON."));
+            new SettingsStore().EnsureExists(ex => logger.Error(ex, "Error loading settings from JSON."));
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
@@ -61,27 +58,25 @@ namespace InteractiveSeven
                     (this._host.Services.GetService<IModded>() as Modded)?.SetLoadedBy7H(true);
                 }
 
-                _logger = _host.Services.GetService<ILogger<App>>();
-
-                _logger.LogInformation("Starting Web Host...");
+                logger.Information("Starting Web Host...");
 
                 _host.Start();
 
                 var dataLoader = _host.Services.GetService<DataLoader>();
-                _logger.LogInformation("Starting Elena DataLoader...");
+                logger.Information("Starting Elena DataLoader...");
                 dataLoader.LoadPreviousData();
 
                 _workloadCoordinator = _host.Services.GetService<WorkloadCoordinator>();
 
-                _tsengMonitor = _host.Services.GetService<TsengMonitor>();
+                _ff7Monitor = _host.Services.GetService<FF7Monitor>();
 
-                _logger.LogInformation("Starting Tseng Background Monitoring...");
-                Task.Run(() => _tsengMonitor.Start()).RunInBackgroundSafely(false, LogTsengError);
+                logger.Information("Starting Tseng Background Monitoring...");
+                Task.Run(() => _ff7Monitor.Start()).RunInBackgroundSafely(false, LogTsengError);
 
-                _logger.LogInformation("Initializing Theming...");
+                logger.Information("Initializing Theming...");
                 InitializeTheming();
 
-                _logger.LogInformation("Showing App Main Window...");
+                logger.Information("Showing App Main Window...");
                 _host.Services.GetRequiredService<MainWindow>().Show();
             }
             catch (Exception exception)
@@ -115,7 +110,7 @@ namespace InteractiveSeven
             }
             catch (Exception themeEx)
             {
-                _logger.LogError(themeEx, "Error Initializing Application Theming");
+                Log.Logger.Error(themeEx, "Error Initializing Application Theming");
             }
         }
 
@@ -128,7 +123,7 @@ namespace InteractiveSeven
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to load theme.");
+                Log.Logger.Error(e, "Failed to load theme.");
             }
 
             return ThemeManager.Current.Themes.First(x => x.Name == DarkBlueThemeName);
@@ -144,13 +139,13 @@ namespace InteractiveSeven
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Fail to save changed theme.");
+                Log.Logger.Error(exception, "Fail to save changed theme.");
             }
         }
 
         private void LogTsengError(Exception ex)
         {
-            _logger.LogError(ex, "Error in Tseng Status Overlay.");
+            Log.Logger.Error(ex, "Error in Tseng Status Overlay.");
         }
 
         private async void App_OnExit(object sender, ExitEventArgs e)

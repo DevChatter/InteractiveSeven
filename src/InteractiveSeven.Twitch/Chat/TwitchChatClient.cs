@@ -2,6 +2,7 @@
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Events;
+using Serilog;
 using TwitchLib.Client.Interfaces;
 using TwitchLib.Client.Models;
 
@@ -38,6 +39,7 @@ namespace InteractiveSeven.Twitch.Chat
 
         public void Connect(string username, string accessToken, string channel)
         {
+            Log.Information($"Trying to connect to Twitch channel {channel} as {username}");
             ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
             _twitchClient.Initialize(credentials, Settings.Channel);
             _twitchClient.Connect();
@@ -45,6 +47,7 @@ namespace InteractiveSeven.Twitch.Chat
 
         public void Disconnect()
         {
+            Log.Information("Disconnecting from Twitch");
             _twitchClient.Disconnect();
         }
     }

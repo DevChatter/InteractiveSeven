@@ -10,7 +10,7 @@ using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.FinalFantasy;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Tseng.GameData;
 using Tseng.lib;
 using Tseng.RunOnce;
@@ -18,28 +18,28 @@ using Timer = System.Timers.Timer;
 
 namespace Tseng
 {
-    public class TsengMonitor
+    public class FF7Monitor
     {
         private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly ProcessConnector _processConnector;
         private readonly GameDatabase _gameDatabase;
         private readonly IStatusHubEmitter _statusHubEmitter;
-        private readonly ILogger<TsengMonitor> _logger;
         private readonly NativeMemoryReader _memoryReader;
+        private readonly MonitorViewModel _monitorViewModel;
 
-        public TsengMonitor(PartyStatusViewModel partyStatusViewModel,
+        public FF7Monitor(PartyStatusViewModel partyStatusViewModel,
             ProcessConnector processConnector,
             GameDatabase gameDatabase,
             NativeMemoryReader memoryReader,
-            IStatusHubEmitter statusHubEmitter,
-            ILogger<TsengMonitor> logger)
+            MonitorViewModel monitorViewModel,
+            IStatusHubEmitter statusHubEmitter)
         {
             _memoryReader = memoryReader;
+            _monitorViewModel = monitorViewModel;
             _partyStatusViewModel = partyStatusViewModel;
             _processConnector = processConnector;
             _gameDatabase = gameDatabase;
             _statusHubEmitter = statusHubEmitter;
-            _logger = logger;
         }
 
         private FF7BattleMap BattleMap { get; set; }
@@ -56,6 +56,7 @@ namespace Tseng
 
         public void Start(bool support7H = false)
         {
+            Log.Logger.Information("Starting FF7 Monitor");
             SearchForProcess();
 
             _gameDatabase.LoadData();
@@ -72,7 +73,7 @@ namespace Tseng
 
         private void SearchForProcess()
         {
-            _logger.LogInformation("Checking for FF7 Process...");
+            Log.Logger.Information("Checking for FF7 Process...");
             if (Timer is null || FF7 is null || FF7.HasExited)
             {
                 if (Timer != null)
@@ -86,7 +87,7 @@ namespace Tseng
                     Thread.Sleep(2000);
                 }
 
-                _logger.LogInformation($"Located FF7 process {FF7.ProcessName}");
+                Log.Logger.Information($"Located FF7 process {FF7.ProcessName}");
                 if (Timer != null)
                 {
                     Timer.Enabled = true;
@@ -118,6 +119,8 @@ namespace Tseng
             {
                 if (FF7?.HasExited ?? true)
                 {
+                    _monitorViewModel.IsConnected = false;
+                    _monitorViewModel.ProcessName = FF7?.ProcessName;
                     return;
                 }
 
@@ -135,10 +138,14 @@ namespace Tseng
                 BattleMap = new FF7BattleMap(battleMapByteData, isBattle);
 
                 UpdateStatusFromMap(SaveMap, BattleMap);
+                _monitorViewModel.IsConnected = true;
+                _monitorViewModel.ProcessName = FF7?.ProcessName;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error Updating Tseng Info");
+                _monitorViewModel.IsConnected = false;
+                _monitorViewModel.ProcessName = FF7?.ProcessName;
+                Log.Logger.Error(ex, "Error Updating Tseng Info");
             }
         }
     }
