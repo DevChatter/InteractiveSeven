@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace InteractiveSeven.Core.ViewModels
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel
     {
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel,
             StreamOverlayViewModel streamOverlayViewModel,
