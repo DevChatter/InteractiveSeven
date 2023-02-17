@@ -72,8 +72,11 @@
                 </TabItem.Header>
                 <ScrollViewer>
                     <StackPanel Orientation="Vertical">
-                        <RichTextBox x:Name="OutputBox" VerticalScrollBarVisibility="Visible"
-                             HorizontalScrollBarVisibility="Visible" IsReadOnly="True" MaxHeight="200px">
+                        <RichTextBox x:Name="OutputBox"
+                                     VerticalScrollBarVisibility="Visible"
+                                     HorizontalScrollBarVisibility="Visible"
+                                     IsReadOnly="True"
+                                     Height="200px">
                             <FlowDocument/>
                         </RichTextBox>
                         <WrapPanel Orientation="Horizontal">
