@@ -3,13 +3,20 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logowork_X8u_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyVersion>0.9.1.0</AssemblyVersion>
     <FileVersion>0.9.1.0</FileVersion>
     <Version>0.9.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
   </PropertyGroup>
