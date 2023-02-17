@@ -13,11 +13,11 @@ namespace InteractiveSeven.ValueConverters
             {
                 if (isConnected)
                 {
-                    return new SolidColorBrush(Color.FromRgb(32,128,32));
+                    return Color.FromRgb(32,128,32);
                 }
-                return new SolidColorBrush(Color.FromRgb(192,32,32));
+                return Color.FromRgb(192,32,32);
             }
-            return new SolidColorBrush(Color.FromRgb(192,32,32));
+            return Color.FromRgb(192,32,32);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

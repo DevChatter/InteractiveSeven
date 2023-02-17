@@ -85,16 +85,32 @@
                                      Height="200px">
                             <FlowDocument/>
                         </RichTextBox>
-                        <WrapPanel Orientation="Horizontal">
-                            <Ellipse Fill="{Binding MonitorViewModel.IsConnected, Converter={StaticResource ConnectionColorConverter}}"
-                                     Height="20" Stroke="Black" Width="20"/>
-                            <TextBlock Text="{Binding MonitorViewModel.ProcessName }" />
-                        </WrapPanel>
-                        <WrapPanel Orientation="Horizontal">
-                            <Ellipse Fill="{Binding ChatBot.IsConnected, Converter={StaticResource ConnectionColorConverter}}"
-                                     Height="20" Stroke="Black" Width="20"/>
-                            <TextBlock Text="{Binding ChatBot.IsConnected}" />
-                        </WrapPanel>
+                        <Grid Margin="10px" Width="300px" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Process Connection: " />
+                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding MonitorViewModel.IsConnected, Converter={StaticResource ConnectionColorConverter}}" />
+                                </Border.Background>
+                                <TextBlock Height="24" Width="128" TextAlignment="Center"
+                                           Text="{Binding MonitorViewModel.ProcessName }" />
+                            </Border>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Chat Connection: " />
+                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="2">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding ChatBot.IsConnected, Converter={StaticResource ConnectionColorConverter}}" />
+                                </Border.Background>
+                                <TextBlock Height="24" Width="128" TextAlignment="Center"
+                                           Text="{Binding ChatBot.IsConnected}" />
+                            </Border>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

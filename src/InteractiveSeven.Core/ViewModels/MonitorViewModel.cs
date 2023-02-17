@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -9,7 +8,7 @@ namespace InteractiveSeven.Core.ViewModels
         private string _processName;
         public string ProcessName
         {
-            get => _processName;
+            get => string.IsNullOrEmpty(_processName) ? "None" : _processName;
             set
             {
                 if (_processName != value)
