@@ -48,12 +48,10 @@ namespace InteractiveSeven.Core.Chat
 
     public class OnConnectedArgs : EventArgs
     {
-        public string Channel { get; }
         public string Username { get; }
 
-        public OnConnectedArgs(string channel, string username)
+        public OnConnectedArgs(string username)
         {
-            Channel = channel;
             Username = username;
         }
     }

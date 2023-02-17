@@ -54,6 +54,7 @@ namespace InteractiveSeven.Core
                 || string.IsNullOrWhiteSpace(Settings.AccessToken)
                 || string.IsNullOrWhiteSpace(Settings.Channel))
             {
+                Log.Error("Cannot Connect. Please confirm that Username, Channel, and Access token are set.");
                 return;
             }
 
@@ -65,7 +66,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception e)
             {
-                Log.Logger.Error(e, "Error Connecting to Twitch");
+                Log.Error(e, "Error Connecting to Twitch");
             }
         }
 
@@ -85,7 +86,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception exception)
             {
-                Log.Logger.Error(exception, "Command Error");
+                Log.Error(exception, "Command Error");
             }
         }
 
@@ -95,6 +96,7 @@ namespace InteractiveSeven.Core
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
+            Log.Information($"ChatBot connected as {e.Username}");
             IsConnected = true;
         }
 
@@ -124,7 +126,7 @@ namespace InteractiveSeven.Core
             }
             catch (Exception exception)
             {
-                Log.Logger.Error(exception, "Error updating account balances.");
+                Log.Error(exception, "Error updating account balances.");
             }
         }
 

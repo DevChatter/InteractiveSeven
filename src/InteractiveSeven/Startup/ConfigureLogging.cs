@@ -21,6 +21,7 @@ namespace InteractiveSeven.Startup
                 .WriteTo.RichTextBox(outputBox)
                 .WriteTo.File("logs\\i7log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+            Log.Logger.Information("I7 Logger Display Set Up");
         }
     }
 }
