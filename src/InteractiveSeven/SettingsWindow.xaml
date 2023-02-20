@@ -137,7 +137,7 @@
                         <GroupBox Header="Refresh Twitch OAuth Settings" Margin="10">
                             <StackPanel Orientation="Vertical" Margin="5 10 5 10">
                                 <Button Content="Log in to Twitch" Width="200"
-                                        Command="{Binding Path=DataContext.OpenTwitchAuthWindow, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsWindow}}}"
+                                        Command="{Binding Path=DataContext.OpenTwitchAuthWindowCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SettingsWindow}}}"
                                         Margin="2" VerticalAlignment="Center" Padding="4" HorizontalAlignment="Left" />
 
                                 <Label Visibility="{Binding UpdatedFromTwitch, Converter={StaticResource BoolToHiddenConverter}}"

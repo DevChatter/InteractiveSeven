@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Services;
 using InteractiveSeven.Core.Settings;
@@ -10,13 +9,15 @@ namespace InteractiveSeven.Core.ViewModels
     {
         private readonly ISettingsStore _settingsStore;
         private readonly IDialogService _dialogService;
+        private readonly ITwitchAuth _twitchAuth;
 
-        public SettingsViewModel(ISettingsStore settingsStore, IDialogService dialogService,
-            IShowTwitchAuthCommand showTwitchAuthCommand)
+        public SettingsViewModel(ISettingsStore settingsStore,
+            IDialogService dialogService,
+            ITwitchAuth twitchAuth)
         {
             _settingsStore = settingsStore;
             _dialogService = dialogService;
-            OpenTwitchAuthWindow = showTwitchAuthCommand;
+            _twitchAuth = twitchAuth;
         }
 
         [RelayCommand]
@@ -37,8 +38,11 @@ namespace InteractiveSeven.Core.ViewModels
             }
         }
 
-        public ICommand OpenTwitchAuthWindow { get; }
-
+        [RelayCommand]
+        public void OpenTwitchAuthWindow()
+        {
+            _twitchAuth.Show();
+        }
 
         public ApplicationSettings Settings => ApplicationSettings.Instance;
         public TwitchSettings TwitchSettings => TwitchSettings.Instance;

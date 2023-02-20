@@ -1,8 +1,7 @@
-﻿using System.Windows.Input;
-
-namespace InteractiveSeven.Core.MvvmCommands
+﻿namespace InteractiveSeven.Core.MvvmCommands
 {
-    public interface IShowTwitchAuthCommand : ICommand
+    public interface ITwitchAuth
     {
+        void Show();
     }
 }

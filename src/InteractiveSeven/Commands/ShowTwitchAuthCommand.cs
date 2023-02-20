@@ -1,23 +1,20 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using InteractiveSeven.Core.MvvmCommands;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 
 namespace InteractiveSeven.Commands
 {
-    public class ShowTwitchAuthCommand : IShowTwitchAuthCommand
+    public class TwitchAuth : ITwitchAuth
     {
         private readonly TwitchAuthViewModel _twitchAuthViewModel;
 
-        public ShowTwitchAuthCommand(TwitchAuthViewModel twitchAuthViewModel)
+        public TwitchAuth(TwitchAuthViewModel twitchAuthViewModel)
         {
             _twitchAuthViewModel = twitchAuthViewModel;
         }
 
-        public bool CanExecute(object parameter) => true;
-
-        public void Execute(object parameter)
+        public void Show()
         {
             TwitchSettings.Instance.UpdatedFromTwitch = false;
             ProcessStartInfo psi = new ProcessStartInfo
@@ -27,7 +24,5 @@ namespace InteractiveSeven.Commands
             };
             Process.Start(psi);
         }
-
-        public event EventHandler CanExecuteChanged = (sender, args) => { };
     }
 }
