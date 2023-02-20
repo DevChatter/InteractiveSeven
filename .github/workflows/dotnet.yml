@@ -9,19 +9,16 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
 
     - name: Restore dependencies
-      run: dotnet restore .\src
+      run: dotnet restore ./src /p:EnableWindowsTargeting=true
 
     - name: Build
-      run: dotnet build .\src --no-restore
+      run: dotnet build ./src --no-restore /p:EnableWindowsTargeting=true
 
     - name: Test
-      run: dotnet test .\src\UnitTests --no-build --verbosity normal
-
-    - name: Publish
-      run: dotnet publish .\src\InteractiveSeven\InteractiveSeven.csproj --no-restore -c Release
+      run: dotnet test ./src/UnitTests --no-build --verbosity normal
