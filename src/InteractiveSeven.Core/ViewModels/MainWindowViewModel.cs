@@ -1,9 +1,8 @@
-﻿using System.Windows.Input;
-using InteractiveSeven.Core.MvvmCommands;
+﻿using CommunityToolkit.Mvvm.Input;
 
 namespace InteractiveSeven.Core.ViewModels
 {
-    public class MainWindowViewModel
+    public partial class MainWindowViewModel
     {
         public MainWindowViewModel(MenuColorViewModel menuColorViewModel,
             StreamOverlayViewModel streamOverlayViewModel,
@@ -20,12 +19,13 @@ namespace InteractiveSeven.Core.ViewModels
             MonitorViewModel = monitorViewModel;
             StreamOverlayViewModel = streamOverlayViewModel;
             ChatBot = chatBot;
-            ConnectBotCommand = new BotConnectCommand(chatBot);
-            DisconnectBotCommand = new BotDisconnectCommand(chatBot);
         }
 
-        public ICommand ConnectBotCommand { get; }
-        public ICommand DisconnectBotCommand { get; }
+        [RelayCommand]
+        public void ConnectBot() => ChatBot.Connect();
+
+        [RelayCommand]
+        public void DisconnectBot() => ChatBot.Disconnect();
 
         public MenuColorViewModel MenuColorViewModel { get; }
         public NameBiddingViewModel NameBiddingViewModel { get; }

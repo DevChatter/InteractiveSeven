@@ -35,13 +35,13 @@
 
         <GroupBox Margin="5" Header="Application Themes">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Dark.Accent1" Command="{Binding Path=ChangeTheme}"
+                <Button Content="Dark.Accent1" Command="{Binding Path=ChangeThemeCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                <Button Content="Dark.Accent2" Command="{Binding Path=ChangeTheme}"
+                <Button Content="Dark.Accent2" Command="{Binding Path=ChangeThemeCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                <Button Content="Light.Accent1" Command="{Binding Path=ChangeTheme}"
+                <Button Content="Light.Accent1" Command="{Binding Path=ChangeThemeCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                <Button Content="Light.Accent2" Command="{Binding Path=ChangeTheme}"
+                <Button Content="Light.Accent2" Command="{Binding Path=ChangeThemeCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
 
             </StackPanel>
@@ -49,9 +49,9 @@
 
         <GroupBox Margin="5" Header="Base Color">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Dark" Command="{Binding Path=ChangeBaseColor}"
+                <Button Content="Dark" Command="{Binding Path=ChangeBaseColorCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                <Button Content="Light" Command="{Binding Path=ChangeBaseColor}"
+                <Button Content="Light" Command="{Binding Path=ChangeBaseColorCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
             </StackPanel>
         </GroupBox>
@@ -62,13 +62,13 @@
                            VerticalAlignment="Center" />
 
                 <UniformGrid Rows="2" Columns="4">
-                    <Button Content="Red" Command="{Binding Path=ChangeAccentColor}"
+                    <Button Content="Red" Command="{Binding Path=ChangeAccentColorCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                    <Button Content="Green" Command="{Binding Path=ChangeAccentColor}"
+                    <Button Content="Green" Command="{Binding Path=ChangeAccentColorCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                    <Button Content="Blue" Command="{Binding Path=ChangeAccentColor}"
+                    <Button Content="Blue" Command="{Binding Path=ChangeAccentColorCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
-                    <Button Content="Yellow" Command="{Binding Path=ChangeAccentColor}"
+                    <Button Content="Yellow" Command="{Binding Path=ChangeAccentColorCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}" />
                 </UniformGrid>
 

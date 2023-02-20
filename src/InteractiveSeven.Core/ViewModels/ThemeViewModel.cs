@@ -1,42 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using InteractiveSeven.Core.MvvmCommands;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using InteractiveSeven.Core.Services;
 
 namespace InteractiveSeven.Core.ViewModels
 {
-    public class ThemeViewModel : INotifyPropertyChanged
+    public partial class ThemeViewModel : ObservableObject
     {
+        private readonly IThemeChanger _themeChanger;
+
+        [ObservableProperty]
         private KeyValuePair<string, string> _selectedAccentColor;
 
-        public KeyValuePair<string, string> SelectedAccentColor
-        {
-            get => _selectedAccentColor;
-            set
-            {
-                _selectedAccentColor = value;
-                OnPropertyChanged(nameof(SelectedAccentColor));
-            }
-        }
+        [RelayCommand]
+        public void ChangeTheme(string themeName) => _themeChanger.ChangeTheme(themeName);
 
-        public ICommand ChangeTheme { get; }
-        public ICommand ChangeBaseColor { get; }
-        public ICommand ChangeAccentColor { get; }
+        [RelayCommand]
+        public void ChangeBaseColor(string baseColor) => _themeChanger.ChangeBaseColor(baseColor);
+
+        [RelayCommand]
+        public void ChangeAccentColor(string accentColor) => _themeChanger.ChangeAccentColor(accentColor);
 
         public List<KeyValuePair<string, string>> Colors { get; set; }
 
         public ThemeViewModel(IThemeChanger themeChanger)
         {
-            ChangeTheme = new StringCommand(themeChanger.ChangeTheme);
-
-            ChangeBaseColor = new StringCommand(themeChanger.ChangeBaseColor);
-
-            ChangeAccentColor = new StringCommand(themeChanger.ChangeAccentColor);
-
-            //SelectedAccentColor.Subscribe()
+            _themeChanger = themeChanger;
 
             Colors = themeChanger.GetAccentColors()
                 .Select(x => new KeyValuePair<string, string>(x, x))
@@ -49,13 +39,6 @@ namespace InteractiveSeven.Core.ViewModels
                     themeChanger.ChangeAccentColor(SelectedAccentColor.Key);
                 }
             };
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

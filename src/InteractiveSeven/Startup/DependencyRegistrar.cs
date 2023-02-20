@@ -134,7 +134,7 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<GilBank>();
             services.AddSingleton<PaymentProcessor>();
             services.AddSingleton<ColorPaletteCollection>();
-            services.AddSingleton<IShowTwitchAuthCommand, ShowTwitchAuthCommand>();
+            services.AddSingleton<ITwitchAuth, TwitchAuth>();
             services.AddSingleton<MainWindow>();
 
             services.AddLogging(config =>

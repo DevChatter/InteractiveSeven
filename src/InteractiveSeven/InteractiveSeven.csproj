@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="MahApps.Metro" />
     <PackageReference Include="MahApps.Metro.IconPacks" />
     <PackageReference Include="Microsoft.AspNetCore" />
