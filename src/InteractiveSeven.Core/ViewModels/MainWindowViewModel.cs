@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 
 namespace InteractiveSeven.Core.ViewModels
 {
@@ -23,16 +22,10 @@ namespace InteractiveSeven.Core.ViewModels
         }
 
         [RelayCommand]
-        public void ConnectBot()
-        {
-            ChatBot.Connect();
-        }
+        public void ConnectBot() => ChatBot.Connect();
 
         [RelayCommand]
-        public void DisconnectBot()
-        {
-            ChatBot.Disconnect();
-        }
+        public void DisconnectBot() => ChatBot.Disconnect();
 
         public MenuColorViewModel MenuColorViewModel { get; }
         public NameBiddingViewModel NameBiddingViewModel { get; }
