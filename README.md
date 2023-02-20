@@ -1,6 +1,6 @@
 # Interactive Seven (I7)
 
-The definitive application for Final Fantasy 7 streamers, providing **chat interaction**, **live status display (Tseng)**, and custom overlay menus. It pulls data from your copy of the game using [Elena](https://github.com/Shojy/Elena), so you can use it with most FF7 mods.
+The definitive application for Final Fantasy 7 streamers, providing **chat interaction**, **live status display (Tseng)**, and custom overlay menus. It pulls data from your local game data using [Elena](https://github.com/Shojy/Elena) and reads/writes data from your running instance of the game, so you can use it with most FF7 mods.
 
 ## Setting Up and Running I7
 
