@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -22,6 +22,3 @@ jobs:
 
     - name: Test
       run: dotnet test .\src\UnitTests --no-build --verbosity normal
-
-    - name: Publish
-      run: dotnet publish .\src\InteractiveSeven\InteractiveSeven.csproj --no-restore -c Release
