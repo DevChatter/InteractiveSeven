@@ -15,10 +15,10 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Restore dependencies
-      run: dotnet restore .\src
+      run: dotnet restore ./src
 
     - name: Build
-      run: dotnet build .\src --no-restore
+      run: dotnet build ./src --no-restore
 
     - name: Test
-      run: dotnet test .\src\UnitTests --no-build --verbosity normal
+      run: dotnet test ./src/UnitTests --no-build --verbosity normal
