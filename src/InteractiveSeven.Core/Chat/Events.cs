@@ -26,14 +26,16 @@ namespace InteractiveSeven.Core.Chat
 
     public class OnMessageReceivedArgs : EventArgs
     {
-        public OnMessageReceivedArgs(int bits, ChatUser chatUser)
+        public OnMessageReceivedArgs(int bits, ChatUser chatUser, string text)
         {
             Bits = bits;
             ChatUser = chatUser;
+            Text = text;
         }
 
         public int Bits { get; }
         public ChatUser ChatUser { get; }
+        public string Text { get; }
     }
 
     public class OnChatCommandReceivedArgs : EventArgs

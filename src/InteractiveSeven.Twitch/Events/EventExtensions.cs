@@ -24,7 +24,7 @@ namespace InteractiveSeven.Twitch.Events
 
         public static OnMessageReceivedArgs ToCore(this TwitchOnMessageReceivedArgs e)
         {
-            return new OnMessageReceivedArgs(e.ChatMessage.Bits, e.ChatMessage.GetChatUser());
+            return new OnMessageReceivedArgs(e.ChatMessage.Bits, e.ChatMessage.GetChatUser(), e.ChatMessage.Message);
         }
 
         public static OnChatCommandReceivedArgs ToCore(this TwitchOnChatCommandReceivedArgs e)

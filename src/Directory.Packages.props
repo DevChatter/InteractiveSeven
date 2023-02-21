@@ -6,6 +6,8 @@
     <PackageVersion Include="Autofac" Version="6.5.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageVersion Include="Google.Apis.YouTube.v3" Version="1.60.0.2945" />
+    <PackageVersion Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
     <PackageVersion Include="MahApps.Metro" Version="2.4.9" />
     <PackageVersion Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageVersion Include="Microsoft.AspNetCore" Version="2.2.0" />
@@ -20,6 +22,7 @@
     <PackageVersion Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageVersion Include="Serilog.Sinks.RichTextBox.Wpf" Version="1.1.0" />
     <PackageVersion Include="Shojy.FF7.Elena" Version="0.2-dev" />
+    <PackageVersion Include="StreamingClientLibrary.YouTube" Version="1.0.0.16" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageVersion Include="TwitchLib" Version="3.5.3" />
   </ItemGroup>

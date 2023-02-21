@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.YouTube", "Chat.YouTube\Chat.YouTube.csproj", "{123502C9-B6C4-430A-A7FA-11BF7911B61C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB773192-5869-4FCE-8C7A-343AD797CFF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{123502C9-B6C4-430A-A7FA-11BF7911B61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{123502C9-B6C4-430A-A7FA-11BF7911B61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{123502C9-B6C4-430A-A7FA-11BF7911B61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{123502C9-B6C4-430A-A7FA-11BF7911B61C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
