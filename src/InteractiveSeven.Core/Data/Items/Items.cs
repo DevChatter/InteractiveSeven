@@ -337,6 +337,6 @@ namespace InteractiveSeven.Core.Data.Items
         public static Items GetByItemId(int itemId)
             => All.SingleOrDefault(x => x.ItemId == itemId);
 
-        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name);
+        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name) || Name.StartsWithIns(name);
     }
 }
