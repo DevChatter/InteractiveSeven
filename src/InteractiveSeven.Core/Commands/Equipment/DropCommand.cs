@@ -31,11 +31,9 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
         public override void Execute(in CommandData commandData)
         {
-            string name =
-                commandData.Arguments.Count == 1
+            string name = commandData.Arguments.Count == 1
                     ? commandData.Arguments.FirstOrDefault()
                     : string.Join(' ', commandData.Arguments);
-
 
             var candidates = Settings.ItemSettings.AllByName(name).OfType<INamedSetting>()
                 .Union(Settings.MateriaSettings.AllByName(name)).ToList();
