@@ -62,6 +62,6 @@ namespace InteractiveSeven.Core.Settings
             }
         }
 
-        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name);
+        public bool IsMatchByName(string name) => Name.NoSpaces().StartsWithIns(name) || Name.StartsWithIns(name);
     }
 }

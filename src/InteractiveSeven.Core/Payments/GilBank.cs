@@ -109,6 +109,8 @@ namespace InteractiveSeven.Core.Payments
         {
             var account = new Account(user.UserId, user.SafeUsername);
             Accounts.Add(account);
+            _accountStore.SaveData(Accounts);
+
             if (user.UserId != null)
             {
                 AccountsById.Add(user.UserId, account);

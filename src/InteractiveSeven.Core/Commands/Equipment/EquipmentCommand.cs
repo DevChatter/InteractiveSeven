@@ -60,13 +60,18 @@ namespace InteractiveSeven.Core.Commands.Equipment
                 return;
             }
 
-            var equipmentArg = commandData.Arguments.ElementAtOrDefault(1);
-            if (!isValidName)
+            if (!isValidName || commandData.Arguments.Count < 2)
             {
                 _chatClient.SendMessage(commandData.Channel,
                     "Invalid Request - Specify equipment and character like this: !weapon cloud buster");
                 return;
             }
+
+            string equipmentArg =
+                commandData.Arguments.Count == 2
+                    ? commandData.Arguments.ElementAtOrDefault(1)
+                    : string.Join(' ', commandData.Arguments.Skip(1));
+
 
             var candidates = Settings.EquipmentSettings.AllByName(equipmentArg, charName, typeof(T));
 
@@ -174,6 +179,8 @@ namespace InteractiveSeven.Core.Commands.Equipment
         }
 
         protected void SendMessage(in CommandData commandData, string message)
-            => _chatClient.SendMessage(commandData.Channel, message);
+        {
+            _chatClient.SendMessage(commandData.Channel, message);
+        }
     }
 }

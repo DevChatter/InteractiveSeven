@@ -26,7 +26,9 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
         public override void Execute(in CommandData commandData)
         {
-            string itemName = commandData.Arguments.FirstOrDefault();
+            string itemName = commandData.Arguments.Count == 1
+                ? commandData.Arguments.FirstOrDefault()
+                : string.Join(' ', commandData.Arguments);
 
             var candidates = Settings.ItemSettings.AllByName(itemName);
 

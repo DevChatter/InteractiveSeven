@@ -5,7 +5,7 @@ namespace InteractiveSeven.Core
 {
     public static class StringExtensions
     {
-        private static readonly Regex WhiteSpaceRegex = new Regex(@"\s+");
+        private static readonly Regex WhiteSpaceRegex = new(@"\s+");
         public static string NoSpaces(this string text) => WhiteSpaceRegex.Replace(text, "");
 
         public static bool StartsWithIns(this string a, string b)
