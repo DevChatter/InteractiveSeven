@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Payments;
 
 namespace InteractiveSeven.Core.Commands.Currency
@@ -17,11 +18,11 @@ namespace InteractiveSeven.Core.Commands.Currency
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData data)
+        public override async Task Execute(CommandData data)
         {
             var balance = _gilBank.CheckBalance(data.User);
 
-            _chatClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
+            await _chatClient.SendMessage(data.Channel, $"You have {balance} gil, {data.User.Username}.");
         }
     }
 }

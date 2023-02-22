@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Payments;
 
@@ -16,18 +17,15 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, Settings.MenuSettings.MakoModeCost, Settings.MenuSettings.AllowModOverride);
 
-            if (!gilTransaction.Paid)
+            if (gilTransaction.Paid)
             {
-                return;
+                DomainEvents.Raise(new MakoModeStarted());
             }
-
-
-            DomainEvents.Raise(new MakoModeStarted());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -23,7 +24,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _paymentProcessor = paymentProcessor;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             string materiaName = commandData.Arguments.Count == 1
                 ? commandData.Arguments.FirstOrDefault()
@@ -33,26 +34,26 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                _chatClient.SendMessage(commandData.Channel, "Error: No matching Materia.");
+                await _chatClient.SendMessage(commandData.Channel, "Error: No matching Materia.");
                 return;
             }
 
             if (candidates.Count > 15)
             {
-                _chatClient.SendMessage(commandData.Channel, "Error: Too many matching materia, be more specific.");
+                await _chatClient.SendMessage(commandData.Channel, "Error: Too many matching materia, be more specific.");
                 return;
             }
 
             if (candidates.Count > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                await _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
                 return;
             }
 
             var materiaSetting = candidates.Single();
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, materiaSetting.Cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
@@ -62,8 +63,8 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             _materiaAccessor.AddMateria(materiaSetting.Materia.Value);
             string message = $"Materia {materiaSetting.Materia.Name} Added";
-            _chatClient.SendMessage(commandData.Channel, message);
-            _statusHubEmitter.ShowEvent(message);
+            await _chatClient.SendMessage(commandData.Channel, message);
+            await _statusHubEmitter.ShowEvent(message);
         }
     }
 }

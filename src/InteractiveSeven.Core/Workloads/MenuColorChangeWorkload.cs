@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Models;
 using InteractiveSeven.Core.Settings;
@@ -20,7 +21,7 @@ namespace InteractiveSeven.Core.Workloads
             _logger = logger;
         }
 
-        public void Run()
+        public Task Run()
         {
             try
             {
@@ -30,6 +31,8 @@ namespace InteractiveSeven.Core.Workloads
             {
                 _logger.LogError(e, "Error changing menu colors.");
             }
+
+            return Task.CompletedTask;
         }
     }
 }

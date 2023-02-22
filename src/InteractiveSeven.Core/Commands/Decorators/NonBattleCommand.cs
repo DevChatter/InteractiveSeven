@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Settings;
@@ -28,15 +29,15 @@ namespace InteractiveSeven.Core.Commands.Decorators
             return _internalCommand.ShouldExecute(commandWord);
         }
 
-        public void Execute(in CommandData commandData)
+        public async Task Execute(CommandData commandData)
         {
             if (!IsBattleActive())
             {
-                _internalCommand.Execute(commandData);
+                await _internalCommand.Execute(commandData);
             }
             else
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"Can only use !{commandData.CommandText} outside of battle.");
             }
         }

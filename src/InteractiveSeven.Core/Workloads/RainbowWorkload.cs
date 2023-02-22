@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
@@ -23,11 +24,11 @@ namespace InteractiveSeven.Core.Workloads
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public void Run()
+        public async Task Run()
         {
             try
             {
-                _statusHubEmitter.ShowEvent("Rainbow Mode Started");
+                await _statusHubEmitter.ShowEvent("Rainbow Mode Started");
 
                 for (int i = 0; i < Settings.MenuSettings.RainbowModeIterations; i++)
                 {
@@ -35,7 +36,7 @@ namespace InteractiveSeven.Core.Workloads
                         MenuColors.RandomPalette());
                 }
 
-                _statusHubEmitter.ShowEvent("Rainbow Mode Ended");
+                await _statusHubEmitter.ShowEvent("Rainbow Mode Ended");
             }
             catch (Exception e)
             {

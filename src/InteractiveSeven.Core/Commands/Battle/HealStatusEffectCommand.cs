@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -23,25 +24,25 @@ namespace InteractiveSeven.Core.Commands.Battle
         private static string[] AllWords(CommandSettings settings)
             => settings.HealCommandWords;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             var statusSettings = Settings.BattleSettings.ByWord(commandData.Arguments.FirstOrDefault());
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.ElementAtOrDefault(1));
             if (statusSettings == null || !targeted.Any())
             {
-                _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !cure psn top");
+                await _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid status and actor. Example: !cure psn top");
                 return;
             }
 
             if (!statusSettings.Enabled)
             {
-                _chatClient.SendMessage(commandData.Channel, $"The {statusSettings.Name} status effect is disabled.");
+                await _chatClient.SendMessage(commandData.Channel, $"The {statusSettings.Name} status effect is disabled.");
                 return;
             }
 
             var targets = CheckTargetValidity(targeted, _partyStatus.Party, statusSettings.Effect);
 
-            if (CouldNotAfford(targets.valid.Count, statusSettings, commandData))
+            if (await CouldNotAfford(targets.valid.Count, statusSettings, commandData))
             {
                 return;
             }
@@ -50,14 +51,14 @@ namespace InteractiveSeven.Core.Commands.Battle
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{character.Name} is immune to {statusSettings.Name}.";
-                _chatClient.SendMessage(commandData.Channel, message);
+                await _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.unaffected)
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{character.Name} is not affected by {statusSettings.Name}.";
-                _chatClient.SendMessage(commandData.Channel, message);
+                await _chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
@@ -65,15 +66,15 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.RemoveActorStatus(target, statusSettings.Effect);
                 string message = $"Removed {statusSettings.Name} from {character.Name}.";
-                _chatClient.SendMessage(commandData.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                await _chatClient.SendMessage(commandData.Channel, message);
+                await _statusHubEmitter.ShowEvent(message);
             }
         }
 
-        protected bool CouldNotAfford(in int targetCount, StatusEffectSettings statusSettings,
+        protected async Task<bool> CouldNotAfford(int targetCount, StatusEffectSettings statusSettings,
             CommandData commandData)
         {
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, statusSettings.CureCost * targetCount, Settings.BattleSettings.AllowModOverride);
 
             return !gilTransaction.Paid;

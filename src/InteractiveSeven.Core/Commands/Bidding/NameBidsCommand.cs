@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.ViewModels;
@@ -17,7 +18,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
             _chatClient = chatClient;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             var requested = commandData.Arguments.FirstOrDefault();
 
@@ -25,7 +26,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
             if (!exists)
             {
-                _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                await _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
                 return;
             }
 
@@ -33,14 +34,14 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
             if (bidding == null)
             {
-                _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
+                await _chatClient.SendMessage(commandData.Channel, "Specify a character to see the name bids.");
                 return;
             }
 
             var values = bidding.NameBids.OrderByDescending(x => x.TotalBits).Take(5).Select(x => $"({x.Name} {x.TotalBits})");
             string message = string.Join(", ", values);
 
-            _chatClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
+            await _chatClient.SendMessage(commandData.Channel, $"{bidding.DefaultName} Bids: {message}");
         }
     }
 }

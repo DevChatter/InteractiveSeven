@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Payments;
 
@@ -19,28 +20,28 @@ namespace InteractiveSeven.Core.Commands.Currency
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             if (!CanSendBonusBits(commandData.User)) return;
 
             var (isValid, amount, target) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
 
-            AttemptRemoval(commandData, target, amount);
+            await AttemptRemoval(commandData, target, amount);
         }
 
-        private void AttemptRemoval(in CommandData commandData, string target, int amount)
+        private async Task AttemptRemoval(CommandData commandData, string target, int amount)
         {
             var (balance, withdrawn) = _gilBank.Withdraw(new ChatUser { Username = target }, amount);
             string status = withdrawn != amount ? "Insufficient funds:" : "Success:";
 
             string message = $"{status} Removed {withdrawn} gil from {target}'s account.";
-            _chatClient.SendMessage(commandData.Channel, message);
+            await _chatClient.SendMessage(commandData.Channel, message);
         }
 
         private bool CanSendBonusBits(in ChatUser user)

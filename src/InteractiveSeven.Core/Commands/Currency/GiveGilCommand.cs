@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Payments;
 
@@ -21,21 +22,20 @@ namespace InteractiveSeven.Core.Commands.Currency
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
-
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
 
-            AttemptTransfer(commandData, recipient, amount);
+            await AttemptTransfer(commandData, recipient, amount);
         }
 
-        private void AttemptTransfer(in CommandData commandData, string recipient, int amount)
+        private async Task AttemptTransfer(CommandData commandData, string recipient, int amount)
         {
             bool isBonus = false;
             int withdrawn;
@@ -50,7 +50,7 @@ namespace InteractiveSeven.Core.Commands.Currency
                 (balance, withdrawn) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (withdrawn == 0)
                 {
-                    _chatClient.SendMessage(commandData.Channel,
+                    await _chatClient.SendMessage(commandData.Channel,
                         $"Insufficient funds, {commandData.User.Username}. You have only {balance} gil.");
                     return;
                 }
@@ -58,7 +58,7 @@ namespace InteractiveSeven.Core.Commands.Currency
 
             string fromMessage = isBonus ? "" : $" from {commandData.User.Username}'s account";
             _gilBank.Deposit(new ChatUser { Username = recipient }, withdrawn);
-            _chatClient.SendMessage(commandData.Channel,
+            await _chatClient.SendMessage(commandData.Channel,
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
 

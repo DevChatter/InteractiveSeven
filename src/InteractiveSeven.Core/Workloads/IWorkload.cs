@@ -1,7 +1,9 @@
-﻿namespace InteractiveSeven.Core.Workloads
+﻿using System.Threading.Tasks;
+
+namespace InteractiveSeven.Core.Workloads
 {
     public interface IWorkload
     {
-        void Run();
+        Task Run();
     }
 }

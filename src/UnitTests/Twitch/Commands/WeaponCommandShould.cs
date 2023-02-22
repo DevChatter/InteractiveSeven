@@ -59,7 +59,7 @@ namespace UnitTests.Twitch.Commands
         }
 
         [Fact(Skip = "skip")]
-        public void ReportError_GivenInsufficientGil()
+        public async void ReportError_GivenInsufficientGil()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
@@ -67,7 +67,7 @@ namespace UnitTests.Twitch.Commands
                 new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
                 new PaymentProcessor(gilBank, chat.Object));
 
-            weaponCommand.Execute(commandData);
+            await weaponCommand.Execute(commandData);
 
             chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>()), Times.Once);
             eqAccessor.Verify(x => x.SetCharacterEquipment(It.IsAny<CharNames>(), It.IsAny<byte>(), m => m.Weapon.Address), Times.Never);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands.Bidding.Naming;
@@ -105,14 +106,14 @@ namespace InteractiveSeven.Core.ViewModels
             }
         }
 
-        private void HandleTopNameChange(TopNameChanged e)
+        private async void HandleTopNameChange(TopNameChanged e)
         {
             try
             {
                 _nameAccessor.SetCharacterName(e.CharName, e.NewName);
                 string message = $"{e.CharName.DefaultName}'s name is now {e.NewName}.";
-                _chatClient.SendMessage(TwitchSettings.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                await _chatClient.SendMessage(TwitchSettings.Channel, message);
+                await _statusHubEmitter.ShowEvent(message);
             }
             catch (Exception exception)
             {

@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Payments;
 
 namespace InteractiveSeven.Core.Commands.Admin
@@ -13,12 +14,13 @@ namespace InteractiveSeven.Core.Commands.Admin
             _paymentProcessor = paymentProcessor;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override Task Execute(CommandData commandData)
         {
             if (commandData.User.IsDevChatter || commandData.User.IsShojy)
             {
                 _paymentProcessor.Lock();
             }
+            return Task.CompletedTask;
         }
     }
 }

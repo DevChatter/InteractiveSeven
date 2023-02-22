@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -27,13 +28,13 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             ushort amount = commandData.Arguments.FirstOrDefault().SafeUshortParse();
 
             if (amount <= 0)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"How much gp do you want to give to the player, {commandData.User.Username}?");
                 return;
             }
@@ -41,26 +42,26 @@ namespace InteractiveSeven.Core.Commands.Equipment
             ushort currentGp = _gpAccessor.GetGp();
             if (FF7Const.MaxGp - currentGp > amount)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"Max GP is {FF7Const.MaxGp:N0}. Current GP: {currentGp:N0}.");
                 return;
             }
 
             int gilCost = amount * GpSettings.GiveMultiplier;
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, gilCost, GpSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"You don't have {gilCost} gil, {commandData.User.Username}.");
                 return;
             }
 
             _gpAccessor.AddGp(amount);
             string message = $"Added {amount} GP for player.";
-            _chatClient.SendMessage(commandData.Channel, message);
-            _statusHubEmitter.ShowEvent(message);
+            await _chatClient.SendMessage(commandData.Channel, message);
+            await _statusHubEmitter.ShowEvent(message);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Events;
@@ -37,43 +38,43 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.MildEffect;
 
-        public override void Execute(in CommandData data)
+        public override async Task Execute(CommandData data)
         {
             if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, NameBidSettings.NamingCloudEnabled))
             {
-                TriggerDomainEvent(CharNames.Cloud, data);
+                await TriggerDomainEvent(CharNames.Cloud, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, NameBidSettings.NamingBarretEnabled))
             {
-                TriggerDomainEvent(CharNames.Barret, data);
+                await TriggerDomainEvent(CharNames.Barret, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, NameBidSettings.NamingTifaEnabled))
             {
-                TriggerDomainEvent(CharNames.Tifa, data);
+                await TriggerDomainEvent(CharNames.Tifa, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, NameBidSettings.NamingAerisEnabled))
             {
-                TriggerDomainEvent(CharNames.Aeris, data);
+                await TriggerDomainEvent(CharNames.Aeris, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, NameBidSettings.NamingCaitSithEnabled))
             {
-                TriggerDomainEvent(CharNames.CaitSith, data);
+                await TriggerDomainEvent(CharNames.CaitSith, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, NameBidSettings.NamingCidEnabled))
             {
-                TriggerDomainEvent(CharNames.Cid, data);
+                await TriggerDomainEvent(CharNames.Cid, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, NameBidSettings.NamingRedEnabled))
             {
-                TriggerDomainEvent(CharNames.Red, data);
+                await TriggerDomainEvent(CharNames.Red, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, NameBidSettings.NamingVincentEnabled))
             {
-                TriggerDomainEvent(CharNames.Vincent, data);
+                await TriggerDomainEvent(CharNames.Vincent, data);
             }
             else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, NameBidSettings.NamingYuffieEnabled))
             {
-                TriggerDomainEvent(CharNames.Yuffie, data);
+                await TriggerDomainEvent(CharNames.Yuffie, data);
             }
         }
 
@@ -83,13 +84,13 @@ namespace InteractiveSeven.Core.Commands.Bidding
             return words.Any(word => word.EqualsIns(commandText)) && enabled;
         }
 
-        private void TriggerDomainEvent(in CharNames charName, in CommandData data)
+        private async Task TriggerDomainEvent(CharNames charName, CommandData data)
         {
             int gil = GetGilFromCommandData(data);
 
             if (gil < 1)
             {
-                _chatClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
+                await _chatClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
                 return;
             }
 
@@ -99,7 +100,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
                 if (withdrawn == 0)
                 {
                     string message = $"You don't have {gil} gil, {data.User.Username}. You have {balance} gil.";
-                    _chatClient.SendMessage(data.Channel, message);
+                    await _chatClient.SendMessage(data.Channel, message);
                     return;
                 }
             }

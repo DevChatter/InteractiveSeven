@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Twitch.Events;
@@ -25,9 +26,10 @@ namespace InteractiveSeven.Twitch.Chat
             _twitchClient.OnDisconnected += (s, e) => OnDisconnected?.Invoke(s, e.ToCore());
         }
 
-        public void SendMessage(string channel, string message)
+        public Task SendMessage(string channel, string message)
         {
             _twitchClient.SendMessage(channel, message);
+            return Task.CompletedTask;
         }
 
         public event EventHandler<OnLogArgs> OnLog;
@@ -37,18 +39,20 @@ namespace InteractiveSeven.Twitch.Chat
         public event EventHandler<OnConnectedArgs> OnConnected;
         public event EventHandler<OnDisconnectedEventArgs> OnDisconnected;
 
-        public void Connect(string username, string accessToken, string channel)
+        public Task Connect(string username, string accessToken, string channel)
         {
             Log.Information($"Trying to connect to Twitch channel {channel} as {username}");
             ConnectionCredentials credentials = new ConnectionCredentials(Settings.Username, Settings.AccessToken);
             _twitchClient.Initialize(credentials, Settings.Channel);
             _twitchClient.Connect();
+            return Task.CompletedTask;
         }
 
-        public void Disconnect()
+        public Task Disconnect()
         {
             Log.Information("Disconnecting from Twitch");
             _twitchClient.Disconnect();
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 
@@ -36,6 +37,6 @@ namespace InteractiveSeven.Core.Commands
                 && _commandWordsSelector?.Invoke(Settings.CommandSettings)?.Any(word => word.EqualsIns(commandWord)) == true;
         }
 
-        public abstract void Execute(in CommandData commandData);
+        public abstract Task Execute(CommandData commandData);
     }
 }

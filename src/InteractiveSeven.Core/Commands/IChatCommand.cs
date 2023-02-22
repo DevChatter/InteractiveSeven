@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 
 namespace InteractiveSeven.Core.Commands
 {
@@ -6,6 +7,6 @@ namespace InteractiveSeven.Core.Commands
     {
         GamePlayEffects GamePlayEffects { get; }
         bool ShouldExecute(string commandWord);
-        void Execute(in CommandData commandData);
+        Task Execute(CommandData commandData);
     }
 }

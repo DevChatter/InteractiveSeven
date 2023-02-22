@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -24,24 +25,24 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             int amount = commandData.Arguments.FirstOrDefault().SafeIntParse();
 
             if (amount <= 0)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"How much of your gil do you want to give to the player, {commandData.User.Username}?");
                 return;
             }
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, amount,
                 Settings.EquipmentSettings.PlayerGilSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"You don't have {amount} gil, {commandData.User.Username}.");
                 return;
             }
@@ -49,8 +50,8 @@ namespace InteractiveSeven.Core.Commands.Equipment
             var gilToAdd = (uint)(amount * Settings.EquipmentSettings.PlayerGilSettings.GiveMultiplier);
             _gilAccessor.AddGil(gilToAdd);
             string message = $"Added {gilToAdd} gil for player.";
-            _chatClient.SendMessage(commandData.Channel, message);
-            _statusHubEmitter.ShowEvent(message);
+            await _chatClient.SendMessage(commandData.Channel, message);
+            await _statusHubEmitter.ShowEvent(message);
         }
     }
 }
