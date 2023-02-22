@@ -8,10 +8,10 @@ namespace Chat.YouTube.Chat
 {
     public class YouTubeChatClient : IChatClient
     {
-        public static string clientID = "884596410562-pcrl1fn8ov0npj7fhjl086ffmud7r5j6.apps.googleusercontent.com";
-        public static string clientSecret = "QBkxNmPNIvWatRvOIfRYrXlc";
+        private const string ClientId = "884596410562-pcrl1fn8ov0npj7fhjl086ffmud7r5j6.apps.googleusercontent.com";
+        private const string ClientSecret = "QBkxNmPNIvWatRvOIfRYrXlc";
 
-        public static readonly List<OAuthClientScopeEnum> scopes = new List<OAuthClientScopeEnum>()
+        private static readonly List<OAuthClientScopeEnum> Scopes = new()
         {
             OAuthClientScopeEnum.ChannelMemberships,
             OAuthClientScopeEnum.ManageAccount,
@@ -48,7 +48,7 @@ namespace Chat.YouTube.Chat
                 {
                     System.Console.WriteLine("Initializing connection");
 
-                    YouTubeConnection connection = await YouTubeConnection.ConnectViaLocalhostOAuthBrowser(clientID, clientSecret, scopes);
+                    YouTubeConnection connection = await YouTubeConnection.ConnectViaLocalhostOAuthBrowser(ClientId, ClientSecret, Scopes);
                     if (connection != null)
                     {
                         Channel channel = await connection.Channels.GetMyChannel();
