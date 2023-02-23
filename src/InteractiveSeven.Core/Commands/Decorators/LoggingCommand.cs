@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using Microsoft.Extensions.Logging;
 
@@ -17,11 +18,11 @@ namespace InteractiveSeven.Core.Commands.Decorators
 
         public virtual GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
 
-        public void Execute(in CommandData commandData)
+        public async Task Execute(CommandData commandData)
         {
             try
             {
-                _internalCommand.Execute(commandData);
+                await _internalCommand.Execute(commandData);
             }
             catch (Exception ex)
             {

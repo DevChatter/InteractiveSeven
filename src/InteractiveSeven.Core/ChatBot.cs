@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Commands;
 using InteractiveSeven.Core.IntervalMessages;
@@ -12,25 +12,17 @@ using Serilog;
 
 namespace InteractiveSeven.Core
 {
-    public class ChatBot : INotifyPropertyChanged
+    public partial class ChatBot : ObservableObject
     {
         private readonly IChatClient _chatClient;
         private readonly IList<IChatCommand> _commands;
         private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
+
+        [ObservableProperty]
         private bool _isConnected;
 
         private TwitchSettings Settings => TwitchSettings.Instance;
-
-        public bool IsConnected
-        {
-            get => _isConnected;
-            set
-            {
-                _isConnected = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ChatBot(IChatClient chatClient, IList<IChatCommand> commands,
             IntervalMessagingService intervalMessaging, GilBank gilBank)
@@ -48,7 +40,7 @@ namespace InteractiveSeven.Core
             _chatClient.OnDisconnected += Client_OnDisconnected;
         }
 
-        public void Connect()
+        public async Task Connect()
         {
             if (string.IsNullOrWhiteSpace(Settings.Username)
                 || string.IsNullOrWhiteSpace(Settings.AccessToken)
@@ -62,7 +54,7 @@ namespace InteractiveSeven.Core
 
             try
             {
-                _chatClient.Connect(Settings.Username, Settings.AccessToken, Settings.Channel);
+                await _chatClient.Connect(Settings.Username, Settings.AccessToken, Settings.Channel);
             }
             catch (Exception e)
             {
@@ -70,19 +62,19 @@ namespace InteractiveSeven.Core
             }
         }
 
-        public void Disconnect()
+        public async Task Disconnect()
         {
-            _chatClient.SendMessage(Settings.Channel, "Disconnecting Interactive Seven!");
-            _chatClient.Disconnect();
+            await _chatClient.SendMessage(Settings.Channel, "Disconnecting Interactive Seven!");
+            await _chatClient.Disconnect();
         }
 
-        private void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+        private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             try
             {
-                _commands.FirstOrDefault(x => x.ShouldExecute(e.CommandData.CommandText))
-                    ?.Execute(e.CommandData);
-                _intervalMessaging.MessageReceived();
+                IChatCommand command = _commands.FirstOrDefault(x => x.ShouldExecute(e.CommandData.CommandText));
+                await (command?.Execute(e.CommandData) ?? Task.CompletedTask);
+                await _intervalMessaging.MessageReceived();
             }
             catch (Exception exception)
             {
@@ -105,9 +97,9 @@ namespace InteractiveSeven.Core
             IsConnected = false;
         }
 
-        private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
+        private async void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            _chatClient.SendMessage(e.Channel, "Interactive Seven is live!");
+            await _chatClient.SendMessage(e.Channel, "Interactive Seven is live!");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -128,13 +120,6 @@ namespace InteractiveSeven.Core
             {
                 Log.Error(exception, "Error updating account balances.");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

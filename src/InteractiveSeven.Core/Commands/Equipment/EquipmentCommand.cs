@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
@@ -49,20 +50,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _paymentProcessor = paymentProcessor;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             (bool isValidName, CharNames charName) =
                 CharNames.GetByName(commandData.Arguments.FirstOrDefault());
 
             if (isValidName && TryingToChangeSephirothOrYoungCloud(charName))
             {
-                SendMessage(commandData, "Cannot Change Equipment of Sephiroth or Young Cloud.");
+                await SendMessage(commandData, "Cannot Change Equipment of Sephiroth or Young Cloud.");
                 return;
             }
 
             if (!isValidName || commandData.Arguments.Count < 2)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     "Invalid Request - Specify equipment and character like this: !weapon cloud buster");
                 return;
             }
@@ -77,20 +78,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                _chatClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
+                await _chatClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
                 return;
             }
 
             if (candidates.Count() > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                _chatClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
+                await _chatClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
                 return;
             }
 
             var equippableSettings = candidates.Single();
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid)
@@ -101,7 +102,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             ushort existingEquipmentId = _equipmentAccessor.GetCharacterEquipment(charName, AddressSelector());
             if (equippableSettings.Item.EquipmentId == existingEquipmentId)
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {equippableSettings.Name} equipped.");
                 if (gilTransaction.AmountPaid > 0) // return the gil, since we did nothing
                 {
@@ -121,8 +122,8 @@ namespace InteractiveSeven.Core.Commands.Equipment
             }
             RemoveMateria(charName, equippableSettings.Item.EquipmentId);
             string message = $"Equipped {charName.DefaultName} with {equippableSettings.Name}.";
-            _chatClient.SendMessage(commandData.Channel, message);
-            _statusHubEmitter.ShowEvent(message, commandData.User.Username);
+            await _chatClient.SendMessage(commandData.Channel, message);
+            await _statusHubEmitter.ShowEvent(message, commandData.User.Username);
         }
 
         private bool TryingToChangeSephirothOrYoungCloud(CharNames charName)
@@ -178,9 +179,9 @@ namespace InteractiveSeven.Core.Commands.Equipment
             throw new NotImplementedException();
         }
 
-        protected void SendMessage(in CommandData commandData, string message)
+        protected async Task SendMessage(CommandData commandData, string message)
         {
-            _chatClient.SendMessage(commandData.Channel, message);
+            await _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

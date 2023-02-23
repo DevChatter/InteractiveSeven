@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
 using InteractiveSeven.Core.Models;
@@ -57,11 +58,11 @@ namespace InteractiveSeven.Core.Workloads
             },
         };
 
-        public void Run()
+        public async Task Run()
         {
             try
             {
-                _statusHubEmitter.ShowEvent("Mako Mode Started");
+                await _statusHubEmitter.ShowEvent("Mako Mode Started");
 
                 for (int i = 0; i < Settings.MenuSettings.MakoModeIterations / MakoColors.Count + 1; i++)
                 {
@@ -72,7 +73,7 @@ namespace InteractiveSeven.Core.Workloads
                     }
                 }
 
-                _statusHubEmitter.ShowEvent("Mako Mode Ended");
+                await _statusHubEmitter.ShowEvent("Mako Mode Ended");
             }
             catch (Exception e)
             {

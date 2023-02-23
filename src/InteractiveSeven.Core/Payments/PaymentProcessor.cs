@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 
 namespace InteractiveSeven.Core.Payments
 {
@@ -14,7 +15,7 @@ namespace InteractiveSeven.Core.Payments
             _chatClient = chatClient;
         }
 
-        public GilTransaction ProcessPayment(CommandData commandData, int amount, bool canModsOverride)
+        public async Task<GilTransaction> ProcessPayment(CommandData commandData, int amount, bool canModsOverride)
         {
             if (_unlocked && commandData.User.IsDevChatter) return new GilTransaction(true, 0);
 
@@ -27,7 +28,7 @@ namespace InteractiveSeven.Core.Payments
                 (_, gilSpent) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (gilSpent < amount)
                 {
-                    _chatClient.SendMessage(commandData.Channel,
+                    await _chatClient.SendMessage(commandData.Channel,
                         $"Sorry, '!{commandData.CommandText}' has a minimum gil cost of {amount}. Cheer for gil.");
                     return new GilTransaction(false, gilSpent);
                 }

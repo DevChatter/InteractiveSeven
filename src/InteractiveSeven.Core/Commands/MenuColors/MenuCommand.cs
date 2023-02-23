@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.Models;
@@ -25,7 +26,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             if (commandData.Arguments.Count == 0) return;
 
@@ -33,7 +34,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (menuColors == null) return;
 
-            var gilTransaction = _paymentProcessor.ProcessPayment(commandData,
+            var gilTransaction = await _paymentProcessor.ProcessPayment(commandData,
                 MenuSettings.BitCost, MenuSettings.AllowModOverride);
 
             if (!gilTransaction.Paid) return;

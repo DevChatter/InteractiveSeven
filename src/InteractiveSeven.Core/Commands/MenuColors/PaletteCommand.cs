@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Models;
@@ -24,7 +25,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             string operation = commandData.Arguments.FirstOrDefault();
 
@@ -34,33 +35,33 @@ namespace InteractiveSeven.Core.Commands.MenuColors
                 case "show":
                 case "list":
                 case "l":
-                    ShowCurrentPaletteList(commandData);
+                    await ShowCurrentPaletteList(commandData);
                     break;
                 case "new":
                 case "add":
                 case "create":
-                    CreateNewPalette(commandData);
+                    await CreateNewPalette(commandData);
                     break;
                 case "edit":
                 case "mod":
                 case "change":
                 case "modify":
-                    EditPalette(commandData);
+                    await EditPalette(commandData);
                     break;
                 case "rm":
                 case "rem":
                 case "remove":
                 case "del":
                 case "delete":
-                    DeletePalette(commandData);
+                    await DeletePalette(commandData);
                     break;
                 default:
-                    DisplayHelpText(commandData);
+                    await DisplayHelpText(commandData);
                     break;
             }
         }
 
-        private void DeletePalette(in CommandData commandData)
+        private async Task DeletePalette(CommandData commandData)
         {
             if (!AllowedToRunCommand(commandData))
             {
@@ -69,7 +70,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (commandData.Arguments.Count < 2)
             {
-                DisplayHelpText(commandData);
+                await DisplayHelpText(commandData);
                 return;
             }
 
@@ -78,10 +79,10 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             _colorPaletteCollection.RemovePalette(paletteName);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _chatClient.SendMessage(commandData.Channel, $"Removed the '!menu {paletteName}' color palette.");
+            await _chatClient.SendMessage(commandData.Channel, $"Removed the '!menu {paletteName}' color palette.");
         }
 
-        private void EditPalette(in CommandData commandData)
+        private async Task EditPalette(CommandData commandData)
         {
             if (!AllowedToRunCommand(commandData))
             {
@@ -90,7 +91,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (commandData.Arguments.Count < 6)
             {
-                DisplayHelpText(commandData);
+                await DisplayHelpText(commandData);
                 return;
             }
 
@@ -99,14 +100,14 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (menuColors == null)
             {
-                _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
+                await _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
                 return;
             }
 
             _colorPaletteCollection.EditPalette(menuColors, paletteName);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _chatClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
+            await _chatClient.SendMessage(commandData.Channel, $"Edited the '!menu {paletteName}' color palette.");
         }
 
         private static Models.MenuColors GetMenuColors(CommandData commandData)
@@ -134,15 +135,14 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             return menuColors;
         }
 
-        private void DisplayHelpText(CommandData commandData)
+        private async Task DisplayHelpText(CommandData commandData)
         {
             const string word = "palette";
-            string message =
-                $"List available palettes by '!{word} list' or add a new one by '!{word} add Sunset Orange OrangeRed Red DarkRed'.";
-            _chatClient.SendMessage(commandData.Channel, message);
+            string message = $"List available palettes by '!{word} list' or add a new one by '!{word} add Sunset Orange OrangeRed Red DarkRed'.";
+            await _chatClient.SendMessage(commandData.Channel, message);
         }
 
-        private void CreateNewPalette(CommandData commandData)
+        private async Task CreateNewPalette(CommandData commandData)
         {
             if (!AllowedToRunCommand(commandData))
             {
@@ -151,7 +151,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (commandData.Arguments.Count < 6)
             {
-                DisplayHelpText(commandData);
+                await DisplayHelpText(commandData);
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
             if (menuColors == null)
             {
-                _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
+                await _chatClient.SendMessage(commandData.Channel, "One of those colors was invalid.");
                 return;
             }
 
@@ -169,7 +169,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             _colorPaletteCollection.AddPalette(colorPalette);
             _colorPaletteDataStore.SaveData(_colorPaletteCollection.All);
 
-            _chatClient.SendMessage(commandData.Channel, $"Added a '!menu {paletteName}' color palette.");
+            await _chatClient.SendMessage(commandData.Channel, $"Added a '!menu {paletteName}' color palette.");
         }
 
         private bool AllowedToRunCommand(CommandData commandData)
@@ -178,10 +178,10 @@ namespace InteractiveSeven.Core.Commands.MenuColors
                 || (commandData.User.IsMod && Settings.MenuSettings.AllowModsToCreatePalettes);
         }
 
-        private void ShowCurrentPaletteList(CommandData commandData)
+        private async Task ShowCurrentPaletteList(CommandData commandData)
         {
             string message = string.Join(", ", _colorPaletteCollection.All.Select(x => x.Names.First()));
-            _chatClient.SendMessage(commandData.Channel, message);
+            await _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

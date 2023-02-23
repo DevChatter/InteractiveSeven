@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 
@@ -23,13 +24,13 @@ namespace InteractiveSeven.Core.IntervalMessages
             _lastMessageTime = _clock.UtcNow.AddMinutes(NormalDelayInMinutes - (NormalDelayInMinutes * 1.5));
         }
 
-        public void MessageReceived()
+        public async Task MessageReceived()
         {
             _messageCount++;
             if (_messageCount > 10 && ElapsedTime > TimeSpan.FromMinutes(NormalDelayInMinutes))
             {
                 const string message = "Enjoying Interactive Seven? Consider supporting the developers, @DevChatter and @MrShojy ! (https://twitch.tv/DevChatter)";
-                _chatClient.SendMessage(TwitchSettings.Channel, message);
+                await _chatClient.SendMessage(TwitchSettings.Channel, message);
                 _messageCount = 0;
                 _lastMessageTime = _clock.UtcNow;
             }

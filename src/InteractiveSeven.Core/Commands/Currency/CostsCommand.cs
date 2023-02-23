@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Settings;
 
@@ -18,53 +19,53 @@ namespace InteractiveSeven.Core.Commands.Currency
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             var argument = commandData.Arguments.FirstOrDefault();
             if (argument is null)
             {
                 var message = "Specify cost type to check (color, status, item, materia, equipment).";
-                SendMessage(commandData, message);
+                await SendMessage(commandData, message);
             }
             else if (argument.StartsWithIns("col") || argument.StartsWithIns("menu"))
             {
                 var message = GetColorCostMessage();
-                SendMessage(commandData, message);
+                await SendMessage(commandData, message);
             }
             else if (argument.StartsWithIns("status") || argument.StartsWithIns("eff"))
             {
                 if (BattleSettings.AllowStatusEffects)
                 {
-                    SendMessage(commandData, GetStatusCostMessage());
-                    SendMessage(commandData, GetCureCostMessage());
+                    await SendMessage(commandData, GetStatusCostMessage());
+                    await SendMessage(commandData, GetCureCostMessage());
                 }
                 else
                 {
-                    SendMessage(commandData, "Status Effects are Disabled.");
+                    await SendMessage(commandData, "Status Effects are Disabled.");
                 }
             }
             else if (argument.StartsWithIns("item"))
             {
                 if (Settings.ItemSettings.Enabled)
                 {
-                    SendMessage(commandData, GetItemCostMessage());
-                    SendMessage(commandData, GetItemDropCostMessage());
+                    await SendMessage(commandData, GetItemCostMessage());
+                    await SendMessage(commandData, GetItemDropCostMessage());
                 }
                 else
                 {
-                    SendMessage(commandData, "Item Command is Disabled.");
+                    await SendMessage(commandData, "Item Command is Disabled.");
                 }
             }
             else if (argument.StartsWithIns("mat"))
             {
                 if (Settings.MateriaSettings.Enabled)
                 {
-                    SendMessage(commandData, GetMateriaCostMessage());
-                    SendMessage(commandData, GetMateriaDropCostMessage());
+                    await SendMessage(commandData, GetMateriaCostMessage());
+                    await SendMessage(commandData, GetMateriaDropCostMessage());
                 }
                 else
                 {
-                    SendMessage(commandData, "Materia Command is Disabled.");
+                    await SendMessage(commandData, "Materia Command is Disabled.");
                 }
 
             }
@@ -73,11 +74,11 @@ namespace InteractiveSeven.Core.Commands.Currency
             {
                 if (Settings.EquipmentSettings.Enabled)
                 {
-                    SendMessage(commandData, "Equipment costs coming soon."); // TODO: Real data here.
+                    await SendMessage(commandData, "Equipment costs coming soon."); // TODO: Real data here.
                 }
                 else
                 {
-                    SendMessage(commandData, "Equipment Commands are Disabled.");
+                    await SendMessage(commandData, "Equipment Commands are Disabled.");
                 }
 
             }
@@ -159,9 +160,10 @@ namespace InteractiveSeven.Core.Commands.Currency
 
             return message;
         }
-        private void SendMessage(CommandData commandData, string message)
+
+        private async Task SendMessage(CommandData commandData, string message)
         {
-            _chatClient.SendMessage(commandData.Channel, message);
+            await _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

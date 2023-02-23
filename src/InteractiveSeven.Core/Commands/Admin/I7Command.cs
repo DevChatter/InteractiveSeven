@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
 
@@ -13,9 +14,9 @@ namespace InteractiveSeven.Core.Commands.Admin
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override Task Execute(CommandData commandData)
         {
-            if (commandData.User is { IsBroadcaster: false, IsMe: false, IsMod: false }) return;
+            if (commandData.User is { IsBroadcaster: false, IsMe: false, IsMod: false }) return Task.CompletedTask;
 
             var action = commandData.Arguments.FirstOrDefault();
 
@@ -30,9 +31,11 @@ namespace InteractiveSeven.Core.Commands.Admin
                     RemoveName(commandData);
                     break;
             }
+
+            return Task.CompletedTask;
         }
 
-        private void RemoveName(in CommandData commandData)
+        private void RemoveName(CommandData commandData)
         {
             if (Settings.NameBiddingSettings.AllowModeration)
             {

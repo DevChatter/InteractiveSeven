@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
@@ -46,16 +47,16 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _partyStatusViewModel = partyStatusViewModel;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             if (_partyStatusViewModel.Party.Any(x => x?.Id == CharNames.Sephiroth.Id))
             {
-                _chatClient.SendMessage(commandData.Channel,
+                await _chatClient.SendMessage(commandData.Channel,
                     "Cannot Change Equipment while Sephiroth is in the Party.");
                 return;
             }
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, Settings.EquipmentSettings.PauperCommandCost,
                 Settings.EquipmentSettings.AllowModOverride);
 
@@ -80,11 +81,11 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             _gilAccessor.SetGil(2);
 
-            _chatClient.SendMessage(commandData.Channel,
+            await _chatClient.SendMessage(commandData.Channel,
                 "All Weapons and Armor set to Default. " +
                 "All Items, Accessories, Materia, and Gil have been removed. " +
                 "Good luck.");
-            _statusHubEmitter.ShowEvent("You've been Paupered!", $"by {commandData.User.Username}",
+            await _statusHubEmitter.ShowEvent("You've been Paupered!", $"by {commandData.User.Username}",
                 "ff7-gameover.mp3");
         }
     }

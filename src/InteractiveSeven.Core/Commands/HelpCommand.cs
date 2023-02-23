@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 
 namespace InteractiveSeven.Core.Commands
@@ -15,10 +16,10 @@ namespace InteractiveSeven.Core.Commands
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             string[] commandWords = Settings.CommandSettings.AllWordSets.Select(wordSet => wordSet.Words().First()).ToArray();
-            _chatClient.SendMessage(commandData.Channel,
+            await _chatClient.SendMessage(commandData.Channel,
                 $"These are the available commands: {string.Join(", ", commandWords)}");
         }
     }

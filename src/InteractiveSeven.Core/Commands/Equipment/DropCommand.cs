@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -29,7 +30,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
         }
 
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             string name = commandData.Arguments.Count == 1
                     ? commandData.Arguments.FirstOrDefault()
@@ -40,20 +41,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                _chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                await _chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
                 return;
             }
 
             if (candidates.Count > 15)
             {
-                _chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                await _chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
                 return;
             }
 
             if (candidates.Count > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                await _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
                 return;
             }
 
@@ -61,14 +62,14 @@ namespace InteractiveSeven.Core.Commands.Equipment
             switch (candidates.Single())
             {
                 case SpecificItemSettings itemSettings:
-                    TryToDrop(itemSettings.ItemId, itemSettings.Name,
+                    await TryToDrop(itemSettings.ItemId, itemSettings.Name,
                         itemSettings.DropCost, commandData, "Item",
                         x => _inventoryAccessor.HasItem(x),
                         x => _inventoryAccessor.DropItem(x, 1));
                     break;
 
                 case SpecificMateriaSettings materiaSettings:
-                    TryToDrop(materiaSettings.MateriaId, materiaSettings.Name,
+                    await TryToDrop(materiaSettings.MateriaId, materiaSettings.Name,
                         materiaSettings.DropCost, commandData, "Materia",
                         x => _materiaAccessor.HasMateria((byte)x),
                         x => _materiaAccessor.DropMateria((byte)x));
@@ -76,18 +77,18 @@ namespace InteractiveSeven.Core.Commands.Equipment
             }
         }
 
-        private void TryToDrop(ushort id, string name, int cost,
+        private async Task TryToDrop(ushort id, string name, int cost,
             CommandData commandData, string typeName,
             Func<ushort, bool> hasIt, Func<ushort, bool> dropIt)
         {
             if (!hasIt(id))
             {
                 string message = $"Player out of {name}s.";
-                _chatClient.SendMessage(commandData.Channel, message);
+                await _chatClient.SendMessage(commandData.Channel, message);
                 return;
             }
 
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, cost, Settings.EquipmentSettings.AllowModOverride);
 
             if (!gilTransaction.Paid) return;
@@ -95,13 +96,13 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (dropIt(id))
             {
                 string message = $"{typeName} {name} Dropped";
-                _chatClient.SendMessage(commandData.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                await _chatClient.SendMessage(commandData.Channel, message);
+                await _statusHubEmitter.ShowEvent(message);
             }
             else
             {
                 string message = $"Player out of {name}s.";
-                _chatClient.SendMessage(commandData.Channel, message);
+                await _chatClient.SendMessage(commandData.Channel, message);
             }
         }
     }

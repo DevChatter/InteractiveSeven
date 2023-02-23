@@ -1,4 +1,5 @@
-﻿using InteractiveSeven.Core.Chat;
+﻿using System.Threading.Tasks;
+using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Events;
 
 namespace InteractiveSeven.Core.Commands
@@ -16,7 +17,7 @@ namespace InteractiveSeven.Core.Commands
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             if (IsAvailable(commandData))
             {
@@ -25,7 +26,7 @@ namespace InteractiveSeven.Core.Commands
             }
             else
             {
-                _chatClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
+                await _chatClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
             }
         }
 

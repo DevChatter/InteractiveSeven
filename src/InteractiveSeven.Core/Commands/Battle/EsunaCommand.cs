@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using InteractiveSeven.Core.Chat;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -31,18 +32,18 @@ namespace InteractiveSeven.Core.Commands.Battle
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public override void Execute(in CommandData commandData)
+        public override async Task Execute(CommandData commandData)
         {
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (!targeted.Any())
             {
-                _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid actor. Example: !esuna top");
+                await _chatClient.SendMessage(commandData.Channel, "Be sure to name a valid actor. Example: !esuna top");
                 return;
             }
 
             var validTargets = CheckTargetValidity(targeted);
 
-            if (CouldNotAfford(validTargets.Count, commandData))
+            if (await CouldNotAfford(validTargets.Count, commandData))
             {
                 return;
             }
@@ -52,14 +53,14 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.ClearNegativeStatuses(target);
                 string message = $"Removed Negative Effects from {character.Name}.";
-                _chatClient.SendMessage(commandData.Channel, message);
-                _statusHubEmitter.ShowEvent(message);
+                await _chatClient.SendMessage(commandData.Channel, message);
+                await _statusHubEmitter.ShowEvent(message);
             }
         }
 
-        protected bool CouldNotAfford(in int targetCount, CommandData commandData)
+        protected async Task<bool> CouldNotAfford(int targetCount, CommandData commandData)
         {
-            GilTransaction gilTransaction = _paymentProcessor.ProcessPayment(
+            GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, Settings.BattleSettings.EsunaCost * targetCount,
                 Settings.BattleSettings.AllowModOverride);
 
