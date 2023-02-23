@@ -12,7 +12,7 @@ namespace Chat.YouTube.Chat
         private const string ClientId = "884596410562-pcrl1fn8ov0npj7fhjl086ffmud7r5j6.apps.googleusercontent.com";
         private const string ClientSecret = "QBkxNmPNIvWatRvOIfRYrXlc";
 
-        private static readonly List<OAuthClientScopeEnum> Scopes = new()
+        public static readonly List<OAuthClientScopeEnum> Scopes = new()
         {
             OAuthClientScopeEnum.ChannelMemberships,
             OAuthClientScopeEnum.ManageAccount,
@@ -45,8 +45,7 @@ namespace Chat.YouTube.Chat
         {
             try
             {
-                System.Console.WriteLine("Initializing connection");
-
+                Log.Information("Initializing connection");
                 YouTubeConnection connection = await YouTubeConnection.ConnectViaLocalhostOAuthBrowser(ClientId, ClientSecret, Scopes);
                 if (connection != null)
                 {

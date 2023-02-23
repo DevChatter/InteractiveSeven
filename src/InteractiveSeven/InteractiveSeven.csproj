@@ -38,9 +38,11 @@
     <PackageReference Include="Serilog.Extensions.Logging" />
     <PackageReference Include="Serilog.Sinks.File" />
     <PackageReference Include="Serilog.Sinks.RichTextBox.Wpf" />
+    <PackageReference Include="StreamingClientLibrary.YouTube" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chat.YouTube\Chat.YouTube.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Core\InteractiveSeven.Core.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Twitch\InteractiveSeven.Twitch.csproj" />
     <ProjectReference Include="..\InteractiveSeven.Web\InteractiveSeven.Web.csproj" />

@@ -8,6 +8,7 @@ namespace InteractiveSeven.Core.Settings
     {
         const string SETTINGS_FILE_NAME = "i7.json";
         const string TWITCH_SETTINGS_FILE_NAME = "i7-twitch.json";
+        const string YOUTUBE_SETTINGS_FILE_NAME = "i7-youtube.json";
 
         public void EnsureExists(Action<Exception> errorLogging = null)
         {
@@ -26,6 +27,14 @@ namespace InteractiveSeven.Core.Settings
             else
             {
                 SaveTwitchSettings();
+            }
+            if (File.Exists(YOUTUBE_SETTINGS_FILE_NAME))
+            {
+                LoadYouTubeSettings(errorLogging);
+            }
+            else
+            {
+                SaveYouTubeSettings();
             }
         }
 
@@ -54,15 +63,29 @@ namespace InteractiveSeven.Core.Settings
             File.WriteAllText(TWITCH_SETTINGS_FILE_NAME, text);
         }
 
+        private void LoadYouTubeSettings(Action<Exception> errorLogging = null)
+        {
+            string json = File.ReadAllText(YOUTUBE_SETTINGS_FILE_NAME);
+            YouTubeSettings.LoadFromJson(json, errorLogging);
+        }
+
+        private void SaveYouTubeSettings()
+        {
+            string text = JsonConvert.SerializeObject(YouTubeSettings.Instance);
+            File.WriteAllText(YOUTUBE_SETTINGS_FILE_NAME, text);
+        }
+
         public void LoadSettings(Action<Exception> errorLogging = null)
         {
             LoadTwitchSettings(errorLogging);
+            LoadYouTubeSettings(errorLogging);
             LoadMainSettings(errorLogging);
         }
 
         public void SaveSettings()
         {
             SaveTwitchSettings();
+            SaveYouTubeSettings();
             SaveMainSettings();
         }
     }

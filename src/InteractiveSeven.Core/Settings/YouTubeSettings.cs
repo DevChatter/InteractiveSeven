@@ -1,22 +1,52 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using InteractiveSeven.Core.Events;
-using InteractiveSeven.Core.ViewModels;
+﻿using System;
+using System.Runtime.Serialization;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
     public partial class YouTubeSettings : ObservableObject
     {
+        [DataMember]
+        [ObservableProperty]
+        private string _clientId;
+
+        [DataMember]
+        [ObservableProperty]
+        private string _clientSecret;
+
+        [DataMember]
+        [ObservableProperty]
+        private string _authorizationCode;
+
+        [JsonProperty("refresh_token")]
+        [ObservableProperty]
+        private string _refreshToken;
+
+        [JsonProperty("access_token")]
         [ObservableProperty]
         private string _accessToken;
 
+        [JsonProperty("expires_in")]
         [ObservableProperty]
-        private string _username;
+        private long _expiresIn;
 
         [ObservableProperty]
-        private string _channel;
+        private long _expiresTimeStamp;
 
+        [DataMember]
         [ObservableProperty]
-        private bool _updatedFromYouTube;
+        private string _redirectUrl;
+
+        [DataMember]
+        [ObservableProperty]
+        private DateTimeOffset _acquiredDateTime;
+
+        [JsonIgnore]
+        public DateTimeOffset ExpirationDateTime =>
+            ExpiresTimeStamp <= 0L
+            ? AcquiredDateTime.AddSeconds((double)ExpiresIn)
+            : DateTimeOffset.FromUnixTimeSeconds(ExpiresTimeStamp);
 
         public static YouTubeSettings Instance { get; private set; }
 
@@ -25,17 +55,17 @@ namespace InteractiveSeven.Core.Settings
             Instance = new YouTubeSettings();
         }
 
-        private void ReceivedAccessToken(AccessTokenReceived e)
+        public static void LoadFromJson(string json, Action<Exception> errorLogging = null)
         {
-            // TODO: change to YouTube
-            if (e.State == TwitchAuthViewModel.State
-                && e.TokenType == "bearer")
+            try
             {
-                AccessToken = $"oauth:{e.AccessToken}";
-
-                UpdatedFromYouTube = true;
+                JsonConvert.PopulateObject(json, Instance);
+            }
+            catch (Exception ex)
+            {
+                Instance = new YouTubeSettings();
+                errorLogging?.Invoke(ex);
             }
         }
-
     }
 }
