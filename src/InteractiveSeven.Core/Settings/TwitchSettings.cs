@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using InteractiveSeven.Core.Events;
 using InteractiveSeven.Core.ViewModels;
 using Newtonsoft.Json;
 
 namespace InteractiveSeven.Core.Settings
 {
-    public class TwitchSettings : ObservableSettingsBase
+    public class TwitchSettings : ObservableObject
     {
         private string _accessToken;
         private string _username;

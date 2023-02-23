@@ -1,28 +1,12 @@
-﻿namespace InteractiveSeven.Core.Settings
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace InteractiveSeven.Core.Settings;
+
+public partial class TsengSettings : ObservableObject
 {
-    public class TsengSettings : ObservableSettingsBase
-    {
-        private int _memoryReadIntervalInMs = 500;
-        public int MemoryReadIntervalInMs
-        {
-            get => _memoryReadIntervalInMs;
-            set
-            {
-                _memoryReadIntervalInMs = value;
-                OnPropertyChanged();
-            }
-        }
+    [ObservableProperty]
+    private int _memoryReadIntervalInMs = 500;
 
-        private int _portNumber = 7777;
-        public int PortNumber
-        {
-            get => _portNumber;
-            set
-            {
-                _portNumber = value;
-                OnPropertyChanged();
-            }
-        }
-
-    }
+    [ObservableProperty]
+    private int _portNumber = 7777;
 }

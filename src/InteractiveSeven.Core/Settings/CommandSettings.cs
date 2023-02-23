@@ -2,55 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
-namespace InteractiveSeven.Core.Settings
+namespace InteractiveSeven.Core.Settings;
+
+public class CommandSettings : ObservableObject
 {
-    public class CommandSettings : ObservableSettingsBase
+    private string[] _givePlayerGilCommandWords = { "FindGil", "GivePlayerGil" };
+    private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
+    private string[] _givePlayerGpCommandWords = { "FindGp", "GivePlayerGp" };
+    private string[] _removePlayerGpCommandWords = { "DropGp", "RemovePlayerGp" };
+    private string[] _esunaCommandWords = { "Esuna", "Remedy" };
+    private string[] _healCommandWords = { "Heal", "Cure" };
+    private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
+    private string[] _balanceCommandWords = { "Balance", "Gil" };
+    private string[] _giveGilCommandWords = { "GiveGil", "Give" };
+    private string[] _removeGilCommandWords = { "RemoveGil", "Remove", "TakeGil" };
+    private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
+    private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
+    private string[] _nameBidsCommandWords = { "NameBids", "NameBid" };
+    private string[] _refreshCommandWords = { "Refresh" };
+    private string[] _helpCommandWords = { "Help" };
+    private string[] _paletteCommandWords = { "Palette", "Pallete", "Pallette", "Palete" };
+    private string[] _rainbowCommandWords = { "Rainbow", "RainbowMode" };
+    private string[] _makoCommandWords = { "Mako", "MakoMode" };
+
+    private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
+    private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
+    private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
+    private string[] _pauperCommandWords = { "Pauper", "poor" };
+    private string[] _materiaCommandWords = { "Materia", "Mats", "Material", "AddMateria" };
+    private string[] _itemCommandWords = { "Item", "Items", "AddItem" };
+    private string[] _dropCommandWords = { "Drop" };
+
+    private string[] _cloudWords = { "cloud", "cluod", "clodu" };
+    private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
+    private string[] _tifaWords = { "tifa", "tiaf", "tfia" };
+    private string[] _aerisWords = { "aeris", "aerith", "aris", "aries" };
+    private string[] _caitWords = { "caitsith", "cait" };
+    private string[] _cidWords = { "cid" };
+    private string[] _redWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
+    private string[] _vincentWords = { "vincent", "vince" };
+    private string[] _yuffieWords = { "yuffie" };
+
+    [JsonIgnore]
+    public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
+
+    public CommandSettings()
     {
-        private string[] _givePlayerGilCommandWords = { "FindGil", "GivePlayerGil" };
-        private string[] _removePlayerGilCommandWords = { "DropGil", "RemovePlayerGil" };
-        private string[] _givePlayerGpCommandWords = { "FindGp", "GivePlayerGp" };
-        private string[] _removePlayerGpCommandWords = { "DropGp", "RemovePlayerGp" };
-        private string[] _esunaCommandWords = { "Esuna", "Remedy" };
-        private string[] _healCommandWords = { "Heal", "Cure" };
-        private string[] _costsCommandWords = { "Costs", "Cost", "Price", "Prices" };
-        private string[] _balanceCommandWords = { "Balance", "Gil" };
-        private string[] _giveGilCommandWords = { "GiveGil", "Give" };
-        private string[] _removeGilCommandWords = { "RemoveGil", "Remove", "TakeGil" };
-        private string[] _i7CommandWords = { "i7", "Interactive7", "Interactive" };
-        private string[] _menuCommandWords = { "Menu", "MenuColor", "Window", "Windows" };
-        private string[] _nameBidsCommandWords = { "NameBids", "NameBid" };
-        private string[] _refreshCommandWords = { "Refresh" };
-        private string[] _helpCommandWords = { "Help" };
-        private string[] _paletteCommandWords = { "Palette", "Pallete", "Pallette", "Palete" };
-        private string[] _rainbowCommandWords = { "Rainbow", "RainbowMode" };
-        private string[] _makoCommandWords = { "Mako", "MakoMode" };
-
-        private string[] _weaponCommandWords = { "Weapon", "Weap", "weapons" };
-        private string[] _armletCommandWords = { "Armlet", "armor", "armlets" };
-        private string[] _accessoryCommandWords = { "Accessory", "Accessories" };
-        private string[] _pauperCommandWords = { "Pauper", "poor" };
-        private string[] _materiaCommandWords = { "Materia", "Mats", "Material", "AddMateria" };
-        private string[] _itemCommandWords = { "Item", "Items", "AddItem" };
-        private string[] _dropCommandWords = { "Drop" };
-
-        private string[] _cloudWords = { "cloud", "cluod", "clodu" };
-        private string[] _barretWords = { "barret", "baret", "barett", "barrett" };
-        private string[] _tifaWords = { "tifa", "tiaf", "tfia" };
-        private string[] _aerisWords = { "aeris", "aerith", "aris", "aries" };
-        private string[] _caitWords = { "caitsith", "cait" };
-        private string[] _cidWords = { "cid" };
-        private string[] _redWords = { "red", "redxiii", "nanaki", "redxii", "redxiiii", "red13" };
-        private string[] _vincentWords = { "vincent", "vince" };
-        private string[] _yuffieWords = { "yuffie" };
-
-        [JsonIgnore]
-        public List<(string Name, Func<string[]> Words)> AllWordSets { get; }
-
-        public CommandSettings()
-        {
-            AllWordSets = new List<(string, Func<string[]>)>
+        AllWordSets = new List<(string, Func<string[]>)>
             {
                 ("BrendanLock", () => new [] {"BrendanLock"}),
                 ("BrendanUnlock", () => new [] {"BrendanUnlock"}),
@@ -128,359 +129,358 @@ namespace InteractiveSeven.Core.Settings
                 (nameof(YuffieCommandWords),
                     () => YuffieCommandWords),
             };
+    }
+
+    private string[] RemoveAllDuplicates(IEnumerable<string> strings,
+        [CallerMemberName] string propertyName = null)
+    {
+        IEnumerable<Func<string[]>> otherWordSets = AllWordSets
+            .Where(x => x.Name != propertyName).Select(x => x.Words);
+        foreach (Func<string[]> wordSet in otherWordSets)
+        {
+            strings = strings.Except(wordSet(), StringComparer.OrdinalIgnoreCase);
         }
 
-        private string[] RemoveAllDuplicates(IEnumerable<string> strings,
-            [CallerMemberName] string propertyName = null)
-        {
-            IEnumerable<Func<string[]>> otherWordSets = AllWordSets
-                .Where(x => x.Name != propertyName).Select(x => x.Words);
-            foreach (Func<string[]> wordSet in otherWordSets)
-            {
-                strings = strings.Except(wordSet(), StringComparer.OrdinalIgnoreCase);
-            }
+        return strings.ToArray();
+    }
 
-            return strings.ToArray();
+    public string[] GivePlayerGilCommandWords
+    {
+        get => _givePlayerGilCommandWords;
+        set
+        {
+            _givePlayerGilCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] GivePlayerGilCommandWords
+    public string[] RemovePlayerGilCommandWords
+    {
+        get => _removePlayerGilCommandWords;
+        set
         {
-            get => _givePlayerGilCommandWords;
-            set
-            {
-                _givePlayerGilCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _removePlayerGilCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RemovePlayerGilCommandWords
+    public string[] GivePlayerGpCommandWords
+    {
+        get => _givePlayerGpCommandWords;
+        set
         {
-            get => _removePlayerGilCommandWords;
-            set
-            {
-                _removePlayerGilCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _givePlayerGpCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] GivePlayerGpCommandWords
+    public string[] RemovePlayerGpCommandWords
+    {
+        get => _removePlayerGpCommandWords;
+        set
         {
-            get => _givePlayerGpCommandWords;
-            set
-            {
-                _givePlayerGpCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _removePlayerGpCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RemovePlayerGpCommandWords
+    public string[] EsunaCommandWords
+    {
+        get => _esunaCommandWords;
+        set
         {
-            get => _removePlayerGpCommandWords;
-            set
-            {
-                _removePlayerGpCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _esunaCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] EsunaCommandWords
+    public string[] HealCommandWords
+    {
+        get => _healCommandWords;
+        set
         {
-            get => _esunaCommandWords;
-            set
-            {
-                _esunaCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _healCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] HealCommandWords
+    public string[] CostsCommandWords
+    {
+        get => _costsCommandWords;
+        set
         {
-            get => _healCommandWords;
-            set
-            {
-                _healCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _costsCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] CostsCommandWords
+    public string[] BalanceCommandWords
+    {
+        get => _balanceCommandWords;
+        set
         {
-            get => _costsCommandWords;
-            set
-            {
-                _costsCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _balanceCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] BalanceCommandWords
+    public string[] RemoveGilCommandWords
+    {
+        get => _removeGilCommandWords;
+        set
         {
-            get => _balanceCommandWords;
-            set
-            {
-                _balanceCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _removeGilCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RemoveGilCommandWords
+    public string[] GiveGilCommandWords
+    {
+        get => _giveGilCommandWords;
+        set
         {
-            get => _removeGilCommandWords;
-            set
-            {
-                _removeGilCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _giveGilCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] GiveGilCommandWords
+    public string[] I7CommandWords
+    {
+        get => _i7CommandWords;
+        set
         {
-            get => _giveGilCommandWords;
-            set
-            {
-                _giveGilCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _i7CommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] I7CommandWords
+    public string[] MenuCommandWords
+    {
+        get => _menuCommandWords;
+        set
         {
-            get => _i7CommandWords;
-            set
-            {
-                _i7CommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _menuCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] MenuCommandWords
+    public string[] NameBidsCommandWords
+    {
+        get => _nameBidsCommandWords;
+        set
         {
-            get => _menuCommandWords;
-            set
-            {
-                _menuCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _nameBidsCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] NameBidsCommandWords
+    public string[] RefreshCommandWords
+    {
+        get => _refreshCommandWords;
+        set
         {
-            get => _nameBidsCommandWords;
-            set
-            {
-                _nameBidsCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _refreshCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RefreshCommandWords
+    public string[] HelpCommandWords
+    {
+        get => _helpCommandWords;
+        set
         {
-            get => _refreshCommandWords;
-            set
-            {
-                _refreshCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _helpCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] HelpCommandWords
+    public string[] PaletteCommandWords
+    {
+        get => _paletteCommandWords;
+        set
         {
-            get => _helpCommandWords;
-            set
-            {
-                _helpCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _paletteCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] PaletteCommandWords
+    public string[] RainbowCommandWords
+    {
+        get => _rainbowCommandWords;
+        set
         {
-            get => _paletteCommandWords;
-            set
-            {
-                _paletteCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _rainbowCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RainbowCommandWords
+    public string[] MakoCommandWords
+    {
+        get => _makoCommandWords;
+        set
         {
-            get => _rainbowCommandWords;
-            set
-            {
-                _rainbowCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _makoCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] MakoCommandWords
+    public string[] WeaponCommandWords
+    {
+        get => _weaponCommandWords;
+        set
         {
-            get => _makoCommandWords;
-            set
-            {
-                _makoCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _weaponCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] WeaponCommandWords
+    public string[] ArmletCommandWords
+    {
+        get => _armletCommandWords;
+        set
         {
-            get => _weaponCommandWords;
-            set
-            {
-                _weaponCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _armletCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] ArmletCommandWords
+    public string[] AccessoryCommandWords
+    {
+        get => _accessoryCommandWords;
+        set
         {
-            get => _armletCommandWords;
-            set
-            {
-                _armletCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _accessoryCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] AccessoryCommandWords
+    public string[] PauperCommandWords
+    {
+        get => _pauperCommandWords;
+        set
         {
-            get => _accessoryCommandWords;
-            set
-            {
-                _accessoryCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _pauperCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] PauperCommandWords
+    public string[] MateriaCommandWords
+    {
+        get => _materiaCommandWords;
+        set
         {
-            get => _pauperCommandWords;
-            set
-            {
-                _pauperCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _materiaCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] MateriaCommandWords
+    public string[] ItemCommandWords
+    {
+        get => _itemCommandWords;
+        set
         {
-            get => _materiaCommandWords;
-            set
-            {
-                _materiaCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _itemCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] ItemCommandWords
+    public string[] DropCommandWords
+    {
+        get => _dropCommandWords;
+        set
         {
-            get => _itemCommandWords;
-            set
-            {
-                _itemCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _dropCommandWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] DropCommandWords
+    public string[] CloudCommandWords
+    {
+        get => _cloudWords;
+        set
         {
-            get => _dropCommandWords;
-            set
-            {
-                _dropCommandWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _cloudWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] CloudCommandWords
+    public string[] BarretCommandWords
+    {
+        get => _barretWords;
+        set
         {
-            get => _cloudWords;
-            set
-            {
-                _cloudWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _barretWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] BarretCommandWords
+    public string[] TifaCommandWords
+    {
+        get => _tifaWords;
+        set
         {
-            get => _barretWords;
-            set
-            {
-                _barretWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _tifaWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] TifaCommandWords
+    public string[] AerisCommandWords
+    {
+        get => _aerisWords;
+        set
         {
-            get => _tifaWords;
-            set
-            {
-                _tifaWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _aerisWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] AerisCommandWords
+    public string[] CaitCommandWords
+    {
+        get => _caitWords;
+        set
         {
-            get => _aerisWords;
-            set
-            {
-                _aerisWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _caitWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] CaitCommandWords
+    public string[] CidCommandWords
+    {
+        get => _cidWords;
+        set
         {
-            get => _caitWords;
-            set
-            {
-                _caitWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _cidWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] CidCommandWords
+    public string[] RedCommandWords
+    {
+        get => _redWords;
+        set
         {
-            get => _cidWords;
-            set
-            {
-                _cidWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _redWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] RedCommandWords
+    public string[] VincentCommandWords
+    {
+        get => _vincentWords;
+        set
         {
-            get => _redWords;
-            set
-            {
-                _redWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _vincentWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
+    }
 
-        public string[] VincentCommandWords
+    public string[] YuffieCommandWords
+    {
+        get => _yuffieWords;
+        set
         {
-            get => _vincentWords;
-            set
-            {
-                _vincentWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
-        }
-
-        public string[] YuffieCommandWords
-        {
-            get => _yuffieWords;
-            set
-            {
-                _yuffieWords = RemoveAllDuplicates(value);
-                OnPropertyChanged();
-            }
+            _yuffieWords = RemoveAllDuplicates(value);
+            OnPropertyChanged();
         }
     }
 }
