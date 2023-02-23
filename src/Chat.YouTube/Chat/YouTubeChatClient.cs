@@ -1,6 +1,7 @@
 ﻿using Chat.YouTube.Events;
 using Google.Apis.YouTube.v3.Data;
 using InteractiveSeven.Core.Chat;
+using Serilog;
 using YouTube.Base.Clients;
 using YouTube.Base;
 
@@ -28,7 +29,7 @@ namespace Chat.YouTube.Chat
         {
         }
 
-        public void SendMessage(string channel, string message)
+        public Task SendMessage(string channel, string message)
         {
             throw new NotImplementedException();
         }
@@ -40,55 +41,52 @@ namespace Chat.YouTube.Chat
         public event EventHandler<OnConnectedArgs>? OnConnected;
         public event EventHandler<OnDisconnectedEventArgs>? OnDisconnected;
 
-        public void Connect(string username, string accessToken, string channel)
+        public async Task Connect(string username, string accessToken, string channelId)
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                System.Console.WriteLine("Initializing connection");
+
+                YouTubeConnection connection = await YouTubeConnection.ConnectViaLocalhostOAuthBrowser(ClientId, ClientSecret, Scopes);
+                if (connection != null)
                 {
-                    System.Console.WriteLine("Initializing connection");
+                    Channel channel = await connection.Channels.GetChannelByID(channelId);
 
-                    YouTubeConnection connection = await YouTubeConnection.ConnectViaLocalhostOAuthBrowser(ClientId, ClientSecret, Scopes);
-                    if (connection != null)
+                    //Channel channel = await connection.Channels.GetMyChannel("");
+
+                    if (channel != null)
                     {
-                        Channel channel = await connection.Channels.GetMyChannel();
+                        Log.Information("Connection successful. Logged in as: " + channel.Snippet.Title);
 
-                        //Channel channel = await connection.Channels.GetChannelByID("");
+                        var broadcast = await connection.LiveBroadcasts.GetMyActiveBroadcast();
 
-                        if (channel != null)
+                        Log.Information("Connecting chat client!");
+
+                        ChatClient client = new ChatClient(connection);
+                        client.OnMessagesReceived += Client_OnMessagesReceived;
+
+                        if (await client.Connect(broadcast))
                         {
-                            System.Console.WriteLine("Connection successful. Logged in as: " + channel.Snippet.Title);
+                            Log.Information("Live chat connection successful!");
 
-                            var broadcast = await connection.LiveBroadcasts.GetMyActiveBroadcast();
-
-                            System.Console.WriteLine("Connecting chat client!");
-
-                            ChatClient client = new ChatClient(connection);
-                            client.OnMessagesReceived += Client_OnMessagesReceived;
-
-                            if (await client.Connect(broadcast))
+                            if (await connection.LiveBroadcasts.GetMyActiveBroadcast() != null)
                             {
-                                System.Console.WriteLine("Live chat connection successful!");
-
-                                if (await connection.LiveBroadcasts.GetMyActiveBroadcast() != null)
-                                {
-                                    await client.SendMessage("Hello World!");
-                                }
-
-                                while (true) { }
+                                await client.SendMessage("Hello World!");
                             }
-                            else
-                            {
-                                System.Console.WriteLine("Failed to connect to live chat");
-                            }
+
+                            while (true) { }
+                        }
+                        else
+                        {
+                            Log.Information("Failed to connect to live chat");
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Console.WriteLine(ex.ToString());
-                }
-            }).RunSynchronously();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error connecting to YouTube chat");
+            }
         }
 
         private void Client_OnMessagesReceived(object? sender, IEnumerable<LiveChatMessage> messages)
@@ -101,12 +99,12 @@ namespace Chat.YouTube.Chat
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Log
+                    Log.Error(ex, "Error invoking individual message handling.");
                 }
             }
         }
 
-        public void Disconnect()
+        public Task Disconnect()
         {
             throw new NotImplementedException();
         }
