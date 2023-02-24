@@ -14,7 +14,7 @@ namespace InteractiveSeven.Core.Commands.Admin
             _paymentProcessor = paymentProcessor;
         }
 
-        public override Task Execute(CommandData commandData)
+        public override Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (commandData.User.IsDevChatter || commandData.User.IsShojy)
             {

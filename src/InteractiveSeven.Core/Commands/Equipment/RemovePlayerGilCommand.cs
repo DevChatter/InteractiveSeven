@@ -10,28 +10,26 @@ namespace InteractiveSeven.Core.Commands.Equipment
     public class RemovePlayerGilCommand : BaseCommand
     {
         private readonly PaymentProcessor _paymentProcessor;
-        private readonly IChatClient _chatClient;
         private readonly IGilAccessor _gilAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
 
-        public RemovePlayerGilCommand(PaymentProcessor paymentProcessor, IChatClient chatClient,
+        public RemovePlayerGilCommand(PaymentProcessor paymentProcessor,
             IGilAccessor gilAccessor, IStatusHubEmitter statusHubEmitter)
             : base(x => x.RemovePlayerGilCommandWords,
                 x => x.EquipmentSettings.PlayerGilSettings.RemoveGilEnabled)
         {
             _paymentProcessor = paymentProcessor;
-            _chatClient = chatClient;
             _gilAccessor = gilAccessor;
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             int amount = commandData.Arguments.FirstOrDefault().SafeIntParse();
 
             if (amount <= 0)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"How much of your gil do you want to take from the player, {commandData.User.Username}?");
                 return;
             }
@@ -41,25 +39,25 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (gilToRemove > currentGil)
             {
                 // TODO: Adjust their request to remove all gil.
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Player doesn't have {gilToRemove} gil.");
                 return;
             }
 
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, amount,
-                Settings.EquipmentSettings.PlayerGilSettings.AllowModOverride);
+                Settings.EquipmentSettings.PlayerGilSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"You don't have {amount} gil, {commandData.User.Username}.");
                 return;
             }
 
             _gilAccessor.RemoveGil(gilToRemove);
             string message = $"Removed {gilToRemove} gil from player.";
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
             await _statusHubEmitter.ShowEvent(message);
         }
     }

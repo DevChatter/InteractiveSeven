@@ -28,7 +28,10 @@ namespace InteractiveSeven.Twitch.Chat
 
         public Task SendMessage(string channel, string message)
         {
-            _twitchClient.SendMessage(channel, message);
+            if (_twitchClient.IsConnected)
+            {
+                _twitchClient.SendMessage(channel, message);
+            }
             return Task.CompletedTask;
         }
 

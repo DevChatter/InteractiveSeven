@@ -7,65 +7,62 @@ namespace InteractiveSeven.Core.Commands.Currency
 {
     public class CostsCommand : BaseCommand
     {
-        private readonly IChatClient _chatClient;
-
-        public CostsCommand(IChatClient chatClient)
+        public CostsCommand()
             : base(x => x.CostsCommandWords, x => true)
         {
-            _chatClient = chatClient;
         }
 
         private BattleSettings BattleSettings => Settings.BattleSettings;
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             var argument = commandData.Arguments.FirstOrDefault();
             if (argument is null)
             {
                 var message = "Specify cost type to check (color, status, item, materia, equipment).";
-                await SendMessage(commandData, message);
+                await SendMessage(commandData, message, chatClient);
             }
             else if (argument.StartsWithIns("col") || argument.StartsWithIns("menu"))
             {
                 var message = GetColorCostMessage();
-                await SendMessage(commandData, message);
+                await SendMessage(commandData, message, chatClient);
             }
             else if (argument.StartsWithIns("status") || argument.StartsWithIns("eff"))
             {
                 if (BattleSettings.AllowStatusEffects)
                 {
-                    await SendMessage(commandData, GetStatusCostMessage());
-                    await SendMessage(commandData, GetCureCostMessage());
+                    await SendMessage(commandData, GetStatusCostMessage(), chatClient);
+                    await SendMessage(commandData, GetCureCostMessage(), chatClient);
                 }
                 else
                 {
-                    await SendMessage(commandData, "Status Effects are Disabled.");
+                    await SendMessage(commandData, "Status Effects are Disabled.", chatClient);
                 }
             }
             else if (argument.StartsWithIns("item"))
             {
                 if (Settings.ItemSettings.Enabled)
                 {
-                    await SendMessage(commandData, GetItemCostMessage());
-                    await SendMessage(commandData, GetItemDropCostMessage());
+                    await SendMessage(commandData, GetItemCostMessage(), chatClient);
+                    await SendMessage(commandData, GetItemDropCostMessage(), chatClient);
                 }
                 else
                 {
-                    await SendMessage(commandData, "Item Command is Disabled.");
+                    await SendMessage(commandData, "Item Command is Disabled.", chatClient);
                 }
             }
             else if (argument.StartsWithIns("mat"))
             {
                 if (Settings.MateriaSettings.Enabled)
                 {
-                    await SendMessage(commandData, GetMateriaCostMessage());
-                    await SendMessage(commandData, GetMateriaDropCostMessage());
+                    await SendMessage(commandData, GetMateriaCostMessage(), chatClient);
+                    await SendMessage(commandData, GetMateriaDropCostMessage(), chatClient);
                 }
                 else
                 {
-                    await SendMessage(commandData, "Materia Command is Disabled.");
+                    await SendMessage(commandData, "Materia Command is Disabled.", chatClient);
                 }
 
             }
@@ -74,11 +71,11 @@ namespace InteractiveSeven.Core.Commands.Currency
             {
                 if (Settings.EquipmentSettings.Enabled)
                 {
-                    await SendMessage(commandData, "Equipment costs coming soon."); // TODO: Real data here.
+                    await SendMessage(commandData, "Equipment costs coming soon.", chatClient); // TODO: Real data here.
                 }
                 else
                 {
-                    await SendMessage(commandData, "Equipment Commands are Disabled.");
+                    await SendMessage(commandData, "Equipment Commands are Disabled.", chatClient);
                 }
 
             }
@@ -161,9 +158,9 @@ namespace InteractiveSeven.Core.Commands.Currency
             return message;
         }
 
-        private async Task SendMessage(CommandData commandData, string message)
+        private async Task SendMessage(CommandData commandData, string message, IChatClient chatClient)
         {
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

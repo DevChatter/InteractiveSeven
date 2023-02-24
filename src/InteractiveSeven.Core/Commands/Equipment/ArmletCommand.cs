@@ -1,5 +1,4 @@
-﻿using InteractiveSeven.Core.Chat;
-using InteractiveSeven.Core.Data;
+﻿using InteractiveSeven.Core.Data;
 using InteractiveSeven.Core.Data.Items;
 using InteractiveSeven.Core.Diagnostics.Memory;
 using InteractiveSeven.Core.Emitters;
@@ -13,10 +12,10 @@ namespace InteractiveSeven.Core.Commands.Equipment
         public ArmletCommand(IEquipmentAccessor equipmentAccessor,
             IInventoryAccessor inventoryAccessor, IMateriaAccessor materiaAccessor,
             IStatusHubEmitter statusHubEmitter, PartyStatusViewModel partyStatusViewModel,
-            GameDatabase gameDatabase, GilBank gilBank, IChatClient chatClient,
+            GameDatabase gameDatabase, GilBank gilBank,
             EquipmentData<Armlet> equipmentData, PaymentProcessor paymentProcessor)
             : base(equipmentAccessor, inventoryAccessor, materiaAccessor, statusHubEmitter,
-                partyStatusViewModel, gameDatabase, gilBank, chatClient, equipmentData,
+                partyStatusViewModel, gameDatabase, gilBank, equipmentData,
                 x => x.ArmletCommandWords, paymentProcessor)
         {
         }

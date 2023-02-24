@@ -29,30 +29,30 @@ namespace UnitTests.Twitch.Commands
         }
 
         [Fact(Skip = "skip")]
-        public void ChangeCharacterWeapon_GivenValidCallAndEnoughGil()
+        public async void ChangeCharacterWeapon_GivenValidCallAndEnoughGil()
         {
             var (characterName, weaponNumber) = (CharNames.Cloud.DefaultName, 1);
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, characterName, weaponNumber.ToString());
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
                 _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
-                new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
-                new PaymentProcessor(gilBank, chat.Object));
+                new GameDatabase(_loader.Object), gilBank, new EquipmentData<Weapon>(),
+                new PaymentProcessor(gilBank));
 
-            weaponCommand.Execute(commandData);
+            await weaponCommand.Execute(commandData, chat.Object);
 
             eqAccessor.Verify(x => x.SetCharacterEquipment(CharNames.Cloud, It.IsAny<byte>(), m => m.Weapon.Address), Times.Once);
         }
 
         [Fact(Skip = "skip")]
-        public void ReportError_GivenInvalidCommandArgs()
+        public async void ReportError_GivenInvalidCommandArgs()
         {
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(1000, "cloud");
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
                 _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
-                new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
-                new PaymentProcessor(gilBank, chat.Object));
+                new GameDatabase(_loader.Object), gilBank, new EquipmentData<Weapon>(),
+                new PaymentProcessor(gilBank));
 
-            weaponCommand.Execute(commandData);
+            await weaponCommand.Execute(commandData, chat.Object);
 
             chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>()), Times.Once);
             eqAccessor.Verify(x => x.SetCharacterEquipment(It.IsAny<CharNames>(), It.IsAny<byte>(), m => m.Weapon.Address), Times.Never);
@@ -64,10 +64,10 @@ namespace UnitTests.Twitch.Commands
             var (commandData, gilBank, eqAccessor, itemAccessor, chat) = SetUpTest(0, "cloud", "1");
             var weaponCommand = new WeaponCommand(eqAccessor.Object, itemAccessor.Object,
                 _materiaAccess.Object, _statusHubEmitter.Object, new PartyStatusViewModel(),
-                new GameDatabase(_loader.Object), gilBank, chat.Object, new EquipmentData<Weapon>(),
-                new PaymentProcessor(gilBank, chat.Object));
+                new GameDatabase(_loader.Object), gilBank, new EquipmentData<Weapon>(),
+                new PaymentProcessor(gilBank));
 
-            await weaponCommand.Execute(commandData);
+            await weaponCommand.Execute(commandData,chat.Object);
 
             chat.Verify(x => x.SendMessage(commandData.Channel, It.IsAny<string>()), Times.Once);
             eqAccessor.Verify(x => x.SetCharacterEquipment(It.IsAny<CharNames>(), It.IsAny<byte>(), m => m.Weapon.Address), Times.Never);

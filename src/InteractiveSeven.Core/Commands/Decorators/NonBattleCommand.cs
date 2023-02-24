@@ -9,16 +9,13 @@ namespace InteractiveSeven.Core.Commands.Decorators
     public class NonBattleCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
-        private readonly IChatClient _chatClient;
         private readonly IMemoryAccessor _memoryAccessor;
 
         private ApplicationSettings Settings => ApplicationSettings.Instance;
 
-        public NonBattleCommand(T internalCommand,
-            IChatClient chatClient, IMemoryAccessor memoryAccessor)
+        public NonBattleCommand(T internalCommand, IMemoryAccessor memoryAccessor)
         {
             _internalCommand = internalCommand;
-            _chatClient = chatClient;
             _memoryAccessor = memoryAccessor;
         }
 
@@ -29,15 +26,15 @@ namespace InteractiveSeven.Core.Commands.Decorators
             return _internalCommand.ShouldExecute(commandWord);
         }
 
-        public async Task Execute(CommandData commandData)
+        public async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (!IsBattleActive())
             {
-                await _internalCommand.Execute(commandData);
+                await _internalCommand.Execute(commandData, chatClient);
             }
             else
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Can only use !{commandData.CommandText} outside of battle.");
             }
         }

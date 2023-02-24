@@ -10,7 +10,6 @@ namespace InteractiveSeven.Core.Commands.Bidding
 {
     public class NameCommand : BaseCommand
     {
-        private readonly IChatClient _chatClient;
         private readonly GilBank _gilBank;
 
         private static CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
@@ -29,52 +28,51 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
         public NameBiddingSettings NameBidSettings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand(IChatClient chatClient, GilBank gilBank)
+        public NameCommand(GilBank gilBank)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
-            _chatClient = chatClient;
             _gilBank = gilBank;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.MildEffect;
 
-        public override async Task Execute(CommandData data)
+        public override async Task Execute(CommandData data, IChatClient chatClient)
         {
             if (ShouldTriggerFor(data, CmdSettings.CloudCommandWords, NameBidSettings.NamingCloudEnabled))
             {
-                await TriggerDomainEvent(CharNames.Cloud, data);
+                await TriggerDomainEvent(CharNames.Cloud, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.BarretCommandWords, NameBidSettings.NamingBarretEnabled))
             {
-                await TriggerDomainEvent(CharNames.Barret, data);
+                await TriggerDomainEvent(CharNames.Barret, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.TifaCommandWords, NameBidSettings.NamingTifaEnabled))
             {
-                await TriggerDomainEvent(CharNames.Tifa, data);
+                await TriggerDomainEvent(CharNames.Tifa, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.AerisCommandWords, NameBidSettings.NamingAerisEnabled))
             {
-                await TriggerDomainEvent(CharNames.Aeris, data);
+                await TriggerDomainEvent(CharNames.Aeris, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.CaitCommandWords, NameBidSettings.NamingCaitSithEnabled))
             {
-                await TriggerDomainEvent(CharNames.CaitSith, data);
+                await TriggerDomainEvent(CharNames.CaitSith, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.CidCommandWords, NameBidSettings.NamingCidEnabled))
             {
-                await TriggerDomainEvent(CharNames.Cid, data);
+                await TriggerDomainEvent(CharNames.Cid, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.RedCommandWords, NameBidSettings.NamingRedEnabled))
             {
-                await TriggerDomainEvent(CharNames.Red, data);
+                await TriggerDomainEvent(CharNames.Red, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.VincentCommandWords, NameBidSettings.NamingVincentEnabled))
             {
-                await TriggerDomainEvent(CharNames.Vincent, data);
+                await TriggerDomainEvent(CharNames.Vincent, data, chatClient);
             }
             else if (ShouldTriggerFor(data, CmdSettings.YuffieCommandWords, NameBidSettings.NamingYuffieEnabled))
             {
-                await TriggerDomainEvent(CharNames.Yuffie, data);
+                await TriggerDomainEvent(CharNames.Yuffie, data, chatClient);
             }
         }
 
@@ -84,13 +82,13 @@ namespace InteractiveSeven.Core.Commands.Bidding
             return words.Any(word => word.EqualsIns(commandText)) && enabled;
         }
 
-        private async Task TriggerDomainEvent(CharNames charName, CommandData data)
+        private async Task TriggerDomainEvent(CharNames charName, CommandData data, IChatClient chatClient)
         {
             int gil = GetGilFromCommandData(data);
 
             if (gil < 1)
             {
-                await _chatClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
+                await chatClient.SendMessage(data.Channel, $"Be sure to include a gil amount in your name bid, {data.User.Username}");
                 return;
             }
 
@@ -100,7 +98,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
                 if (withdrawn == 0)
                 {
                     string message = $"You don't have {gil} gil, {data.User.Username}. You have {balance} gil.";
-                    await _chatClient.SendMessage(data.Channel, message);
+                    await chatClient.SendMessage(data.Channel, message);
                     return;
                 }
             }

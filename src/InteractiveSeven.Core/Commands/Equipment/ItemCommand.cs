@@ -10,22 +10,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
 {
     public class ItemCommand : BaseCommand
     {
-        private readonly IChatClient _chatClient;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private readonly PaymentProcessor _paymentProcessor;
 
-        public ItemCommand(IChatClient chatClient, IInventoryAccessor inventoryAccessor,
+        public ItemCommand(IInventoryAccessor inventoryAccessor,
             IStatusHubEmitter statusHubEmitter, PaymentProcessor paymentProcessor)
             : base(x => x.ItemCommandWords, x => x.ItemSettings.Enabled)
         {
-            _chatClient = chatClient;
             _inventoryAccessor = inventoryAccessor;
             _statusHubEmitter = statusHubEmitter;
             _paymentProcessor = paymentProcessor;
         }
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             string itemName = commandData.Arguments.Count == 1
                 ? commandData.Arguments.FirstOrDefault()
@@ -35,20 +33,20 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                await _chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
+                await chatClient.SendMessage(commandData.Channel, "Error: No matching Item.");
                 return;
             }
 
             if (candidates.Count > 15)
             {
-                await _chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
+                await chatClient.SendMessage(commandData.Channel, "Error: Too many matching items, be more specific.");
                 return;
             }
 
             if (candidates.Count > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                await _chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
+                await chatClient.SendMessage(commandData.Channel, $"Error: matched ({matches})");
                 return;
             }
 
@@ -56,7 +54,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             var itemSettings = candidates.Single();
 
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
-                commandData, itemSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, itemSettings.Cost, Settings.EquipmentSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid)
             {
@@ -66,7 +64,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             Items item = itemSettings.Item;
             _inventoryAccessor.AddItem(item.ItemId, 1, true);
             string message = $"Item {item.Name} Added";
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
             await _statusHubEmitter.ShowEvent(message);
         }
     }

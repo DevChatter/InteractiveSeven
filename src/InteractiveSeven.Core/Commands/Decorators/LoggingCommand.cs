@@ -18,11 +18,11 @@ namespace InteractiveSeven.Core.Commands.Decorators
 
         public virtual GamePlayEffects GamePlayEffects => _internalCommand.GamePlayEffects;
 
-        public async Task Execute(CommandData commandData)
+        public async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             try
             {
-                await _internalCommand.Execute(commandData);
+                await _internalCommand.Execute(commandData, chatClient);
             }
             catch (Exception ex)
             {

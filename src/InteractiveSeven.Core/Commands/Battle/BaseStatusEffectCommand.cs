@@ -11,18 +11,16 @@ namespace InteractiveSeven.Core.Commands.Battle
 {
     public abstract class BaseStatusEffectCommand : BaseCommand
     {
-        protected IChatClient _chatClient;
-        protected PartyStatusViewModel _partyStatus;
-        protected IStatusAccessor _statusAccessor;
-        protected PaymentProcessor _paymentProcessor;
-        protected IStatusHubEmitter _statusHubEmitter;
+        protected readonly PartyStatusViewModel _partyStatus;
+        protected readonly IStatusAccessor _statusAccessor;
+        protected readonly PaymentProcessor _paymentProcessor;
+        protected readonly IStatusHubEmitter _statusHubEmitter;
 
-        protected BaseStatusEffectCommand(IChatClient chatClient, PartyStatusViewModel partyStatus,
+        protected BaseStatusEffectCommand(PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor, IStatusHubEmitter statusHubEmitter,
             Func<CommandSettings, string[]> commandFunc)
             : base(commandFunc, x => x.BattleSettings.AllowStatusEffects)
         {
-            _chatClient = chatClient;
             _partyStatus = partyStatus;
             _statusAccessor = statusAccessor;
             _paymentProcessor = paymentProcessor;

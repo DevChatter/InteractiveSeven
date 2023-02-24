@@ -7,6 +7,6 @@ namespace InteractiveSeven.Core.Commands
     {
         GamePlayEffects GamePlayEffects { get; }
         bool ShouldExecute(string commandWord);
-        Task Execute(CommandData commandData);
+        Task Execute(CommandData commandData, IChatClient chatClient);
     }
 }

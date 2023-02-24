@@ -26,7 +26,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (commandData.Arguments.Count == 0) return;
 
@@ -35,7 +35,7 @@ namespace InteractiveSeven.Core.Commands.MenuColors
             if (menuColors == null) return;
 
             var gilTransaction = await _paymentProcessor.ProcessPayment(commandData,
-                MenuSettings.BitCost, MenuSettings.AllowModOverride);
+                MenuSettings.BitCost, MenuSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid) return;
 

@@ -14,10 +14,10 @@ namespace InteractiveSeven.Core.Commands.Battle
 {
     public class StatusEffectCommand : BaseStatusEffectCommand
     {
-        public StatusEffectCommand(IChatClient chatClient, PartyStatusViewModel partyStatus,
+        public StatusEffectCommand(PartyStatusViewModel partyStatus,
             IStatusAccessor statusAccessor, PaymentProcessor paymentProcessor,
             IStatusHubEmitter statusHubEmitter)
-            : base(chatClient, partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
+            : base(partyStatus, statusAccessor, paymentProcessor, statusHubEmitter, AllWords)
         {
         }
 
@@ -26,27 +26,27 @@ namespace InteractiveSeven.Core.Commands.Battle
                 .SelectMany(effect => effect.Words)
                 .ToArray();
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             var statusSettings = Settings.BattleSettings.ByWord(commandData.CommandText);
             List<Allies> targeted = Allies.ByWord(commandData.Arguments.FirstOrDefault());
             if (statusSettings == null || !targeted.Any())
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     "Be sure to name a valid status and actor. Example: !psn top");
                 return;
             }
 
             if (!statusSettings.Enabled)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"The {statusSettings.Name} status effect is disabled.");
                 return;
             }
 
             var targets = CheckTargetValidity(targeted, _partyStatus.Party, statusSettings.Effect);
 
-            if (await CouldNotAfford(targets.valid.Count, statusSettings, commandData))
+            if (await CouldNotAfford(targets.valid.Count, statusSettings, commandData, chatClient))
             {
                 return;
             }
@@ -55,14 +55,14 @@ namespace InteractiveSeven.Core.Commands.Battle
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"Can't apply {statusSettings.Name} to {character.Name}.";
-                await _chatClient.SendMessage(commandData.Channel, message);
+                await chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies invalidTarget in targets.hasEffect)
             {
                 Character character = GetTargetedCharacter(invalidTarget);
                 string message = $"{statusSettings.Name} already affects {character.Name}.";
-                await _chatClient.SendMessage(commandData.Channel, message);
+                await chatClient.SendMessage(commandData.Channel, message);
             }
 
             foreach (Allies target in targets.valid)
@@ -70,16 +70,16 @@ namespace InteractiveSeven.Core.Commands.Battle
                 Character character = GetTargetedCharacter(target);
                 _statusAccessor.SetActorStatus(target, statusSettings.Effect);
                 string message = $"Applied {statusSettings.Name} to {character.Name}.";
-                await _chatClient.SendMessage(commandData.Channel, message);
+                await chatClient.SendMessage(commandData.Channel, message);
                 await _statusHubEmitter.ShowEvent(message);
             }
         }
 
         protected async Task<bool> CouldNotAfford(int targetCount, StatusEffectSettings statusSettings,
-            CommandData commandData)
+            CommandData commandData, IChatClient chatClient)
         {
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
-                commandData, statusSettings.Cost * targetCount, Settings.BattleSettings.AllowModOverride);
+                commandData, statusSettings.Cost * targetCount, Settings.BattleSettings.AllowModOverride, chatClient);
 
             return !gilTransaction.Paid;
         }

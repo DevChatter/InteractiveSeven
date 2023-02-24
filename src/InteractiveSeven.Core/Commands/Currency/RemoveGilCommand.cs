@@ -9,39 +9,37 @@ namespace InteractiveSeven.Core.Commands.Currency
     public class RemoveGilCommand : BaseCommand
     {
         private readonly GilBank _gilBank;
-        private readonly IChatClient _chatClient;
 
-        public RemoveGilCommand(GilBank gilBank, IChatClient chatClient)
+        public RemoveGilCommand(GilBank gilBank)
             : base(x => x.RemoveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
-            _chatClient = chatClient;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (!CanSendBonusBits(commandData.User)) return;
 
             var (isValid, amount, target) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
 
-            await AttemptRemoval(commandData, target, amount);
+            await AttemptRemoval(commandData, target, amount, chatClient);
         }
 
-        private async Task AttemptRemoval(CommandData commandData, string target, int amount)
+        private async Task AttemptRemoval(CommandData commandData, string target, int amount, IChatClient chatClient)
         {
             var (balance, withdrawn) = _gilBank.Withdraw(new ChatUser { Username = target }, amount);
             string status = withdrawn != amount ? "Insufficient funds:" : "Success:";
 
             string message = $"{status} Removed {withdrawn} gil from {target}'s account.";
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
         }
 
         private bool CanSendBonusBits(in ChatUser user)

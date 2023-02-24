@@ -9,33 +9,31 @@ namespace InteractiveSeven.Core.Commands.Currency
     public class GiveGilCommand : BaseCommand
     {
         private readonly GilBank _gilBank;
-        private readonly IChatClient _chatClient;
         private readonly IChatApi _api;
 
-        public GiveGilCommand(GilBank gilBank, IChatClient chatClient, IChatApi api)
+        public GiveGilCommand(GilBank gilBank, IChatApi api)
             : base(x => x.GiveGilCommandWords, x => true)
         {
             _gilBank = gilBank;
-            _chatClient = chatClient;
             _api = api;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             var (isValid, amount, recipient) = ParseArgs(commandData.Arguments);
             if (!isValid)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Invalid Request - Example usage: !{DefaultCommandWord} DevChatter 100");
                 return;
             }
 
-            await AttemptTransfer(commandData, recipient, amount);
+            await AttemptTransfer(commandData, recipient, amount, chatClient);
         }
 
-        private async Task AttemptTransfer(CommandData commandData, string recipient, int amount)
+        private async Task AttemptTransfer(CommandData commandData, string recipient, int amount, IChatClient chatClient)
         {
             bool isBonus = false;
             int withdrawn;
@@ -50,7 +48,7 @@ namespace InteractiveSeven.Core.Commands.Currency
                 (balance, withdrawn) = _gilBank.Withdraw(commandData.User, amount, true);
                 if (withdrawn == 0)
                 {
-                    await _chatClient.SendMessage(commandData.Channel,
+                    await chatClient.SendMessage(commandData.Channel,
                         $"Insufficient funds, {commandData.User.Username}. You have only {balance} gil.");
                     return;
                 }
@@ -58,7 +56,7 @@ namespace InteractiveSeven.Core.Commands.Currency
 
             string fromMessage = isBonus ? "" : $" from {commandData.User.Username}'s account";
             _gilBank.Deposit(new ChatUser { Username = recipient }, withdrawn);
-            await _chatClient.SendMessage(commandData.Channel,
+            await chatClient.SendMessage(commandData.Channel,
                 $"Deposited {withdrawn} gil in {recipient}'s account{fromMessage}.");
         }
 

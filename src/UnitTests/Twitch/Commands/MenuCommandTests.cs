@@ -17,71 +17,71 @@ namespace UnitTests.Twitch.Commands
     public class MenuCommandTests
     {
         [Fact]
-        public void DoNothing_GivenNoArguments()
+        public async void DoNothing_GivenNoArguments()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 0);
-            var (menuCommand, chatUser) = SetUpTest();
+            var (menuCommand, chatUser, chat) = SetUpTest();
             var commandData = new CommandData
             {
                 User = chatUser,
                 Arguments = new List<string>(),
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
             called.Should().BeFalse();
         }
 
         [Fact]
-        public void SetColors_GivenValidRequestNoBits()
+        public async void SetColors_GivenValidRequestNoBits()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 0);
-            var (menuCommand, chatUser) = SetUpTest();
+            var (menuCommand, chatUser, chat) = SetUpTest();
             var commandData = new CommandData
             {
                 User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
 
             called.Should().BeTrue();
         }
 
         [Fact]
-        public void DoNothing_GivenNotEnoughBits()
+        public async void DoNothing_GivenNotEnoughBits()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuCommand, chatUser) = SetUpTest();
+            var (menuCommand, chatUser, chat) = SetUpTest();
             var commandData = new CommandData
             {
                 User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
             called.Should().BeFalse();
         }
 
         [Fact]
-        public void SetColor_GivenEnoughBits()
+        public async void SetColor_GivenEnoughBits()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuCommand, chatUser) = SetUpTest(100);
+            var (menuCommand, chatUser, chat) = SetUpTest(100);
             var commandData = new CommandData
             {
                 User = chatUser,
@@ -90,45 +90,45 @@ namespace UnitTests.Twitch.Commands
                 Message = "!menu red Cheer1"
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
             called.Should().BeTrue();
         }
 
         [Fact]
-        public void SetColor_GivenModWithoutEnoughBits()
+        public async void SetColor_GivenModWithoutEnoughBits()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1);
-            var (menuCommand, chatUser) = SetUpTest(isMod: true);
+            var (menuCommand, chatUser, chat) = SetUpTest(isMod: true);
             var commandData = new CommandData
             {
                 User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
             called.Should().BeTrue();
         }
 
         [Fact]
-        public void DoNothing_GivenNotEnoughBitsAndModOverrideTurnedOff()
+        public async void DoNothing_GivenNotEnoughBitsAndModOverrideTurnedOff()
         {
             bool called = false;
             DomainEvents.Clear();
             DomainEvents.Register<MenuColorChanging>(x => called = true);
             SetSettings(true, 1, false);
-            var (menuCommand, chatUser) = SetUpTest(isMod: true);
+            var (menuCommand, chatUser, chat) = SetUpTest(isMod: true);
             var commandData = new CommandData
             {
                 User = chatUser,
                 Arguments = new List<string> { "red" },
             };
 
-            menuCommand.Execute(commandData);
+            await menuCommand.Execute(commandData, chat);
 
             called.Should().BeFalse();
         }
@@ -140,15 +140,15 @@ namespace UnitTests.Twitch.Commands
             ApplicationSettings.Instance.MenuSettings.AllowModOverride = allowOverride;
         }
 
-        private static (MenuCommand, ChatUser) SetUpTest(int bits = 0, bool isMod = false)
+        private static (MenuCommand, ChatUser, IChatClient) SetUpTest(int bits = 0, bool isMod = false)
         {
             var chatClient = new Mock<IChatClient>();
             var logger = new Mock<ILogger<ColorPaletteCollection>>();
             var gilBank = new GilBank(new TestMemoryDataStore(new List<Account>()));
             var chatUser = new ChatUser { IsMod = isMod, Username = Guid.NewGuid().ToString() };
             gilBank.Deposit(chatUser, bits);
-            var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank, chatClient.Object));
-            return (menuCommand, chatUser);
+            var menuCommand = new MenuCommand(new ColorPaletteCollection(logger.Object), new PaymentProcessor(gilBank));
+            return (menuCommand, chatUser, chatClient.Object);
         }
     }
 }

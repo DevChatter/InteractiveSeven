@@ -6,18 +6,16 @@ namespace InteractiveSeven.Core.Commands
 {
     public class RefreshCommand : BaseCommand
     {
-        private readonly IChatClient _chatClient;
         private readonly CooldownTracker _cooldownTracker;
-        public RefreshCommand(IChatClient chatClient)
+        public RefreshCommand()
             : base(x => x.RefreshCommandWords, x => true)
         {
-            _chatClient = chatClient;
             _cooldownTracker = new CooldownTracker(1);
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (IsAvailable(commandData))
             {
@@ -26,7 +24,7 @@ namespace InteractiveSeven.Core.Commands
             }
             else
             {
-                await _chatClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
+                await chatClient.SendMessage(commandData.Channel, "The !refresh command is on cooldown.");
             }
         }
 

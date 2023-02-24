@@ -14,7 +14,7 @@ namespace InteractiveSeven.Core
 {
     public partial class ChatBot : ObservableObject
     {
-        private readonly IChatClient _chatClient;
+        private readonly List<IChatClient> _chatClients;
         private readonly IList<IChatCommand> _commands;
         private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
@@ -24,20 +24,23 @@ namespace InteractiveSeven.Core
 
         private TwitchSettings Settings => TwitchSettings.Instance;
 
-        public ChatBot(IChatClient chatClient, IList<IChatCommand> commands,
+        public ChatBot(List<IChatClient> chatClients, IList<IChatCommand> commands,
             IntervalMessagingService intervalMessaging, GilBank gilBank)
         {
-            _chatClient = chatClient;
+            _chatClients = chatClients;
             _commands = commands;
             _intervalMessaging = intervalMessaging;
             _gilBank = gilBank;
 
-            _chatClient.OnLog += Client_OnLog;
-            _chatClient.OnJoinedChannel += Client_OnJoinedChannel;
-            _chatClient.OnMessageReceived += Client_OnMessageReceived;
-            _chatClient.OnChatCommandReceived += Client_OnChatCommandReceived;
-            _chatClient.OnConnected += Client_OnConnected;
-            _chatClient.OnDisconnected += Client_OnDisconnected;
+            foreach (var chatClient in chatClients)
+            {
+                chatClient.OnLog += Client_OnLog;
+                chatClient.OnJoinedChannel += Client_OnJoinedChannel;
+                chatClient.OnMessageReceived += Client_OnMessageReceived;
+                chatClient.OnChatCommandReceived += Client_OnChatCommandReceived;
+                chatClient.OnConnected += Client_OnConnected;
+                chatClient.OnDisconnected += Client_OnDisconnected;
+            }
         }
 
         public async Task Connect()
@@ -54,7 +57,10 @@ namespace InteractiveSeven.Core
 
             try
             {
-                await _chatClient.Connect(Settings.Username, Settings.AccessToken, Settings.Channel);
+                foreach (var chatClient in _chatClients)
+                {
+                    await chatClient.Connect(Settings.Username, Settings.AccessToken, Settings.Channel);
+                }
             }
             catch (Exception e)
             {
@@ -64,17 +70,23 @@ namespace InteractiveSeven.Core
 
         public async Task Disconnect()
         {
-            await _chatClient.SendMessage(Settings.Channel, "Disconnecting Interactive Seven!");
-            await _chatClient.Disconnect();
+            foreach (var chatClient in _chatClients)
+            {
+                await chatClient.SendMessage(Settings.Channel, "Disconnecting Interactive Seven!");
+                await chatClient.Disconnect();
+            }
         }
 
         private async void Client_OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             try
             {
-                IChatCommand command = _commands.FirstOrDefault(x => x.ShouldExecute(e.CommandData.CommandText));
-                await (command?.Execute(e.CommandData) ?? Task.CompletedTask);
-                await _intervalMessaging.MessageReceived();
+                if (sender is IChatClient chatClient)
+                {
+                    IChatCommand command = _commands.FirstOrDefault(x => x.ShouldExecute(e.CommandData.CommandText));
+                    await (command?.Execute(e.CommandData, chatClient) ?? Task.CompletedTask);
+                    await _intervalMessaging.MessageReceived();
+                }
             }
             catch (Exception exception)
             {
@@ -99,7 +111,10 @@ namespace InteractiveSeven.Core
 
         private async void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            await _chatClient.SendMessage(e.Channel, "Interactive Seven is live!");
+            if (sender is IChatClient chatClient)
+            {
+                await chatClient.SendMessage(e.Channel, "Interactive Seven is live!");
+            }
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)

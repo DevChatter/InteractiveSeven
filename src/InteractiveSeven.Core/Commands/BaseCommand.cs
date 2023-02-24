@@ -37,6 +37,6 @@ namespace InteractiveSeven.Core.Commands
                 && _commandWordsSelector?.Invoke(Settings.CommandSettings)?.Any(word => word.EqualsIns(commandWord)) == true;
         }
 
-        public abstract Task Execute(CommandData commandData);
+        public abstract Task Execute(CommandData commandData, IChatClient chatClient);
     }
 }

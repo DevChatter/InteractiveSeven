@@ -16,7 +16,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
         private readonly IMateriaAccessor _materiaAccessor;
         private readonly IInventoryAccessor _inventoryAccessor;
         private readonly IGilAccessor _gilAccessor;
-        private readonly IChatClient _chatClient;
         private readonly EquipmentData<Weapon> _weaponData;
         private readonly EquipmentData<Armlet> _armletData;
         private readonly PaymentProcessor _paymentProcessor;
@@ -27,7 +26,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
             IMateriaAccessor materiaAccessor,
             IInventoryAccessor inventoryAccessor,
             IGilAccessor gilAccessor,
-            IChatClient chatClient,
             EquipmentData<Weapon> weaponData,
             EquipmentData<Armlet> armletData,
             PaymentProcessor paymentProcessor,
@@ -39,7 +37,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _materiaAccessor = materiaAccessor;
             _inventoryAccessor = inventoryAccessor;
             _gilAccessor = gilAccessor;
-            _chatClient = chatClient;
             _weaponData = weaponData;
             _armletData = armletData;
             _paymentProcessor = paymentProcessor;
@@ -47,18 +44,18 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _partyStatusViewModel = partyStatusViewModel;
         }
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (_partyStatusViewModel.Party.Any(x => x?.Id == CharNames.Sephiroth.Id))
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     "Cannot Change Equipment while Sephiroth is in the Party.");
                 return;
             }
 
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
                 commandData, Settings.EquipmentSettings.PauperCommandCost,
-                Settings.EquipmentSettings.AllowModOverride);
+                Settings.EquipmentSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid)
             {
@@ -81,7 +78,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             _gilAccessor.SetGil(2);
 
-            await _chatClient.SendMessage(commandData.Channel,
+            await chatClient.SendMessage(commandData.Channel,
                 "All Weapons and Armor set to Default. " +
                 "All Items, Accessories, Materia, and Gil have been removed. " +
                 "Good luck.");

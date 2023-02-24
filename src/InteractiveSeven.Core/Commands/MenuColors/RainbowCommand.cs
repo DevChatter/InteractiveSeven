@@ -17,10 +17,10 @@ namespace InteractiveSeven.Core.Commands.MenuColors
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
-                commandData, Settings.MenuSettings.RainbowModeCost, Settings.MenuSettings.AllowModOverride);
+                commandData, Settings.MenuSettings.RainbowModeCost, Settings.MenuSettings.AllowModOverride, chatClient);
 
             if (gilTransaction.Paid)
             {

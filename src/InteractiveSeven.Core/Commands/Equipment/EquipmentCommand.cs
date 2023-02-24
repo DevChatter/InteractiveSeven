@@ -21,7 +21,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
         private readonly PartyStatusViewModel _partyStatusViewModel;
         private readonly GameDatabase _gameDatabase;
         private readonly GilBank _gilBank;
-        private readonly IChatClient _chatClient;
         private readonly EquipmentData<T> _equipmentData;
         private readonly PaymentProcessor _paymentProcessor;
 
@@ -32,7 +31,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
             PartyStatusViewModel partyStatusViewModel,
             GameDatabase gameDatabase,
             GilBank gilBank,
-            IChatClient chatClient,
             EquipmentData<T> equipmentData,
             Func<CommandSettings, string[]> commandWordsSelector,
             PaymentProcessor paymentProcessor)
@@ -45,25 +43,25 @@ namespace InteractiveSeven.Core.Commands.Equipment
             _partyStatusViewModel = partyStatusViewModel;
             _gameDatabase = gameDatabase;
             _gilBank = gilBank;
-            _chatClient = chatClient;
             _equipmentData = equipmentData;
             _paymentProcessor = paymentProcessor;
         }
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             (bool isValidName, CharNames charName) =
                 CharNames.GetByName(commandData.Arguments.FirstOrDefault());
 
             if (isValidName && TryingToChangeSephirothOrYoungCloud(charName))
             {
-                await SendMessage(commandData, "Cannot Change Equipment of Sephiroth or Young Cloud.");
+                await chatClient.SendMessage(commandData.Channel,
+                    "Cannot Change Equipment of Sephiroth or Young Cloud.");
                 return;
             }
 
             if (!isValidName || commandData.Arguments.Count < 2)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     "Invalid Request - Specify equipment and character like this: !weapon cloud buster");
                 return;
             }
@@ -78,21 +76,21 @@ namespace InteractiveSeven.Core.Commands.Equipment
 
             if (candidates.Count == 0)
             {
-                await _chatClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
+                await chatClient.SendMessage(commandData.Channel, "Error: No matching Equipment.");
                 return;
             }
 
             if (candidates.Count() > 1)
             {
                 string matches = string.Join(", ", candidates.Select(x => x.Name.NoSpaces()));
-                await _chatClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
+                await chatClient.SendMessage(commandData.Channel, $"Error: Matches ({matches})");
                 return;
             }
 
             var equippableSettings = candidates.Single();
 
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
-                commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride);
+                commandData, equippableSettings.Cost, Settings.EquipmentSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid)
             {
@@ -102,7 +100,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             ushort existingEquipmentId = _equipmentAccessor.GetCharacterEquipment(charName, AddressSelector());
             if (equippableSettings.Item.EquipmentId == existingEquipmentId)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Sorry, {charName.DefaultName} already has {equippableSettings.Name} equipped.");
                 if (gilTransaction.AmountPaid > 0) // return the gil, since we did nothing
                 {
@@ -122,7 +120,7 @@ namespace InteractiveSeven.Core.Commands.Equipment
             }
             RemoveMateria(charName, equippableSettings.Item.EquipmentId);
             string message = $"Equipped {charName.DefaultName} with {equippableSettings.Name}.";
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
             await _statusHubEmitter.ShowEvent(message, commandData.User.Username);
         }
 
@@ -177,11 +175,6 @@ namespace InteractiveSeven.Core.Commands.Equipment
                 return x => x.Armlet.Address;
             }
             throw new NotImplementedException();
-        }
-
-        protected async Task SendMessage(CommandData commandData, string message)
-        {
-            await _chatClient.SendMessage(commandData.Channel, message);
         }
     }
 }

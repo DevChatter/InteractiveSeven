@@ -14,7 +14,7 @@ namespace InteractiveSeven.Core.Commands.Admin
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.DisplayOnly;
 
-        public override Task Execute(CommandData commandData)
+        public override Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (commandData.User is { IsBroadcaster: false, IsMe: false, IsMod: false }) return Task.CompletedTask;
 

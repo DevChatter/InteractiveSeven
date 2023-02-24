@@ -7,15 +7,12 @@ namespace InteractiveSeven.Core.Commands.Decorators
     public class BattleOnlyCommand<T> : IChatCommand where T : IChatCommand
     {
         private readonly T _internalCommand;
-        private readonly IChatClient _chatClient;
         private readonly IBattleInfoAccessor _battleInfoAccessor;
 
         public BattleOnlyCommand(T internalCommand,
-            IChatClient chatClient,
             IBattleInfoAccessor battleInfoAccessor)
         {
             _internalCommand = internalCommand;
-            _chatClient = chatClient;
             _battleInfoAccessor = battleInfoAccessor;
         }
 
@@ -26,15 +23,15 @@ namespace InteractiveSeven.Core.Commands.Decorators
             return _internalCommand.ShouldExecute(commandWord);
         }
 
-        public async Task Execute(CommandData commandData)
+        public async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             if (IsBattleActive())
             {
-                await _internalCommand.Execute(commandData);
+                await _internalCommand.Execute(commandData, chatClient);
             }
             else
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Can only use !{commandData.CommandText} during battle.");
             }
         }

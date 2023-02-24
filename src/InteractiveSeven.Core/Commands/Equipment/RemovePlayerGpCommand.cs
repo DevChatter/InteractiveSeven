@@ -11,29 +11,27 @@ namespace InteractiveSeven.Core.Commands.Equipment
     public class RemovePlayerGpCommand : BaseCommand
     {
         private readonly PaymentProcessor _paymentProcessor;
-        private readonly IChatClient _chatClient;
         private readonly IGpAccessor _gpAccessor;
         private readonly IStatusHubEmitter _statusHubEmitter;
         private PlayerGpSettings GpSettings => Settings.EquipmentSettings.PlayerGpSettings;
 
-        public RemovePlayerGpCommand(PaymentProcessor paymentProcessor, IChatClient chatClient,
+        public RemovePlayerGpCommand(PaymentProcessor paymentProcessor,
             IGpAccessor gpAccessor, IStatusHubEmitter statusHubEmitter)
             : base(x => x.RemovePlayerGpCommandWords,
                 x => x.EquipmentSettings.PlayerGpSettings.RemoveGpEnabled)
         {
             _paymentProcessor = paymentProcessor;
-            _chatClient = chatClient;
             _gpAccessor = gpAccessor;
             _statusHubEmitter = statusHubEmitter;
         }
 
-        public override async Task Execute(CommandData commandData)
+        public override async Task Execute(CommandData commandData, IChatClient chatClient)
         {
             ushort amount = commandData.Arguments.FirstOrDefault().SafeUshortParse();
 
             if (amount <= 0)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"How much gp do you want to take from the player, {commandData.User.Username}?");
                 return;
             }
@@ -42,25 +40,25 @@ namespace InteractiveSeven.Core.Commands.Equipment
             if (amount > currentGp)
             {
                 // TODO: Adjust their request to remove all gp.
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"Player has {currentGp:N0} GP. Can't remove {amount:N0} GP.");
                 return;
             }
 
             int gilCost = amount * GpSettings.RemoveMultiplier;
             GilTransaction gilTransaction = await _paymentProcessor.ProcessPayment(
-                commandData, gilCost, GpSettings.AllowModOverride);
+                commandData, gilCost, GpSettings.AllowModOverride, chatClient);
 
             if (!gilTransaction.Paid)
             {
-                await _chatClient.SendMessage(commandData.Channel,
+                await chatClient.SendMessage(commandData.Channel,
                     $"You don't have {gilCost} gil, {commandData.User.Username}.");
                 return;
             }
 
             _gpAccessor.RemoveGp(amount);
             string message = $"Removed {amount} gp from player.";
-            await _chatClient.SendMessage(commandData.Channel, message);
+            await chatClient.SendMessage(commandData.Channel, message);
             await _statusHubEmitter.ShowEvent(message);
         }
     }
