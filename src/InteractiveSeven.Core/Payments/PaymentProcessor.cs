@@ -15,7 +15,7 @@ namespace InteractiveSeven.Core.Payments
 
         public async Task<GilTransaction> ProcessPayment(CommandData commandData, int amount, bool canModsOverride, IChatClient chatClient)
         {
-            if (_unlocked && commandData.User.IsDevChatter) return new GilTransaction(true, 0);
+            if (_unlocked && commandData.User.IsDev) return new GilTransaction(true, 0);
 
             int gilSpent = 0;
             bool requiresBits = !commandData.User.IsBroadcaster

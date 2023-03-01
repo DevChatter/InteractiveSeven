@@ -11,6 +11,7 @@ namespace InteractiveSeven.Core.Payments
     public class GilBank
     {
         private readonly IDataStore<Account> _accountStore;
+        private bool _unlocked;
 
         public GilBank(IDataStore<Account> accountStore)
         {
@@ -48,6 +49,10 @@ namespace InteractiveSeven.Core.Payments
             lock (_padlock)
             {
                 var account = AccessAccount(user);
+                if (_unlocked && user.IsDev)
+                {
+                    return (account.Balance, bits);
+                }
                 if (bits < 0 || (requireBalance && account.Balance < bits))
                 {
                     return (account.Balance, 0);
@@ -144,5 +149,8 @@ namespace InteractiveSeven.Core.Payments
                 }
             }
         }
+
+        public void Lock() => _unlocked = false;
+        public void Unlock() => _unlocked = true;
     }
 }

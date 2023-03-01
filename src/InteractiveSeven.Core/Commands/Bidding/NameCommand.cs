@@ -11,6 +11,7 @@ namespace InteractiveSeven.Core.Commands.Bidding
     public class NameCommand : BaseCommand
     {
         private readonly GilBank _gilBank;
+        private readonly PaymentProcessor _paymentProcessor;
 
         private static CommandSettings CmdSettings => ApplicationSettings.Instance.CommandSettings;
 
@@ -28,10 +29,11 @@ namespace InteractiveSeven.Core.Commands.Bidding
 
         public NameBiddingSettings NameBidSettings => ApplicationSettings.Instance.NameBiddingSettings;
 
-        public NameCommand(GilBank gilBank)
+        public NameCommand(GilBank gilBank, PaymentProcessor paymentProcessor)
             : base(AllWords, x => x.NameBiddingSettings.Enabled)
         {
             _gilBank = gilBank;
+            _paymentProcessor = paymentProcessor;
         }
 
         public override GamePlayEffects GamePlayEffects => GamePlayEffects.MildEffect;
