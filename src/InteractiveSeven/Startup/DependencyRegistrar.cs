@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Chat.YouTube.Chat;
 using InteractiveSeven.Commands;
 using InteractiveSeven.Core;
 using InteractiveSeven.Core.Chat;
@@ -75,10 +76,16 @@ namespace InteractiveSeven.Startup
             services.AddSingleton<IBattleInfoAccessor, BattleInfoAccessor>();
             services.AddSingleton<INameAccessor, NameAccessor>();
             services.AddSingleton<IStatusAccessor, StatusAccessor>();
+
             services.AddSingleton<ITwitchAPI, TwitchAPI>();
+
             services.AddSingleton<IChatClient, TwitchChatClient>();
+            services.AddSingleton<IChatClient, YouTubeChatClient>();
+
             services.AddSingleton<IChatApi, TwitchChatApi>();
+
             services.AddSingleton<ITwitchClient, TwitchClient>();
+
             services.AddSingleton<IDialogService, DialogService>();
 
             services.AddTransient<IThemeChanger, ThemeChanger>();

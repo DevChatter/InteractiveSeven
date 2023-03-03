@@ -14,7 +14,7 @@ namespace InteractiveSeven.Core
 {
     public partial class ChatBot : ObservableObject
     {
-        private readonly List<IChatClient> _chatClients;
+        private readonly IList<IChatClient> _chatClients;
         private readonly IList<IChatCommand> _commands;
         private readonly IntervalMessagingService _intervalMessaging;
         private readonly GilBank _gilBank;
@@ -24,7 +24,7 @@ namespace InteractiveSeven.Core
 
         private TwitchSettings Settings => TwitchSettings.Instance;
 
-        public ChatBot(List<IChatClient> chatClients, IList<IChatCommand> commands,
+        public ChatBot(IList<IChatClient> chatClients, IList<IChatCommand> commands,
             IntervalMessagingService intervalMessaging, GilBank gilBank)
         {
             _chatClients = chatClients;
