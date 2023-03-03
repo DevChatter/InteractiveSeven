@@ -54,6 +54,7 @@
             <lvc:BoolToVisibilityConverter x:Key="FalseIsCollapsedConverter" TrueValue="Visible" FalseValue="Collapsed" />
             <lvc:BoolToVisibilityConverter x:Key="TrueIsCollapsedConverter" TrueValue="Collapsed" FalseValue="Visible" />
             <lvc:UriValueConverter x:Key="UriValueConverter" />
+            <lvc:HasValueToBool x:Key="HasValueToBool" />
             <lvc:ColorValueConverter x:Key="ColorValueConverter" />
             <lvc:MenuColorNameConverter x:Key="MenuColorNameConverter" />
             <lvc:ColorToSolidBrushValueConverter x:Key="ColorToSolidBrushValueConverter" />

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using InteractiveSeven.Core.Settings;
 using InteractiveSeven.Core.ViewModels;
 using InteractiveSeven.Startup;
 using MahApps.Metro.Controls;
@@ -70,6 +71,28 @@ namespace InteractiveSeven
             _accentThemeTestWindow.Left = Left + ActualWidth / 4.0;
             _accentThemeTestWindow.Top = Top + ActualHeight / 4.0;
             _accentThemeTestWindow.Show();
+        }
+
+        private MetroWindow _youTubeWindow;
+        private void YouTubeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_youTubeWindow != null)
+            {
+                _youTubeWindow.Activate();
+                return;
+            }
+
+            _youTubeWindow = new YouTubeWindow(YouTubeSettings.Instance);
+            _youTubeWindow.Owner = this;
+            _youTubeWindow.Closed += (o, args) => _youTubeWindow = null;
+            _youTubeWindow.Left = Left + ActualWidth / 4.0;
+            _youTubeWindow.Top = Top + ActualHeight / 4.0;
+            _youTubeWindow.Show();
+        }
+
+        private void TwitchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -48,6 +48,10 @@ namespace InteractiveSeven.Core.Settings
             ? AcquiredDateTime.AddSeconds((double)ExpiresIn)
             : DateTimeOffset.FromUnixTimeSeconds(ExpiresTimeStamp);
 
+        [JsonIgnore]
+        [ObservableProperty]
+        private bool _isDisconnected;
+
         public static YouTubeSettings Instance { get; private set; }
 
         static YouTubeSettings()
@@ -66,6 +70,19 @@ namespace InteractiveSeven.Core.Settings
                 Instance = new YouTubeSettings();
                 errorLogging?.Invoke(ex);
             }
+        }
+
+        public void Reset()
+        {
+            AccessToken = "";
+            AcquiredDateTime = DateTimeOffset.MinValue;
+            AuthorizationCode = "";
+            ClientId = "";
+            ClientSecret = "";
+            ExpiresIn = 0;
+            ExpiresTimeStamp = 0;
+            RedirectUrl = "";
+            RefreshToken = "";
         }
     }
 }

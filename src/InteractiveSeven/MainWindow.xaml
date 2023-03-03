@@ -32,7 +32,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="40" Margin="10 5 10 5">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Height="30">
-                <Button VerticalAlignment="Top" Width="150" Height="30">
+                <Button VerticalAlignment="Top" Width="150" Height="30" Click="YouTubeButton_OnClick">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Ellipse Width="10" Height="10" Fill="DarkRed" />
@@ -41,7 +41,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button VerticalAlignment="Top" Width="150" Height="30">
+                <Button VerticalAlignment="Top" Width="150" Height="30" Click="TwitchButton_OnClick">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Ellipse Width="10" Height="10" Fill="DarkRed" />

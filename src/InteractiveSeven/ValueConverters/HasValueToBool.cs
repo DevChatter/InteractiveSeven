@@ -4,26 +4,21 @@ using System.Windows.Data;
 
 namespace InteractiveSeven.ValueConverters
 {
-    public class UriValueConverter : IValueConverter
+    public class HasValueToBool : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str)
+            if (string.IsNullOrWhiteSpace(value as string))
             {
-                return new Uri(str);
+                return false;
             }
 
-            throw new ArgumentException("Value must be a string.", nameof(value));
+            return true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Uri uri)
-            {
-                return uri.AbsoluteUri;
-            }
-
-            throw new ArgumentException("Value must be a Uri.", nameof(value));
+            throw new NotImplementedException($"{nameof(HasValueToBool)} is not bi-directional");
         }
     }
 }

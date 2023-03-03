@@ -7,7 +7,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  mc:Ignorable="d"
                  Title="Interactive YouTube Connection"
-                 Height="350" Width="525">
+                 Height="380" Width="500">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Converter={mah:ToUpperConverter}}"
@@ -19,12 +19,41 @@
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
     <Grid>
-        <Button x:Name="Button" HorizontalAlignment="Left" Margin="18,22,0,0" VerticalAlignment="Top" Width="206" Height="46" Click="button_Click"
-                BorderThickness="0" Padding="0" Background="Transparent">
-            <Image Source="Assets/Button-GoogleSignIn.png" Stretch="UniformToFill"/>
-        </Button>
-        <TextBox x:Name="TextBoxOutput" HorizontalAlignment="Left" Height="209" Margin="22,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="470"
-                 IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+        <Grid HorizontalAlignment="Left" Margin="18,22,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button VerticalAlignment="Top" HorizontalAlignment="Left"
+                    Width="206" Height="46" Click="SignInButton_OnClick"
+                    BorderThickness="0" Padding="0" Background="Transparent">
+                <Image Source="Assets/Button-GoogleSignIn.png" Stretch="UniformToFill"/>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="0" Margin="3,4,0,0"
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Width="200" Height="40"
+                    Click="DisconnectButton_OnClick"
+                    IsEnabled="{Binding Source=IsDisconnected, Mode=OneWay}"
+                    >Disconnect</Button>
+            <Button Grid.Row="0" Grid.Column="1" Margin="0,4,0,0"
+                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Width="200" Height="40"
+                    Click="ForgetConnection_OnClick"
+                    IsEnabled="{Binding Source=AccessToken, Mode=OneWay}"
+                    >Forget Connection</Button>
+            <CheckBox Grid.Row="1" Grid.Column="1" Margin="0,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">Auto Connect On Open</CheckBox>
+        </Grid>
+        <TextBox x:Name="TextBoxOutput"
+                 HorizontalAlignment="Left" Height="195" Width="456"
+                 Margin="22,139,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 IsReadOnly="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
         />
     </Grid>
 </mah:MetroWindow>

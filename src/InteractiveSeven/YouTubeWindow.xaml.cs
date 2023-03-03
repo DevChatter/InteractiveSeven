@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Chat.YouTube;
 using Chat.YouTube.Chat;
 using InteractiveSeven.Core.Settings;
@@ -21,23 +22,60 @@ namespace InteractiveSeven
             InitializeComponent();
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void SignInButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var connection = await YouTubeConnection
-                .ConnectViaLocalhostOAuthBrowser(
-                    ClientId,
-                    ClientSecret,
-                    YouTubeChatClient.Scopes);
-
-            if (connection == null)
+            try
             {
-                Log.Error("Failed to Connect to YouTube.");
-                return;
+                var connection = await YouTubeConnection
+                    .ConnectViaLocalhostOAuthBrowser(
+                        ClientId,
+                        ClientSecret,
+                        YouTubeChatClient.Scopes);
+
+                if (connection == null)
+                {
+                    Log.Error("Failed to Connect to YouTube.");
+                    return;
+                }
+
+                OAuthTokenModel tokenCopy = connection.GetOAuthTokenCopy();
+                tokenCopy.MapOntoSettings(_youTubeSettings);
             }
+            catch (Exception exception)
+            {
+                LogError(exception, "Failed to Connect to YouTube");
+            }
+        }
 
-            OAuthTokenModel tokenCopy = connection.GetOAuthTokenCopy();
-            tokenCopy.MapOntoSettings(_youTubeSettings);
+        private void DisconnectButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // TODO: Disconnect
+            }
+            catch (Exception exception)
+            {
+                LogError(exception, "Failed to Disconnect from YouTube");
+            }
+        }
 
+        private void ForgetConnection_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _youTubeSettings.Reset();
+            }
+            catch (Exception exception)
+            {
+                LogError(exception, "Failed to Forget YouTube Account");
+            }
+        }
+
+        private void LogError(Exception exception, string message)
+        {
+            TextBoxOutput.AppendText(exception.Message);
+            TextBoxOutput.AppendText("\n");
+            Log.Error(exception, message);
         }
     }
 }
